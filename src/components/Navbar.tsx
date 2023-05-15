@@ -75,7 +75,7 @@ export const Navbar = () => {
 	const nonActiveStyles = 'block p-1 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700';
 
 	return (
-		<nav className='border-gray-200 px-0 sm:px-4 bg-gray-900'>
+		<nav className='border-gray-200  px-0 sm:px-4 bg-gray-900'>
 			<div className='flex flex-col-reverse sm:flex-row justify-between items-start sm:items-center w-auto order-1' id='navbar-search'>
 
 				<div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>

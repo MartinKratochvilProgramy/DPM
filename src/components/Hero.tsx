@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Container from './Container';
-// Import heroImg from '../public/img/hero.png';
+import heroImg from '../../public/img/hero.png';
 
 const Hero = () => (
 	<>
@@ -9,12 +9,12 @@ const Hero = () => (
 			<div className='flex items-center w-full lg:w-1/2'>
 				<div className='max-w-2xl mb-8'>
 					<h1 className='text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white'>
-              Free Landing Page Template for startups
+              			Simple Way to <span className='text-blue-600'>Manage</span> Your <span className='text-blue-600'>Investments</span> Daily
 					</h1>
 					<p className='py-5 text-xl leading-normal text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300'>
-              Nextly is a free landing page & marketing website
-              template for startups and indie projects. Its built with
-              Next.js & TailwindCSS. And its completely open-source.
+						Nextly is a free landing page & marketing website
+						template for startups and indie projects. Its built with
+						Next.js & TailwindCSS. And its completely open-source.
 					</p>
 
 					<div className='flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row'>
@@ -23,7 +23,7 @@ const Hero = () => (
 							target='_blank'
 							rel='noopener noreferrer'
 							className='px-8 py-4 text-lg font-medium text-center text-white bg-indigo-600 rounded-md '>
-                Download for Free
+                			Download for Free
 						</a>
 						<a
 							href='https://github.com/web3templates/nextly-template/'
@@ -46,18 +46,16 @@ const Hero = () => (
 					</div>
 				</div>
 			</div>
-			<div className='flex items-center justify-center w-full lg:w-1/2'>
-				<div className=''>
-					{/* <Image
-						src={heroImg}
-						width='616'
-						height='617'
-						className={'object-cover'}
-						alt='Hero Illustration'
-						loading='eager'
-						placeholder='blur'
-					/> */}
-				</div>
+			<div className='hidden items-center justify-center w-full lg:w-1/2 md:flex'>
+				<Image
+					src={heroImg}
+					width='616'
+					height='617'
+					className={'object-cover'}
+					alt='Hero Illustration'
+					loading='eager'
+					placeholder='blur'
+				/>
 			</div>
 		</Container>
 		<Container>

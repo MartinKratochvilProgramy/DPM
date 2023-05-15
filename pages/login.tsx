@@ -6,8 +6,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {useRouter} from 'next/router';
 import Cookies from 'universal-cookie';
-import {LoadingSpinner} from '../src/components/LoadingSpinner';
 import Link from 'next/link';
+import {LoadingSpinner} from '@/components/LoadingSpinner';
 import {CredentialsContext, ThemeContext, CurrencyContext} from './_app';
 import {useTheme} from 'next-themes';
 
