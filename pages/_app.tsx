@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
@@ -8,6 +8,7 @@ import '../src/app/globals.css';
 import {Navbar} from '@/components/Navbar';
 import {ThemeProvider} from 'next-themes';
 import {useTheme} from 'next-themes';
+import {UserProvider} from '@auth0/nextjs-auth0/client';
 
 type Props = {
 	Component: any;
@@ -36,19 +37,21 @@ export const MyApp: React.FC<Props> = ({Component, pageProps}) => {
 
 	return (
 		<>
-			<ThemeProvider attribute='class' defaultTheme='light'>
-				<CredentialsContext.Provider value={{credentials: credentialsState, setCredentials: setCredentialsState}}>
-					<ThemeContext.Provider value={{theme: themeState, setTheme: setThemeState}}>
-						<CurrencyContext.Provider value={{currency: currencyState, setCurrency: setCurrencyState}}>
-							<Head>
-								<title>DPM</title>
-							</Head>
-							<Navbar />
-							<Component {...pageProps} />
-						</CurrencyContext.Provider>
-					</ThemeContext.Provider>
-				</CredentialsContext.Provider>
-			</ThemeProvider>
+			<UserProvider>
+				<ThemeProvider attribute='class' defaultTheme='light'>
+					<CredentialsContext.Provider value={{credentials: credentialsState, setCredentials: setCredentialsState}}>
+						<ThemeContext.Provider value={{theme: themeState, setTheme: setThemeState}}>
+							<CurrencyContext.Provider value={{currency: currencyState, setCurrency: setCurrencyState}}>
+								<Head>
+									<title>DPM</title>
+								</Head>
+								<Navbar />
+								<Component {...pageProps} />
+							</CurrencyContext.Provider>
+						</ThemeContext.Provider>
+					</CredentialsContext.Provider>
+				</ThemeProvider>
+			</UserProvider>
 		</>
 	);
 };

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, {useContext, useEffect} from 'react';
 import {useRouter} from 'next/router';
@@ -8,19 +8,20 @@ import Cookies from 'universal-cookie';
 import {CurrencyContext} from '@/pages/_app';
 import {useTheme} from 'next-themes';
 import {ThemeProvider} from 'next-themes';
+import {useUser} from '@auth0/nextjs-auth0/client';
 
 export const Navbar = () => {
 	// Const {theme, setTheme} = useContext(ThemeContext);
 	const {theme, setTheme} = useTheme();
+	const {user, error, isLoading} = useUser();
 
 	const {currency} = useContext(CurrencyContext);
 
 	const router = useRouter();
 	useEffect(() => {
-		setTheme('light');
-		console.log(theme);
-		console.log('currency', currency);
-	}, []);
+		console.log('user:', user);
+		console.log('theme', user?.theme);
+	}, [user]);
 
 	function logout() {
 		localStorage.setItem('user', 'null');
@@ -80,7 +81,7 @@ export const Navbar = () => {
 
 				<div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>
 					<div className='pb-[2px]'>
-							credentials
+						{user?.name}
 					</div>
 					<div className='bg-gray-900 dark:text-gray-100'
 						onClick={toggleTheme}>
@@ -115,6 +116,11 @@ export const Navbar = () => {
 						>
 								Sign up
 						</button>
+					</li>
+					<li>
+						<a href='/api/auth/logout' className='text-gray-100 mx-2'>Logout</a>
+						<a href='/api/auth/login' className='text-gray-100'>Login</a>
+						<a href='https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=elo1qQEI4scV6b6sK20yCHwEGz56NCb1&redirect_uri=http://localhost:3000/api/auth/callback&scope=openid%20profile%20email&screen_hint=signup' className='text-gray-100'>signup</a>
 					</li>
 				</ul>
 			</div>
