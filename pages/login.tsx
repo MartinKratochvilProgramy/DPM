@@ -3,12 +3,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable no-negated-condition */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {useRouter} from 'next/router';
 import Cookies from 'universal-cookie';
 import {LoadingSpinner} from '../src/components/LoadingSpinner';
 import Link from 'next/link';
 import {CredentialsContext, ThemeContext, CurrencyContext} from './_app';
+import {useTheme} from 'next-themes';
 
 export function loginInputError(
 	username: string,
@@ -35,6 +36,12 @@ export default function login() {
 	const {setCurrency} = useContext(CurrencyContext);
 
 	const router = useRouter();
+
+	const {theme} = useTheme();
+
+	useEffect(() => {
+		console.log('theme', theme);
+	}, []);
 
 	const login = (
 		e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLAnchorElement>,

@@ -2,23 +2,27 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {useRouter} from 'next/router';
 import Cookies from 'universal-cookie';
-import {CredentialsContext, ThemeContext} from '../../pages/_app';
+import {CurrencyContext} from '@/pages/_app';
+import {useTheme} from 'next-themes';
+import {ThemeProvider} from 'next-themes';
 
-type Props = {
-	active: string;
-};
+export const Navbar = () => {
+	// Const {theme, setTheme} = useContext(ThemeContext);
+	const {theme, setTheme} = useTheme();
 
-export const Navbar: React.FC<Props> = ({active}) => {
-	const {credentials, setCredentials} = useContext(CredentialsContext);
-	const {setTheme} = useContext(ThemeContext);
+	const {currency} = useContext(CurrencyContext);
 
 	const router = useRouter();
+	useEffect(() => {
+		setTheme('light');
+		console.log(theme);
+		console.log('currency', currency);
+	}, []);
 
 	function logout() {
-		setCredentials(null);
 		localStorage.setItem('user', 'null');
 		// Set light theme on logout
 		localStorage.setItem('color-theme', 'light');
@@ -37,7 +41,7 @@ export const Navbar: React.FC<Props> = ({active}) => {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: `Basic ${credentials}:${token}`,
+				Authorization: `Basiccredentials	:${token}`,
 			},
 			body: JSON.stringify({
 				theme,
@@ -46,21 +50,24 @@ export const Navbar: React.FC<Props> = ({active}) => {
 	}
 
 	function toggleTheme() {
+		console.log(theme);
+
 		if (
-			localStorage.getItem('color-theme') === 'light'
-            || localStorage.getItem('color-theme') === null
-            || (!('color-theme' in localStorage)
-                && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			// LocalStorage.getItem('color-theme') === 'light'
+		// || localStorage.getItem('color-theme') === null
+		// || (!('color-theme' in localStorage)
+		//     && window.matchMedia('(prefers-color-scheme: dark)').matches)
+			theme === 'light'
 		) {
 			setTheme('dark');
 			document.documentElement.classList.add('dark');
 			localStorage.setItem('color-theme', 'dark');
-			persistTheme('dark');
+			// PersistTheme('dark');
 		} else {
 			setTheme('light');
 			document.documentElement.classList.remove('dark');
 			localStorage.setItem('color-theme', 'light');
-			persistTheme('light');
+			// PersistTheme('light');
 		}
 	}
 
@@ -73,7 +80,7 @@ export const Navbar: React.FC<Props> = ({active}) => {
 
 				<div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>
 					<div className='pb-[2px]'>
-						{credentials}
+							credentials
 					</div>
 					<div className='bg-gray-900 dark:text-gray-100'
 						onClick={toggleTheme}>
@@ -92,24 +99,13 @@ export const Navbar: React.FC<Props> = ({active}) => {
 
 				<ul className='flex flex-row justify-around items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-gray-900'>
 					<li>
-						<a href='/stocks' className={active === 'stocks' ? activeStyles : nonActiveStyles}>
-                            Stocks
-						</a>
-					</li>
-					<li>
-						<a href='/charts' className={active === 'charts' ? activeStyles : nonActiveStyles}>
-                            Charts
-						</a>
-					</li>
-					<li>
-						<a href='/investments' className={active === 'investments' ? activeStyles : nonActiveStyles}>
-                            Investments
-						</a>
-					</li>
-					<li>
-						<a href='/about' className={active === 'about' ? activeStyles : nonActiveStyles}>
-                            About
-						</a>
+						<button
+							type='submit'
+							className='flex flex-row px-2 md:px-5 py-1 md:py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium text-sm leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
+							onClick={logout}
+						>
+								Sign In
+						</button>
 					</li>
 					<li>
 						<button
@@ -117,7 +113,7 @@ export const Navbar: React.FC<Props> = ({active}) => {
 							className='flex flex-row px-2 md:px-5 py-1 md:py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium text-sm leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out'
 							onClick={logout}
 						>
-                            Logout
+								Sign up
 						</button>
 					</li>
 				</ul>
@@ -125,3 +121,4 @@ export const Navbar: React.FC<Props> = ({active}) => {
 		</nav>
 	);
 };
+
