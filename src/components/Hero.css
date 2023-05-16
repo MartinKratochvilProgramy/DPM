@@ -1,0 +1,49 @@
+
+
+.tapered {
+    background-image: linear-gradient(179deg,rgb(254, 97, 158) 0%, rgb(254, 97, 158) 50%,transparent 54%, transparent 100%);
+  }
+
+.underline-magical {
+    background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 0.2em;
+    background-position: 0 88%;
+    transition: background-size 0.25s ease-in;
+}
+
+.underline-magical:hover {
+    background-size: 100% 88%;
+}
+
+
+
+.paint-brush {
+    position: relative;
+    text-decoration: none;
+    margin-left: -0.05em !important;
+  }
+  
+.paint-brush::after {
+    border-bottom: 0.12em solid #2563eb;
+    margin-left: -8px !important;
+    border-radius: 70% 80% 40% 30%;
+    -webkit-transform: rotate(-6deg);
+    transform: rotate(-2deg);
+    -moz-transform: rotate(-6deg);
+    -o-transform: rotate(-6deg);
+    padding-left: 50% !important;
+    content: "";
+    z-index: -1;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    line-height: 2em;
+    position: absolute;
+    transition-duration: 300ms;
+  }
+
+.paint-brush:hover::after {
+  bottom: 2px;
+  transform: rotate(-1deg);
+}

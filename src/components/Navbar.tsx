@@ -13,7 +13,6 @@ import {useUser} from '@auth0/nextjs-auth0/client';
 export const Navbar = () => {
 	// Const {theme, setTheme} = useContext(ThemeContext);
 	const {theme, setTheme} = useTheme();
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 	const {user, error, isLoading} = useUser();
 
 	const {currency} = useContext(CurrencyContext);
@@ -99,7 +98,7 @@ export const Navbar = () => {
 			</div>
 
 			<ul
-				className='flex flex-row justify-around items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 border-0 bg-gray-900			'
+				className='flex flex-row justify-around items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 border-0 bg-gray-900'
 			>
 				{user
 					? <li>
