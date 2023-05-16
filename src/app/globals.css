@@ -16,20 +16,21 @@
   }
 } */
 
+:root {
+  --random-percent: 60%;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 .playfair {
   font-family: 'Playfair Display', sans-serif;
 }
 
-body  {
-  background: radial-gradient(circle at 60.7% 40.3%, rgba(30, 144, 231, 0.2) 0%, rgba(56, 113, 209, 0.1) 22.9%, rgba(38, 76, 140, 0.05) 76.7%, rgba(31, 63, 116, 0.05) 100.2%);
+body {
+  background: radial-gradient(circle at 20.7% 30.3%, rgba(30, 144, 231, 0.2) 0%, rgba(56, 113, 209, 0.1) 22.9%, rgba(38, 76, 140, 0.05) 76.7%, rgba(31, 63, 116, 0.05) 100.2%);
 }
