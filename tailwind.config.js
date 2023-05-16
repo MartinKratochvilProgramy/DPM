@@ -16,9 +16,9 @@ module.exports = {
 			},
 			colors: {
 			},
-		},
-		fontFamily: {
-			inter: ['Inter', 'sans-serif'],
+			fontFamily: {
+				playfair: ['"Playfair Display"', 'sans-serif'],
+			},
 		},
 	},
 	plugins: [],

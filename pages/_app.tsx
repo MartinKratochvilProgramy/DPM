@@ -37,16 +37,22 @@ export const MyApp: React.FC<Props> = ({Component, pageProps}) => {
 
 	return (
 		<>
+			<Head>
+				<title>Daily Portfolio Management</title>
+				<link rel='preconnect' href='https://fonts.googleapis.com' />
+				<link rel='preconnect' href='https://fonts.gstatic.com' />
+				<link href='https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap' rel='stylesheet' />
+				<link href='https://fonts.googleapis.com/css2?family=Work+Sans&display=swap' rel='stylesheet' />
+			</Head>
 			<UserProvider>
 				<ThemeProvider attribute='class' defaultTheme='light'>
 					<CredentialsContext.Provider value={{credentials: credentialsState, setCredentials: setCredentialsState}}>
 						<ThemeContext.Provider value={{theme: themeState, setTheme: setThemeState}}>
 							<CurrencyContext.Provider value={{currency: currencyState, setCurrency: setCurrencyState}}>
-								<Head>
-									<title>DPM</title>
-								</Head>
 								<Navbar />
-								<Component {...pageProps} />
+								<div className='min-h-[110vh]'>
+									<Component {...pageProps} />
+								</div>
 							</CurrencyContext.Provider>
 						</ThemeContext.Provider>
 					</CredentialsContext.Provider>
