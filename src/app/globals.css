@@ -29,3 +29,7 @@ body {
 .playfair {
   font-family: 'Playfair Display', sans-serif;
 }
+
+body  {
+  background: radial-gradient(circle at 60.7% 40.3%, rgba(30, 144, 231, 0.2) 0%, rgba(56, 113, 209, 0.1) 22.9%, rgba(38, 76, 140, 0.05) 76.7%, rgba(31, 63, 116, 0.05) 100.2%);
+}
