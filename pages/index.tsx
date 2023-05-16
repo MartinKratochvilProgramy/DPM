@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, {useContext} from 'react';
 import {useRouter} from 'next/router';
 import {CredentialsContext} from './_app';
 import LandingPage from '@/components/LandingPage';
 import MainPage from '@/components/MainPage';
+import {useUser} from '@auth0/nextjs-auth0/client';
 
 const index = () => {
-	const {credentials} = useContext(CredentialsContext);
+	const {user} = useUser();
 
-	const router = useRouter();
-
-	if (credentials === null) {
+	if (user === undefined) {
 		return (
 			<LandingPage />
 		);
