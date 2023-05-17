@@ -1,0 +1,13 @@
+.underline-appear {
+    display: inline-block;
+    padding-bottom: 2px;
+    background-image: linear-gradient(#fff 0 0);
+    background-position: right -100% bottom 0;
+    background-size: 200% 1px;
+    background-repeat: no-repeat;
+}
+
+.underline-appear:hover {
+    background-position: left 100% bottom 0;
+    transition: background-position 0.5s;
+}

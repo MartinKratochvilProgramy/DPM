@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { CurrencyContext } from '@/pages/_app'
 import { useTheme } from 'next-themes'
 import { useUser } from '@auth0/nextjs-auth0/client'
+import './Navbar.css'
 
 export const Navbar = () => {
   // Const {theme, setTheme} = useContext(ThemeContext);
@@ -50,9 +51,9 @@ export const Navbar = () => {
 				Log Out
             </a>
           </li>
-          :															<>
+          : <>
             <li>
-              <a href='/api/auth/login' className='text-md text-gray-300 hover:text-gray-50 transition duration-500 ease-in-out'>
+              <a href='/api/auth/login' className='underline-appear text-md text-gray-300 hover:text-gray-50 transition duration-500 ease-in-out'>
 				Sign In
               </a>
             </li>
