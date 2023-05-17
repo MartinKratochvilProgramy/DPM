@@ -11,6 +11,10 @@ import getPricesInCurrency from '../utils/getPricesInCurrency'
 import { OrderDropDown } from './OrderDropdown'
 import PlotComponent from './PlotComponent'
 
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+
 export const Stock = ({ stock, deleteStock }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [expanded, setExpanded] = useState(false)
@@ -18,7 +22,12 @@ export const Stock = ({ stock, deleteStock }) => {
   const [loadingData, setLoadingData] = useState(false)
   const [dataLoaded, setDataLoaded] = useState(false)
   const [stockHistory, setStockHistory] = useState({ ticker: '', dates: [], values: [] })
+  const [open, setOpen] = useState(true)
   const { currency } = useContext(CurrencyContext)
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const chartTheme = chartThemeLight
 
@@ -231,9 +240,24 @@ export const Stock = ({ stock, deleteStock }) => {
           }
 
         </div>
-        <PlotComponent />
       </div>
       {showDeleteModal && <DeleteStockModal setShowDeleteModal={setShowDeleteModal} deleteStock={deleteStock} stock={stock} />}
+      <Modal
+        open={open}
+        onClose={handleClose}
+        BackdropProps={{ onClick: handleClose }}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 400, bgcolor: 'background.paper', borderRadius: '4px', boxShadow: 24, p: 4 }}>
+          <Typography id="modal-title" variant="h6" component="h2">
+            Modal Title
+          </Typography>
+          <Typography id="modal-description" sx={{ mt: 2 }}>
+            This is the modal content.
+          </Typography>
+        </Box>
+      </Modal>
     </>
   )
 }
