@@ -19,6 +19,7 @@ export interface StockInterface {
   ticker: string
   amount: number
   prevClose: number
+  _id: string
 }
 
 export interface PurchaseHistoryInterface {
