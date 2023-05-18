@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { formatStocks } from '@/utils/formatStocks'
+import { formatStocks } from '@/utils/client/formatStocks'
 import { OrderDropDown } from './OrderDropdown'
 import { Stock } from './Stock'
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { type StockInterface } from '@/types/client/stock'
-import { formatStocks } from '@/utils/formatStocks'
-import { sortStocks } from '@/utils/sortStocks'
+import { formatStocks } from '@/utils/client/formatStocks'
+import { sortStocks } from '@/utils/client/sortStocks'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void

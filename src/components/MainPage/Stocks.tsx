@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect, useState } from 'react'
-import { formatStocks } from '@/utils/formatStocks'
+import { formatStocks } from '@/utils/client/formatStocks'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { sortStocks } from '@/utils/sortStocks'
-import { LoadingSpinner } from './LoadingSpinner'
+import { sortStocks } from '@/utils/client/sortStocks'
+import { LoadingSpinner } from '../LoadingSpinner'
 import { StockInput } from './StockInput'
 import { StocksDisplay } from './StocksDisplay'
 
@@ -14,10 +14,6 @@ const Stocks = () => {
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST')
 
   const { user } = useUser()
-
-  // useEffect(() => {
-  //   console.log(stocks)
-  // }, [stocks])
 
   useEffect(() => {
     fetch('/api/stocks', {
@@ -72,7 +68,9 @@ const Stocks = () => {
         setOrderDropdownValue={setOrderDropdownValue}
         setStocksLoaded={setStocksLoaded}
       />
-      {error.length > 0 && (<span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>{error}<br /></span>)}
+      {error.length > 0 &&
+        <span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700'>{error}<br /></span>
+      }
       {stocksLoaded
         ? stocks.length > 0 && <StocksDisplay
           stocks={stocks}
