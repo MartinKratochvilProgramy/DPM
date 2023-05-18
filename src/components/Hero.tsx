@@ -4,7 +4,7 @@ import './Hero.css'
 import '../app/globals.css'
 
 const Hero = () => (
-  <div className='min-h-auto lg:min-h-[70vh] pt-20'>
+  <div className='min-h-auto lg:min-h-[90vh] pt-20'>
     <Container className='flex flex-wrap'>
       <div className='flex items-center w-full lg:w-8/12'>
         <div className='flex flex-col w-full mb-8 mr-6'>
