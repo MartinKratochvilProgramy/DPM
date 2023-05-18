@@ -6,7 +6,7 @@ import '../app/globals.css'
 const Hero = () => (
   <div className='min-h-auto lg:min-h-[70vh] pt-20'>
     <Container className='flex flex-wrap'>
-      <div className='flex items-center w-full lg:w-10/12'>
+      <div className='flex items-center w-full lg:w-8/12'>
         <div className='flex flex-col w-full mb-8 mr-6'>
           <h1 className='playfair text-3xl lg:text-4xl xl:text-6xl font-bold leading-snug tracking-tight text-gray-800 lg:leading-tight xl:leading-tight dark:text-gray-200'>
 						Simple Way to <span className=''> Manage</span> Your <span className='text-blue-600 paint-brush'>Investments</span> Daily
