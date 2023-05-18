@@ -6,7 +6,6 @@ import { sortStocks } from '@/utils/client/sortStocks'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void
-  setError: (error: string) => void
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocksLoaded: (stocksLoaded: boolean) => void
 }
@@ -18,12 +17,12 @@ interface Stock {
 
 export const StockInput: React.FC<Props> = ({
   setStocks,
-  setError,
   setOrderDropdownValue,
   setStocksLoaded
 }) => {
   const [stockTicker, setStockTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
+  const [error, setError] = useState<string>('')
 
   const { user } = useUser()
 
@@ -101,12 +100,12 @@ export const StockInput: React.FC<Props> = ({
     <div className="w-full">
       <form
         onSubmit={(e) => { addStock(e) }}
-        className="flex flex-col space-y-4 items-center">
+        className="flex flex-col  items-center">
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
-                    ADD NEW <span className='text-blue-600'>STOCK</span>
+          ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
-        <div className="relative flex flex-row w-8/12 md:w-8/12 h-full">
+        <div className="relative flex flex-row mb-1 w-8/12 md:w-8/12 h-full">
           <label htmlFor="ticker" className="sr-only">Ticker input</label>
           <input
             type="text"
@@ -126,10 +125,15 @@ export const StockInput: React.FC<Props> = ({
             value={stockAmount}
           />
         </div>
+        {error.length > 0 &&
+          <div className='font-semibold text-xl text-red-600'>
+            {error}
+          </div>
+        }
         <button
           type="submit"
-          className="flex flex-row px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                    Add stock
+          className="flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+            Add stock
         </button>
       </form>
     </div>

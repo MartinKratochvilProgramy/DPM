@@ -11,7 +11,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res.json(chartData)
   } catch (error) {
-    console.log(error)
-    res.status(500).json({ error: 'API error occurred!' })
+    res.status(500).json({ error })
   }
 };

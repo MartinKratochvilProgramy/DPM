@@ -64,12 +64,11 @@ const Stocks = () => {
     <div className='flex flex-col w-full h-full'>
       <StockInput
         setStocks={setStocks}
-        setError={setError}
         setOrderDropdownValue={setOrderDropdownValue}
         setStocksLoaded={setStocksLoaded}
       />
       {error.length > 0 &&
-        <span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700'>{error}<br /></span>
+        <span className='font-semibold text-xl text-red-600'>{error}<br /></span>
       }
       {stocksLoaded
         ? stocks.length > 0 && <StocksDisplay
