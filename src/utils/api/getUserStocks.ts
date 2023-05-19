@@ -1,6 +1,7 @@
 import clientPromise from '@/lib/mongodb'
+import { type StocksInterface } from '@/types/api/stock'
 
-export async function getUserStocks (username: string) {
+export async function getUserStocks (username: string): Promise<StocksInterface> {
   const client = await clientPromise
   const db = client.db('portfolio')
 
