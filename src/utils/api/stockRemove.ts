@@ -1,6 +1,7 @@
 import { Stocks } from '../models/stocks'
+import { getUserStocks } from '@/utils/api/getUserStocks'
 import { type NextApiResponse } from 'next'
-import { type PurchaseHistoryInterface, type StockInterface } from '../types/stock'
+import { type PurchaseHistoryInterface, type StockInterface, type PurchaseInterface } from '@/types/api/stock'
 
 export const stockRemove = async (
   username: string,
@@ -8,16 +9,8 @@ export const stockRemove = async (
   newAmount: number,
   res: NextApiResponse
 ) => {
-  const stocks = await Stocks.findOne({ username }).exec()
+  const stocks = await getUserStocks(username)
   const currentAmount = stocks.stocks[stocks.stocks.findIndex((stock: StockInterface) => stock.ticker === ticker)].amount
-
-  if (!stocks) {
-    res.status(403)
-    res.json({
-      message: 'invalid access'
-    })
-    return 'invalid access'
-  }
 
   let newStocks
   if (newAmount === 0) {
@@ -28,7 +21,7 @@ export const stockRemove = async (
     newStocks[objIndex].amount = newAmount
   }
 
-  let newPurchaseHistory
+  let newPurchaseHistory: PurchaseHistoryInterface[]
   if (newAmount <= 0) {
     // if newAmount 0, remove stock all-together
     newPurchaseHistory = stocks.purchaseHistory.filter((purchase: PurchaseHistoryInterface) => purchase.ticker !== ticker)
@@ -39,7 +32,7 @@ export const stockRemove = async (
 
     const amtToRemove = currentAmount - newAmount
     let count = 0
-    const result: string[] = []
+    const result: PurchaseInterface[] = []
 
     // unless the count is higher than amtToRemove, ignore purchases
     for (let i = 0; i < newPurchaseHistory.length; i++) {
@@ -59,8 +52,17 @@ export const stockRemove = async (
     stocks.purchaseHistory[purchasesIndex].purchases = result
   }
 
+  if (newStocks === undefined) {
+    return 'Could not set newStocks'
+  }
+  if (newPurchaseHistory === undefined) {
+    return 'Could not set newPurchaseHistory'
+  }
+
   stocks.stocks = newStocks
   stocks.purchaseHistory = newPurchaseHistory
 
   await stocks.save()
+
+  return 'success'
 }

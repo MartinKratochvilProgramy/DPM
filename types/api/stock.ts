@@ -1,4 +1,4 @@
-interface PurchaseInterface {
+export interface PurchaseInterface {
   date: string
   amount: number
   currentPrice: number
