@@ -107,14 +107,14 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               </div>
 
               <div>
-                {stock.purchaseHistory.map((purchase: PurchaseInterface) => {
+                {stock.purchaseHistory.map((purchase: PurchaseInterface, i) => {
                   let [year, month, day] = purchase.date.split('-')
                   if (day.length === 1) day = '0' + day
                   if (month.length === 1) month = '0' + month
                   year = year.substring(2, 4)
 
                   return (
-                    <div key={purchase._id} className="flex flex-row">
+                    <div key={i} className="flex flex-row">
                       <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start tabular-nums">
                         {day}-{month}-{year}
                       </div>

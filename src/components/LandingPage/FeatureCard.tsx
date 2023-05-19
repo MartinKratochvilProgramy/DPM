@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../app/globals.css'
+import '../../app/globals.css'
 import { useTheme } from 'next-themes'
 
 export interface Feature {

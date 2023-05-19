@@ -1,8 +1,8 @@
 import React from 'react'
-import Container from './Container'
+import Container from '../Container'
 import FeatureCard from './FeatureCard'
 import { type Feature } from './FeatureCard'
-import '../app/globals.css'
+import '../../app/globals.css'
 
 const Features = () => {
 //   const featuresLong: Feature[] = [

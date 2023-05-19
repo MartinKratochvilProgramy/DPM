@@ -1,7 +1,7 @@
 import React from 'react'
-import Container from './Container'
+import Container from '../Container'
 import './Hero.css'
-import '../app/globals.css'
+import '../../app/globals.css'
 
 const Hero = () => (
   <div className='min-h-auto lg:min-h-[90vh] pt-20'>

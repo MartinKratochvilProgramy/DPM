@@ -38,29 +38,6 @@ const Stocks = () => {
         setError(e)
       }
       )
-
-    fetch('api/stocks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ username: user?.email })
-    })
-      .then(async (response) => await response.json())
-      .then((returnedStocks) => {
-        formatStocks(returnedStocks)
-
-        setOrderDropdownValue('NEWEST')
-        sortStocks('NEWEST', returnedStocks)
-
-        setStocks(returnedStocks)
-        setStocksLoaded(true)
-      })
-      .catch((error) => {
-        setStocks([])
-        setStocksLoaded(true)
-        setError(error)
-      })
   }, [])
 
   return (
