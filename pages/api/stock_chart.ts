@@ -1,5 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
-import getTickerChartData from '@/utils/server/getTickerChartData'
+import getTickerChartData from '@/utils/api/getTickerChartData'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {

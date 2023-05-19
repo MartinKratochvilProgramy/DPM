@@ -3,6 +3,7 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import { type StockInterface } from '@/types/client/stock'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
+import { handleErrors } from '@/utils/client/handleErrors'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void
@@ -41,7 +42,8 @@ export const StockInput: React.FC<Props> = ({
         newStock
       })
     })
-      .then(async (response) => await response.json())
+      .then(handleErrors)
+      .then((response) => response.json())
       .then((returnedStocks) => {
         formatStocks(returnedStocks)
 
