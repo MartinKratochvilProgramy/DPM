@@ -1,7 +1,6 @@
 import clientPromise from '@/lib/mongodb'
 import { getCurrentDate } from './getCurrentDate'
 import { type StocksInterface, type StockInterface, type TotalInvestedHistoryInterface } from '@/types/api/stock'
-import { v4 as uuidv4 } from 'uuid'
 
 export async function createNewStock (
   username: string,
@@ -68,8 +67,7 @@ export async function addToExistingStock (
     stocks.stocks.push({
       ticker,
       amount,
-      prevClose: value,
-      _id: uuidv4()
+      prevClose: value
     })
     stocks.purchaseHistory.push({
       ticker,

@@ -4,6 +4,7 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { OrderDropDown } from './OrderDropdown'
 import { Stock } from './Stock'
+import { handleErrors } from '@/utils/client/handleErrors'
 
 interface Props {
   stocks: StockInterface[]
@@ -36,10 +37,11 @@ export const StocksDisplay: React.FC<Props> = ({
       body: JSON.stringify({
         username: user?.email,
         ticker,
-        amount
+        newAmount: amount
       })
     })
-      .then(async (response) => await response.json())
+      .then(handleErrors)
+      .then((response) => response.json())
       .then((stocks) => {
         formatStocks(stocks)
         setStocks(stocks)

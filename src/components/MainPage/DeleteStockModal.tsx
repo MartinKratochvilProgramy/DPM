@@ -12,12 +12,6 @@ interface Props {
 export const DeleteStockModal: React.FC<Props> = ({ showDeleteModal, setShowDeleteModal, deleteStock, stock }) => {
   const [amountToRemove, setAmountToRemove] = useState(0)
 
-  // document.onkeydown = function (evt) {
-  //   if (evt.key === 'Escape') {
-  //     setShowDeleteModal(false)
-  //   }
-  // }
-
   useEffect(() => {
     // reset red border from error
     const modalAmountInput = document.getElementById('modal-amount-input')
