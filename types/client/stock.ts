@@ -4,7 +4,6 @@ export interface PurchaseInterface {
   date: string
   relativeChange: number
   totalAmount: number
-  _id: string
 }
 
 export interface StockInterface {

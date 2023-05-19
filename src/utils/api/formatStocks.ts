@@ -2,7 +2,7 @@ import { type FormattedStockInterface, type PurchaseHistoryInterface } from '@/t
 
 export function formatStocks (foundStocks: any): FormattedStockInterface[] {
   // returns array of formatter user stocks
-  // [{ticker, amount, prevClose, _id, firstPurchase, lastPurchase}]
+  // [{ticker, amount, prevClose, firstPurchase, lastPurchase}]
   // returns [] on empty found stocks
 
   const stocks = foundStocks.stocks
@@ -11,7 +11,7 @@ export function formatStocks (foundStocks: any): FormattedStockInterface[] {
   const result: FormattedStockInterface[] = []
 
   for (let i = 0; i < stocks.length; i++) {
-    // construct array of stock objects {ticker, amount, prevClose, _id, firstPurchase, lastPurchase}
+    // construct array of stock objects {ticker, amount, prevClose,  firstPurchase, lastPurchase}
     const ticker = stocks[i].ticker
     const index = purchaseHistory.findIndex((stock: PurchaseHistoryInterface) => stock.ticker === ticker) // index of ticker in purchaseHistory
 
@@ -19,7 +19,6 @@ export function formatStocks (foundStocks: any): FormattedStockInterface[] {
       ticker: stocks[i].ticker,
       amount: stocks[i].amount,
       prevClose: stocks[i].prevClose,
-      _id: stocks[i]._id,
       firstPurchase: purchaseHistory[index].purchases[0].date,
       lastPurchase: purchaseHistory[index].purchases[purchaseHistory[index].purchases.length - 1].date,
       purchaseHistory: purchaseHistory[index].purchases
