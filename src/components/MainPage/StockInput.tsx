@@ -39,11 +39,12 @@ export const StockInput: React.FC<Props> = ({
       },
       body: JSON.stringify({
         username: user?.email,
-        newStock
+        stockItems: newStock,
+        settingsCurrency: 'CZK'
       })
     })
-      .then(handleErrors)
-      .then((response) => response.json())
+      // .then(handleErrors)
+      .then(async (response) => await response.json())
       .then((returnedStocks) => {
         formatStocks(returnedStocks)
 
