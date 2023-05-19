@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react'
-import { CurrencyContext } from '@/pages/_app'
+import React, { useState } from 'react'
 import { DeleteStockModal } from './DeleteStockModal'
 import { OrderDropDown } from './OrderDropdown'
 import StockChartModal from './StockChartModal'
@@ -18,7 +17,6 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
   const [dataLoaded, setDataLoaded] = useState(false)
   const [stockHistory, setStockHistory] = useState({ ticker: '', dates: [], values: [] })
   const [stockChartLoadingError, setStockChartLoadingError] = useState('')
-  const { currency } = useContext(CurrencyContext)
 
   function handleChartDisplay (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation()
@@ -78,7 +76,7 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
           <div className="w-full h-full flex items-start">
             <div className="w-[52px] xsm:w-24 md:w-[81px] font-bold text-justify">{stock.ticker}</div>
             <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{stock.amount}</div>
-            <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="ml-1 hidden md:inline-block">{currency}</span></div>
+            <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{stock.prevClose.toFixed(1)}</div>
             <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
               {stock.avgPercentageChange >= 0
                 ? <div className="text-green-600">{`+${stock.avgPercentageChange}%`}</div>

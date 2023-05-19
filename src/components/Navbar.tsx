@@ -1,5 +1,4 @@
-import React, { useContext } from 'react'
-import { CurrencyContext } from '@/pages/_app'
+import React from 'react'
 import { useTheme } from 'next-themes'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import './Navbar.css'
@@ -8,7 +7,6 @@ export const Navbar = () => {
   // Const {theme, setTheme} = useContext(ThemeContext);
   const { theme, setTheme } = useTheme()
   const { user } = useUser()
-  const { currency } = useContext(CurrencyContext)
 
   function toggleTheme () {
     if (
@@ -27,7 +25,7 @@ export const Navbar = () => {
     >
       <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-4'>
         <div className='pb-[2px]'>
-          {user?.name} {(user != null) && currency}
+          {user?.name} {String(user?.currency)}
         </div>
         <div className='bg-gray-900 dark:text-gray-100'
           onClick={toggleTheme}>

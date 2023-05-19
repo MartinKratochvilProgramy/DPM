@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../src/app/globals.css'
 import { Navbar } from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
@@ -11,19 +11,7 @@ interface Props {
   pageProps: any
 }
 
-export const CredentialsContext = React.createContext<any>(null)
-export const ThemeContext = React.createContext<any>('light')
-export const CurrencyContext = React.createContext<any>('USD')
-
 export const MyApp: React.FC<Props> = ({ Component, pageProps }) => {
-  const [currencyState, setCurrencyState] = useState('USD')
-
-  useEffect(() => {
-    const currency = localStorage.getItem('currency')
-
-    setCurrencyState(currency == null ? 'USD' : currency)
-  }, [])
-
   return (
     <>
       <Head>
@@ -31,12 +19,10 @@ export const MyApp: React.FC<Props> = ({ Component, pageProps }) => {
       </Head>
       <UserProvider>
         <ThemeProvider attribute='class' defaultTheme='light'>
-          <CurrencyContext.Provider value={{ currency: currencyState, setCurrency: setCurrencyState }}>
-            <Navbar />
-            <div className='min-h-[110vh]'>
-              <Component {...pageProps} />
-            </div>
-          </CurrencyContext.Provider>
+          <Navbar />
+          <div className='min-h-[110vh]'>
+            <Component {...pageProps} />
+          </div>
         </ThemeProvider>
       </UserProvider>
     </>
