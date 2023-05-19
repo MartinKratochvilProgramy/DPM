@@ -14,8 +14,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const userStocks = formatStocks(await getUserStocks(username))
 
-    console.log(userStocks)
-
     res.json(userStocks)
   } catch (error) {
     console.log(error)

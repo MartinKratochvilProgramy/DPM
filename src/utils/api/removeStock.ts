@@ -21,8 +21,6 @@ export async function removeStock (
     newStocks[objIndex].amount = newAmount
   }
 
-  console.log(newAmount)
-
   if (newAmount <= 0) {
     // if newAmount 0, remove stock all-together
     const newPurchaseHistory = stocks.purchaseHistory.filter((purchase: PurchaseHistoryInterface) => purchase.ticker !== ticker)
