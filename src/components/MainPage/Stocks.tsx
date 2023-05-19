@@ -6,6 +6,7 @@ import { sortStocks } from '@/utils/client/sortStocks'
 import { LoadingSpinner } from '../LoadingSpinner'
 import { StockInput } from './StockInput'
 import { StocksDisplay } from './StocksDisplay'
+import { handleErrors } from '@/utils/client/handleErrors'
 
 const Stocks = () => {
   const [stocks, setStocks] = useState<any>([])
@@ -20,7 +21,8 @@ const Stocks = () => {
       method: 'POST',
       body: JSON.stringify({ username: user?.email })
     })
-      .then(async response => await response.json())
+      .then(handleErrors)
+      .then(response => response.json())
       .then(returnedStocks => {
         formatStocks(returnedStocks)
 
@@ -33,6 +35,7 @@ const Stocks = () => {
       .catch(e => {
         setStocks([])
         setStocksLoaded(true)
+        setError(e)
       }
       )
 
