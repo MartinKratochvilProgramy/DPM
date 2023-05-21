@@ -35,7 +35,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res.json(await getUserStocks(username))
   } else {
-    await addToExistingStock(stocks, ticker, amount, parseFloat(value))
+    await addToExistingStock(username, stocks, ticker, amount, parseFloat(value))
 
     await updateStocks(username)
 

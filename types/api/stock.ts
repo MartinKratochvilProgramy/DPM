@@ -37,14 +37,4 @@ export interface StocksInterface {
   currency: Currency
   stocks: StockInterface[]
   purchaseHistory: PurchaseHistoryInterface[]
-  netWorthHistory: Array<{
-    date: string
-    netWorth: number
-  }>
-  relativeChangeHistory: Array<{
-    date: string
-    relativeChange: number
-  }>
-  totalInvestedHistory: TotalInvestedHistoryInterface[]
-
 }

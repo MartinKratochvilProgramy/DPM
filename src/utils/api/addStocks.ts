@@ -1,7 +1,9 @@
 import Stocks from '@/lib/models/stocks'
+import NetWorthHistory from '@/lib/models/netWorthHistory'
+import TotalInvestedHistory from '@/lib/models/totalInvestedHistory'
 import { getCurrentDate } from './getCurrentDate'
-import { type StocksInterface, type TotalInvestedHistoryInterface } from '@/types/api/stock'
-import connectMongo from '@/lib/mongodb'
+import { type StocksInterface } from '@/types/api/stock'
+import { type TimeDependetNumber } from '@/types/api/TimeDependetNumber'
 
 export const createNewStock = async (
   username: string,
@@ -10,7 +12,6 @@ export const createNewStock = async (
   value: number
 ) => {
   const today = getCurrentDate()
-  await connectMongo()
 
   // if no stock history (first commit), create new object
   await Stocks.create({
@@ -30,23 +31,15 @@ export const createNewStock = async (
           totalAmount: (value * amount).toFixed(2)
         }
       ]
-    }],
-    netWorthHistory: [{
-      date: today,
-      netWorth: (value * amount).toFixed(2)
-    }],
-    relativeChangeHistory: [{
-      date: today,
-      relativeChange: 1
-    }],
-    totalInvestedHistory: [{
-      date: today,
-      total: (value * amount).toFixed(2)
     }]
   })
+
+  await increaseNetWorth(username, today, value * amount)
+  await increaseTotalInvestedHistory(username, today, value * amount)
 }
 
 export const addToExistingStock = async (
+  username: string,
   stocks: StocksInterface,
   ticker: string,
   amount: number,
@@ -84,25 +77,44 @@ export const addToExistingStock = async (
       totalAmount: parseFloat((value * amount).toFixed(2))
     })
   }
-  // increase total net worth by invested amount
-  stocks.netWorthHistory.push({
-    date: today,
-    netWorth: parseFloat((stocks.netWorthHistory[stocks.netWorthHistory.length - 1].netWorth + (value * amount)).toFixed(2))
-  })
 
-  // add purchase to investments history
-  const investedIndex = stocks.totalInvestedHistory.map((item: TotalInvestedHistoryInterface) => item.date).indexOf(today)
-  if (investedIndex === -1) {
-    // if no purchase was made today
-    stocks.totalInvestedHistory.push({
-      date: today,
-      total: (stocks.totalInvestedHistory[stocks.totalInvestedHistory.length - 1].total + parseFloat((value * amount).toFixed(2)))
-    })
-  } else {
-    // if purchase was made today, increment in existing date
-    stocks.totalInvestedHistory[investedIndex].total += parseFloat((value * amount).toFixed(2))
-  }
+  await increaseNetWorth(username, today, value * amount)
+  await increaseTotalInvestedHistory(username, today, value * amount)
 
   const newStocks = new Stocks(stocks)
   await newStocks.save()
+}
+
+async function increaseNetWorth (username: string, today: string, amount: number) {
+  // increase last net worth history if is the same date
+  // else create new write new
+  const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
+
+  if (netWorthHistory[netWorthHistory.length - 1].date === today) {
+    netWorthHistory[netWorthHistory.length - 1].netWorth += parseFloat((amount).toFixed(2))
+  } else {
+    const newNetWorth = netWorthHistory[netWorthHistory.length - 1].netWorth + parseFloat((amount).toFixed(2))
+    netWorthHistory.push({
+      date: today,
+      netWorth: newNetWorth
+    })
+  }
+  const newNetWorthHistory = new NetWorthHistory(netWorthHistory)
+  await newNetWorthHistory.save()
+}
+
+async function increaseTotalInvestedHistory (username: string, today: string, amount: number) {
+  const totalInvestedHistory: TimeDependetNumber[] = await TotalInvestedHistory.findOne({ username }).exec()
+
+  if (totalInvestedHistory[totalInvestedHistory.length - 1].date === today) {
+    totalInvestedHistory[totalInvestedHistory.length - 1].netWorth += parseFloat((amount).toFixed(2))
+  } else {
+    const newNetWorth = totalInvestedHistory[totalInvestedHistory.length - 1].netWorth + parseFloat((amount).toFixed(2))
+    totalInvestedHistory.push({
+      date: today,
+      netWorth: newNetWorth
+    })
+  }
+  const newTotalInvestedHistory = new TotalInvestedHistory(totalInvestedHistory)
+  await newTotalInvestedHistory.save()
 }

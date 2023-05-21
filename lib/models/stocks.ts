@@ -27,24 +27,6 @@ const stocksSchema = new Schema({
         }
       ]
     }
-  ],
-  netWorthHistory: [
-    {
-      date: String,
-      netWorth: Number
-    }
-  ],
-  relativeChangeHistory: [
-    {
-      date: String,
-      relativeChange: Number
-    }
-  ],
-  totalInvestedHistory: [
-    {
-      date: String,
-      total: Number
-    }
   ]
 })
 

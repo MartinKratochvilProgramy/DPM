@@ -1,6 +1,7 @@
 [
     {
         "username": "martvil96@gmail.com",
+        "currency": "CZK",
         "stocks": [
             {
                 "ticker": "AAPL",
