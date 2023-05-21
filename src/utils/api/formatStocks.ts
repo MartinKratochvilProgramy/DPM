@@ -1,6 +1,6 @@
-import { type FormattedStockInterface, type PurchaseHistoryInterface } from '@/types/api/stock'
+import { type StocksInterface, type FormattedStockInterface, type PurchaseHistoryInterface } from '@/types/api/stock'
 
-export function formatStocks (foundStocks: any): FormattedStockInterface[] {
+export function formatStocks (foundStocks: StocksInterface): FormattedStockInterface[] {
   // returns array of formatter user stocks
   // [{ticker, amount, prevClose, firstPurchase, lastPurchase}]
   // returns [] on empty found stocks

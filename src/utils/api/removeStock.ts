@@ -1,13 +1,11 @@
 import { getUserStocks } from '@/utils/api/getUserStocks'
-import { type NextApiResponse } from 'next'
 import { type PurchaseHistoryInterface, type StockInterface, type PurchaseInterface } from '@/types/api/stock'
 import clientPromise from '@/lib/mongodb'
 
 export async function removeStock (
   username: string,
   ticker: string,
-  newAmount: number,
-  res: NextApiResponse
+  newAmount: number
 ) {
   const stocks = await getUserStocks(username)
   const currentAmount = stocks.stocks[stocks.stocks.findIndex((stock: StockInterface) => stock.ticker === ticker)].amount

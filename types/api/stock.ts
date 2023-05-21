@@ -32,6 +32,7 @@ export interface TotalInvestedHistoryInterface {
 
 export interface StocksInterface {
   username: string
+  currency: string
   stocks: StockInterface[]
   purchaseHistory: PurchaseHistoryInterface[]
   netWorthHistory: Array<{
