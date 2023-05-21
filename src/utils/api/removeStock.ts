@@ -1,13 +1,15 @@
-import { getUserStocks } from '@/utils/api/getUserStocks'
 import { type PurchaseHistoryInterface, type StockInterface, type PurchaseInterface } from '@/types/api/stock'
-import clientPromise from '@/lib/mongodb'
+import Stocks from '@/lib/models/stocks'
+import connectMongo from '@/lib/mongodb'
 
 export async function removeStock (
   username: string,
   ticker: string,
   newAmount: number
-) {
-  const stocks = await getUserStocks(username)
+): Promise<string> {
+  await connectMongo()
+
+  const stocks = await Stocks.findOne({ username }).exec()
   const currentAmount = stocks.stocks[stocks.stocks.findIndex((stock: StockInterface) => stock.ticker === ticker)].amount
 
   let newStocks
@@ -26,7 +28,7 @@ export async function removeStock (
   } else if (newAmount > 0) {
     // if nonzero new amount, first find purchase history of a given ticker
     const purchasesIndex = stocks.purchaseHistory.findIndex((purchase: PurchaseHistoryInterface) => purchase.ticker === ticker)
-    const oldPurchases = stocks.purchaseHistory[purchasesIndex].purchases
+    const oldPurchases: PurchaseInterface[] = stocks.purchaseHistory[purchasesIndex].purchases
 
     const amtToRemove = currentAmount - newAmount
     let count = 0
@@ -56,12 +58,7 @@ export async function removeStock (
 
   stocks.stocks = newStocks
 
-  const client = await clientPromise
-  const db = client.db('portfolio')
-
-  await db
-    .collection('stocks')
-    .replaceOne({ username }, stocks)
+  await stocks.save()
 
   return 'success'
 }

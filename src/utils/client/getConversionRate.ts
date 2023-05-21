@@ -2,7 +2,7 @@ import { type Currency } from '@/types/api/currency'
 import fetch from 'node-fetch'
 
 export const getConversionRate = async (
-  stockCurrency: Currency,
+  stockCurrency: string,
   userCurrency: Currency
 ): Promise<number> => {
   // get conversion rate from set currency -> user currency

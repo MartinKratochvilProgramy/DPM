@@ -1,7 +1,13 @@
-import mongoose from 'mongoose'
+import { type Currency } from '@/types/api/currency'
+import { Schema, model, models } from 'mongoose'
 
-const stocksSchema = new mongoose.Schema({
+const stocksSchema = new Schema({
   username: String,
+  currency: {
+    type: String,
+    enum: ['USD', 'EUR', 'CZK'] as Currency[],
+    default: 'USD'
+  },
   stocks: [
     {
       ticker: String,
@@ -42,4 +48,6 @@ const stocksSchema = new mongoose.Schema({
   ]
 })
 
-export const Stocks = mongoose.model('Stocks', stocksSchema)
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+const Stocks = models.Stocks || model('stocks', stocksSchema)
+export default Stocks

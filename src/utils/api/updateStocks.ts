@@ -1,8 +1,9 @@
 import { getCurrentDate } from './getCurrentDate'
 import fetch from 'node-fetch'
-import { getUserStocks } from './getUserStocks'
+import Stocks from '@/lib/models/stocks'
+import connectMongo from '@/lib/mongodb'
+import { type StocksInterface } from '@/types/api/stock'
 import { getConversionRate } from '../client/getConversionRate'
-import clientPromise from '@/lib/mongodb'
 
 export async function updateStocks (username: string): Promise<string> {
   // loop through all user's stocks and update prev close
@@ -10,19 +11,18 @@ export async function updateStocks (username: string): Promise<string> {
   // calculate relative change in net worth and push it to relativeChangeHistory
 
   try {
-    const stocks = await getUserStocks(username)
+    await connectMongo()
+
+    const stocks: StocksInterface = await Stocks.findOne({ username }).exec()
 
     let totalNetWorth = 0
     for (let i = 0; i < stocks.stocks.length; i++) {
       const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stocks.stocks[i].ticker}`)
       const stockInfoJson = await stockInfo.json()
 
-      // get conversion rate from set currency -> user currency
-      // if stock currency === user settings currency, conversion is 1
-
       const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
 
-      const prevClose = (stockInfoJson.chart.result[0].meta.previousClose * conversionRate).toFixed(2)
+      const prevClose = (parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2)
       stocks.stocks[i].prevClose = parseFloat(prevClose)
 
       totalNetWorth += parseFloat(prevClose) * stocks.stocks[i].amount
@@ -35,14 +35,12 @@ export async function updateStocks (username: string): Promise<string> {
       netWorth: parseFloat((totalNetWorth).toFixed(2))
     })
 
-    const client = await clientPromise
-    const db = client.db('portfolio')
+    const newStocks = new Stocks(stocks)
+    await newStocks.save()
 
-    await db
-      .collection('stocks')
-      .replaceOne({ username }, stocks)
+    console.log('updating stocks for user ' + username)
 
-    const response = 'Updating stocks for user ' + username
+    const response = 'updating stocks for user ' + username
     return response
   } catch (error) {
     console.log(error)

@@ -1,16 +1,19 @@
-import clientPromise from '@/lib/mongodb'
+import Stocks from '@/lib/models/stocks'
 import { getCurrentDate } from './getCurrentDate'
-import { type StocksInterface, type StockInterface, type TotalInvestedHistoryInterface } from '@/types/api/stock'
+import { type StocksInterface, type TotalInvestedHistoryInterface } from '@/types/api/stock'
+import connectMongo from '@/lib/mongodb'
 
-export async function createNewStock (
+export const createNewStock = async (
   username: string,
   ticker: string,
   amount: number,
   value: number
-) {
+) => {
   const today = getCurrentDate()
+  await connectMongo()
 
-  const newStock = {
+  // if no stock history (first commit), create new object
+  await Stocks.create({
     username,
     stocks: [{
       ticker,
@@ -40,28 +43,19 @@ export async function createNewStock (
       date: today,
       total: (value * amount).toFixed(2)
     }]
-  }
-
-  const client = await clientPromise
-  const db = client.db('portfolio')
-
-  await db
-    .collection('stocks')
-    .insertOne(newStock)
+  })
 }
 
-export async function addToExistingStock (
-  username: string,
+export const addToExistingStock = async (
   stocks: StocksInterface,
   ticker: string,
   amount: number,
   value: number
-) {
+) => {
   const today = getCurrentDate()
 
   // if stock history, push to existing db
-  const stockIndex = stocks.stocks.map((item: StockInterface) => item.ticker).indexOf(ticker) // index of given ticker, if not exists, stockIndex = 1
-
+  const stockIndex = stocks.stocks.map((item) => item.ticker).indexOf(ticker) // index of given ticker, if not exists, stockIndex = 1
   if (stockIndex === -1) {
     // stock ticker does not exist, push new
     stocks.stocks.push({
@@ -90,7 +84,6 @@ export async function addToExistingStock (
       totalAmount: parseFloat((value * amount).toFixed(2))
     })
   }
-
   // increase total net worth by invested amount
   stocks.netWorthHistory.push({
     date: today,
@@ -110,10 +103,6 @@ export async function addToExistingStock (
     stocks.totalInvestedHistory[investedIndex].total += parseFloat((value * amount).toFixed(2))
   }
 
-  const client = await clientPromise
-  const db = client.db('portfolio')
-
-  await db
-    .collection('stocks')
-    .replaceOne({ username }, stocks)
+  const newStocks = new Stocks(stocks)
+  await newStocks.save()
 }

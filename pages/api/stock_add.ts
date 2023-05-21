@@ -3,7 +3,7 @@ import { getConversionRate } from '@/utils/client/getConversionRate'
 import { getUserStocks } from '@/utils/api/getUserStocks'
 import { addToExistingStock, createNewStock } from '@/utils/api/addStocks'
 import fetch from 'node-fetch'
-import { formatStocks } from '@/utils/api/formatStocks'
+import Stocks from '@/lib/models/stocks'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -25,15 +25,20 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     // current price of stock in set currency
     const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, settingsCurrency)
     const value = (stockInfoJson.chart.result[0].meta.regularMarketPrice * conversionRate).toFixed(2)
+    const stocks = await Stocks.findOne({ username }).exec()
 
-    const stocks = await getUserStocks(username)
-
-    if (stocks === undefined) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!stocks) {
       await createNewStock(username, ticker, amount, parseFloat(value))
+
+      res.json(await getUserStocks(username))
+      return
     } else {
-      await addToExistingStock(username, stocks, ticker, amount, parseFloat(value))
+      await addToExistingStock(stocks, ticker, amount, parseFloat(value))
+
+      res.json(await getUserStocks(username))
+      return
     }
-    res.json(formatStocks(await getUserStocks(username)))
   } catch (error) {
     console.log(error)
   }
