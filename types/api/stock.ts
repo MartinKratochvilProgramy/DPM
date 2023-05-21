@@ -1,12 +1,5 @@
 import { type Currency } from './currency'
 
-export interface PurchaseInterface {
-  date: string
-  amount: number
-  currentPrice: number
-  totalAmount: number
-}
-
 export interface FormattedStockInterface {
   ticker: string
   amount: number
@@ -14,6 +7,18 @@ export interface FormattedStockInterface {
   firstPurchase: string
   lastPurchase: string
   purchaseHistory: PurchaseInterface[]
+}
+
+export interface TotalInvestedHistoryInterface {
+  date: string
+  total: number
+}
+
+export interface StocksInterface {
+  email: string
+  currency: Currency
+  stocks: StockInterface[]
+  purchaseHistory: PurchaseHistoryInterface[]
 }
 
 export interface StockInterface {
@@ -27,14 +32,9 @@ export interface PurchaseHistoryInterface {
   purchases: PurchaseInterface[]
 }
 
-export interface TotalInvestedHistoryInterface {
+export interface PurchaseInterface {
   date: string
-  total: number
-}
-
-export interface StocksInterface {
-  username: string
-  currency: Currency
-  stocks: StockInterface[]
-  purchaseHistory: PurchaseHistoryInterface[]
+  amount: number
+  currentPrice: number
+  totalAmount: number
 }

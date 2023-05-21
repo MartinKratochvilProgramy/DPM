@@ -1,0 +1,46 @@
+// schema.prisma
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // uses connection pooling
+}
+
+model Stocks {
+  id              Int               @id @default(autoincrement())
+  email           String
+  currency        String
+  stocks          Stock[]
+  purchaseHistory PurchaseHistory[]
+}
+
+model Stock {
+  id        Int    @id @default(autoincrement())
+  ticker    String
+  amount    Int
+  prevClose Float
+  stocks    Stocks @relation(fields: [stocksId], references: [id])
+  stocksId  Int
+}
+
+model PurchaseHistory {
+  id        Int        @id @default(autoincrement())
+  ticker    String
+  purchases Purchase[]
+  stocks    Stocks     @relation(fields: [stocksId], references: [id])
+  stocksId  Int
+}
+
+model Purchase {
+  id                Int             @id @default(autoincrement())
+  date              DateTime
+  amount            Int
+  currentPrice      Float
+  totalAmount       Float
+  purchaseHistory   PurchaseHistory @relation(fields: [purchaseHistoryId], references: [id])
+  purchaseHistoryId Int
+}

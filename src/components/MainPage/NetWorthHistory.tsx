@@ -57,7 +57,7 @@ const NetWorthHistory = () => {
       },
       yaxis: {
         title: {
-          text: `Net worth [${currency}]`,
+          text: `Net worth [${user.currency}]`,
           font: {
             size: 18,
             color: chartTheme.color
