@@ -1,0 +1,41 @@
+[
+    {
+        "username": "martvil96@gmail.com",
+        "stocks": [
+            {
+                "ticker": "AAPL",
+                "amount": 1,
+                "prevClose": 3603.41
+            },
+            {
+                "ticker": "MSFT",
+                "amount": 1,
+                "prevClose": 5927.37
+            }
+        ],
+        "purchaseHistory": [
+            {
+                "ticker": "AAPL",
+                "purchases": [
+                    {
+                        "date": "2022-10-20",
+                        "amount": 1,
+                        "currentPrice": 3603.41,
+                        "totalAmount": 3603.41
+                    }
+                ]
+            },
+            {
+                "ticker": "MSFT",
+                "purchases": [
+                    {
+                        "date": "2022-10-20",
+                        "amount": 1,
+                        "currentPrice": 5927.37,
+                        "totalAmount": 5927.37
+                    }
+                ]
+            }
+        ]
+    }
+]

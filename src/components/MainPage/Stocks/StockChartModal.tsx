@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { LoadingSpinner } from '../LoadingSpinner'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { Modal } from '@mui/material'
-import PlotComponent from './PlotComponent'
+import PlotComponent from '../PlotComponent'
 import { useTheme } from 'next-themes'
 import { type PurchaseInterface } from '@/types/client/stock'
 import getPricesInCurrency from '@/utils/client/getPricesInCurrency'
-import '../../app/globals.css'
+import { chartThemeDark, chartThemeLight } from '@/themes/chartThemes'
+import '../../../app/globals.css'
 
 interface Props {
   stockTicker: string
@@ -130,20 +131,3 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
 }
 
 export default StockChartModal
-
-export const chartThemeDark = {
-  color: 'white',
-  tickcolor: 'white',
-  gridcolor: 'gray',
-  fontColor: 'white',
-  plot_bgcolor: 'rgb(31, 41, 55)',
-  paper_bgcolor: 'rgb(31, 41, 55)'
-}
-export const chartThemeLight = {
-  color: 'black',
-  tickcolor: 'black',
-  gridcolor: 'black',
-  fontColor: 'black',
-  plot_bgcolor: '#edeef1',
-  paper_bgcolor: '#edeef1'
-}

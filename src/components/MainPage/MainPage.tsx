@@ -1,6 +1,6 @@
 import React from 'react'
 import Container from '../Container'
-import Stocks from './Stocks'
+import Stocks from './Stocks/Stocks'
 
 const MainPage = () => {
   return (
