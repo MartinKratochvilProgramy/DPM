@@ -49,5 +49,5 @@ const stocksSchema = new Schema({
 })
 
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-const Stocks = models.Stocks || model('stocks', stocksSchema)
+const Stocks = models.Stocks || model('Stocks', stocksSchema)
 export default Stocks

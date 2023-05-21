@@ -1,12 +1,9 @@
 import { type FormattedStockInterface } from '@/types/api/stock'
 import Stocks from '@/lib/models/stocks'
-import connectMongo from '@/lib/mongodb'
 
 export const getUserStocks = async (username: string): Promise<FormattedStockInterface[] | null> => {
   // returns array of formatter user stocks
   // [{ticker, amount, prevClose, _id, firstPurchase, lastPurchase}]
-
-  await connectMongo()
 
   const foundStocks = await Stocks.findOne({ username }).exec()
 
