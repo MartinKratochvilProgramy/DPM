@@ -8,30 +8,30 @@ datasource db {
   url      = env("DATABASE_URL") // uses connection pooling
 }
 
-model User {
-  email           String            @unique
-  currency        Currency          @default(USD)
-  stocks          Stocks[]
-  purchases       Purchases[]
-}
-
-model Purchases {
-  id            Int        @id @default(autoincrement())
-  ticker        String       
-  date          DateTime
-  amount        Int
-  currentPrice  Float
-  totalAmount   Float
-  user          User          @relation(fields: [userEmail], references: [email])
-  userEmail     String
-}
-
 model Stocks {
-  ticker      String  @unique
+  email    String  @unique
+  currency String
+  stocks   Stock[]
+}
+
+model Stock {
+  ticker        String     @unique
+  amount        Float
+  prevClose     Float
+  firstPurchase DateTime
+  lastPurchase  DateTime
+  purchases     Purchase[]
+  Stocks        Stocks?    @relation(fields: [stocksEmail], references: [email])
+  stocksEmail   String
+}
+
+model Purchase {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
   amount      Int
-  prevClose   Float
-  user        User    @relation(fields: [userEmail], references: [email])
-  userEmail   String
+  price       Float
+  Stock       Stock?   @relation(fields: [stockTicker], references: [ticker])
+  stockTicker String?
 }
 
 enum Currency {

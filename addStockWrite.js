@@ -4,16 +4,35 @@ const prisma = new PrismaClient()
 async function main () {
   const userEmail = 'martvil96@gmail.com' // Replace with the actual user's email
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.stocks.findUnique({
     where: {
       email: userEmail
     },
     include: {
-      stocks: true
+      stocks: {
+        include: {
+          purchases: true
+        }
+      }
     }
   })
 
-  console.log(user.stocks)
+  console.log(user.stocks[0].purchases)
+
+  // const existingStocks = await prisma.stocks.findUnique({
+  //   where: {
+  //     email: userEmail
+  //   },
+  //   include: {
+  //     stocks: {
+  //       where: {
+  //         ticker: 'AAPL'
+  //       }
+  //     }
+  //   }
+  // })
+
+  // console.log('existingStocks', existingStocks.stocks.length)
 
   // const purchases = await prisma.purchases.findMany({
   //   where: {
@@ -25,7 +44,7 @@ async function main () {
   // console.log('Purchases:', purchases)
 
   if (user != null) {
-    // await addStock({ ticker: 'MSFT', amount: 1, prevClose: 152 }, userEmail)
+    // await addStock({ ticker: 'AMZN', amount: 1, prevClose: 152 }, userEmail)
 
     // add new purchaseHistory
 
@@ -58,28 +77,60 @@ main()
 // addStock({ ticker: 'AMZN', amount: 1, prevClose: 152 }, 'martvil96@gmail.com')
 
 async function addStock (newStock, userEmail) {
-  const existingStocks = await prisma.stocks.findMany({
+  const existingStocks = await prisma.stocks.findUnique({
     where: {
-      userEmail,
-      ticker: newStock.ticker
+      email: userEmail
+    },
+    include: {
+      stocks: {
+        where: {
+          ticker: newStock.ticker
+        }
+      }
     }
   })
 
-  if (existingStocks.length === 0) {
+  console.log(existingStocks)
+
+  if (existingStocks.stocks.length === 0) {
     // create new stock
-    await prisma.stocks.create({
+    const stock = await prisma.stocks.update({
+      where: {
+        email: userEmail
+      },
       data: {
-        ticker: newStock.ticker,
-        amount: newStock.amount,
-        prevClose: newStock.prevClose,
-        user: {
-          connect: { email: userEmail }
+        stocks: {
+          create: {
+            ticker: newStock.ticker,
+            amount: newStock.amount,
+            prevClose: newStock.prevClose,
+            firstPurchase: new Date(),
+            lastPurchase: new Date(),
+            purchases: {
+              create: [
+                {
+                  date: new Date(),
+                  amount: newStock.amount,
+                  price: newStock.prevClose
+                }
+              ]
+            }
+          }
+        }
+      },
+      include: {
+        stocks: {
+          include: {
+            purchases: true
+          }
         }
       }
     })
+
+    console.log('Stock added:', stock)
   } else {
     // increment existing stock
-    await prisma.user.update({
+    const updatedStocks = await prisma.user.update({
       where: {
         email: userEmail
       },
@@ -102,18 +153,19 @@ async function addStock (newStock, userEmail) {
         stocks: true
       }
     })
+    console.log('Updated stocks', updatedStocks)
   }
 
-  await prisma.purchases.create({
-    data: {
-      ticker: 'MSFT',
-      date: new Date(),
-      amount: 5,
-      currentPrice: 160.5,
-      totalAmount: 802.5,
-      user: {
-        connect: { email: userEmail }
-      }
-    }
-  })
+  // await prisma.purchases.create({
+  //   data: {
+  //     ticker: 'MSFT',
+  //     date: new Date(),
+  //     amount: 5,
+  //     currentPrice: 160.5,
+  //     totalAmount: 802.5,
+  //     user: {
+  //       connect: { email: userEmail }
+  //     }
+  //   }
+  // })
 }

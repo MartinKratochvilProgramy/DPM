@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function updateStocks (data) {
-  const createdStocks = await prisma.user.create({
+  const createdStocks = await prisma.stocks.create({
     data: {
       email: 'martvil96@gmail.com',
       currency: 'CZK'
