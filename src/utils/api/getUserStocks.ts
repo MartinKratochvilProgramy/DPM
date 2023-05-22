@@ -1,13 +1,21 @@
 import { type FormattedStockInterface } from '@/types/api/stock'
-import Stocks from '@/lib/models/stocks'
-import connectMongo from '@/lib/mongodb'
+import prisma from '@/lib/prisma'
 
 export const getUserStocks = async (username: string): Promise<FormattedStockInterface[] | null> => {
   // returns array of formatter user stocks
   // [{ticker, amount, prevClose, _id, firstPurchase, lastPurchase}]
 
-  await connectMongo()
-  const foundStocks = await Stocks.findOne({ username }).exec()
+  const user = await prisma.user.findUnique({
+    where: {
+      email: username
+    },
+    include: {
+      stocks: true,
+      purchases: true
+    }
+  })
+
+  const foundStocks = user.stocks
 
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   if (foundStocks) {

@@ -1,5 +1,3 @@
-// schema.prisma
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
@@ -10,37 +8,34 @@ datasource db {
   url      = env("DATABASE_URL") // uses connection pooling
 }
 
+model User {
+  email           String            @unique
+  currency        Currency          @default(USD)
+  stocks          Stocks[]
+  purchases       Purchases[]
+}
+
+model Purchases {
+  id            Int        @id @default(autoincrement())
+  ticker        String       
+  date          DateTime
+  amount        Int
+  currentPrice  Float
+  totalAmount   Float
+  user          User          @relation(fields: [userEmail], references: [email])
+  userEmail     String
+}
+
 model Stocks {
-  id              Int               @id @default(autoincrement())
-  email           String
-  currency        String
-  stocks          Stock[]
-  purchaseHistory PurchaseHistory[]
+  ticker      String  @unique
+  amount      Int
+  prevClose   Float
+  user        User    @relation(fields: [userEmail], references: [email])
+  userEmail   String
 }
 
-model Stock {
-  id        Int    @id @default(autoincrement())
-  ticker    String
-  amount    Int
-  prevClose Float
-  stocks    Stocks @relation(fields: [stocksId], references: [id])
-  stocksId  Int
-}
-
-model PurchaseHistory {
-  id        Int        @id @default(autoincrement())
-  ticker    String
-  purchases Purchase[]
-  stocks    Stocks     @relation(fields: [stocksId], references: [id])
-  stocksId  Int
-}
-
-model Purchase {
-  id                Int             @id @default(autoincrement())
-  date              DateTime
-  amount            Int
-  currentPrice      Float
-  totalAmount       Float
-  purchaseHistory   PurchaseHistory @relation(fields: [purchaseHistoryId], references: [id])
-  purchaseHistoryId Int
+enum Currency {
+  USD
+  EUR
+  CZK
 }
