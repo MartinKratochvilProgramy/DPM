@@ -29,7 +29,7 @@ export const StocksDisplay: React.FC<Props> = ({
 
   function deleteStock (ticker: string) {
     // hit the endpoint and write to db
-    fetch('api/stock_remove', {
+    fetch('api/delete_stock', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,6 +37,30 @@ export const StocksDisplay: React.FC<Props> = ({
       body: JSON.stringify({
         email: user?.email,
         ticker
+      })
+    })
+      .then(handleErrors)
+      .then((response) => response.json())
+      .then((stocks) => {
+        formatStocks(stocks)
+        setStocks(stocks)
+      })
+      .catch((error) => {
+        setError(error.message)
+      })
+  }
+
+  function deletePurchase (ticker: string, purchaseId: number) {
+    // hit the endpoint and write to db
+    fetch('api/delete_purchase', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: user?.email,
+        ticker,
+        purchaseId
       })
     })
       .then(handleErrors)
@@ -81,6 +105,7 @@ export const StocksDisplay: React.FC<Props> = ({
               stock={stock}
               key={stock.ticker}
               deleteStock={deleteStock}
+              deletePurchase={deletePurchase}
             />
           )
         }

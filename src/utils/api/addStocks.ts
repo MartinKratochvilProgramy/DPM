@@ -70,7 +70,7 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
               ticker: newStock.ticker
             },
             data: {
-              amount: existingStocks.stocks[0].amount + newStock.amount,
+              amount: { increment: newStock.amount },
               lastPurchase: new Date(),
               purchases: {
                 create: {

@@ -1,20 +1,34 @@
 import React from 'react'
-import { type StockInterface } from '@/types/client/stock'
 import { Modal } from '@mui/material'
 
 interface Props {
   showDeleteModal: boolean
   setShowDeleteModal: (showDeleteModal: boolean) => void
-  deleteStock: (ticker: string, amount: number) => void
-  deleteAmount: number
-  stock: StockInterface
+  deleteStock: (ticker: string) => void
+  deletePurchase: (ticker: string, purchaseId: number) => void
+  ticker: string
+  amountToDelete: number
+  purchaseId: number | null
 }
 
-export const DeleteStockModal: React.FC<Props> = ({ showDeleteModal, setShowDeleteModal, deleteStock, deleteAmount, stock }) => {
+export const DeleteStockModal: React.FC<Props> = ({
+  showDeleteModal,
+  setShowDeleteModal,
+  deleteStock,
+  deletePurchase,
+  ticker,
+  amountToDelete,
+  purchaseId
+}) => {
   function submit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    deleteStock(stock.ticker)
+    if (purchaseId === null) {
+      deleteStock(ticker)
+    } else {
+      deletePurchase(ticker, purchaseId)
+    }
+
     setShowDeleteModal(false)
   }
 
@@ -30,7 +44,6 @@ export const DeleteStockModal: React.FC<Props> = ({ showDeleteModal, setShowDele
       aria-describedby="modal-description"
     >
       <form
-        className='h-12 w-12 border-none'
         onSubmit={(e) => { submit(e) }} >
 
         <div className="fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto">
@@ -44,7 +57,7 @@ export const DeleteStockModal: React.FC<Props> = ({ showDeleteModal, setShowDele
                     </svg>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Remove {stock.ticker} ({deleteAmount})?</h3>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Remove {ticker} ({amountToDelete})?</h3>
                   </div>
                 </div>
               </div>
