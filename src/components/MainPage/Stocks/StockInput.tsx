@@ -38,7 +38,7 @@ export const StockInput: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: user?.email,
+        email: user?.email,
         stockItems: newStock,
         settingsCurrency: 'CZK'
       })

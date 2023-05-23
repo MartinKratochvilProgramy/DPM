@@ -17,7 +17,7 @@ async function main () {
     }
   })
 
-  console.log(user.stocks[0].purchases)
+  console.log(user)
 
   // const existingStocks = await prisma.stocks.findUnique({
   //   where: {
@@ -44,7 +44,7 @@ async function main () {
   // console.log('Purchases:', purchases)
 
   if (user != null) {
-    // await addStock({ ticker: 'AMZN', amount: 1, prevClose: 152 }, userEmail)
+    await addStock({ ticker: 'AMZN', amount: 9, prevClose: 1 }, userEmail)
 
     // add new purchaseHistory
 
@@ -85,12 +85,13 @@ async function addStock (newStock, userEmail) {
       stocks: {
         where: {
           ticker: newStock.ticker
+        },
+        include: {
+          purchases: true
         }
       }
     }
   })
-
-  console.log(existingStocks)
 
   if (existingStocks.stocks.length === 0) {
     // create new stock
@@ -126,34 +127,48 @@ async function addStock (newStock, userEmail) {
         }
       }
     })
-
-    console.log('Stock added:', stock)
   } else {
     // increment existing stock
-    const updatedStocks = await prisma.user.update({
+
+    console.log('existing', existingStocks)
+
+    const stock = await prisma.stocks.update({
       where: {
         email: userEmail
       },
       data: {
         stocks: {
-          updateMany: [
-            {
-              where: {
-                ticker: newStock.ticker
-              },
-              data: {
-                amount: existingStocks[0].amount + newStock.amount, // Updated amount value
-                prevClose: 160.5 // Updated prevClose value
+          update: {
+            where: {
+              ticker: newStock.ticker
+            },
+            data: {
+              amount: newStock.amount,
+              purchases: {
+                create: {
+                  date: new Date(),
+                  amount: newStock.amount,
+                  price: newStock.prevClose
+                }
               }
             }
-          ]
+          }
         }
       },
       include: {
-        stocks: true
+        stocks: {
+          include: {
+            purchases: true
+          }
+        }
       }
     })
-    console.log('Updated stocks', updatedStocks)
+
+    console.log('Stock with updated amount and new purchase:', stock)
+
+    await prisma.$disconnect()
+
+    console.log('Updated stocks', stock)
   }
 
   // await prisma.purchases.create({

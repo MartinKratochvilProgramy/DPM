@@ -3,6 +3,7 @@ import { DeleteStockModal } from './DeleteStockModal'
 import { OrderDropDown } from './OrderDropdown'
 import StockChartModal from './StockChartModal'
 import { type StockInterface, type PurchaseInterface } from '@/types/client/stock'
+import { formatDate } from '@/utils/client/formatDate'
 
 interface Props {
   stock: StockInterface
@@ -105,8 +106,8 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               </div>
 
               <div>
-                {stock.purchaseHistory.map((purchase: PurchaseInterface, i) => {
-                  let [year, month, day] = purchase.date.split('-')
+                {stock.purchases.map((purchase: PurchaseInterface, i) => {
+                  let [day, month, year] = formatDate(purchase.date).split('/')
                   if (day.length === 1) day = '0' + day
                   if (month.length === 1) month = '0' + month
                   year = year.substring(2, 4)
@@ -120,7 +121,7 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
                         {purchase.amount}
                       </div>
                       <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
-                        {purchase.currentPrice}
+                        {purchase.price}
                       </div>
                       <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
                         {purchase.relativeChange >= 0
@@ -144,7 +145,7 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               </div>
 
               {(loadingData || dataLoaded) &&
-                <StockChartModal stockTicker={stock.ticker} stockHistory={stockHistory} purchaseHistory={stock.purchaseHistory} loadingData={loadingData} dataLoaded={dataLoaded} stockChartLoadingError={stockChartLoadingError} />
+                <StockChartModal stockTicker={stock.ticker} stockHistory={stockHistory} purchaseHistory={stock.purchases} loadingData={loadingData} dataLoaded={dataLoaded} stockChartLoadingError={stockChartLoadingError} />
               }
             </div>
           }

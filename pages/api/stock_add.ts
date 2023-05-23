@@ -1,13 +1,12 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { getConversionRate } from '@/utils/client/getConversionRate'
 import { getUserStocks } from '@/utils/api/getUserStocks'
-import { addToExistingStock, createNewStock } from '@/utils/api/addStocks'
+import { addStock } from '@/utils/api/addStocks'
 import fetch from 'node-fetch'
-import Stocks from '@/lib/models/stocks'
-import { updateStocks } from '@/utils/api/updateStocks'
+import { type StockInterface } from '@/types/api/stock'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { username, stockItems, settingsCurrency } = req.body
+  const { email, stockItems, settingsCurrency } = req.body
   const ticker = stockItems.ticker.toUpperCase()
   const amount = stockItems.amount
 
@@ -24,21 +23,18 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   // current price of stock in set currency
   const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, settingsCurrency)
-  const value = (stockInfoJson.chart.result[0].meta.regularMarketPrice * conversionRate).toFixed(2)
-  const stocks = await Stocks.findOne({ username }).exec()
+  const prevClose = parseFloat((stockInfoJson.chart.result[0].meta.regularMarketPrice * conversionRate).toFixed(2))
 
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (!stocks) {
-    await createNewStock(username, ticker, amount, parseFloat(value))
+  const newStock: StockInterface = {
+    ticker,
+    amount,
+    prevClose
+  }
 
-    await updateStocks(username)
-
-    res.json(await getUserStocks(username))
+  const newStocks = await addStock(newStock, email)
+  if (newStocks === null) {
+    res.json(await getUserStocks(email))
   } else {
-    await addToExistingStock(username, stocks, ticker, amount, parseFloat(value))
-
-    await updateStocks(username)
-
-    res.json(await getUserStocks(username))
+    res.json(newStocks.stocks)
   }
 };

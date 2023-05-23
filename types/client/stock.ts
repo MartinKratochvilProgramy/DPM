@@ -1,6 +1,6 @@
 export interface PurchaseInterface {
   amount: number
-  currentPrice: number
+  price: number
   date: string
   relativeChange: number
   totalAmount: number
@@ -12,7 +12,7 @@ export interface StockInterface {
   firstPurchase: string
   lastPurchase: string
   prevClose: number
-  purchaseHistory: PurchaseInterface[]
+  purchases: PurchaseInterface[]
   ticker: string
 }
 

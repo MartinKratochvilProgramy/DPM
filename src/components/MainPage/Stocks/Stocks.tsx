@@ -19,11 +19,12 @@ const Stocks = () => {
   useEffect(() => {
     fetch('/api/stocks', {
       method: 'POST',
-      body: JSON.stringify({ username: user?.email })
+      body: JSON.stringify({ email: user?.email })
     })
       .then(handleErrors)
       .then(response => response.json())
       .then(returnedStocks => {
+        console.log('returnedStocks', returnedStocks)
         formatStocks(returnedStocks)
 
         setOrderDropdownValue('NEWEST')
@@ -33,6 +34,8 @@ const Stocks = () => {
         setStocksLoaded(true)
       })
       .catch(e => {
+        console.log(e)
+
         setStocks([])
         setStocksLoaded(true)
         setError(e)
