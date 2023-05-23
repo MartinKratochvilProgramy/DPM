@@ -182,6 +182,7 @@ export const Stock: React.FC<Props> = ({
         setShowDeleteModal={setShowDeleteModal}
         deleteStock={deleteStock}
         deletePurchase={deletePurchase}
+        currentAmount={stock.amount}
         amountToDelete={amountToDelete}
         ticker={stock.ticker}
         purchaseId={purchaseId}

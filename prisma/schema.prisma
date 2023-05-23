@@ -9,29 +9,30 @@ datasource db {
 }
 
 model Stocks {
-  email    String  @unique
-  currency String
-  stocks   Stock[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  currency  String
+  stocks    Stock[]
 }
 
 model Stock {
-  ticker        String     @unique
+  ticker        String    @unique
   amount        Float
   prevClose     Float
   firstPurchase DateTime
   lastPurchase  DateTime
   purchases     Purchase[]
-  Stocks        Stocks?    @relation(fields: [stocksEmail], references: [email])
-  stocksEmail   String
+  stocksEmail   String?
+  Stocks        Stocks?   @relation(fields: [stocksEmail], references: [email])
 }
 
 model Purchase {
-  id          Int      @id @default(autoincrement())
-  date        DateTime
-  amount      Int
-  price       Float
-  Stock       Stock?   @relation(fields: [stockTicker], references: [ticker])
-  stockTicker String?
+  id            Int       @id @default(autoincrement())
+  date          DateTime
+  amount        Int
+  price         Float
+  stockTicker   String?
+  Stock         Stock?    @relation(fields: [stockTicker], references: [ticker])
 }
 
 enum Currency {

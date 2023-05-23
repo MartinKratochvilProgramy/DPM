@@ -7,6 +7,7 @@ interface Props {
   deleteStock: (ticker: string) => void
   deletePurchase: (ticker: string, purchaseId: number) => void
   ticker: string
+  currentAmount: number
   amountToDelete: number
   purchaseId: number | null
 }
@@ -17,13 +18,15 @@ export const DeleteStockModal: React.FC<Props> = ({
   deleteStock,
   deletePurchase,
   ticker,
+  currentAmount,
   amountToDelete,
   purchaseId
 }) => {
   function submit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    if (purchaseId === null) {
+    // if no purchaseID or remaining amount is 0, delete stock
+    if (purchaseId === null || currentAmount - amountToDelete <= 0) {
       deleteStock(ticker)
     } else {
       deletePurchase(ticker, purchaseId)

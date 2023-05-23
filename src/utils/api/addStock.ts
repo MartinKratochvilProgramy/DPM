@@ -18,7 +18,10 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
     }
   })
 
-  if (existingStocks === null) return null
+  if (existingStocks === null) {
+    await prisma.$disconnect()
+    return null
+  }
 
   if (existingStocks.stocks.length === 0) {
     // create new stock
@@ -55,6 +58,7 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
       }
     })
 
+    await prisma.$disconnect()
     return newStocks
   } else {
     // increment existing stock
@@ -92,6 +96,7 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
       }
     })
 
+    await prisma.$disconnect()
     return newStocks
   }
 }

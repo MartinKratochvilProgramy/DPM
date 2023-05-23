@@ -1,7 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { getConversionRate } from '@/utils/client/getConversionRate'
 import { getUserStocks } from '@/utils/api/getUserStocks'
-import { addStock } from '@/utils/api/addStocks'
+import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
 
