@@ -1,10 +1,10 @@
 import prisma from '@/lib/prisma'
 import { type StockInterface } from '@/types/api/stock'
 
-export async function addStock (newStock: StockInterface, userEmail: string) {
+export async function addStock (newStock: StockInterface, email: string) {
   const existingStocks = await prisma.stocks.findUnique({
     where: {
-      email: userEmail
+      email
     },
     include: {
       stocks: {
@@ -23,11 +23,13 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
     return null
   }
 
+  let newStocks
+
   if (existingStocks.stocks.length === 0) {
     // create new stock
-    const newStocks = await prisma.stocks.update({
+    newStocks = await prisma.stocks.update({
       where: {
-        email: userEmail
+        email
       },
       data: {
         stocks: {
@@ -57,15 +59,12 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
         }
       }
     })
-
-    await prisma.$disconnect()
-    return newStocks
   } else {
     // increment existing stock
 
-    const newStocks = await prisma.stocks.update({
+    newStocks = await prisma.stocks.update({
       where: {
-        email: userEmail
+        email
       },
       data: {
         stocks: {
@@ -95,42 +94,71 @@ export async function addStock (newStock: StockInterface, userEmail: string) {
         }
       }
     })
-
-    await prisma.$disconnect()
-    return newStocks
   }
+
+  await addNetWorth(email, newStock.prevClose * newStock.amount)
+  await addTotalInvested(email, newStock.prevClose * newStock.amount)
+
+  await prisma.$disconnect()
+  return newStocks
 }
 
-async function increaseNetWorth (username: string, today: string, amount: number) {
+async function addNetWorth (email: string, incrementValue: number) {
   // increase last net worth history if is the same date
   // else create new write new
-  const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
+  // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
 
-  if (netWorthHistory[netWorthHistory.length - 1].date === today) {
-    netWorthHistory[netWorthHistory.length - 1].netWorth += parseFloat((amount).toFixed(2))
+  const netWorth = await prisma.netWorth.findUnique({
+    where: {
+      email
+    },
+    include: {
+      netWorthHistory: true
+    }
+  })
+
+  let lastNetWorth: number
+  if (netWorth.netWorthHistory.length === 0) {
+    lastNetWorth = 0
   } else {
-    const newNetWorth = netWorthHistory[netWorthHistory.length - 1].netWorth + parseFloat((amount).toFixed(2))
-    netWorthHistory.push({
-      date: today,
-      netWorth: newNetWorth
-    })
+    lastNetWorth = netWorth.netWorthHistory[netWorth.netWorthHistory.length - 1].netWorth
   }
-  const newNetWorthHistory = new NetWorthHistory(netWorthHistory)
-  await newNetWorthHistory.save()
+
+  await prisma.netWorth.update({
+    where: {
+      email
+    },
+    data: {
+      netWorthHistory: {
+        create:
+          {
+            date: new Date(),
+            netWorth: lastNetWorth + incrementValue
+          }
+      }
+    },
+    include: {
+      netWorthHistory: true
+    }
+  })
 }
 
-async function increaseTotalInvestedHistory (username: string, today: string, amount: number) {
-  const totalInvestedHistory: TimeDependetNumber[] = await TotalInvestedHistory.findOne({ username }).exec()
-
-  if (totalInvestedHistory[totalInvestedHistory.length - 1].date === today) {
-    totalInvestedHistory[totalInvestedHistory.length - 1].netWorth += parseFloat((amount).toFixed(2))
-  } else {
-    const newNetWorth = totalInvestedHistory[totalInvestedHistory.length - 1].netWorth + parseFloat((amount).toFixed(2))
-    totalInvestedHistory.push({
-      date: today,
-      netWorth: newNetWorth
-    })
-  }
-  const newTotalInvestedHistory = new TotalInvestedHistory(totalInvestedHistory)
-  await newTotalInvestedHistory.save()
+async function addTotalInvested (email: string, newValue: number) {
+  await prisma.totalInvested.update({
+    where: {
+      email
+    },
+    data: {
+      totalInvestedHistory: {
+        create:
+          {
+            date: new Date(),
+            totalInvested: newValue
+          }
+      }
+    },
+    include: {
+      totalInvestedHistory: true
+    }
+  })
 }

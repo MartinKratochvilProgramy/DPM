@@ -9,36 +9,55 @@ datasource db {
 }
 
 model Stocks {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  currency  String
-  stocks    Stock[]
+  email    String  @unique
+  currency String
+  stocks   Stock[]
 
   @@map(name: "stocks")
 }
 
 model Stock {
-  ticker        String    @unique
+  ticker        String     @unique
   amount        Float
   prevClose     Float
   firstPurchase DateTime
   lastPurchase  DateTime
   purchases     Purchase[]
+  Stocks        Stocks?    @relation(fields: [stocksEmail], references: [email])
   stocksEmail   String?
-  Stocks        Stocks?   @relation(fields: [stocksEmail], references: [email])
 }
 
 model Purchase {
-  id            Int       @id @default(autoincrement())
-  date          DateTime
-  amount        Int
-  price         Float
-  stockTicker   String?
-  Stock         Stock?    @relation(fields: [stockTicker], references: [ticker])
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  amount      Int
+  price       Float
+  stockTicker String?
+  Stock       Stock?   @relation(fields: [stockTicker], references: [ticker])
 }
 
-enum Currency {
-  USD
-  EUR
-  CZK
+model NetWorth {
+  email           String          @unique
+  netWorthHistory NetWorthValue[]
+}
+
+model NetWorthValue {
+  id            Int       @id @default(autoincrement())
+  date          DateTime
+  netWorth      Float
+  NetWorth      NetWorth? @relation(fields: [netWorthEmail], references: [email])
+  netWorthEmail String?
+}
+
+model TotalInvested {
+  email                String               @unique
+  totalInvestedHistory TotalInvestedValue[]
+}
+
+model TotalInvestedValue {
+  id                 Int            @id @default(autoincrement())
+  date               DateTime
+  totalInvested      Float
+  TotalInvested      TotalInvested? @relation(fields: [totalInvestedEmail], references: [email])
+  totalInvestedEmail String?
 }

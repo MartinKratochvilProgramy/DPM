@@ -1,11 +1,23 @@
-const date = new Date('2023-05-22T17:33:38.208Z')
-const formattedDate = date.toLocaleString('en-US', {
-  day: '2-digit',
-  month: '2-digit',
-  year: 'numeric',
-  hour: '2-digit',
-  minute: '2-digit',
-  second: '2-digit'
-})
+const { PrismaClient } = require('@prisma/client')
+const prisma = new PrismaClient()
 
-console.log(formattedDate)
+async function createNetWorthWrite () {
+  const netWorth = await prisma.netWorth.findUnique({
+    where: {
+      email: 'martvil96@gmail.com'
+    },
+    include: {
+      netWorthHistory: true
+    }
+  })
+
+  return netWorth
+}
+
+createNetWorthWrite()
+  .then((result) => {
+    console.log('Net worth updated:', result)
+  })
+  .catch((error) => {
+    console.error('Error updating Net worth:', error)
+  })
