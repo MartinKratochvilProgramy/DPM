@@ -136,7 +136,7 @@ export const StockInput: React.FC<Props> = ({
         <button
           type="submit"
           className="flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-            Add stock
+          Add stock
         </button>
       </form>
     </div>

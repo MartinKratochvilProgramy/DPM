@@ -1,14 +1,19 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
-import NetWorthHistory from '@/lib/models/netWorthHistory'
-import connectMongo from '@/lib/mongodb'
+import prisma from '@/lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { username } = req.body
+  const { email } = req.body
 
-  await connectMongo()
-  const history = await NetWorthHistory.findOne({ username }).exec()
+  const netWorth = await prisma.netWorth.findUnique({
+    where: {
+      email
+    },
+    include: {
+      netWorthHistory: true
+    }
+  })
 
-  console.log(history)
+  console.log(netWorth)
 
-  res.json(history)
+  res.json(netWorth.netWorthHistory)
 };

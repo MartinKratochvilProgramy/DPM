@@ -36,7 +36,7 @@ export async function addStock (newStock: StockInterface, email: string) {
           create: {
             ticker: newStock.ticker,
             amount: newStock.amount,
-            prevClose: newStock.prevClose,
+            prevClose: parseFloat(newStock.prevClose.toFixed(2)),
             firstPurchase: new Date(),
             lastPurchase: new Date(),
             purchases: {
@@ -44,7 +44,7 @@ export async function addStock (newStock: StockInterface, email: string) {
                 {
                   date: new Date(),
                   amount: newStock.amount,
-                  price: newStock.prevClose
+                  price: parseFloat(newStock.prevClose.toFixed(2))
                 }
               ]
             }
@@ -79,7 +79,7 @@ export async function addStock (newStock: StockInterface, email: string) {
                 create: {
                   date: new Date(),
                   amount: newStock.amount,
-                  price: newStock.prevClose
+                  price: parseFloat(newStock.prevClose.toFixed(2))
                 }
               }
             }
@@ -133,7 +133,7 @@ async function addNetWorth (email: string, incrementValue: number) {
         create:
           {
             date: new Date(),
-            netWorth: lastNetWorth + incrementValue
+            netWorth: parseFloat((lastNetWorth + incrementValue).toFixed(2))
           }
       }
     },
@@ -153,7 +153,7 @@ async function addTotalInvested (email: string, newValue: number) {
         create:
           {
             date: new Date(),
-            totalInvested: newValue
+            totalInvested: parseFloat((newValue).toFixed(2))
           }
       }
     },

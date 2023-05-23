@@ -12,18 +12,14 @@ interface Props {
 const PlotComponent: React.FC<Props> = ({ data, layout }) => {
   // const data = [
   //   {
-  //     x: [1, 2, 3, 4, 5],
-  //     y: [1, 2, 4, 8, 16],
-  //     type: 'scatter',
-  //     mode: 'lines+markers',
-  //     marker: { color: 'red' }
+  //     x: [1, 2, 3, 4],
+  //     y: [10, 15, 13, 17],
+  //     type: 'scatter'
   //   }
   // ]
 
   // const layout = {
-  //   title: 'Plotly Graph',
-  //   xaxis: { title: 'X-axis' },
-  //   yaxis: { title: 'Y-axis' }
+  //   title: 'My Plot'
   // }
 
   return (

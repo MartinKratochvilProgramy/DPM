@@ -21,15 +21,20 @@ const NetWorthHistory = () => {
   }, [theme])
 
   useEffect(() => {
-    fetch('api/stocks_history', {
-      method: 'GET',
+    fetch('api/net_worth_history', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({
+        email: user?.email
+      })
     })
       .then(handleErrors)
       .then(response => response.json())
       .then((history) => {
+        console.log(history)
+
         setNetWorthHistory(history)
         setStocksHistoryLoaded(true)
 
@@ -109,7 +114,7 @@ const NetWorthHistory = () => {
         NET <span className='text-blue-600'>WORTH</span> HISTORY
       </h1>
       <div className='font-semibold text-black dark:text-white text-xs xsm:text-lg'>
-        Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {user.currency}
+        Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {user?.currency}
       </div>
       <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
         {stocksHistoryLoaded
