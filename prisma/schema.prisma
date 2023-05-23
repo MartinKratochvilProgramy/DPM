@@ -13,6 +13,8 @@ model Stocks {
   email     String    @unique
   currency  String
   stocks    Stock[]
+
+  @@map(name: "stocks")
 }
 
 model Stock {
