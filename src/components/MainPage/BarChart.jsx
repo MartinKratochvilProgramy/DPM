@@ -67,18 +67,28 @@ const BarChart = () => {
           responsive: true,
           plugins: {
             legend: {
+              display: false,
               position: 'top'
-            },
-            yaxis: {
-              title: 'Daily Mean Temperature'
             },
             title: {
               display: true,
               text: 'Total net Worth'
+            }
+          },
+          scales: {
+            x: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Month'
+              }
             },
-            xaxis: {
-              type: 'date',
-              title: 'January Weather'
+            y: {
+              display: true,
+              title: {
+                display: true,
+                text: 'Net Worth'
+              }
             }
           }
         })
