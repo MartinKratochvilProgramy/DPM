@@ -1,18 +1,38 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
-import { getUserStocks } from '@/utils/api/getUserStocks'
-import { removeStock } from '@/utils/api/removeStock'
-import { updateStocks } from '@/utils/api/updateStocks'
+import prisma from '@/lib/prisma'
+// import { getUserStocks } from '@/utils/api/getUserStocks'
+// import { updateStocks } from '@/utils/api/updateStocks'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   // remove stock from db
 
-  const { username, ticker, newAmount } = req.body
+  const { email, ticker } = req.body
 
   try {
-    await removeStock(username, ticker, newAmount)
-    await updateStocks(username)
+    const updatedStocks = await prisma.stocks.update({
+      where: {
+        email
+      },
+      data: {
+        stocks: {
+          deleteMany: {
+            ticker
+          }
+        }
+      },
+      include: {
+        stocks: {
+          include: {
+            purchases: true
+          }
+        }
+      }
+    })
+    // await updateStocks(username)
 
-    res.json(await getUserStocks(username))
+    console.log(updatedStocks)
+
+    res.json(updatedStocks.stocks)
   } catch (error) {
     console.log(error)
   }

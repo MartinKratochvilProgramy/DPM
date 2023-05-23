@@ -1,6 +1,5 @@
 import prisma from '@/lib/prisma'
 import { type StockInterface } from '@/types/api/stock'
-import { getUserStocks } from './getUserStocks'
 
 export async function addStock (newStock: StockInterface, userEmail: string) {
   const existingStocks = await prisma.stocks.findUnique({

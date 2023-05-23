@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useEffect, useState } from 'react'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { useUser } from '@auth0/nextjs-auth0/client'
@@ -24,7 +23,6 @@ const Stocks = () => {
       .then(handleErrors)
       .then(response => response.json())
       .then(returnedStocks => {
-        console.log('returnedStocks', returnedStocks)
         formatStocks(returnedStocks)
 
         setOrderDropdownValue('NEWEST')
@@ -34,8 +32,6 @@ const Stocks = () => {
         setStocksLoaded(true)
       })
       .catch(e => {
-        console.log(e)
-
         setStocks([])
         setStocksLoaded(true)
         setError(e)

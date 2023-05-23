@@ -15,5 +15,6 @@ export const getConversionRate = async (
     const conversionRateJson: any = await conversionRateSrc.json()
     conversionRate = conversionRateJson.chart.result[0].meta.previousClose
   }
+
   return conversionRate
 }

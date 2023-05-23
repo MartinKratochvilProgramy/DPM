@@ -27,7 +27,7 @@ export const StocksDisplay: React.FC<Props> = ({
 
   const { user } = useUser()
 
-  function deleteStock (ticker: string, amount: number) {
+  function deleteStock (ticker: string) {
     // hit the endpoint and write to db
     fetch('api/stock_remove', {
       method: 'POST',
@@ -35,9 +35,8 @@ export const StocksDisplay: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        username: user?.email,
-        ticker,
-        newAmount: amount
+        email: user?.email,
+        ticker
       })
     })
       .then(handleErrors)
