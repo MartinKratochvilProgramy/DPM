@@ -8,7 +8,8 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 } from 'chart.js'
 import 'chartjs-adapter-moment'
 import { Line } from 'react-chartjs-2'
@@ -23,11 +24,12 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 )
 
-const BarChart = () => {
-  const [chartData, setChartData] = useState({
+const NetWortHistory = () => {
+  const [chartData, setChartData] = useState<any>({
     datasets: []
   })
 
@@ -71,10 +73,11 @@ const BarChart = () => {
           labels,
           datasets: [
             {
-              label: 'Dataset 1',
+              label: 'Total Net Worth',
               data,
               borderColor: 'rgb(255, 99, 132)',
-              backgroundColor: 'rgba(255, 99, 132, 0.5)'
+              backgroundColor: 'rgba(255, 99, 132, 0.1)',
+              fill: true
             }
           ]
         })
@@ -86,7 +89,7 @@ const BarChart = () => {
               position: 'top'
             },
             title: {
-              display: true,
+              display: false,
               text: 'Total net Worth'
             }
           },
@@ -98,8 +101,7 @@ const BarChart = () => {
               },
               display: true,
               title: {
-                display: true,
-                text: 'Month'
+                display: true
               }
             },
             y: {
@@ -118,10 +120,10 @@ const BarChart = () => {
   }, [])
 
   return (
-    <div className='w-full flex bg-white'>
+    <div className='w-full flex'>
       <Line data={chartData} options={chartOptions} />
     </div>
   )
 }
 
-export default BarChart
+export default NetWortHistory
