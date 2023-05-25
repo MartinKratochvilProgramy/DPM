@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {
   Chart as ChartJS,
+  TimeScale,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -9,11 +10,13 @@ import {
   Tooltip,
   Legend
 } from 'chart.js'
+import 'chartjs-adapter-moment'
 import { Line } from 'react-chartjs-2'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatDate } from '@/utils/client/formatDate'
 
 ChartJS.register(
+  TimeScale,
   CategoryScale,
   LinearScale,
   PointElement,
@@ -44,12 +47,24 @@ const BarChart = () => {
     })
       .then(async response => await response.json())
       .then((history) => {
-        console.log(history)
         const labels = []
         const data = []
         for (const item of history) {
           labels.push(formatDate(item.date))
           data.push(item.netWorth)
+        }
+
+        // difference between first and last writes
+        const timeDiff = new Date(history[history.length - 1].date).getTime() - new Date(history[0].date).getTime()
+        const day = 8.64e+7
+
+        let timeScale
+        if (timeDiff < day) {
+          timeScale = 'hour'
+        } else if (day <= timeDiff && timeDiff < 4 * 30 * day) {
+          timeScale = 'day'
+        } else {
+          timeScale = 'month'
         }
 
         setChartData({
@@ -77,6 +92,10 @@ const BarChart = () => {
           },
           scales: {
             x: {
+              type: 'time',
+              time: {
+                unit: timeScale
+              },
               display: true,
               title: {
                 display: true,

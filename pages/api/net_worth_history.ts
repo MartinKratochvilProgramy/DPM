@@ -13,7 +13,5 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
   })
 
-  console.log(netWorth)
-
   res.json(netWorth.netWorthHistory)
 };
