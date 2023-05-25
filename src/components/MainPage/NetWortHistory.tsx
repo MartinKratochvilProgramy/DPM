@@ -120,7 +120,7 @@ const NetWortHistory = () => {
   }, [])
 
   return (
-    <div className='w-full flex'>
+    <div className='w-full h-full flex'>
       <Line data={chartData} options={chartOptions} />
     </div>
   )

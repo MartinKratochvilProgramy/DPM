@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
-import { OrderDropDown } from './OrderDropdown'
-import { Stock } from './Stock'
+import { OrderDropDown } from './Stocks/OrderDropdown'
+import { Stock } from './Stocks/Stock'
 import { handleErrors } from '@/utils/client/handleErrors'
+import { sortStocks } from '@/utils/client/sortStocks'
 
 interface Props {
   stocks: StockInterface[]
@@ -12,16 +13,14 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
-  sortStocks: (orderBy: string, stocks: StockInterface[]) => void
 }
 
-export const StocksDisplay: React.FC<Props> = ({
+export const Stocks: React.FC<Props> = ({
   stocks,
   orderDropdownValue,
   setOrderDropdownValue,
   setStocks,
-  setError,
-  sortStocks
+  setError
 }) => {
   const [searchKey, setSearchKey] = useState('')
 
@@ -84,7 +83,7 @@ export const StocksDisplay: React.FC<Props> = ({
       className="flex flex-col w-full"
       id='stocks-output'
     >
-      <div className='flex justify-between mb-2'>
+      <div className='flex justify-start mb-2 space-x-2'>
         <OrderDropDown
           values={['NEWEST', 'OLDEST', 'VALUE HIGH', 'VALUE LOW', 'CHANGE HIGH', 'CHANGE LOW', 'A-Z', 'Z-A']}
           handleClick={handleDropdownClick}
@@ -94,7 +93,7 @@ export const StocksDisplay: React.FC<Props> = ({
         />
         <input
           onChange={(e) => { setSearchKey(e.target.value) }}
-          className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
           type="text"
           placeholder='Search...' />
       </div>

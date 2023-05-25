@@ -9,6 +9,8 @@ interface Props {
   setStocks: (stocks: StockInterface[]) => void
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocksLoaded: (stocksLoaded: boolean) => void
+  error: string
+  setError: (error: string) => void
 }
 
 interface Stock {
@@ -19,11 +21,12 @@ interface Stock {
 export const StockInput: React.FC<Props> = ({
   setStocks,
   setOrderDropdownValue,
-  setStocksLoaded
+  setStocksLoaded,
+  error,
+  setError
 }) => {
   const [stockTicker, setStockTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
-  const [error, setError] = useState<string>('')
 
   const { user } = useUser()
 
@@ -108,7 +111,7 @@ export const StockInput: React.FC<Props> = ({
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
-        <div className="relative flex flex-row mb-1 w-8/12 md:w-8/12 h-full">
+        <div className="relative flex flex-row mb-1 w-8/12 md:w-4/12 h-full">
           <label htmlFor="ticker" className="sr-only">Ticker input</label>
           <input
             type="text"
