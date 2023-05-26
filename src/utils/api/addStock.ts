@@ -113,9 +113,12 @@ async function addNetWorth (email: string, incrementValue: number) {
       email
     },
     include: {
-      netWorthHistory: true
+      netWorthHistoryDates: true,
+      netWorthHistoryValues: true
     }
   })
+
+  if (netWorth === null) return
 
   let lastNetWorth: number
   if (netWorth.netWorthHistory.length === 0) {

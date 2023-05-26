@@ -37,27 +37,14 @@ model Purchase {
 }
 
 model NetWorth {
-  email           String          @unique
-  netWorthHistory NetWorthValue[]
-}
-
-model NetWorthValue {
-  id            Int       @id @default(autoincrement())
-  date          DateTime
-  netWorth      Float
-  netWorthEmail String?
-  NetWorth      NetWorth? @relation(fields: [netWorthEmail], references: [email])
+  email            String          @unique
+  netWorthDates    DateTime[]
+  netWorthValues   Float[]
 }
 
 model TotalInvested {
-  email                String               @unique
-  totalInvestedHistory TotalInvestedValue[]
+  email                   String               @unique
+  totalInvestedDates      DateTime[]
+  totalInvestedValues     Float[]
 }
 
-model TotalInvestedValue {
-  id                 Int            @id @default(autoincrement())
-  date               DateTime
-  totalInvested      Float
-  totalInvestedEmail String?
-  TotalInvested      TotalInvested? @relation(fields: [totalInvestedEmail], references: [email])
-}
