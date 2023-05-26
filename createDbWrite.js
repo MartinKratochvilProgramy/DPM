@@ -1,43 +1,46 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
-// async function createStocksWrite () {
-//   await prisma.$connect()
-//   const createdStocks = await prisma.stocks.create({
-//     data: {
-//       email: 'martvil96@gmail.com',
-//       currency: 'CZK',
-//       stocks: {
-//         create: []
-//       }
-//     }
-//   })
-
-//   return createdStocks
-// }
-
-// createStocksWrite()
-//   .then((result) => {
-//     console.log('Stocks updated:', result)
-//   })
-//   .catch((error) => {
-//     console.error('Error updating stocks:', error)
-//   })
-
-async function createNetWorthWrite () {
-  const createdStocks = await prisma.netWorth.create({
-    data: {
-      email: 'martvil96@gmail.com',
-      netWorthDates: {
-        create: []
-      },
-      netWorthValues: {
-        create: []
+async function createStocksWrite () {
+  try {
+    const createdStocks = await prisma.stocks.create({
+      data: {
+        email: 'martvil96@gmail.com',
+        currency: 'CZK',
+        stocks: {
+          create: []
+        }
       }
-    }
+    })
+
+    return createdStocks
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+createStocksWrite()
+  .then((result) => {
+    console.log('Stocks updated:', result)
+  })
+  .catch((error) => {
+    console.error('Error updating stocks:', error)
   })
 
-  return createdStocks
+async function createNetWorthWrite () {
+  try {
+    const createdStocks = await prisma.netWorth.create({
+      data: {
+        email: 'martvil96@gmail.com',
+        netWorthDates: [new Date()],
+        netWorthValues: [0]
+      }
+    })
+
+    return createdStocks
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 createNetWorthWrite()
@@ -49,19 +52,19 @@ createNetWorthWrite()
   })
 
 async function createTotalInvestedWrite () {
-  const createdStocks = await prisma.totalInvested.create({
-    data: {
-      email: 'martvil96@gmail.com',
-      totalInvestedDates: {
-        create: []
-      },
-      totalInvestedValues: {
-        create: []
+  try {
+    const createdStocks = await prisma.totalInvested.create({
+      data: {
+        email: 'martvil96@gmail.com',
+        totalInvestedDates: [new Date()],
+        totalInvestedValues: [0]
       }
-    }
-  })
+    })
 
-  return createdStocks
+    return createdStocks
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 createTotalInvestedWrite()

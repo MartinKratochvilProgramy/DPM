@@ -7,14 +7,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const netWorth = await prisma.netWorth.findUnique({
     where: {
       email
-    },
-    include: {
-      netWorthHistory: true
     }
   })
 
   if (netWorth !== null) {
-    res.json(netWorth.netWorthHistory)
+    res.json({ dates: netWorth.netWorthDates, values: netWorth.netWorthValues })
   } else {
     res.json([])
   }

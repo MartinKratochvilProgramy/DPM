@@ -17,6 +17,7 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatDate } from '@/utils/client/formatDate'
 import { type StockInterface } from '@/types/client/stock'
 import { LoadingSpinner } from '../LoadingSpinner'
+import { handleErrors } from '@/utils/client/handleErrors'
 
 ChartJS.register(
   TimeScale,
@@ -54,17 +55,22 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
         email: user?.email
       })
     })
-      .then(async response => await response.json())
+      .then(handleErrors)
+      .then(response => response.json())
       .then((history) => {
-        const labels = []
-        const data = []
-        for (const item of history) {
-          labels.push(formatDate(item.date))
-          data.push(item.netWorth)
-        }
+        console.log(history)
+
+        const values = history.values
+        const dates: Date[] = history.dates
+
+        // for (const date of history.dates) {
+        //   dates.push(formatDate(date))
+        // }
+
+        console.log(dates)
 
         // difference between first and last writes
-        const timeDiff = new Date(history[history.length - 1].date).getTime() - new Date(history[0].date).getTime()
+        const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
         const day = 8.64e+7
 
         let timeScale
@@ -77,11 +83,11 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
         }
 
         setChartData({
-          labels,
+          dates,
           datasets: [
             {
               label: 'Total Net Worth',
-              data,
+              values,
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.1)',
               fill: true

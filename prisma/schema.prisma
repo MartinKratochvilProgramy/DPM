@@ -5,8 +5,9 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL") // uses connection pooling
 }
+
 
 model Stocks {
   email    String  @unique

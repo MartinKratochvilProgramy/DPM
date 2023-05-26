@@ -19,8 +19,7 @@ export async function addStock (newStock: StockInterface, email: string) {
   })
 
   if (existingStocks === null) {
-    await prisma.$disconnect()
-    return null
+    throw new Error('Stocks not found')
   }
 
   let newStocks
@@ -96,11 +95,11 @@ export async function addStock (newStock: StockInterface, email: string) {
     })
   }
 
-  await addNetWorth(email, newStock.prevClose * newStock.amount)
-  await addTotalInvested(email, newStock.prevClose * newStock.amount)
+  const newNetWorth = await addNetWorth(email, newStock.prevClose * newStock.amount)
+  const newTotalInvested = await addTotalInvested(email, newStock.prevClose * newStock.amount)
 
   await prisma.$disconnect()
-  return newStocks
+  return { newStocks, newNetWorth, newTotalInvested }
 }
 
 async function addNetWorth (email: string, incrementValue: number) {
@@ -111,57 +110,51 @@ async function addNetWorth (email: string, incrementValue: number) {
   const netWorth = await prisma.netWorth.findUnique({
     where: {
       email
-    },
-    include: {
-      netWorthHistoryDates: true,
-      netWorthHistoryValues: true
     }
   })
 
-  if (netWorth === null) return
-
-  let lastNetWorth: number
-  if (netWorth.netWorthHistory.length === 0) {
-    lastNetWorth = 0
-  } else {
-    lastNetWorth = netWorth.netWorthHistory[netWorth.netWorthHistory.length - 1].netWorth
+  if (netWorth === null) {
+    throw new Error('netWorth not found')
   }
 
-  await prisma.netWorth.update({
+  let lastNetWorth: number
+  if (netWorth.netWorthValues.length === 0) {
+    lastNetWorth = 0
+  } else {
+    lastNetWorth = netWorth.netWorthValues[netWorth.netWorthValues.length - 1]
+  }
+
+  const newNetWorth = await prisma.netWorth.update({
     where: {
       email
     },
     data: {
-      netWorthHistory: {
-        create:
-          {
-            date: new Date(),
-            netWorth: parseFloat((lastNetWorth + incrementValue).toFixed(2))
-          }
+      netWorthDates: {
+        push: new Date()
+      },
+      netWorthValues: {
+        push: parseFloat((lastNetWorth + incrementValue).toFixed(2))
       }
-    },
-    include: {
-      netWorthHistory: true
     }
   })
+
+  return newNetWorth
 }
 
 async function addTotalInvested (email: string, newValue: number) {
-  await prisma.totalInvested.update({
+  const newTotalInvested = await prisma.totalInvested.update({
     where: {
       email
     },
     data: {
-      totalInvestedHistory: {
-        create:
-          {
-            date: new Date(),
-            totalInvested: parseFloat((newValue).toFixed(2))
-          }
+      totalInvestedDates: {
+        push: new Date()
+      },
+      totalInvestedValues: {
+        push: parseFloat((newValue).toFixed(2))
       }
-    },
-    include: {
-      totalInvestedHistory: true
     }
   })
+
+  return newTotalInvested
 }
