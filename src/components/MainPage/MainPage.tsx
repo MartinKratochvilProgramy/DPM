@@ -45,14 +45,14 @@ const MainPage = () => {
       <StockInput
         setStocks={setStocks}
         setOrderDropdownValue={setOrderDropdownValue}
-        setStocksLoaded={setStocksLoaded}
         error={error}
         setError={setError}
       />
-      <div className='w-full grid grid-cols-2 gap-5 mt-4'>
+      <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-5 mt-4'>
         <GridComponent>
           <Stocks
             stocks={stocks}
+            stocksLoaded={stocksLoaded}
             orderDropdownValue={orderDropdownValue}
             setOrderDropdownValue={setOrderDropdownValue}
             setStocks={setStocks}
@@ -60,7 +60,7 @@ const MainPage = () => {
           />
         </GridComponent>
         <GridComponent>
-          <NetWortHistory />
+          <NetWortHistory stocks={stocks} />
         </GridComponent>
       </div>
     </Container>
@@ -75,7 +75,7 @@ interface ParentComponentProps {
 
 const GridComponent: React.FC<ParentComponentProps> = ({ children }) => {
   return (
-    <div className='rounded-2xl p-2 shadow-sm hover:shadow-lg'>
+    <div className='min-h-36 lg:h-[500px] rounded-2xl shadow-sm hover:shadow-lg border border-blue-400'>
       {children}
     </div>
   )

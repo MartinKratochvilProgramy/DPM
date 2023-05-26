@@ -4,11 +4,12 @@ import { type StockInterface } from '@/types/client/stock'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { handleErrors } from '@/utils/client/handleErrors'
+import '../../../app/globals.css'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void
   setOrderDropdownValue: (orderDropdownValue: string) => void
-  setStocksLoaded: (stocksLoaded: boolean) => void
   error: string
   setError: (error: string) => void
 }
@@ -21,17 +22,17 @@ interface Stock {
 export const StockInput: React.FC<Props> = ({
   setStocks,
   setOrderDropdownValue,
-  setStocksLoaded,
   error,
   setError
 }) => {
   const [stockTicker, setStockTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
+  const [fetchingData, setFetchingData] = useState(false)
 
   const { user } = useUser()
 
   function persist (newStock: Stock) {
-    setStocksLoaded(false)
+    setFetchingData(true)
 
     // hit the endpoint and write to db
     // returns the new stocks array
@@ -48,14 +49,18 @@ export const StockInput: React.FC<Props> = ({
     })
       .then(handleErrors)
       .then(response => response.json())
-      .then((returnedStocks) => {
-        formatStocks(returnedStocks)
+      .then((res) => {
+        console.log(res.netWorth)
+
+        const stocks = res.stocks
+
+        formatStocks(stocks)
 
         setOrderDropdownValue('NEWEST')
-        sortStocks('NEWEST', returnedStocks)
+        sortStocks('NEWEST', stocks)
 
-        setStocks(returnedStocks)
-        setStocksLoaded(true)
+        setStocks(stocks)
+        setFetchingData(false)
       })
       .catch((error) => {
         setError(error.message)
@@ -108,15 +113,15 @@ export const StockInput: React.FC<Props> = ({
         onSubmit={(e) => { addStock(e) }}
         className="flex flex-col  items-center">
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
-        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
+        <h1 className='text-3xl playfair font-semibold mb-0 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
-        <div className="relative flex flex-row mb-1 w-8/12 md:w-4/12 h-full">
+        <div className="relative flex rounded-md overflow-hidden border border-gray-300 flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
           <label htmlFor="ticker" className="sr-only">Ticker input</label>
           <input
             type="text"
             id="ticker-input"
-            className="bg-gray-100 border w-full border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+            className="bg-gray-100 w-full text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Ticker ('AAPL', 'MSFT', ... )"
             onChange={onTickerInputChange}
             value={stockTicker}
@@ -125,7 +130,7 @@ export const StockInput: React.FC<Props> = ({
           <input
             type="number"
             id="amount-input"
-            className="text-center bg-gray-100 border w-5/12 md:w-3/12 border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+            className="text-center bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Amount..."
             onChange={(e) => { onAmountInputChange(e) }}
             value={stockAmount}
@@ -136,11 +141,16 @@ export const StockInput: React.FC<Props> = ({
             {error}
           </div>
         }
-        <button
-          type="submit"
-          className="flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-          Add stock
-        </button>
+        <div className='flex items-center min-h-[56px]'>
+          {fetchingData
+            ? <LoadingSpinner size={32} />
+            : <button
+              type="submit"
+              className="relative flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+              Add stock
+            </button>
+          }
+        </div>
       </form>
     </div>
   )

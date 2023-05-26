@@ -5,7 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // uses connection pooling
+  url      = env("DATABASE_URL")
 }
 
 model Stocks {
@@ -13,7 +13,7 @@ model Stocks {
   currency String
   stocks   Stock[]
 
-  @@map(name: "stocks")
+  @@map("stocks")
 }
 
 model Stock {
@@ -22,9 +22,9 @@ model Stock {
   prevClose     Float
   firstPurchase DateTime
   lastPurchase  DateTime
+  stocksEmail   String?
   purchases     Purchase[]
   Stocks        Stocks?    @relation(fields: [stocksEmail], references: [email])
-  stocksEmail   String?
 }
 
 model Purchase {
@@ -45,8 +45,8 @@ model NetWorthValue {
   id            Int       @id @default(autoincrement())
   date          DateTime
   netWorth      Float
-  NetWorth      NetWorth? @relation(fields: [netWorthEmail], references: [email])
   netWorthEmail String?
+  NetWorth      NetWorth? @relation(fields: [netWorthEmail], references: [email])
 }
 
 model TotalInvested {
@@ -58,6 +58,6 @@ model TotalInvestedValue {
   id                 Int            @id @default(autoincrement())
   date               DateTime
   totalInvested      Float
-  TotalInvested      TotalInvested? @relation(fields: [totalInvestedEmail], references: [email])
   totalInvestedEmail String?
+  TotalInvested      TotalInvested? @relation(fields: [totalInvestedEmail], references: [email])
 }

@@ -13,5 +13,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
   })
 
-  res.json(netWorth.netWorthHistory)
+  if (netWorth !== null) {
+    res.json(netWorth.netWorthHistory)
+  } else {
+    res.json([])
+  }
 };

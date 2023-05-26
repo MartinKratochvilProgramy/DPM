@@ -4,6 +4,7 @@ import { getUserStocks } from '@/utils/api/getUserStocks'
 import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
+import prisma from '@/lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { email, stockItems, settingsCurrency } = req.body
@@ -33,9 +34,19 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   }
 
   const newStocks = await addStock(newStock, email)
+
+  const netWorth = await prisma.netWorth.findUnique({
+    where: {
+      email
+    },
+    include: {
+      netWorthHistory: true
+    }
+  })
+
   if (newStocks === null) {
     res.json(await getUserStocks(email))
   } else {
-    res.json(newStocks.stocks)
+    res.json({ stocks: newStocks.stocks, netWorth })
   }
 };
