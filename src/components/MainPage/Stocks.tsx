@@ -83,7 +83,7 @@ export const Stocks: React.FC<Props> = ({
 
   return (
     <div
-      className="flex flex-col w-full h-full px-4 pt-4 pb-2 "
+      className="flex flex-col w-full h-full px-6 pt-6 pb-2 "
       id='stocks-output'
     >
       {
@@ -103,7 +103,7 @@ export const Stocks: React.FC<Props> = ({
                 type="text"
                 placeholder='Search...' />
             </div>
-            <div className='flex flex-col pr-2 overflow-y-scroll'>
+            <div className='flex flex-col pr-2 overflow-y-auto'>
               {stocks.map((stock: StockInterface) => {
                 if (stock.ticker.includes(searchKey.toUpperCase())) {
                   return (

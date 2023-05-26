@@ -76,6 +76,7 @@ export const StockInput: React.FC<Props> = ({
       const tickerInput = document.getElementById('ticker-input')
       if (tickerInput === null) return
       tickerInput.classList.add('border-red-400')
+      tickerInput.classList.add('border-[1px]')
       tickerInput.classList.remove('border-gray-300')
       return
     }
@@ -83,6 +84,7 @@ export const StockInput: React.FC<Props> = ({
       const amountInput = document.getElementById('amount-input')
       if (amountInput === null) return
       amountInput.classList.add('border-red-400')
+      amountInput.classList.add('border-[1px]')
       amountInput.classList.remove('border-gray-300')
       return
     }
@@ -96,6 +98,7 @@ export const StockInput: React.FC<Props> = ({
   function onTickerInputChange (e: React.ChangeEvent<HTMLInputElement>) {
     setError('')
     e.target.classList.remove('border-red-400')
+    e.target.classList.remove('border-[1px]')
     e.target.classList.add('border-gray-300')
     setStockTicker(e.target.value)
   }
@@ -103,6 +106,7 @@ export const StockInput: React.FC<Props> = ({
   function onAmountInputChange (e: React.ChangeEvent<HTMLInputElement>) {
     setError('')
     e.target.classList.remove('border-red-400')
+    e.target.classList.remove('border-[1px]')
     e.target.classList.add('border-gray-300')
     setStockAmount(parseInt(e.target.value))
   }
@@ -113,7 +117,7 @@ export const StockInput: React.FC<Props> = ({
         onSubmit={(e) => { addStock(e) }}
         className="flex flex-col  items-center">
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
-        <h1 className='text-3xl playfair font-semibold mb-0 text-black dark:text-white'>
+        <h1 className='text-3xl playfair font-semibold mb-2 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
         <div className="relative flex rounded-md overflow-hidden border border-gray-300 flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
@@ -130,7 +134,7 @@ export const StockInput: React.FC<Props> = ({
           <input
             type="number"
             id="amount-input"
-            className="text-center bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+            className="text-center rounded-r-md  bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Amount..."
             onChange={(e) => { onAmountInputChange(e) }}
             value={stockAmount}

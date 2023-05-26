@@ -14,10 +14,10 @@ import {
 import 'chartjs-adapter-moment'
 import { Line } from 'react-chartjs-2'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { formatDate } from '@/utils/client/formatDate'
 import { type StockInterface } from '@/types/client/stock'
 import { LoadingSpinner } from '../LoadingSpinner'
 import { handleErrors } from '@/utils/client/handleErrors'
+import { useTheme } from 'next-themes'
 
 ChartJS.register(
   TimeScale,
@@ -39,10 +39,13 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
   const [chartData, setChartData] = useState<any>({
     datasets: []
   })
-  const [chartOptions, setChartOptions] = useState({})
   const [loadingData, setLoadingData] = useState(false)
-
+  const { theme } = useTheme()
   const { user } = useUser()
+  const [chartGridColor, setChartGridColor] = useState(theme === 'light' ? 'black' : 'white')
+  const [chartOptions, setChartOptions] = useState({})
+
+  function getChartOptions (chartGridColor: string, timeScale: string) {}
 
   useEffect(() => {
     setLoadingData(true)
@@ -58,36 +61,30 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((history) => {
-        console.log(history)
-
         const values = history.values
         const dates: Date[] = history.dates
 
-        // for (const date of history.dates) {
-        //   dates.push(formatDate(date))
-        // }
-
-        console.log(dates)
-
         // difference between first and last writes
         const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
-        const day = 8.64e+7
+        const hour = 3.6e+6
 
         let timeScale
-        if (timeDiff < day) {
+        if (timeDiff < 2 * hour) {
+          timeScale = 'second'
+        } else if (timeDiff < 24 * hour) {
           timeScale = 'hour'
-        } else if (day <= timeDiff && timeDiff < 4 * 30 * day) {
+        } else if (24 * hour <= timeDiff && timeDiff < 4 * 30 * 24 * hour) {
           timeScale = 'day'
         } else {
           timeScale = 'month'
         }
 
         setChartData({
-          dates,
+          labels: dates,
           datasets: [
             {
               label: 'Total Net Worth',
-              values,
+              data: values,
               borderColor: 'rgb(255, 99, 132)',
               backgroundColor: 'rgba(255, 99, 132, 0.1)',
               fill: true
@@ -115,13 +112,31 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
               display: true,
               title: {
                 display: true
+              },
+              grid: {
+                color: chartGridColor
+              },
+              ticks: {
+                color: chartGridColor,
+                font: {
+                  color: chartGridColor
+                }
               }
             },
             y: {
               display: true,
               title: {
-                display: true,
+                display: false,
                 text: 'Net Worth'
+              },
+              grid: {
+                color: chartGridColor
+              },
+              ticks: {
+                color: chartGridColor,
+                font: {
+                  color: chartGridColor
+                }
               }
             }
           }
@@ -134,7 +149,7 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
   }, [stocks])
 
   return (
-    <div className='w-full h-full flex justify-center items-center'>
+    <div className='w-full h-full flex px-2 justify-center items-center'>
       {loadingData
         ? <LoadingSpinner size={36} />
         : <Line data={chartData} options={chartOptions} />

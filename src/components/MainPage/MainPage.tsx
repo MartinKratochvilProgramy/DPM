@@ -7,6 +7,7 @@ import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { StockInput } from './Stocks/StockInput'
 import { Stocks } from './Stocks'
+import './MainPage.css'
 
 const MainPage = () => {
   const [stocks, setStocks] = useState<any>([])
@@ -75,7 +76,7 @@ interface ParentComponentProps {
 
 const GridComponent: React.FC<ParentComponentProps> = ({ children }) => {
   return (
-    <div className='min-h-36 lg:h-[500px] rounded-2xl shadow-sm hover:shadow-lg border border-blue-400'>
+    <div className='dark:bg-custom-gradient card-shadow card-gradient dark:bg-opacity-50 hover:bg-opacity-60 dark:hover:bg-opacity-10 min-h-36 lg:h-[500px] rounded-2xl border border-blue-400 dark:border-none'>
       {children}
     </div>
   )
