@@ -1,4 +1,4 @@
-const { PrismaClient } = require('@prisma/client')
+import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function createStocksWrite () {
@@ -14,7 +14,7 @@ async function createStocksWrite () {
     })
 
     return createdStocks
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error)
   }
 }
@@ -38,7 +38,7 @@ async function createNetWorthWrite () {
     })
 
     return createdStocks
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error)
   }
 }
@@ -62,7 +62,7 @@ async function createTotalInvestedWrite () {
     })
 
     return createdStocks
-  } catch (error) {
+  } catch (error: any) {
     throw new Error(error)
   }
 }

@@ -6,7 +6,7 @@
       "dom.iterable",
       "esnext"
     ],
-    "allowJs": true,
+    "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -36,7 +36,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/Stock.tsx"
-, "addStockWrite.js", "src/components/MainPage/NetWortHistory.tsx"  ],
+, "addStockWrite.ts", "src/components/MainPage/NetWortHistory.tsx"  ],
   "exclude": [
     "node_modules"
   ]

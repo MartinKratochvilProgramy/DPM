@@ -5,9 +5,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL") // uses connection pooling
+  url      = env("DATABASE_URL")
 }
-
 
 model Stocks {
   email    String  @unique
@@ -38,14 +37,13 @@ model Purchase {
 }
 
 model NetWorth {
-  email            String          @unique
-  netWorthDates    DateTime[]
-  netWorthValues   Float[]
+  email          String     @unique
+  netWorthDates  DateTime[]
+  netWorthValues Float[]
 }
 
 model TotalInvested {
-  email                   String               @unique
-  totalInvestedDates      DateTime[]
-  totalInvestedValues     Float[]
+  email               String     @unique
+  totalInvestedDates  DateTime[]
+  totalInvestedValues Float[]
 }
-

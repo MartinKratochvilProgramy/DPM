@@ -35,17 +35,119 @@ interface Props {
   stocks: StockInterface
 }
 
+interface Dataset {
+  label: string
+  data: number[]
+  borderColor: string
+  backgroundColor: string
+  fill: boolean
+}
+
+interface ChartData {
+  labels: Date[]
+  datasets: Dataset[]
+}
+
 const NetWortHistory: React.FC<Props> = ({ stocks }) => {
-  const [chartData, setChartData] = useState<any>({
+  const [chartData, setChartData] = useState<ChartData>({
+    labels: [],
     datasets: []
   })
   const [loadingData, setLoadingData] = useState(false)
   const { theme } = useTheme()
   const { user } = useUser()
-  const [chartGridColor, setChartGridColor] = useState(theme === 'light' ? 'black' : 'white')
-  const [chartOptions, setChartOptions] = useState({})
+  const chartGridColor = (theme === 'light' ? 'black' : 'white')
+  const [chartOptions, setChartOptions] = useState({
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+        position: 'top'
+      },
+      title: {
+        display: false,
+        text: 'Total net Worth'
+      }
+    },
+    scales: {
+      x: {
+        type: 'time',
+        time: {
+          unit: 'second'
+        },
+        display: true,
+        title: {
+          display: true
+        },
+        grid: {
+          color: chartGridColor
+        },
+        ticks: {
+          color: chartGridColor,
+          font: {
+            color: chartGridColor
+          }
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: false,
+          text: 'Net Worth'
+        },
+        grid: {
+          color: chartGridColor
+        },
+        ticks: {
+          color: chartGridColor,
+          font: {
+            color: chartGridColor
+          }
+        }
+      }
+    }
+  })
 
-  function getChartOptions (chartGridColor: string, timeScale: string) {}
+  useEffect(() => {
+    const newColor = (theme === 'light' ? 'black' : 'white')
+
+    setChartOptions(prevState => ({
+      ...prevState,
+      scales: {
+        ...prevState.scales,
+        x: {
+          ...prevState.scales.x,
+          grid: {
+            ...prevState.scales.x.grid,
+            color: newColor
+          },
+          ticks: {
+            ...prevState.scales.x.ticks,
+            color: newColor,
+            font: {
+              ...prevState.scales.x.ticks.font,
+              color: newColor
+            }
+          }
+        },
+        y: {
+          ...prevState.scales.y,
+          grid: {
+            ...prevState.scales.y.grid,
+            color: newColor
+          },
+          ticks: {
+            ...prevState.scales.y.ticks,
+            color: newColor,
+            font: {
+              ...prevState.scales.y.ticks.font,
+              color: newColor
+            }
+          }
+        }
+      }
+    }))
+  }, [theme])
 
   useEffect(() => {
     setLoadingData(true)
@@ -68,7 +170,7 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
         const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
         const hour = 3.6e+6
 
-        let timeScale
+        let timeScale: string
         if (timeDiff < 2 * hour) {
           timeScale = 'second'
         } else if (timeDiff < 24 * hour) {
@@ -91,56 +193,21 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
             }
           ]
         })
-        setChartOptions({
-          responsive: true,
-          plugins: {
-            legend: {
-              display: false,
-              position: 'top'
-            },
-            title: {
-              display: false,
-              text: 'Total net Worth'
-            }
-          },
+
+        setChartOptions(prevState => ({
+          ...prevState,
           scales: {
+            ...prevState.scales,
             x: {
-              type: 'time',
+              ...prevState.scales.x,
               time: {
+                ...prevState.scales.x.time,
                 unit: timeScale
-              },
-              display: true,
-              title: {
-                display: true
-              },
-              grid: {
-                color: chartGridColor
-              },
-              ticks: {
-                color: chartGridColor,
-                font: {
-                  color: chartGridColor
-                }
-              }
-            },
-            y: {
-              display: true,
-              title: {
-                display: false,
-                text: 'Net Worth'
-              },
-              grid: {
-                color: chartGridColor
-              },
-              ticks: {
-                color: chartGridColor,
-                font: {
-                  color: chartGridColor
-                }
               }
             }
           }
-        })
+        }))
+
         setLoadingData(false)
       })
       .catch((error) => {

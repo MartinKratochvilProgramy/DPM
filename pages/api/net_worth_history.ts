@@ -2,17 +2,21 @@ import { type NextApiRequest, type NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  const { email } = req.body
+  try {
+    const { email } = req.body
 
-  const netWorth = await prisma.netWorth.findUnique({
-    where: {
-      email
+    const netWorth = await prisma.netWorth.findUnique({
+      where: {
+        email
+      }
+    })
+
+    if (netWorth !== null) {
+      res.json({ dates: netWorth.netWorthDates, values: netWorth.netWorthValues })
+    } else {
+      res.json({ dates: [], values: [] })
     }
-  })
-
-  if (netWorth !== null) {
-    res.json({ dates: netWorth.netWorthDates, values: netWorth.netWorthValues })
-  } else {
-    res.json([])
+  } catch (error) {
+    console.log(error)
   }
 };
