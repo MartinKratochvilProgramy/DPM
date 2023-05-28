@@ -117,7 +117,7 @@ export const StockInput: React.FC<Props> = ({
         onSubmit={(e) => { addStock(e) }}
         className="flex flex-col  items-center">
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
-        <h1 className='text-3xl playfair font-semibold mb-2 text-black dark:text-white'>
+        <h1 className='text-3xl playfair font-semibold mb-4 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
         <div className="relative flex rounded-md overflow-hidden border border-gray-300 flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
