@@ -15,6 +15,9 @@ const MainPage = () => {
   const [error, setError] = useState<string>('')
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST')
 
+  const [netWorthDates, setNetWorthDates] = useState<Date[]>([])
+  const [netWorthValues, setNetWorthValues] = useState<number[]>([])
+
   const { user } = useUser()
 
   useEffect(() => {
@@ -48,6 +51,8 @@ const MainPage = () => {
         setOrderDropdownValue={setOrderDropdownValue}
         error={error}
         setError={setError}
+        setNetWorthDates={setNetWorthDates}
+        setNetWorthValues={setNetWorthValues}
       />
       <div className='w-full grid grid-cols-1 lg:grid-cols-2 gap-5 mt-4'>
         <GridComponent>
@@ -61,7 +66,13 @@ const MainPage = () => {
           />
         </GridComponent>
         <GridComponent>
-          <NetWortHistory stocks={stocks} />
+          <NetWortHistory
+            stocks={stocks}
+            netWorthDates={netWorthDates}
+            setNetWorthDates={setNetWorthDates}
+            netWorthValues={netWorthValues}
+            setNetWorthValues={setNetWorthValues}
+          />
         </GridComponent>
       </div>
     </Container>

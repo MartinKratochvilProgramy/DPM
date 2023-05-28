@@ -33,30 +33,24 @@ ChartJS.register(
 
 interface Props {
   stocks: StockInterface
+  netWorthDates: Date[]
+  setNetWorthDates: (netWorthDates: Date[]) => void
+  netWorthValues: number[]
+  setNetWorthValues: (netWorthValues: number[]) => void
 }
 
-interface Dataset {
-  label: string
-  data: number[]
-  borderColor: string
-  backgroundColor: string
-  fill: boolean
-}
-
-interface ChartData {
-  labels: Date[]
-  datasets: Dataset[]
-}
-
-const NetWortHistory: React.FC<Props> = ({ stocks }) => {
-  const [chartData, setChartData] = useState<ChartData>({
-    labels: [],
-    datasets: []
-  })
+const NetWortHistory: React.FC<Props> = ({
+  stocks,
+  netWorthDates,
+  setNetWorthDates,
+  netWorthValues,
+  setNetWorthValues
+}) => {
   const [loadingData, setLoadingData] = useState(false)
   const { theme } = useTheme()
   const { user } = useUser()
   const chartGridColor = (theme === 'light' ? 'black' : 'white')
+  // setChartOptions to change chart UI on active theme change
   const [chartOptions, setChartOptions] = useState({
     responsive: true,
     plugins: {
@@ -163,8 +157,11 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((history) => {
-        const values = history.values
+        const values: number[] = history.values
         const dates: Date[] = history.dates
+
+        setNetWorthValues(values)
+        setNetWorthDates(dates)
 
         // difference between first and last writes
         const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
@@ -181,19 +178,7 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
           timeScale = 'month'
         }
 
-        setChartData({
-          labels: dates,
-          datasets: [
-            {
-              label: 'Total Net Worth',
-              data: values,
-              borderColor: 'rgb(255, 99, 132)',
-              backgroundColor: 'rgba(255, 99, 132, 0.1)',
-              fill: true
-            }
-          ]
-        })
-
+        // update scale on x-axis on data change
         setChartOptions(prevState => ({
           ...prevState,
           scales: {
@@ -213,13 +198,27 @@ const NetWortHistory: React.FC<Props> = ({ stocks }) => {
       .catch((error) => {
         console.log(error)
       })
-  }, [stocks])
+  }, [])
 
   return (
     <div className='w-full h-full flex px-2 justify-center items-center'>
       {loadingData
         ? <LoadingSpinner size={36} />
-        : <Line data={chartData} options={chartOptions} />
+        : <Line
+          data={{
+            labels: netWorthDates,
+            datasets: [
+              {
+                label: 'Total Net Worth',
+                data: netWorthValues,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                fill: true
+              }
+            ]
+          }}
+          options={chartOptions}
+        />
       }
     </div>
   )
