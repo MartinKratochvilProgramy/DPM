@@ -91,7 +91,7 @@ export const Stock: React.FC<Props> = ({
         className="bg-white dark:bg-transparent border-solid border-[1px] border-blue-400 dark:border-gray-500 rounded-xl px-3 sm:px-6 md:px-8 py-3 my-2 text-black dark:text-gray-400 font-medium text-xs sm:text-sm leading-snug cursor-pointer uppercase hover:shadow-xl transition duration-150 ease-in-out"
         onClick={() => { expand() }}
       >
-        <div className="flex flex-row items-center px-2 mb-1">
+        <div className="flex flex-row items-center pl-2 pr-1 mb-1">
           <div className="w-full dark:text-gray-100 h-full flex items-start">
             <div className="w-[52px] xsm:w-24 md:w-[81px] font-bold text-justify">{stock.ticker}</div>
             <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{stock.amount}</div>
@@ -116,7 +116,7 @@ export const Stock: React.FC<Props> = ({
 
         <div>
           {expanded &&
-            <div className="flex flex-col items-start justify-start border-t-[1px] border-b-gray-300 space-y-2">
+            <div className="flex flex-col items-start justify-start border-t-[1px] border-t-gray-500 space-y-2">
               <div className="flex flex-row mt-4 dark:text-gray-100 px-2">
                 <div className="w-[60px] xsm:w-24 md:w-[81px] font-bold text-justify">DATE</div>
                 <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">AMOUNT</div>
@@ -132,9 +132,9 @@ export const Stock: React.FC<Props> = ({
                   year = year.substring(2, 4)
 
                   return (
-                    <div key={purchase.id} className="flex flex-row items-center rounded-xl px-2 p-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1">
+                    <div key={purchase.id} className="flex flex-row items-center rounded-xl pl-2 pr-1 py-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1">
                       <div className="w-full h-full flex items-start">
-                        <div className="w-[60px] xsm:w-24 md:w-[81px] font-bold text-justify">{day}-{month}-{year}</div>
+                        <div className="w-[60px] xsm:w-24 md:w-[81px] text-justify">{day}-{month}-{year}</div>
                         <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{purchase.amount}</div>
                         <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">{purchase.price}</div>
                         <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
