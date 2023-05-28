@@ -11,38 +11,11 @@ import './MainPage.css'
 
 const MainPage = () => {
   const [stocks, setStocks] = useState<any>([])
-  const [stocksLoaded, setStocksLoaded] = useState(false)
   const [error, setError] = useState<string>('')
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST')
 
   const [netWorthDates, setNetWorthDates] = useState<Date[]>([])
   const [netWorthValues, setNetWorthValues] = useState<number[]>([])
-
-  const { user } = useUser()
-
-  useEffect(() => {
-    fetch('/api/stocks', {
-      method: 'POST',
-      body: JSON.stringify({ email: user?.email })
-    })
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(returnedStocks => {
-        formatStocks(returnedStocks)
-
-        setOrderDropdownValue('NEWEST')
-        sortStocks('NEWEST', returnedStocks)
-
-        setStocks(returnedStocks)
-        setStocksLoaded(true)
-      })
-      .catch(e => {
-        setStocks([])
-        setStocksLoaded(true)
-        setError(e)
-      }
-      )
-  }, [])
 
   return (
     <Container className='flex flex-col'>
@@ -58,7 +31,6 @@ const MainPage = () => {
         <GridComponent>
           <Stocks
             stocks={stocks}
-            stocksLoaded={stocksLoaded}
             orderDropdownValue={orderDropdownValue}
             setOrderDropdownValue={setOrderDropdownValue}
             setStocks={setStocks}

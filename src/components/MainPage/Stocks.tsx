@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
@@ -14,7 +14,6 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
-  stocksLoaded: boolean
 }
 
 export const Stocks: React.FC<Props> = ({
@@ -22,12 +21,36 @@ export const Stocks: React.FC<Props> = ({
   orderDropdownValue,
   setOrderDropdownValue,
   setStocks,
-  setError,
-  stocksLoaded
+  setError
 }) => {
   const [searchKey, setSearchKey] = useState('')
+  const [stocksLoaded, setStocksLoaded] = useState(false)
 
   const { user } = useUser()
+
+  useEffect(() => {
+    fetch('/api/stocks', {
+      method: 'POST',
+      body: JSON.stringify({ email: user?.email })
+    })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then(returnedStocks => {
+        formatStocks(returnedStocks)
+
+        setOrderDropdownValue('NEWEST')
+        sortStocks('NEWEST', returnedStocks)
+
+        setStocks(returnedStocks)
+        setStocksLoaded(true)
+      })
+      .catch(e => {
+        setStocks([])
+        setStocksLoaded(true)
+        setError(e)
+      }
+      )
+  }, [])
 
   function deleteStock (ticker: string) {
     // hit the endpoint and write to db
