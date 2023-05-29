@@ -17,6 +17,8 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import { LoadingSpinner } from '../LoadingSpinner'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { useTheme } from 'next-themes'
+import '../../app/globals.css'
+import { numberWithSpaces } from '@/utils/api/numberWithSpaces'
 
 ChartJS.register(
   TimeScale,
@@ -102,67 +104,75 @@ const NetWortHistory: React.FC<Props> = ({
   }, [])
 
   return (
-    <div className='w-full h-full flex px-2 justify-center items-center'>
+    <div className='w-full h-full flex justify-center items-center'>
       {loadingData
         ? <LoadingSpinner size={36} />
-        : <Line
-          data={{
-            labels: netWorthDates,
-            datasets: [
-              {
-                label: 'Total Net Worth',
-                data: netWorthValues,
-                borderColor: 'rgb(255, 99, 132)',
-                backgroundColor: 'rgba(255, 99, 132, 0.1)',
-                fill: true
-              }
-            ]
-          }}
-          options={{
-            responsive: true,
-            plugins: {
-              legend: {
-                display: false,
-                position: 'top'
-              },
-              title: {
-                display: false,
-                text: 'Total Net Worth'
-              }
-            },
-            scales: {
-              x: {
-                type: 'time',
-                time: {
-                  unit: timeScale
+        : <div className='flex py-1 md:py-2 lg:py-10 px-4 md:px-10 lg:px-0 flex-col w-full h-full justify-center items-center'>
+          <h2 className='text-xl md:text-3xl playfair font-semibold mt-2 md:mt-10 lg:mt-0 mb-4 text-gray-700 dark:text-gray-300'>{numberWithSpaces(netWorthValues[netWorthValues.length - 1])} <span className='text-sm md:text-2xl'>{user?.currency}</span></h2>
+          <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
+            <Line
+              width={'160%'}
+              height={'100%'}
+              data={{
+                labels: netWorthDates,
+                datasets: [
+                  {
+                    label: 'Total Net Worth',
+                    data: netWorthValues,
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    fill: true
+                  }
+                ]
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    display: false,
+                    position: 'top'
+                  },
+                  title: {
+                    display: false,
+                    text: 'Total Net Worth'
+                  }
                 },
-                display: true,
-                title: {
-                  display: true
-                },
-                grid: {
-                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
-                },
-                ticks: {
-                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                scales: {
+                  x: {
+                    type: 'time',
+                    time: {
+                      unit: timeScale
+                    },
+                    display: true,
+                    title: {
+                      display: true
+                    },
+                    grid: {
+                      color: theme === 'light' ? 'rgb(192, 201, 217)' : darkThemeChartColor
+                    },
+                    ticks: {
+                      color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                    }
+                  },
+                  y: {
+                    display: true,
+                    title: {
+                      display: false,
+                      text: 'Net Worth'
+                    },
+                    grid: {
+                      color: theme === 'light' ? 'rgb(192, 201, 217)' : darkThemeChartColor,
+                      z: 10
+                    },
+                    ticks: {
+                      color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                    }
+                  }
                 }
-              },
-              y: {
-                display: true,
-                title: {
-                  display: false,
-                  text: 'Net Worth'
-                },
-                grid: {
-                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
-                },
-                ticks: {
-                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
-                }
-              }
-            }
-          }}
-        />
+              }}
+            />
+          </div>
+        </div>
       }
     </div>
   )

@@ -55,7 +55,7 @@ interface ParentComponentProps {
 
 const GridComponent: React.FC<ParentComponentProps> = ({ children }) => {
   return (
-    <div className='card-shadow card-gradient dark:bg-opacity-50 hover:bg-opacity-60 dark:hover:bg-opacity-10 min-h-36 lg:h-[500px] rounded-2xl border border-blue-400 dark:border-gray-500'>
+    <div className='card-shadow card-gradient dark:bg-opacity-50 hover:bg-opacity-60 dark:hover:bg-opacity-10 aspect-[1.2] rounded-2xl border border-blue-400 dark:border-gray-500'>
       {children}
     </div>
   )
