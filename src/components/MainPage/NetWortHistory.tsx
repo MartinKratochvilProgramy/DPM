@@ -14,7 +14,6 @@ import {
 import 'chartjs-adapter-moment'
 import { Line } from 'react-chartjs-2'
 import { useUser } from '@auth0/nextjs-auth0/client'
-import { type StockInterface } from '@/types/client/stock'
 import { LoadingSpinner } from '../LoadingSpinner'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { useTheme } from 'next-themes'
@@ -32,116 +31,29 @@ ChartJS.register(
 )
 
 interface Props {
-  stocks: StockInterface
   netWorthDates: Date[]
   setNetWorthDates: (netWorthDates: Date[]) => void
   netWorthValues: number[]
   setNetWorthValues: (netWorthValues: number[]) => void
+  setError: (error: string) => void
 }
 
+type TimeScaleInterface = 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'year'
+
 const NetWortHistory: React.FC<Props> = ({
-  stocks,
   netWorthDates,
   setNetWorthDates,
   netWorthValues,
-  setNetWorthValues
+  setNetWorthValues,
+  setError
 }) => {
   const [loadingData, setLoadingData] = useState(false)
   const { theme } = useTheme()
   const { user } = useUser()
-  const chartGridColor = (theme === 'light' ? 'black' : 'white')
-  // setChartOptions to change chart UI on active theme change
-  const [chartOptions, setChartOptions] = useState({
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false,
-        position: 'top'
-      },
-      title: {
-        display: false,
-        text: 'Total net Worth'
-      }
-    },
-    scales: {
-      x: {
-        type: 'time',
-        time: {
-          unit: 'second'
-        },
-        display: true,
-        title: {
-          display: true
-        },
-        grid: {
-          color: chartGridColor
-        },
-        ticks: {
-          color: chartGridColor,
-          font: {
-            color: chartGridColor
-          }
-        }
-      },
-      y: {
-        display: true,
-        title: {
-          display: false,
-          text: 'Net Worth'
-        },
-        grid: {
-          color: chartGridColor
-        },
-        ticks: {
-          color: chartGridColor,
-          font: {
-            color: chartGridColor
-          }
-        }
-      }
-    }
-  })
+  const [timeScale, setTimeScale] = useState<TimeScaleInterface>('second')
 
-  useEffect(() => {
-    const newColor = (theme === 'light' ? 'black' : 'white')
-
-    setChartOptions(prevState => ({
-      ...prevState,
-      scales: {
-        ...prevState.scales,
-        x: {
-          ...prevState.scales.x,
-          grid: {
-            ...prevState.scales.x.grid,
-            color: newColor
-          },
-          ticks: {
-            ...prevState.scales.x.ticks,
-            color: newColor,
-            font: {
-              ...prevState.scales.x.ticks.font,
-              color: newColor
-            }
-          }
-        },
-        y: {
-          ...prevState.scales.y,
-          grid: {
-            ...prevState.scales.y.grid,
-            color: newColor
-          },
-          ticks: {
-            ...prevState.scales.y.ticks,
-            color: newColor,
-            font: {
-              ...prevState.scales.y.ticks.font,
-              color: newColor
-            }
-          }
-        }
-      }
-    }))
-  }, [theme])
+  const darkThemeChartColor = '#9ca3af'
+  const lightThemeChartColor = '#374151'
 
   useEffect(() => {
     setLoadingData(true)
@@ -167,36 +79,25 @@ const NetWortHistory: React.FC<Props> = ({
         const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
         const hour = 3.6e+6
 
-        let timeScale: string
+        let newTimeScale: TimeScaleInterface
         if (timeDiff < 2 * hour) {
-          timeScale = 'second'
+          newTimeScale = 'second'
         } else if (timeDiff < 24 * hour) {
-          timeScale = 'hour'
+          newTimeScale = 'hour'
         } else if (24 * hour <= timeDiff && timeDiff < 4 * 30 * 24 * hour) {
-          timeScale = 'day'
+          newTimeScale = 'day'
+        } else if (4 * 30 * 24 * hour <= timeDiff && timeDiff < 2 * 8760 * hour) {
+          newTimeScale = 'month'
         } else {
-          timeScale = 'month'
+          newTimeScale = 'year'
         }
 
-        // update scale on x-axis on data change
-        setChartOptions(prevState => ({
-          ...prevState,
-          scales: {
-            ...prevState.scales,
-            x: {
-              ...prevState.scales.x,
-              time: {
-                ...prevState.scales.x.time,
-                unit: timeScale
-              }
-            }
-          }
-        }))
+        setTimeScale(newTimeScale)
 
         setLoadingData(false)
       })
       .catch((error) => {
-        console.log(error)
+        setError(error)
       })
   }, [])
 
@@ -217,7 +118,50 @@ const NetWortHistory: React.FC<Props> = ({
               }
             ]
           }}
-          options={chartOptions}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: {
+                display: false,
+                position: 'top'
+              },
+              title: {
+                display: false,
+                text: 'Total Net Worth'
+              }
+            },
+            scales: {
+              x: {
+                type: 'time',
+                time: {
+                  unit: timeScale
+                },
+                display: true,
+                title: {
+                  display: true
+                },
+                grid: {
+                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                },
+                ticks: {
+                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                }
+              },
+              y: {
+                display: true,
+                title: {
+                  display: false,
+                  text: 'Net Worth'
+                },
+                grid: {
+                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                },
+                ticks: {
+                  color: theme === 'light' ? lightThemeChartColor : darkThemeChartColor
+                }
+              }
+            }
+          }}
         />
       }
     </div>

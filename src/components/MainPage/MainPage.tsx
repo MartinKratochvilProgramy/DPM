@@ -35,11 +35,11 @@ const MainPage = () => {
         </GridComponent>
         <GridComponent>
           <NetWortHistory
-            stocks={stocks}
             netWorthDates={netWorthDates}
             setNetWorthDates={setNetWorthDates}
             netWorthValues={netWorthValues}
             setNetWorthValues={setNetWorthValues}
+            setError={setError}
           />
         </GridComponent>
       </div>
