@@ -130,8 +130,8 @@ export const Stock: React.FC<Props> = ({
                 year = year.substring(2, 4)
 
                 return (
-                  <div key={purchase.id} className="flex flex-row w-full justify-start sm:justify-between items-center rounded-xl px-1 py-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1">
-                    <div className="flex flex-row w-full max-w-[400px] px-1 justify-start sm:justify-between rounded-xl hover:bg-gray-100 dark:hover:bg-opacity-5 h-full">
+                  <div key={purchase.id} className="flex flex-row w-full justify-start sm:justify-between items-center rounded-2xl px-1 py-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1">
+                    <div className="flex flex-row w-full max-w-[400px] px-1 justify-start sm:justify-between rounded-xl h-full">
                       <div className="w-[50px] sm:w-[70px] flex items-center justify-start">{day}-{month}-{year}</div>
                       <div className="w-[50px] sm:w-[70px] flex items-center justify-center">{purchase.amount}</div>
                       <div className="w-[50px] sm:w-[70px] flex items-center justify-center">{purchase.price}</div>
