@@ -40,7 +40,7 @@ export const StockInput: React.FC<Props> = ({
 
     // hit the endpoint and write to db
     // returns the new stocks array
-    fetch('api/stock_add', {
+    fetch('api/add_stock', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -42,6 +42,12 @@ model NetWorth {
   netWorthValues Float[]
 }
 
+model RelativeChange {
+  email                String     @unique
+  relativeChangeDates  DateTime[]
+  relativeChangeValues Float[]
+}
+
 model TotalInvested {
   email               String     @unique
   totalInvestedDates  DateTime[]

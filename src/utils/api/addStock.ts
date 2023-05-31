@@ -1,5 +1,7 @@
 import prisma from '@/lib/prisma'
 import { type StockInterface } from '@/types/api/stock'
+import { incrementNetWorth } from './incrementNetWorth'
+import { addTotalInvested } from './addTotalInvested'
 
 export async function addStock (newStock: StockInterface, email: string) {
   const existingStocks = await prisma.stocks.findUnique({
@@ -95,66 +97,9 @@ export async function addStock (newStock: StockInterface, email: string) {
     })
   }
 
-  const newNetWorth = await addNetWorth(email, newStock.prevClose * newStock.amount)
+  const newNetWorth = await incrementNetWorth(email, newStock.prevClose * newStock.amount)
   const newTotalInvested = await addTotalInvested(email, newStock.prevClose * newStock.amount)
 
   await prisma.$disconnect()
   return { newStocks, newNetWorth, newTotalInvested }
-}
-
-async function addNetWorth (email: string, incrementValue: number) {
-  // increase last net worth history if is the same date
-  // else create new write new
-  // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
-
-  const netWorth = await prisma.netWorth.findUnique({
-    where: {
-      email
-    }
-  })
-
-  if (netWorth === null) {
-    throw new Error('netWorth not found')
-  }
-
-  let lastNetWorth: number
-  if (netWorth.netWorthValues.length === 0) {
-    lastNetWorth = 0
-  } else {
-    lastNetWorth = netWorth.netWorthValues[netWorth.netWorthValues.length - 1]
-  }
-
-  const newNetWorth = await prisma.netWorth.update({
-    where: {
-      email
-    },
-    data: {
-      netWorthDates: {
-        push: new Date()
-      },
-      netWorthValues: {
-        push: parseFloat((lastNetWorth + incrementValue).toFixed(2))
-      }
-    }
-  })
-
-  return newNetWorth
-}
-
-async function addTotalInvested (email: string, newValue: number) {
-  const newTotalInvested = await prisma.totalInvested.update({
-    where: {
-      email
-    },
-    data: {
-      totalInvestedDates: {
-        push: new Date()
-      },
-      totalInvestedValues: {
-        push: parseFloat((newValue).toFixed(2))
-      }
-    }
-  })
-
-  return newTotalInvested
 }

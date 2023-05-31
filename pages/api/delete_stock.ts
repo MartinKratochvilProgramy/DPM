@@ -30,8 +30,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     })
     // await updateStocks(username)
 
-    console.log(updatedStocks)
-
     res.json(updatedStocks.stocks)
   } catch (error) {
     console.log(error)

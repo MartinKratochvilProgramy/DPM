@@ -4,6 +4,7 @@ import { getUserStocks } from '@/utils/api/getUserStocks'
 import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
+import { updateStocks } from '@/utils/api/updateStocks'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -35,7 +36,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const { newStocks, newNetWorth, newTotalInvested } = await addStock(newStock, email)
 
-    if (newStocks === null) {
+    if (newStocks === null || newStocks === undefined) {
       res.json(await getUserStocks(email))
     } else {
       res.json({ stocks: newStocks.stocks, netWorth: newNetWorth })

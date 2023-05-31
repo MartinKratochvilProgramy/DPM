@@ -1,49 +1,68 @@
-import { getCurrentDate } from './getCurrentDate'
 import fetch from 'node-fetch'
-import Stocks from '@/lib/models/stocks'
-import connectMongo from '@/lib/mongodb'
-import { type StocksInterface } from '@/types/api/stock'
+import prisma from '@/lib/prisma'
 import { getConversionRate } from '../client/getConversionRate'
+import { addNetWorth } from './addNetWorth'
+import { addRelativeChange } from './addRelativeChange'
 
-export async function updateStocks (username: string): Promise<string> {
+export async function updateStocks (email: string) {
   // loop through all user's stocks and update prev close
   // calculate total net worth and push it to netWorthHistory
   // calculate relative change in net worth and push it to relativeChangeHistory
 
   try {
-    await connectMongo()
-
-    const stocks: StocksInterface = await Stocks.findOne({ username }).exec()
-
-    let totalNetWorth = 0
-    for (let i = 0; i < stocks.stocks.length; i++) {
-      const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stocks.stocks[i].ticker}`)
-      const stockInfoJson = await stockInfo.json()
-
-      const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
-
-      const prevClose = (parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2)
-      stocks.stocks[i].prevClose = parseFloat(prevClose)
-
-      totalNetWorth += parseFloat(prevClose) * stocks.stocks[i].amount
-    }
-
-    const today = getCurrentDate()
-
-    stocks.netWorthHistory.push({
-      date: today,
-      netWorth: parseFloat((totalNetWorth).toFixed(2))
+    const stocks = await prisma.stocks.findUnique({
+      where: {
+        email
+      },
+      include: {
+        stocks: {
+          include: {
+            purchases: true
+          }
+        }
+      }
     })
 
-    const newStocks = new Stocks(stocks)
-    await newStocks.save()
+    if (stocks === null) {
+      console.log(`Could not find stocks for ${email}`)
+      return
+    }
 
-    console.log('updating stocks for user ' + username)
+    let totalNetWorth = 0
+    const updatedStocks = await Promise.all(
+      stocks.stocks.map(async (stock) => {
+        const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stock.ticker}`)
+        const stockInfoJson: any = await stockInfo.json()
 
-    const response = 'updating stocks for user ' + username
-    return response
+        const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
+        const prevClose = parseFloat((parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2))
+
+        totalNetWorth += prevClose * stock.amount
+
+        // Update the prevClose value
+        const updatedStock = await prisma.stock.update({
+          where: {
+            ticker: stock.ticker
+          },
+          data: {
+            prevClose
+          }
+        })
+
+        return updatedStock
+      })
+    )
+
+    const newNetWorth = await addNetWorth(email, totalNetWorth)
+    console.log('newNetWorth', newNetWorth)
+
+    const newRelativeChange = await addRelativeChange(email, newNetWorth.netWorthValues.at(-1) / newNetWorth.netWorthValues.at(-2))
+    console.log('newRelativeChange', newRelativeChange)
+
+    console.log(`Updating stocks for user ${email}`)
+
+    return updatedStocks
   } catch (error) {
     console.log(error)
-    return `Failed to update stocks for ${username}`
   }
 }
