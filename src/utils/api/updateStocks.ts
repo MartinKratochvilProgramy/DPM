@@ -24,12 +24,11 @@ export async function updateStocks (email: string) {
     })
 
     if (stocks === null) {
-      console.log(`Could not find stocks for ${email}`)
-      return
+      return `Could not find stocks for ${email}`
     }
 
     let totalNetWorth = 0
-    const updatedStocks = await Promise.all(
+    await Promise.all(
       stocks.stocks.map(async (stock) => {
         const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stock.ticker}`)
         const stockInfoJson: any = await stockInfo.json()
@@ -54,15 +53,10 @@ export async function updateStocks (email: string) {
     )
 
     const newNetWorth = await addNetWorth(email, totalNetWorth)
-    console.log('newNetWorth', newNetWorth)
+    await addRelativeChange(email, newNetWorth.netWorthValues.at(-1) / newNetWorth.netWorthValues.at(-2))
 
-    const newRelativeChange = await addRelativeChange(email, newNetWorth.netWorthValues.at(-1) / newNetWorth.netWorthValues.at(-2))
-    console.log('newRelativeChange', newRelativeChange)
-
-    console.log(`Updating stocks for user ${email}`)
-
-    return updatedStocks
+    return `Updating stocks for user ${email}`
   } catch (error) {
-    console.log(error)
+    return `Failed updating stocks for user ${email} ${JSON.stringify(error)}`
   }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
@@ -11,6 +11,7 @@ import { LoadingSpinner } from '../LoadingSpinner'
 interface Props {
   stocks: StockInterface[]
   orderDropdownValue: string
+  stocksLoaded: boolean
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
@@ -19,38 +20,14 @@ interface Props {
 export const Stocks: React.FC<Props> = ({
   stocks,
   orderDropdownValue,
+  stocksLoaded,
   setOrderDropdownValue,
   setStocks,
   setError
 }) => {
   const [searchKey, setSearchKey] = useState('')
-  const [stocksLoaded, setStocksLoaded] = useState(false)
 
   const { user } = useUser()
-
-  useEffect(() => {
-    fetch('/api/stocks', {
-      method: 'POST',
-      body: JSON.stringify({ email: user?.email })
-    })
-      .then(handleErrors)
-      .then(response => response.json())
-      .then(returnedStocks => {
-        formatStocks(returnedStocks)
-
-        setOrderDropdownValue('NEWEST')
-        sortStocks('NEWEST', returnedStocks)
-
-        setStocks(returnedStocks)
-        setStocksLoaded(true)
-      })
-      .catch(e => {
-        setStocks([])
-        setStocksLoaded(true)
-        setError(e)
-      }
-      )
-  }, [])
 
   function deleteStock (ticker: string) {
     // hit the endpoint and write to db
@@ -122,7 +99,7 @@ export const Stocks: React.FC<Props> = ({
               />
               <input
                 onChange={(e) => { setSearchKey(e.target.value) }}
-                className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+                className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
                 type="text"
                 placeholder='Search...' />
             </div>

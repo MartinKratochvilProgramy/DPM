@@ -102,8 +102,8 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
     <Modal
       open={open}
       onClose={() => { handleModalClose() }}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
+      aria-labelledby="stock-chart-modal"
+      aria-describedby="show-detailed-stock-chart"
     >
       <div className='bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl overflow-hidden w-10/12 md:w-8/12 border-solid border-[1px] border-blue-500 dark:border-gray-500 h-[80vh] fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
         <div className="flex flex-col w-full h-full justify-center items-center min-h-[260px]">
