@@ -130,7 +130,7 @@ export const StockInput: React.FC<Props> = ({
           <input
             type="text"
             id="ticker-input"
-            className="bg-gray-100 w-full text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+            className="bg-gray-100 w-full rounded-l-md text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Ticker ('AAPL', 'MSFT', ... )"
             onChange={onTickerInputChange}
             value={stockTicker}
@@ -139,7 +139,7 @@ export const StockInput: React.FC<Props> = ({
           <input
             type="number"
             id="amount-input"
-            className="text-center rounded-r-md  bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+            className="text-center rounded-r-md bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Amount..."
             onChange={(e) => { onAmountInputChange(e) }}
             value={stockAmount}
