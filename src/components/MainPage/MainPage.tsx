@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, type ReactNode } from 'react'
 import Container from '../Container'
 import NetWortHistory from './NetWortHistory'
 import { StockInput } from './Stocks/StockInput'
@@ -13,6 +13,7 @@ import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { LoadingSpinner } from '../LoadingSpinner'
+import RelativeChangeHistory from './RelativeChangeHistory'
 
 const MainPage = () => {
   const [stocks, setStocks] = useState<any>([])
@@ -26,6 +27,11 @@ const MainPage = () => {
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
   const [timeScale, setTimeScale] = useState<TimeScaleInterface>('second')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
+
+  const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([])
+  const [relativeChangeValues, setRelativeChangeValues] = useState<number[]>([])
+  const [relativeChangeLoaded, setRelativeChangeLoaded] = useState(false)
+  const [relativeChangeOpen, setRelativeChangeOpen] = useState(false)
 
   const [pieOpen, setPieOpen] = useState(false)
 
@@ -100,6 +106,57 @@ const MainPage = () => {
       })
   }, [])
 
+  useEffect(() => {
+    fetch('api/relative_change', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: user?.email
+      })
+    })
+      .then(handleErrors)
+      .then(response => response.json())
+      .then((relativeChange) => {
+        let values: number[] = relativeChange.values
+        values = values.map(value => { return (value * 100 - 100) })
+        const dates: Date[] = relativeChange.dates
+
+        // do not need to set timeScale here as it is being set in api/net_worth_history call
+
+        setRelativeChangeValues(values)
+        setRelativeChangeDates(dates)
+
+        setRelativeChangeLoaded(true)
+      })
+      .catch((error) => {
+        setRelativeChangeLoaded(true)
+        setError(error)
+      })
+  }, [])
+
+  // function updateStocks () {
+  //   fetch('api/update_stocks', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify({
+  //       email: user?.email
+  //     })
+  //   })
+  //     .then(handleErrors)
+  //     .then(response => response.json())
+  //     .then((res) => {
+  //       console.log(res)
+  //     })
+  //     .catch((error) => {
+  //       setRelativeChangeLoaded(true)
+  //       setError(error)
+  //     })
+  // }
+
   return (
     <Container className='flex flex-col'>
       <StockInput
@@ -110,11 +167,9 @@ const MainPage = () => {
         setNetWorthDates={setNetWorthDates}
         setNetWorthValues={setNetWorthValues}
       />
+      {/* <button onClick={updateStocks}>Update</button> */}
       <div className='w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-4'>
-        <div
-          onClick={() => { setStocksOpen(true) }}
-          className='card-shadow aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
-        >
+        <Card setOpen={() => { setStocksOpen(true) }}>
           {stocksLoaded
             ? <Stocks
               stocks={stocks}
@@ -125,12 +180,8 @@ const MainPage = () => {
             />
             : <LoadingSpinner size={70} />
           }
-
-        </div>
-        <div
-          onClick={() => { setNetWorthHistoryOpen(true) }}
-          className='card-shadow aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
-        >
+        </Card>
+        <Card setOpen={() => { setNetWorthHistoryOpen(true) }}>
           {netWorthLoaded
             ? <NetWortHistory
               netWorthDates={netWorthDates}
@@ -139,19 +190,23 @@ const MainPage = () => {
             />
             : <LoadingSpinner size={70} />
           }
-        </div>
-        <div
-          onClick={() => { setPieOpen(true) }}
-          className='card-shadow aspect-[1.2] rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
-        >
-          <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
-        </div>
-        <div
-          onClick={() => { setPieOpen(true) }}
-          className='card-shadow aspect-[1.2] rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
-        >
-          <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
-        </div>
+        </Card>
+        <Card setOpen={() => { setPieOpen(true) }}>
+          {stocksLoaded
+            ? <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
+            : <LoadingSpinner size={70} />
+          }
+        </Card>
+        <Card setOpen={() => { setRelativeChangeOpen(true) }}>
+          {relativeChangeLoaded
+            ? <RelativeChangeHistory
+              relativeChangeDates={relativeChangeDates}
+              relativeChangeValues={relativeChangeValues}
+              timeScale={timeScale}
+            />
+            : <LoadingSpinner size={70} />
+          }
+        </Card>
       </div>
 
       <Modal
@@ -202,25 +257,46 @@ const MainPage = () => {
           </div>
         </div>
       </Modal>
+
+      <Modal
+        open={relativeChangeOpen}
+        onClose={() => { setRelativeChangeOpen(false) }}
+        aria-labelledby="stock-chart-modal"
+        aria-describedby="show-detailed-stock-chart"
+      >
+        <div>
+          <div className='fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[80vh] p-0 md:px-14 border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+            <RelativeChangeHistory
+              relativeChangeDates={relativeChangeDates}
+              relativeChangeValues={relativeChangeValues}
+              timeScale={timeScale}
+            />
+          </div>
+        </div>
+      </Modal>
     </Container>
   )
 }
 
 export default MainPage
 
-// interface ParentComponentProps {
-//   children: ReactNode
-// }
+interface CardInterface {
+  children: ReactNode
+  setOpen: () => void
+}
 
-// const GridComponent: React.FC<ParentComponentProps> = ({ children, setOpen }) => {
-//   return (
-//     <div className='card-shadow aspect-[1.2] rounded-2xl border border-blue-400 dark:border-gray-500'>
-//       {children}
-//     </div>
-//   )
-// }
+const Card: React.FC<CardInterface> = ({ children, setOpen }) => {
+  return (
+    <div
+      onClick={setOpen}
+      className='card-shadow aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
+    >
+      {children}
+    </div>
+  )
+}
 
-// const ExpandedGridComponent: React.FC<ParentComponentProps> = ({ children }) => {
+// const ExpandedCard: React.FC<ParentComponentProps> = ({ children }) => {
 //   return (
 //     <div className='bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl  aspect-[1.2] h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
 //       {children}

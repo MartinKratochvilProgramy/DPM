@@ -82,7 +82,7 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
           shape: 'line',
           color: '#2563eb'
         },
-        name: 'Total net-worth history'
+        name: 'Stock Price'
       },
       {
         x: purchasesX,
@@ -90,7 +90,7 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
         type: 'scatter',
         mode: 'markers',
         marker: { color: 'red' },
-        name: 'Total net-worth history'
+        name: 'Purchases'
       }
     ]
     return { historyData, historyLayout }

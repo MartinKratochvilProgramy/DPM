@@ -10,7 +10,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const { email } = req.body
 
   try {
-    await updateStocks(email)
+    const response = await updateStocks(email)
+    res.json({ response })
   } catch (error) {
     console.log(error)
   }

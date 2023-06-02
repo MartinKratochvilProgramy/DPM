@@ -27,7 +27,7 @@ export async function updateStocks (email: string) {
       return `Could not find stocks for ${email}`
     }
 
-    let totalNetWorth = 0
+    let newTotalNetWorth = 0
     await Promise.all(
       stocks.stocks.map(async (stock) => {
         const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stock.ticker}`)
@@ -36,7 +36,7 @@ export async function updateStocks (email: string) {
         const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
         const prevClose = parseFloat((parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2))
 
-        totalNetWorth += prevClose * stock.amount
+        newTotalNetWorth += prevClose * stock.amount
 
         // Update the prevClose value
         const updatedStock = await prisma.stock.update({
@@ -52,7 +52,7 @@ export async function updateStocks (email: string) {
       })
     )
 
-    const newNetWorth = await addNetWorth(email, totalNetWorth)
+    const newNetWorth = await addNetWorth(email, newTotalNetWorth)
     await addRelativeChange(email, newNetWorth.netWorthValues.at(-1) / newNetWorth.netWorthValues.at(-2))
 
     return `Updating stocks for user ${email}`
