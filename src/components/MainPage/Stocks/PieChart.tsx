@@ -2,14 +2,19 @@ import React from 'react'
 import { Pie } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Colors } from 'chart.js'
 import { type StockInterface } from '@/types/api/stock'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { useTheme } from 'next-themes'
 
 ChartJS.register(ArcElement, Tooltip, Legend, Colors)
 
 interface Props {
   stocks: StockInterface[]
+  stocksLoaded: boolean
 }
 
-const PieChart: React.FC<Props> = ({ stocks }) => {
+const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
+  const { theme } = useTheme()
+
   const data = {
     labels: stocks.map(stock => stock.ticker), // Assuming each stock has a label property
     datasets: [
@@ -37,13 +42,29 @@ const PieChart: React.FC<Props> = ({ stocks }) => {
     ]
   }
 
+  const darkThemeChartColor = '#9ca3af'
+  const lightThemeChartColor = '#374151'
+
   return (
     <div className='p-4 flex justify-center items-center w-full h-full'>
-      <Pie
-        width={'100%'}
-        height={'100%'}
-        data={data}
-      />
+      { stocksLoaded
+        ? <Pie
+          width={'100%'}
+          height={'100%'}
+          data={data}
+          options={{
+            plugins: {
+              legend: {
+                labels: {
+                  color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                }
+              }
+            }
+          }}
+        />
+        : <LoadingSpinner size={70} />
+
+      }
     </div>
   )
 }

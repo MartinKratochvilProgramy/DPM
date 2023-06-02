@@ -6,12 +6,10 @@ import { OrderDropDown } from './Stocks/OrderDropdown'
 import { Stock } from './Stocks/Stock'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { sortStocks } from '@/utils/client/sortStocks'
-import { LoadingSpinner } from '../LoadingSpinner'
 
 interface Props {
   stocks: StockInterface[]
   orderDropdownValue: string
-  stocksLoaded: boolean
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
@@ -20,7 +18,6 @@ interface Props {
 export const Stocks: React.FC<Props> = ({
   stocks,
   orderDropdownValue,
-  stocksLoaded,
   setOrderDropdownValue,
   setStocks,
   setError
@@ -86,43 +83,35 @@ export const Stocks: React.FC<Props> = ({
       className="flex flex-col w-full h-full px-6 pt-6 pb-2 "
       id='stocks-output'
     >
-      {
-        stocksLoaded
-          ? <>
-            <div className='flex justify-start mb-2 space-x-2'>
-              <OrderDropDown
-                values={['NEWEST', 'OLDEST', 'VALUE HIGH', 'VALUE LOW', 'CHANGE HIGH', 'CHANGE LOW', 'A-Z', 'Z-A']}
-                handleClick={handleDropdownClick}
-                theme={'dark'}
-                orderDropdownValue={orderDropdownValue}
-                setOrderDropdownValue={setOrderDropdownValue}
+      <div className='flex justify-start mb-2 space-x-2'>
+        <OrderDropDown
+          values={['NEWEST', 'OLDEST', 'VALUE HIGH', 'VALUE LOW', 'CHANGE HIGH', 'CHANGE LOW', 'A-Z', 'Z-A']}
+          handleClick={handleDropdownClick}
+          theme={'dark'}
+          orderDropdownValue={orderDropdownValue}
+          setOrderDropdownValue={setOrderDropdownValue}
+        />
+        <input
+          onChange={(e) => { setSearchKey(e.target.value) }}
+          className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          type="text"
+          placeholder='Search...' />
+      </div>
+      <div className='flex flex-col pr-2 overflow-y-auto'>
+        {stocks.map((stock: StockInterface) => {
+          if (stock.ticker.includes(searchKey.toUpperCase())) {
+            return (
+              <Stock
+                stock={stock}
+                key={stock.ticker}
+                deleteStock={deleteStock}
+                deletePurchase={deletePurchase}
               />
-              <input
-                onChange={(e) => { setSearchKey(e.target.value) }}
-                className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-                type="text"
-                placeholder='Search...' />
-            </div>
-            <div className='flex flex-col pr-2 overflow-y-auto'>
-              {stocks.map((stock: StockInterface) => {
-                if (stock.ticker.includes(searchKey.toUpperCase())) {
-                  return (
-                    <Stock
-                      stock={stock}
-                      key={stock.ticker}
-                      deleteStock={deleteStock}
-                      deletePurchase={deletePurchase}
-                    />
-                  )
-                }
-                return null
-              })}
-            </div>
-          </>
-          : <div className='flex w-full h-full items-center justify-center'>
-            <LoadingSpinner size={70} />
-          </div>
-      }
+            )
+          }
+          return null
+        })}
+      </div>
     </div>
   )
 }
