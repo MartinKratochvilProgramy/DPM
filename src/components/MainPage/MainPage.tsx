@@ -47,10 +47,9 @@ const MainPage = () => {
         setStocks(returnedStocks)
         setStocksLoaded(true)
       })
-      .catch(e => {
-        setStocks([])
+      .catch(error => {
         setStocksLoaded(true)
-        setError(e)
+        setError(error)
       }
       )
   }, [])
