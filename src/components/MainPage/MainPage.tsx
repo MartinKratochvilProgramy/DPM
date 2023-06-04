@@ -168,7 +168,7 @@ const MainPage = () => {
         setNetWorthValues={setNetWorthValues}
       />
       {/* <button onClick={updateStocks}>Update</button> */}
-      <div className='w-full grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 mt-4'>
+      <div className='w-full flex flex-wrap justify-center gap-5 mt-4'>
         <Card setOpen={() => { setStocksOpen(true) }}>
           {stocksLoaded
             ? <Stocks
@@ -194,6 +194,16 @@ const MainPage = () => {
         <Card setOpen={() => { setPieOpen(true) }}>
           {stocksLoaded
             ? <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
+            : <LoadingSpinner size={70} />
+          }
+        </Card>
+        <Card setOpen={() => { setRelativeChangeOpen(true) }}>
+          {relativeChangeLoaded
+            ? <RelativeChangeHistory
+              relativeChangeDates={relativeChangeDates}
+              relativeChangeValues={relativeChangeValues}
+              timeScale={timeScale}
+            />
             : <LoadingSpinner size={70} />
           }
         </Card>
@@ -289,7 +299,7 @@ const Card: React.FC<CardInterface> = ({ children, setOpen }) => {
   return (
     <div
       onClick={setOpen}
-      className='card-shadow aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
+      className='card-shadow w-[290px] md:w-[460px] aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
     >
       {children}
     </div>

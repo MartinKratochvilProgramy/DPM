@@ -1,31 +1,45 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, type Stock, type Stocks } from '@prisma/client'
+import { type StockInterface, type FormattedStockInterface } from './types/api/stock'
+
 const prisma = new PrismaClient()
 
-// async function createStocksWrite () {
-//   try {
-//     const createdStocks = await prisma.stocks.create({
-//       data: {
-//         email: 'martvil96@gmail.com',
-//         currency: 'CZK',
-//         stocks: {
-//           create: []
-//         }
-//       }
-//     })
+const stocks: FormattedStockInterface = {
+  ticker: 'AAPL',
+  amount: 1,
+  prevClose: 3603.1,
+  firstPurchase: new Date(),
+  lastPurchase: new Date(),
+  purchaseHistory: [
+    {}
+  ]
 
-//     return createdStocks
-//   } catch (error: any) {
-//     throw new Error(error)
-//   }
-// }
+}
 
-// createStocksWrite()
-//   .then((result) => {
-//     console.log('Stocks updated:', result)
-//   })
-//   .catch((error) => {
-//     console.error('Error updating stocks:', error)
-//   })
+async function createStocksWrite () {
+  try {
+    const createdStocks = await prisma.stocks.create({
+      data: {
+        email: 'martvil96@gmail.com',
+        currency: 'CZK',
+        stocks: {
+          create: []
+        }
+      }
+    })
+
+    return createdStocks
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+createStocksWrite()
+  .then((result) => {
+    console.log('Stocks updated:', result)
+  })
+  .catch((error) => {
+    console.error('Error updating stocks:', error)
+  })
 
 // async function createNetWorthWrite () {
 //   try {

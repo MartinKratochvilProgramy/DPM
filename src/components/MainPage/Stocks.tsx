@@ -80,7 +80,7 @@ export const Stocks: React.FC<Props> = ({
 
   return (
     <div
-      className="flex flex-col w-full h-full px-6 pt-6 pb-2 "
+      className="flex flex-col w-full h-full p-1 sm:p-6"
       id='stocks-output'
     >
       <div className='flex justify-start mb-2 space-x-2'>
@@ -93,7 +93,7 @@ export const Stocks: React.FC<Props> = ({
         />
         <input
           onChange={(e) => { setSearchKey(e.target.value) }}
-          className='w-[105px] xsm:w-[124px] shadow-sm px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+          className='w-[105px] shadow-sm px-3 py-0 sm:py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
           type="text"
           placeholder='Search...' />
       </div>

@@ -9,8 +9,8 @@ export interface FormattedStockInterface {
   ticker: string
   amount: number
   prevClose: number
-  firstPurchase: string
-  lastPurchase: string
+  firstPurchase: Date
+  lastPurchase: Date
   purchaseHistory: PurchaseInterface[]
 }
 
