@@ -41,29 +41,29 @@ createStocksWrite()
     console.error('Error updating stocks:', error)
   })
 
-// async function createNetWorthWrite () {
-//   try {
-//     const createdStocks = await prisma.netWorth.create({
-//       data: {
-//         email: 'martvil96@gmail.com',
-//         netWorthDates: [new Date()],
-//         netWorthValues: [0]
-//       }
-//     })
+async function createNetWorthWrite () {
+  try {
+    const createdStocks = await prisma.netWorth.create({
+      data: {
+        email: 'martvil96@gmail.com',
+        netWorthDates: [new Date()],
+        netWorthValues: [0]
+      }
+    })
 
-//     return createdStocks
-//   } catch (error: any) {
-//     throw new Error(error)
-//   }
-// }
+    return createdStocks
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
 
-// createNetWorthWrite()
-//   .then((result) => {
-//     console.log('Net worth updated:', result)
-//   })
-//   .catch((error) => {
-//     console.error('Error updating Net worth:', error)
-//   })
+createNetWorthWrite()
+  .then((result) => {
+    console.log('Net worth updated:', result)
+  })
+  .catch((error) => {
+    console.error('Error updating Net worth:', error)
+  })
 
 // async function createTotalInvestedWrite () {
 //   try {
