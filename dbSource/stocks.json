@@ -4,39 +4,137 @@
         "currency": "CZK",
         "stocks": [
             {
-                "ticker": "AAPL",
-                "amount": 1,
-                "prevClose": 3603.41
+              "ticker": "META",
+              "amount": 4,
+              "prevClose": 5985.43,
+              "purchases": [
+                {
+                  "date": "2022-10-20",
+                  "amount": 4,
+                  "price": 3343.34
+                }
+              ]
             },
             {
-                "ticker": "MSFT",
-                "amount": 1,
-                "prevClose": 5927.37
-            }
-        ],
-        "purchaseHistory": [
-            {
-                "ticker": "AAPL",
-                "purchases": [
-                    {
-                        "date": "2022-10-20",
-                        "amount": 1,
-                        "currentPrice": 3603.41,
-                        "totalAmount": 3603.41
-                    }
-                ]
+              "ticker": "CEZ.PR",
+              "amount": 45,
+              "prevClose": 1000,
+              "_id": {
+                "$oid": "63510a6a75c9ade2f0814648"
+              }
             },
             {
-                "ticker": "MSFT",
-                "purchases": [
-                    {
-                        "date": "2022-10-20",
-                        "amount": 1,
-                        "currentPrice": 5927.37,
-                        "totalAmount": 5927.37
-                    }
-                ]
+              "ticker": "AAPL",
+              "amount": 14,
+              "prevClose": 3954.06,
+              "_id": {
+                "$oid": "63510a8775c9ade2f0814659"
+              }
+            },
+            {
+              "ticker": "ERBAG.PR",
+              "amount": 42,
+              "prevClose": 726.6,
+              "_id": {
+                "$oid": "63510a8d75c9ade2f081466e"
+              }
+            },
+            {
+              "ticker": "MSFT",
+              "amount": 9,
+              "prevClose": 7302.13,
+              "_id": {
+                "$oid": "63510a9275c9ade2f0814687"
+              }
+            },
+            {
+              "ticker": "VOW.DE",
+              "amount": 4,
+              "prevClose": 3382.81,
+              "_id": {
+                "$oid": "63510b38f1c3bbf86158396a"
+              }
+            },
+            {
+              "ticker": "INTC",
+              "amount": 10,
+              "prevClose": 683.49,
+              "_id": {
+                "$oid": "63510b5da38f2bbe9a2c92d3"
+              }
+            },
+            {
+              "ticker": "KO",
+              "amount": 18,
+              "prevClose": 1317.36,
+              "_id": {
+                "$oid": "63510b61a38f2bbe9a2c92f8"
+              }
+            },
+            {
+              "ticker": "TABAK.PR",
+              "amount": 1,
+              "prevClose": 16760,
+              "_id": {
+                "$oid": "63510b6aa38f2bbe9a2c9321"
+              }
+            },
+            {
+              "ticker": "NVDA",
+              "amount": 5,
+              "prevClose": 8731.9,
+              "_id": {
+                "$oid": "63510b70a38f2bbe9a2c934e"
+              }
+            },
+            {
+              "ticker": "BRK-B",
+              "amount": 4,
+              "prevClose": 7094.42,
+              "_id": {
+                "$oid": "63510b7ea38f2bbe9a2c937f"
+              }
+            },
+            {
+              "ticker": "AMD",
+              "amount": 6,
+              "prevClose": 2623.08,
+              "_id": {
+                "$oid": "63510b82a38f2bbe9a2c93b4"
+              }
+            },
+            {
+              "ticker": "CSPX.L",
+              "amount": 18,
+              "prevClose": 9614.09,
+              "_id": {
+                "$oid": "63510b8aa38f2bbe9a2c93ed"
+              }
+            },
+            {
+              "ticker": "MONET.PR",
+              "amount": 434,
+              "prevClose": 79,
+              "_id": {
+                "$oid": "63510b91a38f2bbe9a2c942a"
+              }
+            },
+            {
+              "ticker": "KOMB.PR",
+              "amount": 52,
+              "prevClose": 659,
+              "_id": {
+                "$oid": "63510b99a38f2bbe9a2c946b"
+              }
+            },
+            {
+              "ticker": "VWCE.DE",
+              "amount": 134,
+              "prevClose": 2316.94,
+              "_id": {
+                "$oid": "63972a8bc497dac76ff0b617"
+              }
             }
-        ]
+          ]
     }
 ]

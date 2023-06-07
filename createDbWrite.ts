@@ -1,19 +1,6 @@
-import { PrismaClient, type Stock, type Stocks } from '@prisma/client'
-import { type StockInterface, type FormattedStockInterface } from './types/api/stock'
+import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
-
-const stocks: FormattedStockInterface = {
-  ticker: 'AAPL',
-  amount: 1,
-  prevClose: 3603.1,
-  firstPurchase: new Date(),
-  lastPurchase: new Date(),
-  purchaseHistory: [
-    {}
-  ]
-
-}
 
 async function createStocksWrite () {
   try {
