@@ -20,9 +20,7 @@ export const MyApp: React.FC<Props> = ({ Component, pageProps }) => {
       <UserProvider>
         <ThemeProvider attribute='class' defaultTheme='light'>
           <Navbar />
-          <div className='min-h-[110vh]'>
-            <Component {...pageProps} />
-          </div>
+          <Component {...pageProps} />
         </ThemeProvider>
       </UserProvider>
     </>
