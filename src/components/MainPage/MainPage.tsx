@@ -26,7 +26,7 @@ const MainPage = () => {
   const [netWorthDates, setNetWorthDates] = useState<Date[]>([])
   const [netWorthValues, setNetWorthValues] = useState<number[]>([])
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
-  const [timeScale, setTimeScale] = useState<TimeScaleInterface>('second')
+  const [timeScale, setTimeScale] = useState<TimeScaleInterface>('month')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
 
   const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([])
@@ -280,7 +280,7 @@ const MainPage = () => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
@@ -310,7 +310,7 @@ const MainPage = () => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <RelativeChangeHistory
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
@@ -327,7 +327,7 @@ const MainPage = () => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <TotalInvestedHistory
               totalInvestedDates={totalInvestedDates}
               totalInvestedValues={totalInvestedValues}
