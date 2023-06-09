@@ -1,6 +1,8 @@
+import prisma from '@/lib/prisma'
+
 export async function incrementNetWorth (email: string, incrementValue: number) {
   // increase last net worth history if is the same date
-  // else create new write new
+  // else create new write
   // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
 
   const netWorth = await prisma.netWorth.findUnique({

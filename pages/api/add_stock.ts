@@ -38,7 +38,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if (newStocks === null || newStocks === undefined) {
       res.json(await getUserStocks(email))
     } else {
-      res.json({ stocks: newStocks.stocks, netWorth: newNetWorth })
+      res.json({ stocks: newStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
     }
   } catch (error) {
     console.log(error)

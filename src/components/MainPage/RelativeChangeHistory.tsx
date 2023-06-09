@@ -116,7 +116,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
         chartInstanceRef.current.destroy()
       }
     }
-  }, [])
+  }, [relativeChangeDates, relativeChangeValues])
 
   let lastValue: number
   if (relativeChangeValues.at(-1) === undefined) {
@@ -134,7 +134,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
           <span className='w-full h-full flex justify-center pt-1 items-centertext-sm md:text-2xl'>%</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
-          <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
+          <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
         </div>
       </div>
     </div>

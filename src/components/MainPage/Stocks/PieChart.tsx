@@ -19,7 +19,6 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
     labels: stocks.map(stock => stock.ticker), // Assuming each stock has a label property
     datasets: [
       {
-        label: '# of Votes',
         data: stocks.map(stock => stock.amount * stock.prevClose),
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',

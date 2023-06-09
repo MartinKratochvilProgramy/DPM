@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma'
 import { type StockInterface } from '@/types/api/stock'
 import { incrementNetWorth } from './incrementNetWorth'
-import { addTotalInvested } from './addTotalInvested'
+import { incrementTotalInvested } from './incrementTotalInvested'
 
 export async function addStock (newStock: StockInterface, email: string) {
   const existingStocks = await prisma.stocks.findUnique({
@@ -98,7 +98,7 @@ export async function addStock (newStock: StockInterface, email: string) {
   }
 
   const newNetWorth = await incrementNetWorth(email, newStock.prevClose * newStock.amount)
-  const newTotalInvested = await addTotalInvested(email, newStock.prevClose * newStock.amount)
+  const newTotalInvested = await incrementTotalInvested(email, newStock.prevClose * newStock.amount)
 
   await prisma.$disconnect()
   return { newStocks, newNetWorth, newTotalInvested }

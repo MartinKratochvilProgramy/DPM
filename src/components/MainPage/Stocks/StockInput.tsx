@@ -14,6 +14,8 @@ interface Props {
   setError: (error: string) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
+  setTotalInvestedDates: (totalInvestedDates: Date[]) => void
+  setTotalInvestedValues: (totalInvestedValues: number[]) => void
 }
 
 interface Stock {
@@ -27,7 +29,9 @@ export const StockInput: React.FC<Props> = ({
   error,
   setError,
   setNetWorthDates,
-  setNetWorthValues
+  setNetWorthValues,
+  setTotalInvestedDates,
+  setTotalInvestedValues
 }) => {
   const [stockTicker, setStockTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
@@ -56,6 +60,9 @@ export const StockInput: React.FC<Props> = ({
       .then((res) => {
         setNetWorthDates(res.netWorth.netWorthDates)
         setNetWorthValues(res.netWorth.netWorthValues)
+
+        setTotalInvestedDates(res.totalInvested.totalInvestedDates)
+        setTotalInvestedValues(res.totalInvested.totalInvestedValues)
 
         const stocks = res.stocks
 

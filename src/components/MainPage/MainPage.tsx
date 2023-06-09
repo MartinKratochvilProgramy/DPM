@@ -201,6 +201,8 @@ const MainPage = () => {
         setError={setError}
         setNetWorthDates={setNetWorthDates}
         setNetWorthValues={setNetWorthValues}
+        setTotalInvestedDates={setTotalInvestedDates}
+        setTotalInvestedValues={setTotalInvestedValues}
       />
       {/* <button onClick={updateStocks}>Update</button> */}
       <div className='w-full flex flex-wrap justify-center gap-5 mt-4'>

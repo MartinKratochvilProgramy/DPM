@@ -114,7 +114,7 @@ const NetWortHistory: React.FC<Props> = ({
         chartInstanceRef.current.destroy()
       }
     }
-  }, [])
+  }, [netWorthDates, netWorthValues])
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
@@ -123,7 +123,7 @@ const NetWortHistory: React.FC<Props> = ({
           {numberWithSpaces(netWorthValues[netWorthValues.length - 1])} <span className='text-sm md:text-2xl'>{user?.currency}</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
-          <canvas ref={chartRef} style={{ width: '100%', height: '100%' }}></canvas>
+          <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
         </div>
       </div>
     </div>
