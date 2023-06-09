@@ -214,6 +214,10 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
+              setNetWorthDates={setNetWorthDates}
+              setNetWorthValues={setNetWorthValues}
+              setTotalInvestedDates={setTotalInvestedDates}
+              setTotalInvestedValues={setTotalInvestedValues}
             />
             : <LoadingSpinner size={70} />
           }
@@ -270,6 +274,10 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
+              setNetWorthDates={setNetWorthDates}
+              setNetWorthValues={setNetWorthValues}
+              setTotalInvestedDates={setTotalInvestedDates}
+              setTotalInvestedValues={setTotalInvestedValues}
             />
           </div>
         </div>

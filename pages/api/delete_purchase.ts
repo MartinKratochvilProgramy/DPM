@@ -1,21 +1,27 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
-// import { getUserStocks } from '@/utils/api/getUserStocks'
-// import { updateStocks } from '@/utils/api/updateStocks'
+import { updateStocks } from '@/utils/api/updateStocks'
+import { addNetWorth } from '@/utils/api/addNetWorth'
+import { incrementTotalInvested } from '@/utils/api/incrementTotalInvested'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   // remove stock from db
 
-  const { email, ticker, purchaseId } = req.body
-
-  const purchase = await prisma.purchase.findUnique({
-    where: {
-      id: purchaseId
-    }
-  })
-
   try {
-    const newStocks = await prisma.stocks.update({
+    const { email, ticker, purchaseId } = req.body
+
+    const purchase = await prisma.purchase.findUnique({
+      where: {
+        id: purchaseId
+      }
+    })
+
+    if (purchase === null) {
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      throw new Error(`Purchase not found: ${email} ${ticker} ${purchaseId}`)
+    }
+
+    const updatedStocks = await prisma.stocks.update({
       where: {
         email
       },
@@ -47,11 +53,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
-    // await updateStocks(username)
+    const newTotalNetWorth = await updateStocks(email)
+    const newNetWorth = await addNetWorth(email, newTotalNetWorth)
+    const newTotalInvested = await incrementTotalInvested(email, -purchase?.amount * purchase?.price)
 
-    res.json(newStocks.stocks)
+    res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     console.log(error)
   }
-  await prisma.$disconnect()
 };

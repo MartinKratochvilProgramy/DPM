@@ -13,6 +13,10 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
+  setNetWorthDates: (netWorthDates: Date[]) => void
+  setNetWorthValues: (netWorthValues: number[]) => void
+  setTotalInvestedDates: (totalInvestedDates: Date[]) => void
+  setTotalInvestedValues: (totalInvestedValues: number[]) => void
 }
 
 export const Stocks: React.FC<Props> = ({
@@ -20,7 +24,11 @@ export const Stocks: React.FC<Props> = ({
   orderDropdownValue,
   setOrderDropdownValue,
   setStocks,
-  setError
+  setError,
+  setNetWorthDates,
+  setNetWorthValues,
+  setTotalInvestedDates,
+  setTotalInvestedValues
 }) => {
   const [searchKey, setSearchKey] = useState('')
 
@@ -40,7 +48,17 @@ export const Stocks: React.FC<Props> = ({
     })
       .then(handleErrors)
       .then((response) => response.json())
-      .then((stocks) => {
+      .then((res) => {
+        const stocks = res.stocks
+        const netWorth = res.netWorth
+        const totalInvested = res.totalInvested
+
+        setNetWorthDates(netWorth.netWorthDates)
+        setNetWorthValues(netWorth.netWorthValues)
+
+        setTotalInvestedDates(totalInvested.totalInvestedDates)
+        setTotalInvestedValues(totalInvested.totalInvestedValues)
+
         formatStocks(stocks)
         setStocks(stocks)
       })
@@ -64,7 +82,17 @@ export const Stocks: React.FC<Props> = ({
     })
       .then(handleErrors)
       .then((response) => response.json())
-      .then((stocks) => {
+      .then((res) => {
+        const stocks = res.stocks
+        const netWorth = res.netWorth
+        const totalInvested = res.totalInvested
+
+        setNetWorthDates(netWorth.netWorthDates)
+        setNetWorthValues(netWorth.netWorthValues)
+
+        setTotalInvestedDates(totalInvested.totalInvestedDates)
+        setTotalInvestedValues(totalInvested.totalInvestedValues)
+
         formatStocks(stocks)
         setStocks(stocks)
       })

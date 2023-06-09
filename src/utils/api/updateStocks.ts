@@ -1,13 +1,12 @@
 import fetch from 'node-fetch'
 import prisma from '@/lib/prisma'
 import { getConversionRate } from '../client/getConversionRate'
-import { addNetWorth } from './addNetWorth'
-import { addRelativeChange } from './addRelativeChange'
 
 export async function updateStocks (email: string) {
   // loop through all user's stocks and update prev close
   // calculate total net worth and push it to netWorthHistory
   // calculate relative change in net worth and push it to relativeChangeHistory
+  // returns new total net worth value
 
   try {
     const stocks = await prisma.stocks.findUnique({
@@ -24,7 +23,7 @@ export async function updateStocks (email: string) {
     })
 
     if (stocks === null) {
-      return `Could not find stocks for ${email}`
+      throw new Error(`Could not find stocks for user ${email}`)
     }
 
     let newTotalNetWorth = 0
@@ -52,11 +51,8 @@ export async function updateStocks (email: string) {
       })
     )
 
-    const newNetWorth = await addNetWorth(email, newTotalNetWorth)
-    await addRelativeChange(email, newNetWorth.netWorthValues.at(-1) / newNetWorth.netWorthValues.at(-2))
-
-    return `Updating stocks for user ${email}`
+    return newTotalNetWorth
   } catch (error) {
-    return `Failed updating stocks for user ${email} ${JSON.stringify(error)}`
+    return 0
   }
 }

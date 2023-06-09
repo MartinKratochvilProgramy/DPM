@@ -26,7 +26,7 @@ export const DeleteStockModal: React.FC<Props> = ({
     e.preventDefault()
 
     // if no purchaseID or remaining amount is 0, delete stock
-    if (purchaseId === null || currentAmount - amountToDelete <= 0) {
+    if (purchaseId === null || currentAmount - amountToDelete === 0) {
       deleteStock(ticker)
     } else {
       deletePurchase(ticker, purchaseId)
