@@ -472,8 +472,8 @@ async function createRelativeChangeWrite () {
 
 createRelativeChangeWrite()
   .then((result) => {
-    console.log('Total invested updated:', result)
+    console.log('Relative change invested updated:', result)
   })
   .catch((error) => {
-    console.error('Error updating Total invested:', error)
+    console.error('Error updating relative change invested:', error)
   })

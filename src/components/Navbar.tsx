@@ -25,7 +25,7 @@ export const Navbar = () => {
     >
       <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-4'>
         <div className='pb-[2px]'>
-          {user?.name} {String(user?.currency)}
+          {user?.name}
         </div>
         <div className='bg-gray-900 dark:text-gray-100'
           onClick={toggleTheme}>

@@ -4,7 +4,6 @@ import NetWortHistory from './NetWortHistory'
 import { StockInput } from './Stocks/StockInput'
 import { Stocks } from './Stocks'
 import PieChart from './Stocks/PieChart'
-import { Modal } from '@mui/material'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
@@ -13,11 +12,13 @@ import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { LoadingSpinner } from '../LoadingSpinner'
 import RelativeChangeHistory from './RelativeChangeHistory'
 import TotalInvestedHistory from './TotalInvestedHistory'
+import { Modal } from '@mui/material'
+import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
 
 const MainPage = () => {
-  const [stocks, setStocks] = useState<any>([])
+  const [stocks, setStocks] = useState<any[]>([])
   const [stocksLoaded, setStocksLoaded] = useState(false)
   const [error, setError] = useState<string>('')
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST')
@@ -42,6 +43,9 @@ const MainPage = () => {
   const [totalInvestedOpen, setTotalInvestedOpen] = useState(false)
 
   const { user } = useUser()
+
+  // if user has not selected currency, open modal to let him choose
+  const [currencyModalOpen, setCurrencyModalOpen] = useState(user?.currency === undefined)
 
   useEffect(() => {
     fetch('/api/stocks', {
@@ -346,6 +350,18 @@ const MainPage = () => {
           </div>
         </div>
       </Modal>
+
+      <Modal
+        open={currencyModalOpen}
+        onClose={() => { }}
+        aria-labelledby="set-currency-modal"
+        aria-describedby="show-currency-select-modal"
+      >
+        <div>
+          <CurrencySelect setCurrencyModalOpen={setCurrencyModalOpen} />
+        </div>
+      </Modal>
+
     </Container>
   )
 }
@@ -361,7 +377,7 @@ const Card: React.FC<CardInterface> = ({ children, setOpen }) => {
   return (
     <div
       onClick={setOpen}
-      className='card-shadow hover:bg-opacity-10 dark:hover:bg-opacity-5 hover:bg-red-100 w-[290px] md:w-[460px] aspect-[1.2] flex items-center justify-center rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
+      className='card-shadow hover:bg-opacity-10 dark:hover:bg-opacity-[0.02] hover:bg-red-100 w-[290px] md:w-[460px] aspect-[1.2] flex items-center justify-center rounded-md sm:rounded-2xl border border-blue-400 dark:border-gray-500 cursor-pointer'
     >
       {children}
     </div>

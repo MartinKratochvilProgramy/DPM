@@ -1,3 +1,12 @@
-import { relativeChangeParsed } from './dbSource/relativeChangeParsed'
+import prisma from './lib/prisma'
 
-console.log(relativeChangeParsed[0])
+async function main () {
+  const stocks = await prisma.stocks.findMany({
+    where: {
+      email: 'martvil96@gmail.com'
+    }
+  })
+  console.log(stocks)
+}
+
+main().catch()

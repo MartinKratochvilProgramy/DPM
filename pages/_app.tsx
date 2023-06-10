@@ -1,10 +1,10 @@
 
 import React from 'react'
-import '../src/app/globals.css'
 import { Navbar } from '@/components/Navbar'
 import { ThemeProvider } from 'next-themes'
 import { UserProvider } from '@auth0/nextjs-auth0/client'
 import Head from 'next/head'
+import '../src/app/globals.css'
 
 interface Props {
   Component: any
