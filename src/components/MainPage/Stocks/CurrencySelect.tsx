@@ -1,20 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import '../../../app/globals.css'
 import { useTheme } from 'next-themes'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { handleErrors } from '@/utils/client/handleErrors'
+import { CurrencyContext } from '@/pages/_app'
 
-interface Props {
-  setCurrencyModalOpen: (currencyModalOpen: boolean) => void
-}
-
-export const CurrencySelect: React.FC<Props> = ({ setCurrencyModalOpen }) => {
+export const CurrencySelect = () => {
   const [selectedCurrency, setSelectedCurrency] = useState('')
 
   const { user } = useUser()
   const { theme } = useTheme()
+  const { setCurrency } = useContext(CurrencyContext)
 
   const selectTheme = createTheme({
     palette: { mode: theme === 'dark' ? 'dark' : 'light' }
@@ -27,15 +25,14 @@ export const CurrencySelect: React.FC<Props> = ({ setCurrencyModalOpen }) => {
   function selectCurrency () {
     if (selectedCurrency === '') return
 
-    fetch('api/select_currency', {
+    fetch('api/set_currency', {
       method: 'POST',
       body: JSON.stringify({ email: user?.email, selectedCurrency })
     })
       .then(handleErrors)
       .then((response: any) => response.json())
       .then(res => {
-        console.log(res)
-        setCurrencyModalOpen(false)
+        setCurrency(res.selectedCurrency)
       })
       .catch(error => {
         console.log(error)

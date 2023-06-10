@@ -1,4 +1,4 @@
-import React, { useState, useEffect, type ReactNode } from 'react'
+import React, { useState, useEffect, type ReactNode, useContext } from 'react'
 import Container from '../Container'
 import NetWortHistory from './NetWortHistory'
 import { StockInput } from './Stocks/StockInput'
@@ -16,6 +16,7 @@ import { Modal } from '@mui/material'
 import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
+import { CurrencyContext } from '@/pages/_app'
 
 const MainPage = () => {
   const [stocks, setStocks] = useState<any[]>([])
@@ -43,9 +44,7 @@ const MainPage = () => {
   const [totalInvestedOpen, setTotalInvestedOpen] = useState(false)
 
   const { user } = useUser()
-
-  // if user has not selected currency, open modal to let him choose
-  const [currencyModalOpen, setCurrencyModalOpen] = useState(user?.currency === undefined)
+  const { currency } = useContext(CurrencyContext)
 
   useEffect(() => {
     fetch('/api/stocks', {
@@ -352,13 +351,13 @@ const MainPage = () => {
       </Modal>
 
       <Modal
-        open={currencyModalOpen}
+        open={currency === undefined}
         onClose={() => { }}
         aria-labelledby="set-currency-modal"
         aria-describedby="show-currency-select-modal"
       >
         <div>
-          <CurrencySelect setCurrencyModalOpen={setCurrencyModalOpen} />
+          <CurrencySelect />
         </div>
       </Modal>
 
@@ -383,11 +382,3 @@ const Card: React.FC<CardInterface> = ({ children, setOpen }) => {
     </div>
   )
 }
-
-// const ExpandedCard: React.FC<ParentComponentProps> = ({ children }) => {
-//   return (
-//     <div className='bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl  aspect-[1.2] h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
-//       {children}
-//     </div>
-//   )
-// }
