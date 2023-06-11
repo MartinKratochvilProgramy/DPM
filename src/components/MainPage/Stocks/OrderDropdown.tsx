@@ -32,52 +32,50 @@ export const OrderDropDown: React.FC<Props> = ({
   const themeStyles = theme === 'light' ? 'text-black bg-white bg-gray-100' : 'text-white bg-blue-600 hover:bg-blue-700 hover:text-white active:bg-blue-800'
 
   return (
-    <>
-      <button
-        id="dropdownDefault"
-        onClick={(e) => { handleDropdownClick(e) }}
-        data-dropdown-toggle="dropdown"
-        className={`relative flex flex-row min-w-[100px] border border-solid border-blue-600 justify-center items-center py-1 px-3 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-sm hover:shadow-md transition duration-150 ease-in-out ${themeStyles}`}
-        type="button">
-        {dropdownState}
-        <svg
-          className="ml-2 w-4 h-4"
-          aria-hidden="true"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 9l-7 7-7-7">
-          </path>
-        </svg>
+    <button
+      id="dropdownDefault"
+      onClick={(e) => { handleDropdownClick(e) }}
+      data-dropdown-toggle="dropdown"
+      className={`relative flex flex-row min-w-[100px] border border-solid border-blue-600 justify-center items-center py-1 px-3 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-sm hover:shadow-md transition duration-150 ease-in-out ${themeStyles}`}
+      type="button">
+      {dropdownState}
+      <svg
+        className="ml-2 w-4 h-4"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d="M19 9l-7 7-7-7">
+        </path>
+      </svg>
 
-        <div
-          id="dropdown"
-          className="z-10 absolute mt-2 top-[100%] left-0 w-full bg-white rounded-[3px] divide-y divide-gray-100 shadow-2xl"
-          style={displayStyle}
-        >
-          <ul className="text-[12px] xsm:text-xs text-gray-700" aria-labelledby="dropdownDefault">
-            {values.map((value: string) => {
-              return (
-                <li
-                  key={value}
-                  onClick={() => {
-                    handleClick(value)
-                    setDropdownState(value)
-                  }}
-                  className="border-b block py-2 hover:bg-gray-100"
-                >
-                  {value}
-                </li>
-              )
-            })}
-          </ul>
-        </div>
-      </button>
-    </>
+      <div
+        id="dropdown"
+        className="absolute mt-2 top-[100%] left-0 w-full bg-white rounded-[3px] divide-y divide-gray-100 shadow-2xl"
+        style={displayStyle}
+      >
+        <ul className="text-[12px] xsm:text-xs text-gray-700" aria-labelledby="dropdownDefault">
+          {values.map((value: string) => {
+            return (
+              <li
+                key={value}
+                onClick={() => {
+                  handleClick(value)
+                  setDropdownState(value)
+                }}
+                className="border-b block py-2 hover:bg-gray-100"
+              >
+                {value}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+    </button>
   )
 }

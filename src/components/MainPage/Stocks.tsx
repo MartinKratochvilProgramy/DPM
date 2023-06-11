@@ -106,6 +106,8 @@ export const Stocks: React.FC<Props> = ({
     setOrderDropdownValue(value)
   }
 
+  if (stocks.length === 0) return null
+
   return (
     <div
       className="flex flex-col w-full h-full p-1 sm:p-6"

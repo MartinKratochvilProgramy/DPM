@@ -22,9 +22,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       return
     }
 
-    // current price of stock in set currency
     const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, settingsCurrency)
 
+    // current price of stock in set currency
     const prevClose = parseFloat((stockInfoJson.chart.result[0].meta.regularMarketPrice * conversionRate).toFixed(2))
 
     const newStock: StockInterface = {

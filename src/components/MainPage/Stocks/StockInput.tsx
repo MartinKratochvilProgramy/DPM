@@ -6,6 +6,7 @@ import { sortStocks } from '@/utils/client/sortStocks'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import '../../../app/globals.css'
+import TickerHint from './TickerHint'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void
@@ -18,9 +19,14 @@ interface Props {
   setTotalInvestedValues: (totalInvestedValues: number[]) => void
 }
 
-interface Stock {
+interface StockI {
   ticker: string
   amount: number
+}
+
+export interface TickerHintI {
+  symbol: string
+  name: string
 }
 
 export const StockInput: React.FC<Props> = ({
@@ -33,14 +39,16 @@ export const StockInput: React.FC<Props> = ({
   setTotalInvestedDates,
   setTotalInvestedValues
 }) => {
-  const [stockTicker, setStockTicker] = useState('')
+  const [selectedTicker, setSelectedTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
   const [fetchingData, setFetchingData] = useState(false)
+  const [tickerHints, setTickerHints] = useState<TickerHintI[]>([])
 
   const { user } = useUser()
 
-  function persist (newStock: Stock) {
+  function persist (newStock: StockI) {
     setFetchingData(true)
+    setTickerHints([])
 
     // hit the endpoint and write to db
     // returns the new stocks array
@@ -86,14 +94,14 @@ export const StockInput: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        ticker: 'KOMB.PR'
+        ticker: selectedTicker
       })
 
     })
       .then(handleErrors)
       .then(async response => response.json())
       .then(res => {
-        console.log(res)
+        setTickerHints(res.tickers)
       })
       .catch(e => {
         console.log(e)
@@ -105,7 +113,7 @@ export const StockInput: React.FC<Props> = ({
     e.preventDefault()
     setError('')
 
-    if (stockTicker === '') {
+    if (selectedTicker === '') {
       const tickerInput = document.getElementById('ticker-input')
       if (tickerInput === null) return
       tickerInput.classList.add('border-red-400')
@@ -121,10 +129,10 @@ export const StockInput: React.FC<Props> = ({
       amountInput.classList.remove('border-gray-300')
       return
     }
-    const newStock = { ticker: stockTicker, amount: stockAmount }
+    const newStock = { ticker: selectedTicker, amount: stockAmount }
     persist(newStock)
 
-    setStockTicker('')
+    setSelectedTicker('')
     setStockAmount(0)
   }
 
@@ -133,7 +141,13 @@ export const StockInput: React.FC<Props> = ({
     e.target.classList.remove('border-red-400')
     e.target.classList.remove('border-[1px]')
     e.target.classList.add('border-gray-300')
-    setStockTicker(e.target.value)
+    setSelectedTicker(e.target.value)
+
+    if (e.target.value.length > 1) {
+      getTickerHints()
+    } else {
+      setTickerHints([])
+    }
   }
 
   function onAmountInputChange (e: React.ChangeEvent<HTMLInputElement>) {
@@ -145,7 +159,7 @@ export const StockInput: React.FC<Props> = ({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full z-10">
       <form
         onSubmit={(e) => { addStock(e) }}
         className="flex flex-col  items-center">
@@ -153,7 +167,7 @@ export const StockInput: React.FC<Props> = ({
         <h1 className='text-3xl playfair font-semibold mb-4 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
-        <div className="relative flex rounded-md overflow-hidden border border-gray-300 bg-white flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
+        <div className="relative flex rounded-md border border-gray-300 bg-white flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
           <label htmlFor="ticker" className="sr-only">Ticker input</label>
           <input
             type="text"
@@ -161,8 +175,9 @@ export const StockInput: React.FC<Props> = ({
             className="bg-gray-100 w-full rounded-l-md text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Ticker ('AAPL', 'MSFT', ... )"
             onChange={onTickerInputChange}
-            value={stockTicker}
+            value={selectedTicker}
           />
+
           <label htmlFor="amount" className="sr-only">Amount input</label>
           <input
             type="number"
@@ -172,6 +187,15 @@ export const StockInput: React.FC<Props> = ({
             onChange={(e) => { onAmountInputChange(e) }}
             value={stockAmount}
           />
+
+          <div className='absolute left-0 bottom-0 translate-y-[100%] mt-2 rounded border border-red-200 overflow-none text-black'>
+            {tickerHints.map(tickerHint => {
+              return (
+                <TickerHint key={tickerHint.symbol} tickerHint={tickerHint} />
+              )
+            })}
+          </div>
+
         </div>
         {error.length > 0 &&
           <div className='font-semibold text-xl text-red-600'>
@@ -183,12 +207,13 @@ export const StockInput: React.FC<Props> = ({
             ? <LoadingSpinner size={32} />
             : <button
               type="submit"
-              className="relative flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-md whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+              className="flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-md whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
               Add stock
             </button>
           }
         </div>
       </form>
+
     </div>
   )
 }
