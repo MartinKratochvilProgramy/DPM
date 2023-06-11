@@ -270,7 +270,7 @@ const MainPage = () => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed max-w-[600px] left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-xl aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[80vh] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed max-w-[600px] left-1/2 top-[5vh] bottom-[5vh] transform -translate-x-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md sm:rounded-2xl w-[90vw] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <Stocks
               stocks={stocks}
               orderDropdownValue={orderDropdownValue}

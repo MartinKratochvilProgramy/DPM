@@ -154,7 +154,7 @@ export const Stock: React.FC<Props> = ({
                 )
               })}
 
-              <div className="flex w-full justify-center items-center gap-2">
+              <div className="flex w-full justify-center items-center gap-2 mt-1">
                 <OrderDropDown values={['6m', '1y', '2y', '5y']} orderDropdownValue={period} setOrderDropdownValue={setPeriod} handleClick={handleDropdownClick} theme={'light'} />
                 <button
                   onClick={(e) => { handleChartDisplay(e) }}

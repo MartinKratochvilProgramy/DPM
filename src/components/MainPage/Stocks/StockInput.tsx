@@ -4,8 +4,8 @@ import { type StockInterface } from '@/types/client/stock'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { handleErrors } from '@/utils/client/handleErrors'
-import '../../../app/globals.css'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
+import '../../../app/globals.css'
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void
@@ -79,7 +79,7 @@ export const StockInput: React.FC<Props> = ({
       })
   }
 
-  function getHint () {
+  function getTickerHints () {
     fetch('api/get_ticker_hints', {
       method: 'POST',
       headers: {
@@ -90,7 +90,8 @@ export const StockInput: React.FC<Props> = ({
       })
 
     })
-      .then(async response => await response.json())
+      .then(handleErrors)
+      .then(async response => response.json())
       .then(res => {
         console.log(res)
       })
@@ -188,11 +189,6 @@ export const StockInput: React.FC<Props> = ({
           }
         </div>
       </form>
-      <button
-        onClick={getHint}
-      >
-        Get Hint
-      </button>
     </div>
   )
 }

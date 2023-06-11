@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Transition } from '@headlessui/react'
 import Hero from './Hero'
 import Features from './Features'
+import Container from '../Container'
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false)
@@ -19,7 +20,7 @@ const LandingPage = () => {
   }, [])
 
   return (
-    <div>
+    <Container className='flex flex-wrap'>
       <Hero />
       <Transition
         show={isVisible}
@@ -32,7 +33,7 @@ const LandingPage = () => {
       >
         <Features />
       </Transition>
-    </div>
+    </Container>
   )
 }
 
