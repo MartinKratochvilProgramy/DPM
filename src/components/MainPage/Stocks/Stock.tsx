@@ -114,7 +114,7 @@ export const Stock: React.FC<Props> = ({
 
         {expanded &&
             <div className="flex flex-col items-start justify-start border-t-[1px] border-t-gray-300 dark:border-t-gray-500">
-              <div className="flex flex-row justify-start sm:justify-start w-full max-w-[400px] mt-4 px-1 dark:text-gray-100">
+              <div className="flex flex-row justify-start sm:justify-start w-full max-w-[400px] mt-4 mb-1 px-1 dark:text-gray-100">
                 <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-start">DATE</div>
                 <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">AMOUNT</div>
                 <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">PRICE</div>
