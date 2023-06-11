@@ -16,8 +16,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       return
     }
 
-    console.log(stocks)
-
     const currency = stocks.currency
 
     res.json({ currency })
