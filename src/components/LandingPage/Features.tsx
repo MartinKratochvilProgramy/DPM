@@ -46,8 +46,8 @@ const Features = () => {
 
     <Container className='flex flex-wrap justify-center'>
       <div className='flex flex-col items-center w-full space-y-8 lg:space-y-12'>
-        <h1 className='playfair flex justify-center w-full font-inter text-center text-2xl lg:text-4xl font-bold leading-snug tracking-tight text-gray-700 lg:leading-tight xl:leading-tight dark:text-gray-200'>
-                    Everything you need to keep an eye on your finances
+        <h1 className='playfair flex justify-center w-full font-inter text-center text-2xl lg:text-4xl font-bold leading-snug tracking-tight text-gray-800 lg:leading-tight xl:leading-tight dark:text-gray-200'>
+          Everything you need to keep an eye on your finances
         </h1>
         <div className='grid grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8' id='feature-cards'>
           {featuresShort.map((feature: Feature) => (

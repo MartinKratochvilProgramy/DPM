@@ -39,9 +39,12 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
   const { user } = useUser()
 
   useEffect(() => {
+    if (user?.email === undefined) return
+    console.log(user.email)
+
     fetch('/api/get_currency', {
       method: 'POST',
-      body: JSON.stringify({ email: user?.email })
+      body: JSON.stringify({ email: user.email })
     })
       .then(handleErrors)
       .then((response: any) => response.json())
@@ -52,7 +55,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
         console.error(error)
       }
       )
-  }, [])
+  }, [user])
 
   return (
     <CurrencyContext.Provider value={{ currency: currencyState, setCurrency: setCurrencyState }}>

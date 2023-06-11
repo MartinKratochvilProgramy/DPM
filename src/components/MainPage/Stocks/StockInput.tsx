@@ -79,6 +79,26 @@ export const StockInput: React.FC<Props> = ({
       })
   }
 
+  function getHint () {
+    fetch('api/get_ticker_hints', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ticker: 'KOMB.PR'
+      })
+
+    })
+      .then(async response => await response.json())
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
+
   function addStock (e: React.FormEvent<HTMLFormElement>) {
     // get stock ticker, amount and send to server
     e.preventDefault()
@@ -168,6 +188,11 @@ export const StockInput: React.FC<Props> = ({
           }
         </div>
       </form>
+      <button
+        onClick={getHint}
+      >
+        Get Hint
+      </button>
     </div>
   )
 }
