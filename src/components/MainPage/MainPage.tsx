@@ -47,7 +47,7 @@ const MainPage = () => {
   const { currency } = useContext(CurrencyContext)
 
   useEffect(() => {
-    fetch('/api/stocks', {
+    fetch('/api/portfolio/stocks', {
       method: 'POST',
       body: JSON.stringify({ email: user?.email })
     })
@@ -70,7 +70,7 @@ const MainPage = () => {
   }, [])
 
   useEffect(() => {
-    fetch('api/net_worth', {
+    fetch('api/portfolio/net_worth', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ const MainPage = () => {
   }, [])
 
   useEffect(() => {
-    fetch('api/relative_change', {
+    fetch('api/portfolio/relative_change', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -146,7 +146,7 @@ const MainPage = () => {
   }, [])
 
   useEffect(() => {
-    fetch('api/total_invested', {
+    fetch('api/portfolio/total_invested', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -202,6 +202,8 @@ const MainPage = () => {
         setOrderDropdownValue={setOrderDropdownValue}
         error={error}
         setError={setError}
+        stocksLoaded={stocksLoaded}
+        setStocksLoaded={setStocksLoaded}
         setNetWorthDates={setNetWorthDates}
         setNetWorthValues={setNetWorthValues}
         setTotalInvestedDates={setTotalInvestedDates}
@@ -217,6 +219,7 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
+              setStocksLoaded={setStocksLoaded}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}
               setTotalInvestedDates={setTotalInvestedDates}
@@ -277,6 +280,7 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
+              setStocksLoaded={setStocksLoaded}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}
               setTotalInvestedDates={setTotalInvestedDates}

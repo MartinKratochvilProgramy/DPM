@@ -42,7 +42,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
     if (user?.email === undefined) return
     console.log(user.email)
 
-    fetch('/api/get_currency', {
+    fetch('/api/user/get_currency', {
       method: 'POST',
       body: JSON.stringify({ email: user.email })
     })

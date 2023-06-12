@@ -25,7 +25,7 @@ export const CurrencySelect = () => {
   function selectCurrency () {
     if (selectedCurrency === '') return
 
-    fetch('api/set_currency', {
+    fetch('api/user/set_currency', {
       method: 'POST',
       body: JSON.stringify({ email: user?.email, selectedCurrency })
     })

@@ -13,6 +13,8 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   error: string
   setError: (error: string) => void
+  stocksLoaded: boolean
+  setStocksLoaded: (stocksLoaded: boolean) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
   setTotalInvestedDates: (totalInvestedDates: Date[]) => void
@@ -33,6 +35,8 @@ export const StockInput: React.FC<Props> = ({
   setStocks,
   setOrderDropdownValue,
   error,
+  stocksLoaded,
+  setStocksLoaded,
   setError,
   setNetWorthDates,
   setNetWorthValues,
@@ -41,18 +45,17 @@ export const StockInput: React.FC<Props> = ({
 }) => {
   const [selectedTicker, setSelectedTicker] = useState('')
   const [stockAmount, setStockAmount] = useState(0)
-  const [fetchingData, setFetchingData] = useState(false)
   const [tickerHints, setTickerHints] = useState<TickerHintI[]>([])
 
   const { user } = useUser()
 
   function persist (newStock: StockI) {
-    setFetchingData(true)
+    setStocksLoaded(true)
     setTickerHints([])
 
     // hit the endpoint and write to db
     // returns the new stocks array
-    fetch('api/add_stock', {
+    fetch('api/portfolio/add_stock', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -80,7 +83,7 @@ export const StockInput: React.FC<Props> = ({
         sortStocks('NEWEST', stocks)
 
         setStocks(stocks)
-        setFetchingData(false)
+        setStocksLoaded(false)
       })
       .catch((error) => {
         setError(error.message)
@@ -203,7 +206,7 @@ export const StockInput: React.FC<Props> = ({
           </div>
         }
         <div className='flex items-center min-h-[56px]'>
-          {fetchingData
+          {stocksLoaded
             ? <LoadingSpinner size={32} />
             : <button
               type="submit"

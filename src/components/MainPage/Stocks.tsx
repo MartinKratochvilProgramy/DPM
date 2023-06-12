@@ -13,6 +13,7 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
+  setStocksLoaded: (stocksLoaded: boolean) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
   setTotalInvestedDates: (totalInvestedDates: Date[]) => void
@@ -25,6 +26,7 @@ export const Stocks: React.FC<Props> = ({
   setOrderDropdownValue,
   setStocks,
   setError,
+  setStocksLoaded,
   setNetWorthDates,
   setNetWorthValues,
   setTotalInvestedDates,
@@ -35,8 +37,9 @@ export const Stocks: React.FC<Props> = ({
   const { user } = useUser()
 
   function deleteStock (ticker: string) {
+    setStocksLoaded(false)
     // hit the endpoint and write to db
-    fetch('api/delete_stock', {
+    fetch('api/portfolio/delete_stock', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -69,7 +72,7 @@ export const Stocks: React.FC<Props> = ({
 
   function deletePurchase (ticker: string, purchaseId: number) {
     // hit the endpoint and write to db
-    fetch('api/delete_purchase', {
+    fetch('api/portfolio/delete_purchase', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
