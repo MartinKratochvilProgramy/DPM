@@ -19,13 +19,13 @@ const Hero = () => (
           <a
             href='https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=elo1qQEI4scV6b6sK20yCHwEGz56NCb1&redirect_uri=http://localhost:3000/api/auth/callback&scope=openid%20profile%20email&screen_hint=signup'
             rel='noopener noreferrer'
-            className='flex lg:text-xl flex-row px-2 md:px-4 py-1 md:py-2 my-2 mr-1 text-gray-100 rounded-lg border-solid border-blue-600 border-[1px] bg-blue-600 font-medium text-md leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
+            className='flex lg:text-xl flex-row px-2 md:px-4 py-1 md:py-2 my-2 mr-1 text-gray-100 rounded border-solid border-blue-600 border-[1px] bg-blue-600 font-medium text-md leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
 							Create a Free Account
           </a>
           <a
             href=''
             rel='noopener noreferrer'
-            className='flex lg:text-xl flex-row px-2 md:px-4 py-1 md:py-2 my-2 mr-1 text-blue-600 rounded-lg border-solid border-blue-600 border-[1px] bg-white font-medium dark:bg-transparent dark:hover:text-gray-800 hover:bg-blue-50 dark:hover:bg-gray-300 text-md leading-snug uppercase whitespace-nowrap shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
+            className='flex lg:text-xl flex-row px-2 md:px-4 py-1 md:py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium dark:bg-transparent dark:hover:text-gray-800 hover:bg-blue-50 dark:hover:bg-gray-300 text-md leading-snug uppercase whitespace-nowrap shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
 							Try Demo
           </a>
         </div>
