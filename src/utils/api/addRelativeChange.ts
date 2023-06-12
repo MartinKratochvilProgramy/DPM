@@ -29,7 +29,7 @@ export async function addRelativeChange (email: string, newValue: number) {
         push: new Date()
       },
       relativeChangeValues: {
-        push: parseFloat((lastRelativeChange * newValue).toFixed(2))
+        push: parseFloat((lastRelativeChange * newValue).toFixed(4))
       }
     }
   })
