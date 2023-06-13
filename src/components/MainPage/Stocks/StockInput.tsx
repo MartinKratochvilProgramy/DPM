@@ -13,8 +13,8 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   error: string
   setError: (error: string) => void
-  stocksLoaded: boolean
-  setStocksLoaded: (stocksLoaded: boolean) => void
+  stocksInputLoading: boolean
+  setStocksInputLoading: (stocksInputLoading: boolean) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
   setTotalInvestedDates: (totalInvestedDates: Date[]) => void
@@ -35,8 +35,8 @@ export const StockInput: React.FC<Props> = ({
   setStocks,
   setOrderDropdownValue,
   error,
-  stocksLoaded,
-  setStocksLoaded,
+  stocksInputLoading,
+  setStocksInputLoading,
   setError,
   setNetWorthDates,
   setNetWorthValues,
@@ -50,7 +50,7 @@ export const StockInput: React.FC<Props> = ({
   const { user } = useUser()
 
   function persist (newStock: StockI) {
-    setStocksLoaded(true)
+    setStocksInputLoading(true)
     setTickerHints([])
 
     // hit the endpoint and write to db
@@ -83,7 +83,7 @@ export const StockInput: React.FC<Props> = ({
         sortStocks('NEWEST', stocks)
 
         setStocks(stocks)
-        setStocksLoaded(false)
+        setStocksInputLoading(false)
       })
       .catch((error) => {
         setError(error.message)
@@ -206,7 +206,7 @@ export const StockInput: React.FC<Props> = ({
           </div>
         }
         <div className='flex items-center min-h-[56px]'>
-          {stocksLoaded
+          {stocksInputLoading
             ? <LoadingSpinner size={32} />
             : <button
               type="submit"

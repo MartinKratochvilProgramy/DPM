@@ -19,6 +19,8 @@ import '../LandingPage/Hero.css'
 import { CurrencyContext } from '@/pages/_app'
 
 const MainPage = () => {
+  const [stocksInputLoading, setStocksInputLoading] = useState(false)
+
   const [stocks, setStocks] = useState<any[]>([])
   const [stocksLoaded, setStocksLoaded] = useState(false)
   const [error, setError] = useState<string>('')
@@ -202,8 +204,8 @@ const MainPage = () => {
         setOrderDropdownValue={setOrderDropdownValue}
         error={error}
         setError={setError}
-        stocksLoaded={stocksLoaded}
-        setStocksLoaded={setStocksLoaded}
+        stocksInputLoading={stocksInputLoading}
+        setStocksInputLoading={setStocksInputLoading}
         setNetWorthDates={setNetWorthDates}
         setNetWorthValues={setNetWorthValues}
         setTotalInvestedDates={setTotalInvestedDates}
@@ -220,6 +222,7 @@ const MainPage = () => {
               setStocks={setStocks}
               setError={setError}
               setStocksLoaded={setStocksLoaded}
+              setStocksInputLoading={setStocksInputLoading}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}
               setTotalInvestedDates={setTotalInvestedDates}
@@ -281,6 +284,7 @@ const MainPage = () => {
               setStocks={setStocks}
               setError={setError}
               setStocksLoaded={setStocksLoaded}
+              setStocksInputLoading={setStocksInputLoading}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}
               setTotalInvestedDates={setTotalInvestedDates}

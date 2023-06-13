@@ -14,6 +14,7 @@ interface Props {
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
   setStocksLoaded: (stocksLoaded: boolean) => void
+  setStocksInputLoading: (stocksInputLoading: boolean) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
   setTotalInvestedDates: (totalInvestedDates: Date[]) => void
@@ -27,6 +28,7 @@ export const Stocks: React.FC<Props> = ({
   setStocks,
   setError,
   setStocksLoaded,
+  setStocksInputLoading,
   setNetWorthDates,
   setNetWorthValues,
   setTotalInvestedDates,
@@ -38,7 +40,8 @@ export const Stocks: React.FC<Props> = ({
 
   function deleteStock (ticker: string) {
     setStocksLoaded(false)
-    // hit the endpoint and write to db
+    setStocksInputLoading(true)
+
     fetch('api/portfolio/delete_stock', {
       method: 'POST',
       headers: {
@@ -64,14 +67,22 @@ export const Stocks: React.FC<Props> = ({
 
         formatStocks(stocks)
         setStocks(stocks)
+
+        setStocksLoaded(true)
+        setStocksInputLoading(false)
       })
       .catch((error) => {
         setError(error.message)
+
+        setStocksLoaded(true)
+        setStocksInputLoading(false)
       })
   }
 
   function deletePurchase (ticker: string, purchaseId: number) {
-    // hit the endpoint and write to db
+    setStocksLoaded(false)
+    setStocksInputLoading(true)
+
     fetch('api/portfolio/delete_purchase', {
       method: 'POST',
       headers: {
@@ -98,9 +109,15 @@ export const Stocks: React.FC<Props> = ({
 
         formatStocks(stocks)
         setStocks(stocks)
+
+        setStocksLoaded(true)
+        setStocksInputLoading(false)
       })
       .catch((error) => {
         setError(error.message)
+
+        setStocksLoaded(true)
+        setStocksInputLoading(false)
       })
   }
 
