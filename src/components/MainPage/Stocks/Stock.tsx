@@ -86,7 +86,7 @@ export const Stock: React.FC<Props> = ({
   return (
     <>
       <div
-        className="bg-white dark:bg-transparent border-solid border-[1px] border-blue-400 dark:border-gray-500 rounded-md px-2 md:px-4 py-1 my-1 text-black dark:text-gray-400 font-medium text-[10px] lg:text-sm leading-snug cursor-pointer uppercase hover:shadow-lg transition duration-150 ease-in-out"
+        className="bg-white dark:hover:bg-opacity-[0.05] dark:hover:bg-red-100 dark:bg-transparent border-solid border-[1px] border-blue-400 dark:border-gray-500 rounded-md px-2 md:px-4 py-1 my-1 text-black dark:text-gray-400 font-medium text-[10px] lg:text-sm leading-snug cursor-pointer uppercase hover:shadow-lg transition duration-150 ease-in-out"
         onClick={(e) => { expand(e) }}
       >
         <div className="flex flex-row w-full items-center justify-between mb-1">
