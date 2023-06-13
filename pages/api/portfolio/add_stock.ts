@@ -17,7 +17,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     if (stockInfoJson.chart.result === undefined || stockInfoJson.chart.result === null) {
       res.status(403)
       res.json({
-        message: 'Ticker not found'
+        message: `Ticker not found: ${String(ticker)}`
       })
       return
     }
