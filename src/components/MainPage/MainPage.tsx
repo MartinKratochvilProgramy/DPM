@@ -221,7 +221,6 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
-              setStocksLoaded={setStocksLoaded}
               setStocksInputLoading={setStocksInputLoading}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}
@@ -283,7 +282,6 @@ const MainPage = () => {
               setOrderDropdownValue={setOrderDropdownValue}
               setStocks={setStocks}
               setError={setError}
-              setStocksLoaded={setStocksLoaded}
               setStocksInputLoading={setStocksInputLoading}
               setNetWorthDates={setNetWorthDates}
               setNetWorthValues={setNetWorthValues}

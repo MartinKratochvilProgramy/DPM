@@ -13,7 +13,6 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void
   setStocks: (stocks: StockInterface[]) => void
   setError: (error: string) => void
-  setStocksLoaded: (stocksLoaded: boolean) => void
   setStocksInputLoading: (stocksInputLoading: boolean) => void
   setNetWorthDates: (netWorthDates: Date[]) => void
   setNetWorthValues: (netWorthValues: number[]) => void
@@ -27,7 +26,6 @@ export const Stocks: React.FC<Props> = ({
   setOrderDropdownValue,
   setStocks,
   setError,
-  setStocksLoaded,
   setStocksInputLoading,
   setNetWorthDates,
   setNetWorthValues,
@@ -39,7 +37,6 @@ export const Stocks: React.FC<Props> = ({
   const { user } = useUser()
 
   function deleteStock (ticker: string) {
-    setStocksLoaded(false)
     setStocksInputLoading(true)
 
     fetch('api/portfolio/delete_stock', {
@@ -68,19 +65,16 @@ export const Stocks: React.FC<Props> = ({
         formatStocks(stocks)
         setStocks(stocks)
 
-        setStocksLoaded(true)
         setStocksInputLoading(false)
       })
       .catch((error) => {
         setError(error.message)
 
-        setStocksLoaded(true)
         setStocksInputLoading(false)
       })
   }
 
   function deletePurchase (ticker: string, purchaseId: number) {
-    setStocksLoaded(false)
     setStocksInputLoading(true)
 
     fetch('api/portfolio/delete_purchase', {
@@ -110,13 +104,11 @@ export const Stocks: React.FC<Props> = ({
         formatStocks(stocks)
         setStocks(stocks)
 
-        setStocksLoaded(true)
         setStocksInputLoading(false)
       })
       .catch((error) => {
         setError(error.message)
 
-        setStocksLoaded(true)
         setStocksInputLoading(false)
       })
   }
