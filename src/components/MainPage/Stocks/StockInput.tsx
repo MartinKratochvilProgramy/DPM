@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { type StockInterface } from '@/types/client/stock'
 import { formatStocks } from '@/utils/client/formatStocks'
@@ -44,10 +44,44 @@ export const StockInput: React.FC<Props> = ({
   setTotalInvestedValues
 }) => {
   const [selectedTicker, setSelectedTicker] = useState('')
+  // set fetchTickers to false when user selects ticker by clicking
+  // otherwise getTickerHints would run even when user selects ticker from list
+  // and would display the list again
+  const [fetchTickers, setFetchTickers] = useState(true)
   const [stockAmount, setStockAmount] = useState(0)
   const [tickerHints, setTickerHints] = useState<TickerHintI[]>([])
 
   const { user } = useUser()
+
+  useEffect(() => {
+    // on click close ticker hints
+    document.addEventListener('click', handleTickerHintsClose)
+
+    return () => {
+      document.removeEventListener('click', handleTickerHintsClose)
+    }
+  }, [handleTickerHintsClose])
+
+  function handleTickerHintsClose () {
+    setTickerHints([])
+  }
+
+  useEffect(() => {
+    // add delay for fetching ticker hints when user types
+
+    const msDelay = 200 // ms
+
+    if (selectedTicker.length > 1 && fetchTickers) {
+      const timeoutId = setTimeout(() => {
+        getTickerHints()
+      }, msDelay)
+
+      return () => { clearTimeout(timeoutId) }
+    } else {
+      setTickerHints([])
+      setFetchTickers(true)
+    }
+  }, [selectedTicker])
 
   function persist (newStock: StockI) {
     setStocksInputLoading(true)
@@ -107,7 +141,7 @@ export const StockInput: React.FC<Props> = ({
         setTickerHints(res.tickers)
       })
       .catch(e => {
-        console.log(e)
+        setError(e)
       })
   }
 
@@ -145,12 +179,6 @@ export const StockInput: React.FC<Props> = ({
     e.target.classList.remove('border-[1px]')
     e.target.classList.add('border-gray-300')
     setSelectedTicker(e.target.value)
-
-    if (e.target.value.length > 1) {
-      getTickerHints()
-    } else {
-      setTickerHints([])
-    }
   }
 
   function onAmountInputChange (e: React.ChangeEvent<HTMLInputElement>) {
@@ -165,19 +193,21 @@ export const StockInput: React.FC<Props> = ({
     <div className="w-full z-10">
       <form
         onSubmit={(e) => { addStock(e) }}
-        className="flex flex-col  items-center">
+        className="flex flex-col  items-center"
+      >
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
         <h1 className='text-3xl playfair font-semibold mb-4 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
-        <div className="relative flex rounded-md border border-gray-300 bg-white flex-row w-10/12 md:w-5/12 lg:w-3/12 h-full">
+        <div className="relative flex rounded-md border border-gray-300 bg-white flex-row w-10/12 md:w-5/12 lg:w-4/12 h-full">
           <label htmlFor="ticker" className="sr-only">Ticker input</label>
           <input
             type="text"
             id="ticker-input"
+            autoComplete="off"
             className="bg-gray-100 w-full rounded-l-md text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Ticker ('AAPL', 'MSFT', ... )"
-            onChange={onTickerInputChange}
+            onChange={(e) => { onTickerInputChange(e) }}
             value={selectedTicker}
           />
 
@@ -191,12 +221,21 @@ export const StockInput: React.FC<Props> = ({
             value={stockAmount}
           />
 
-          <div className='absolute left-0 bottom-0 translate-y-[100%] mt-2 rounded border border-red-200 overflow-none text-black'>
-            {tickerHints.map(tickerHint => {
-              return (
-                <TickerHint key={tickerHint.symbol} tickerHint={tickerHint} />
-              )
-            })}
+          <div className='absolute w-full pt-1 left-0 bottom-0 translate-y-[100%]  text-black'>
+            <div className='rounded bg-white overflow-hidden border-x border-x-gray-300 border-t border-t-gray-300 shadow-xl'>
+              {tickerHints.map(tickerHint => {
+                return (
+                  <TickerHint
+                    key={tickerHint.symbol}
+                    tickerHint={tickerHint}
+                    setSelectedTicker={setSelectedTicker}
+                    setTickerHints={setTickerHints}
+                    setFetchTickers={setFetchTickers}
+                  />
+                )
+              })}
+
+            </div>
           </div>
 
         </div>
