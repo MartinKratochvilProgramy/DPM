@@ -114,7 +114,7 @@ const NetWortHistory: React.FC<Props> = ({
         chartInstanceRef.current.destroy()
       }
     }
-  }, [netWorthDates, netWorthValues])
+  }, [netWorthDates, netWorthValues, theme])
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
