@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Chart, registerables
 } from 'chart.js'
@@ -20,6 +20,8 @@ const RelativeChangeHistory: React.FC<Props> = ({
   relativeChangeValues,
   timeScale
 }) => {
+  const [firstLoad, setFirstLoad] = useState(true)
+
   const { theme } = useTheme()
 
   const chartRef = useRef<HTMLCanvasElement>(null)
@@ -55,6 +57,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
 
       const chartOptions = {
         responsive: true,
+        animation: firstLoad,
         plugins: {
           legend: {
             display: true,
@@ -110,13 +113,17 @@ const RelativeChangeHistory: React.FC<Props> = ({
       })
     }
 
+    if (firstLoad) {
+      setFirstLoad(false)
+    }
+
     // Cleanup function
     return () => {
       if (chartInstanceRef.current != null) {
         chartInstanceRef.current.destroy()
       }
     }
-  }, [relativeChangeDates, relativeChangeValues])
+  }, [relativeChangeDates, relativeChangeValues, theme])
 
   let lastValue: number
   if (relativeChangeValues.at(-1) === undefined) {

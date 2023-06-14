@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import {
   Chart, registerables
 } from 'chart.js'
@@ -22,6 +22,8 @@ const NetWortHistory: React.FC<Props> = ({
   netWorthValues,
   timeScale
 }) => {
+  const [firstLoad, setFirstLoad] = useState(true)
+
   const { theme } = useTheme()
   const { currency } = useContext(CurrencyContext)
 
@@ -53,6 +55,7 @@ const NetWortHistory: React.FC<Props> = ({
 
       const chartOptions = {
         responsive: true,
+        animation: firstLoad,
         plugins: {
           legend: {
             display: true,
@@ -106,6 +109,10 @@ const NetWortHistory: React.FC<Props> = ({
         data: chartData,
         options: chartOptions
       })
+    }
+
+    if (firstLoad) {
+      setFirstLoad(false)
     }
 
     // Cleanup function

@@ -1,14 +1,13 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import {
   Chart, registerables
 } from 'chart.js'
 import 'chartjs-adapter-moment'
-import { Line } from 'react-chartjs-2'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { useTheme } from 'next-themes'
 import '../../app/globals.css'
 import { numberWithSpaces } from '@/utils/api/numberWithSpaces'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
+import { CurrencyContext } from '@/pages/_app'
 
 Chart.register(...registerables)
 
@@ -23,8 +22,11 @@ const TotalInvestedHistory: React.FC<Props> = ({
   totalInvestedValues,
   timeScale
 }) => {
+  const [firstLoad, setFirstLoad] = useState(true)
+
   const { theme } = useTheme()
-  const { user } = useUser()
+
+  const { currency } = useContext(CurrencyContext)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
   const chartInstanceRef = useRef<Chart>()
@@ -55,6 +57,7 @@ const TotalInvestedHistory: React.FC<Props> = ({
 
       const chartOptions = {
         responsive: true,
+        animation: firstLoad,
         plugins: {
           legend: {
             display: true,
@@ -110,19 +113,23 @@ const TotalInvestedHistory: React.FC<Props> = ({
       })
     }
 
+    if (firstLoad) {
+      setFirstLoad(false)
+    }
+
     // Cleanup function
     return () => {
       if (chartInstanceRef.current != null) {
         chartInstanceRef.current.destroy()
       }
     }
-  }, [totalInvestedDates, totalInvestedValues])
+  }, [totalInvestedDates, totalInvestedValues, theme])
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <div className='flex py-1 md:py-2 lg:py-4 px-4 md:px-10 lg:px-0 flex-col w-full h-full justify-center items-center'>
         <h2 className='text-xl md:text-3xl playfair font-semibold mt-2 md:mt-4 lg:mt-0 mb-4 text-gray-700 dark:text-gray-300'>
-          {numberWithSpaces(totalInvestedValues[totalInvestedValues.length - 1])} <span className='text-sm md:text-2xl'>{user?.currency}</span>
+          {numberWithSpaces(totalInvestedValues[totalInvestedValues.length - 1])} <span className='text-sm md:text-2xl'>{currency === undefined ? '' : currency}</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
           <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
