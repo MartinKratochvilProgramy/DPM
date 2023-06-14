@@ -234,7 +234,6 @@ export const StockInput: React.FC<Props> = ({
                   />
                 )
               })}
-
             </div>
           </div>
 
@@ -255,7 +254,6 @@ export const StockInput: React.FC<Props> = ({
           }
         </div>
       </form>
-
     </div>
   )
 }
