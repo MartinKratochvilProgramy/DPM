@@ -12,14 +12,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     })
 
     if (stocks === null) {
-      res.status(404).json({ message: 'User not found' })
-      return
+      res.json({ currency: undefined })
+    } else {
+      res.json({ currency: stocks.currency })
     }
-
-    const currency = stocks.currency
-
-    res.json({ currency })
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
   }
 };

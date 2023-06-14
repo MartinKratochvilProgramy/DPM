@@ -1,6 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { getConversionRate } from '@/utils/client/getConversionRate'
-import { getUserStocks } from '@/utils/api/getUserStocks'
 import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
@@ -35,14 +34,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const { newStocks, newNetWorth, newTotalInvested } = await addStock(newStock, email)
 
-    if (newStocks === null || newStocks === undefined) {
-      res.json(await getUserStocks(email))
-    } else {
-      res.json({ stocks: newStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
-    }
+    res.json({ stocks: newStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
-    console.log(error)
-
-    res.json(error)
+    res.status(500).json(error)
   }
 };

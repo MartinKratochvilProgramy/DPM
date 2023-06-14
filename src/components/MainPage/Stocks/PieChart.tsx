@@ -76,7 +76,7 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
   }, [stocks, theme])
 
   return (
-    <div className='w-8/12 h-8/12 flex justify-center items-center'>
+    <div className='w-9/12 h-9/12 flex justify-center items-center'>
       <canvas ref={chartRef} />
     </div>
   )

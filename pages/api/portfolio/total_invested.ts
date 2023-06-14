@@ -17,6 +17,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       res.json({ dates: [], values: [] })
     }
   } catch (error) {
-    console.log(error)
+    res.status(500).json(error)
   }
 };
