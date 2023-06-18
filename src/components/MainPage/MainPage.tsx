@@ -14,9 +14,9 @@ import RelativeChangeHistory from './RelativeChangeHistory'
 import TotalInvestedHistory from './TotalInvestedHistory'
 import { Modal } from '@mui/material'
 import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect'
+import { CurrencyContext } from '@/pages/_app'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
-import { CurrencyContext } from '@/pages/_app'
 
 const MainPage = () => {
   const [stocksInputLoading, setStocksInputLoading] = useState(false)
@@ -47,6 +47,21 @@ const MainPage = () => {
 
   const { user } = useUser()
   const { currency } = useContext(CurrencyContext)
+
+  useEffect(() => {
+    // set interval to refetch stocks
+    if (stocks.length === 0) return
+
+    const INTERVALms = 5000
+
+    const intervalId = setInterval(() => {
+      getCurrentStockPrices()
+    }, INTERVALms)
+
+    return () => {
+      clearInterval(intervalId)
+    }
+  }, [stocks])
 
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
@@ -175,6 +190,46 @@ const MainPage = () => {
         setError(error)
       })
   }, [])
+
+  function getCurrentStockPrices () {
+    fetch('api/get_current_stock_prices', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        tickers: stocks.map(({ ticker }) => ticker),
+        currency
+      })
+    })
+      .then(handleErrors)
+      .then((response) => response.json())
+      .then((res) => {
+        const newStocks = [...stocks]
+        let newNetWorth = 0
+
+        for (let i = 0; i < res.length; i++) {
+          newStocks[i].prevClose = res[i].price
+          newNetWorth += newStocks[i].prevClose * newStocks[i].amount
+        }
+        newNetWorth = parseFloat(newNetWorth.toFixed(2))
+        setStocks(newStocks)
+
+        if (netWorthDates.length > 0 && netWorthValues.length > 0) {
+          setNetWorthDates([...netWorthDates, new Date()])
+          setNetWorthValues([...netWorthValues, newNetWorth])
+        }
+
+        if (relativeChangeDates.length > 0 && relativeChangeValues.length > 0 && netWorthValues.length > 0) {
+          setRelativeChangeDates([...relativeChangeDates, new Date()])
+          const newRelativeChange = relativeChangeValues[relativeChangeValues.length - 1] * newNetWorth / netWorthValues[netWorthValues.length - 1]
+          setRelativeChangeValues([...relativeChangeValues, newRelativeChange])
+        }
+      })
+      .catch((error) => {
+        setError(error.message)
+      })
+  }
 
   // function updateStocks () {
   //   fetch('api/update_stocks', {

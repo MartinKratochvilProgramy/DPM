@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
@@ -6,7 +6,6 @@ import { OrderDropDown } from './Stocks/OrderDropdown'
 import { Stock } from './Stocks/Stock'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { sortStocks } from '@/utils/client/sortStocks'
-import { CurrencyContext } from '@/pages/_app'
 
 interface Props {
   stocks: StockInterface[]
@@ -36,36 +35,6 @@ export const Stocks: React.FC<Props> = ({
   const [searchKey, setSearchKey] = useState('')
 
   const { user } = useUser()
-  const { currency } = useContext(CurrencyContext)
-
-  useEffect(() => {
-    if (stocks.length === 0) return
-    fetch('api/get_current_stock_prices', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        tickers: stocks.map(({ ticker }) => ticker),
-        currency
-      })
-    })
-      .then(handleErrors)
-      .then((response) => response.json())
-      .then((res) => {
-        const newStocks = [...stocks]
-        let newNetWorth = 0
-
-        for (let i = 0; i < res.length; i++) {
-          newStocks[i].prevClose = res[i].price
-          newNetWorth += newStocks[i].prevClose * newStocks[i].amount
-        }
-        setStocks(newStocks)
-      })
-      .catch((error) => {
-        setError(error.message)
-      })
-  }, [])
 
   function deleteStock (ticker: string) {
     setStocksInputLoading(true)
