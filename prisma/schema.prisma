@@ -28,12 +28,12 @@ model Stock {
 }
 
 model Purchase {
-  id          Int      @id @default(autoincrement())
-  date        DateTime
-  amount      Int
-  price       Float
-  stockTicker String?
-  Stock       Stock?   @relation(fields: [stockTicker], references: [ticker])
+  id            Int        @id @default(autoincrement())
+  date          DateTime
+  amount        Int
+  price         Float
+  stockTicker   String?
+  stock         Stock?     @relation(fields: [stockTicker], references: [ticker])
 }
 
 model NetWorth {
