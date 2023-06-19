@@ -5,9 +5,9 @@ export async function incrementNetWorth (email: string, incrementValue: number) 
   // else create new write
   // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
 
-  const netWorth = await prisma.netWorth.findUnique({
+  const netWorth = await prisma.netWorth.update({
     where: {
-      email
+      userEmail: email
     }
   })
 
@@ -27,11 +27,8 @@ export async function incrementNetWorth (email: string, incrementValue: number) 
       email
     },
     data: {
-      netWorthDates: {
-        push: new Date()
-      },
-      netWorthValues: {
-        push: parseFloat((lastNetWorth + incrementValue).toFixed(2))
+      netWorth: {
+        push
       }
     }
   })
