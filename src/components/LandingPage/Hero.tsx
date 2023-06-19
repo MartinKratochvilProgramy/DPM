@@ -23,7 +23,7 @@ const Hero = () => (
 							Create a Free Account
           </a>
           <a
-            href=''
+            href='/demo'
             rel='noopener noreferrer'
             className='flex lg:text-xl flex-row px-2 md:px-4 py-1 md:py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium dark:bg-transparent dark:hover:text-gray-800 hover:bg-blue-50 dark:hover:bg-gray-300 text-md leading-snug uppercase whitespace-nowrap shadow-md hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
 							Try Demo

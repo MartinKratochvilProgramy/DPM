@@ -14,7 +14,7 @@ const index = () => {
     )
   } else {
     return (
-      <MainPage />
+      <MainPage demo={false} />
     )
   }
 }

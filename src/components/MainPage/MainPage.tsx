@@ -18,7 +18,11 @@ import { CurrencyContext } from '@/pages/_app'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
 
-const MainPage = () => {
+interface Props {
+  demo: boolean
+}
+
+const MainPage: React.FC<Props> = ({ demo }) => {
   const [stocksInputLoading, setStocksInputLoading] = useState(false)
 
   const [stocks, setStocks] = useState<any[]>([])
@@ -66,7 +70,7 @@ const MainPage = () => {
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
       method: 'POST',
-      body: JSON.stringify({ email: user?.email })
+      body: JSON.stringify({ email: demo ? 'demo' : user?.email })
     })
       .then(handleErrors)
       .then((response: any) => response.json())
@@ -93,7 +97,7 @@ const MainPage = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email
+        email: demo ? 'demo' : user?.email
       })
     })
       .then(handleErrors)
@@ -139,7 +143,7 @@ const MainPage = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email
+        email: demo ? 'demo' : user?.email
       })
     })
       .then(handleErrors)
@@ -169,7 +173,7 @@ const MainPage = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email
+        email: demo ? 'demo' : user?.email
       })
     })
       .then(handleErrors)
@@ -238,7 +242,7 @@ const MainPage = () => {
   //       'Content-Type': 'application/json'
   //     },
   //     body: JSON.stringify({
-  //       email: user?.email
+  //       email: demo ? 'demo' : user?.email
   //     })
   //   })
   //     .then(handleErrors)
@@ -255,6 +259,7 @@ const MainPage = () => {
   return (
     <Container className='flex flex-col'>
       <StockInput
+        demo={demo}
         setStocks={setStocks}
         setOrderDropdownValue={setOrderDropdownValue}
         error={error}
@@ -271,6 +276,7 @@ const MainPage = () => {
         <Card setOpen={() => { setStocksOpen(true) }}>
           {stocksLoaded
             ? <Stocks
+              demo={demo}
               stocks={stocks}
               orderDropdownValue={orderDropdownValue}
               setOrderDropdownValue={setOrderDropdownValue}
@@ -332,6 +338,7 @@ const MainPage = () => {
         <div>
           <div className='fixed max-w-[600px] left-1/2 top-[5vh] bottom-[5vh] transform -translate-x-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md w-[90vw] border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <Stocks
+              demo={demo}
               stocks={stocks}
               orderDropdownValue={orderDropdownValue}
               setOrderDropdownValue={setOrderDropdownValue}

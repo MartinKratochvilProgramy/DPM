@@ -9,6 +9,7 @@ import '../../../app/globals.css'
 import TickerHint from './TickerHint'
 
 interface Props {
+  demo: boolean
   setStocks: (stocks: StockInterface[]) => void
   setOrderDropdownValue: (orderDropdownValue: string) => void
   error: string
@@ -32,6 +33,7 @@ export interface TickerHintI {
 }
 
 export const StockInput: React.FC<Props> = ({
+  demo,
   setStocks,
   setOrderDropdownValue,
   error,
@@ -95,7 +97,7 @@ export const StockInput: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email,
+        email: demo ? 'demo' : user?.email,
         stockItems: newStock,
         settingsCurrency: 'CZK'
       })
@@ -120,6 +122,7 @@ export const StockInput: React.FC<Props> = ({
         setStocksInputLoading(false)
       })
       .catch((error) => {
+        setStocksInputLoading(false)
         setError(error.message)
       })
   }

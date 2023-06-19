@@ -8,6 +8,7 @@ import { handleErrors } from '@/utils/client/handleErrors'
 import { sortStocks } from '@/utils/client/sortStocks'
 
 interface Props {
+  demo: boolean
   stocks: StockInterface[]
   orderDropdownValue: string
   setOrderDropdownValue: (orderDropdownValue: string) => void
@@ -21,6 +22,7 @@ interface Props {
 }
 
 export const Stocks: React.FC<Props> = ({
+  demo,
   stocks,
   orderDropdownValue,
   setOrderDropdownValue,
@@ -45,7 +47,7 @@ export const Stocks: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email,
+        email: demo ? 'demo' : user?.email,
         ticker
       })
     })
@@ -83,7 +85,7 @@ export const Stocks: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: user?.email,
+        email: demo ? 'demo' : user?.email,
         ticker,
         purchaseId
       })

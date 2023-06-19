@@ -10,6 +10,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const ticker = stockItems.ticker.toUpperCase()
     const amount = stockItems.amount
 
+    if (email === 'demo') {
+      res.status(500).json('Cannot edit in demo mode')
+      return
+    }
+
     // get stocks ticker, if not exists, return
     const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${String(ticker)}`)
     const stockInfoJson: any = await stockInfo.json()
