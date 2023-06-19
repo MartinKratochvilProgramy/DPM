@@ -221,21 +221,23 @@ export const StockInput: React.FC<Props> = ({
             value={stockAmount}
           />
 
-          <div className='absolute w-full pt-1 left-0 bottom-0 translate-y-[100%]  text-black'>
-            <div className='rounded bg-white overflow-hidden border-x border-x-gray-300 border-t border-t-gray-300 shadow-xl'>
-              {tickerHints.map(tickerHint => {
-                return (
-                  <TickerHint
-                    key={tickerHint.symbol}
-                    tickerHint={tickerHint}
-                    setSelectedTicker={setSelectedTicker}
-                    setTickerHints={setTickerHints}
-                    setFetchTickers={setFetchTickers}
-                  />
-                )
-              })}
+          {tickerHints.length > 0 &&
+            <div className='absolute w-full pt-1 left-0 bottom-0 translate-y-[100%]  text-black'>
+              <div className='rounded bg-white overflow-hidden border-x border-x-gray-300 border-t border-t-gray-300 shadow-xl'>
+                {tickerHints.map(tickerHint => {
+                  return (
+                    <TickerHint
+                      key={tickerHint.symbol}
+                      tickerHint={tickerHint}
+                      setSelectedTicker={setSelectedTicker}
+                      setTickerHints={setTickerHints}
+                      setFetchTickers={setFetchTickers}
+                    />
+                  )
+                })}
+              </div>
             </div>
-          </div>
+          }
 
         </div>
         {error.length > 0 &&

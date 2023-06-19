@@ -22,7 +22,7 @@ const TickerHint: React.FC<Props> = ({
 
   return (
     <div
-      className='z-10 px-2 py-0 w-full flex flex-col bg-gray-50 hover:bg-gray-100 border-b border-b-gray-300'
+      className='z-10 px-2 py-0 w-full flex flex-col bg-gray-50 hover:bg-gray-100 border-b border-b-gray-300 cursor-pointer'
       onClick={handleTickerSelect}
     >
       <div className='font-bold'>{tickerHint.symbol}</div>
