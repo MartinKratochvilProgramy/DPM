@@ -50,7 +50,7 @@ const MainPage = () => {
 
   useEffect(() => {
     // set interval to refetch stocks
-    if (stocks.length === 0) return
+    if (stocks.length === 0 || process.env.NODE_ENV === 'development') return
 
     const INTERVALms = 5000
 
