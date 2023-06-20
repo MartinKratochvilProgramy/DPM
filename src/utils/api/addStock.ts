@@ -4,7 +4,7 @@ import { incrementNetWorth } from './incrementNetWorth'
 import { incrementTotalInvested } from './incrementTotalInvested'
 
 export async function addStock (newStock: StockInterface, email: string) {
-  const existingStocks = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email
     },
@@ -20,31 +20,38 @@ export async function addStock (newStock: StockInterface, email: string) {
     }
   })
 
-  if (existingStocks === null) {
+  if (user === null) {
     throw new Error('Stocks not found')
   }
 
-  if (existingStocks.stocks.length === 0) {
+  if (user.stocks.length === 0) {
+    console.log(user.stocks.length)
     // create new stock
-    await prisma.stock.create({
+    const newStock = await prisma.stock.create({
       data: {
-        ticker: newStock.ticker,
-        amount: newStock.amount,
-        price: newStock.price,
+        ticker: 'AAPL',
+        amount: 100,
+        price: 150.5,
         firstPurchase: new Date(),
         lastPurchase: new Date(),
-        purchases: {
-          create: [
-            {
-              date: new Date(),
-              amount: newStock.amount,
-              price: parseFloat(newStock.price.toFixed(2))
-            }
-          ]
-        },
-        userEmail: email
+        userEmail: 'user@example.com'
       }
     })
+
+    // const purchase = await prisma.purchase.create({
+    //   data: {
+    //     date: new Date(),
+    //     amount: newStock.amount,
+    //     price: newStock.price,
+    //     stock: {
+    //       connect: {
+    //         ticker: newStock.ticker,
+    //         userEmail: email
+    //       }
+    //     }
+    //   }
+    // })
+    console.log('stock', newStock)
   } else {
     // increment existing stock
     await prisma.purchase.create({

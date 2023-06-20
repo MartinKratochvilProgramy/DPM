@@ -10,7 +10,7 @@ export const formatStocks = (stocks: StockInterface[]) => {
 
     // calculate weighted average for gain of each purchase
     for (const purchase of stock.purchases) {
-      const relativeChange = (stock.prevClose / purchase.price - 1) * 100
+      const relativeChange = (stock.price / purchase.price - 1) * 100
       const totalRelativeChange = relativeChange * purchase.amount
       relativeChanges += totalRelativeChange
       amounts += purchase.amount

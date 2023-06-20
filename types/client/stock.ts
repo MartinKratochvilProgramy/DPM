@@ -12,7 +12,7 @@ export interface StockInterface {
   avgPercentageChange: number
   firstPurchase: string
   lastPurchase: string
-  prevClose: number
+  price: number
   purchases: PurchaseInterface[]
   ticker: string
 }

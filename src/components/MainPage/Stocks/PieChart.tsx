@@ -27,7 +27,7 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
         labels: stocks.map(stock => stock.ticker),
         datasets: [
           {
-            data: stocks.map(stock => stock.prevClose * stock.amount),
+            data: stocks.map(stock => stock.price * stock.amount),
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
               'rgba(54, 162, 235, 0.2)',

@@ -38,8 +38,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       price: prevClose
     }
 
-    console.log(newStock)
-
     await addStock(newStock, email)
 
     const user = await getAccount(email)

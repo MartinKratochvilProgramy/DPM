@@ -8,11 +8,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const stocks = await prisma.stock.findMany({
       where: {
         userEmail: email
+      },
+      include: {
+        purchases: true
       }
     })
 
     if (stocks !== null) {
-      res.json({ stocks })
+      res.json(stocks)
     } else {
       res.status(404)
       res.json({

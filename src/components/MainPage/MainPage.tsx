@@ -75,6 +75,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then((response: any) => response.json())
       .then(returnedStocks => {
+        console.log(returnedStocks)
+
         formatStocks(returnedStocks)
 
         setOrderDropdownValue('NEWEST')
@@ -230,8 +232,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         let newNetWorth = 0
 
         for (let i = 0; i < res.length; i++) {
-          newStocks[i].prevClose = res[i].price
-          newNetWorth += newStocks[i].prevClose * newStocks[i].amount
+          newStocks[i].price = res[i].price
+          newNetWorth += newStocks[i].price * newStocks[i].amount
         }
         newNetWorth = parseFloat(newNetWorth.toFixed(2))
         setStocks(newStocks)

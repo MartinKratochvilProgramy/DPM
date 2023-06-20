@@ -6,9 +6,6 @@ export async function createDbWrite (email: string, currency: string) {
     data: {
       email,
       currency,
-      stocks: {
-        create: []
-      },
       netWorth: {
         create: {
           date: new Date(),

@@ -10,9 +10,9 @@ export const sortStocks = (orderBy: string, stocksInput: StockInterface[]) => {
   } else if (orderBy === 'OLDEST') {
     stocksInput.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() })
   } else if (orderBy === 'VALUE HIGH') {
-    stocksInput.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount })
+    stocksInput.sort(function (a, b) { return b.price * b.amount - a.price * a.amount })
   } else if (orderBy === 'VALUE LOW') {
-    stocksInput.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount })
+    stocksInput.sort(function (a, b) { return a.price * a.amount - b.price * b.amount })
   } else if (orderBy === 'CHANGE HIGH') {
     stocksInput.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange })
   } else if (orderBy === 'CHANGE LOW') {
