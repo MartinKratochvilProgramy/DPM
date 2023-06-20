@@ -19,13 +19,22 @@ model User {
   @@map("user")
 }
 
+
+model NetWorth {
+  id            Int       @id @default(autoincrement())
+  date          DateTime
+  value         Float
+  userEmail     String?
+  user          User?    @relation(fields: [userEmail], references: [email])
+}
+
 model Stock {
   ticker        String     @unique
   amount        Float
   prevClose     Float
   firstPurchase DateTime
   lastPurchase  DateTime
-  userEmail   String?
+  userEmail     String?
   purchases     Purchase[]
   Stocks        User?    @relation(fields: [userEmail], references: [email])
 }
@@ -39,26 +48,18 @@ model Purchase {
   stock         Stock?     @relation(fields: [stockTicker], references: [ticker])
 }
 
-model NetWorth {
-  id            Int       @id @default(autoincrement())
-  date          DateTime
-  value         Float
-  userEmail     String?
-  Stocks        User?    @relation(fields: [userEmail], references: [email])
-}
-
 model RelativeChange {
   id            Int       @id @default(autoincrement())
   date          DateTime
   value         Float
-  userEmail   String?
-  Stocks        User?    @relation(fields: [userEmail], references: [email])
+  userEmail     String?
+  user          User?    @relation(fields: [userEmail], references: [email])
 }
 
 model TotalInvested {
   id            Int       @id @default(autoincrement())
   date          DateTime
   value         Float
-  userEmail   String?
-  Stocks        User?    @relation(fields: [userEmail], references: [email])
+  userEmail     String?
+  user          User?    @relation(fields: [userEmail], references: [email])
 }
