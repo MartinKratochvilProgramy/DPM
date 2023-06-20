@@ -5,21 +5,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email } = JSON.parse(req.body)
 
-    const stocks = await prisma.stocks.findUnique({
+    const stocks = await prisma.stock.findMany({
       where: {
-        email
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true
-          }
-        }
+        userEmail: email
       }
     })
 
     if (stocks !== null) {
-      res.json(stocks.stocks)
+      res.json({ stocks })
     } else {
       res.status(404)
       res.json({

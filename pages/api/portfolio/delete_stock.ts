@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import { updateStocks } from '@/utils/api/updateStocks'
 import { addNetWorth } from '@/utils/api/addNetWorth'
 import { incrementTotalInvested } from '@/utils/api/incrementTotalInvested'
+import { getAccount } from '@/utils/api/getAccount'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   // remove stock from db
@@ -10,14 +11,17 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, ticker } = req.body
 
-    const purchases = await prisma.purchase.findMany({
+    const stock = await prisma.stock.delete({
       where: {
-        Stock: {
-          stocksEmail: email,
-          ticker
-        }
+        ticker,
+        userEmail: email
+      },
+      include: {
+        purchases: true
       }
     })
+
+    const purchases = stock.purchases
 
     if (purchases === null) {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -29,31 +33,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       decrementTotalInvested += purchase.amount * purchase.price
     }
 
-    const updatedStocks = await prisma.stocks.update({
-      where: {
-        email
-      },
-      data: {
-        stocks: {
-          deleteMany: {
-            ticker
-          }
-        }
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true
-          }
-        }
-      }
-    })
-
     const newTotalNetWorth = await updateStocks(email)
-    const newNetWorth = await addNetWorth(email, newTotalNetWorth)
-    const newTotalInvested = await incrementTotalInvested(email, -decrementTotalInvested)
+    await addNetWorth(email, newTotalNetWorth)
+    await incrementTotalInvested(email, -decrementTotalInvested)
 
-    res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    const user = await getAccount(email)
+
+    res.json({ stocks: user.stocks, netWorth: user.netWorth, totalInvested: user.totalInvested })
   } catch (error) {
     res.status(500).json(error)
   }

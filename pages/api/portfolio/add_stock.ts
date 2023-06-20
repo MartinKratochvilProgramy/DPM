@@ -3,6 +3,7 @@ import { getConversionRate } from '@/utils/client/getConversionRate'
 import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
+import { getAccount } from '@/utils/api/getAccount'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -34,12 +35,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const newStock: StockInterface = {
       ticker,
       amount,
-      prevClose
+      price: prevClose
     }
 
-    const { newStocks, newNetWorth, newTotalInvested } = await addStock(newStock, email)
+    console.log(newStock)
 
-    res.json({ stocks: newStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    await addStock(newStock, email)
+
+    const user = await getAccount(email)
+
+    res.status(200).json(user)
   } catch (error) {
     res.status(500).json(error)
   }

@@ -5,16 +5,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email } = req.body
 
-    const netWorth = await prisma.netWorth.findUnique({
+    const netWorth = await prisma.netWorth.findMany({
       where: {
-        email
+        userEmail: email
       }
     })
 
     if (netWorth !== null) {
-      res.json({ dates: netWorth.netWorthDates, values: netWorth.netWorthValues })
+      res.status(200).json({ netWorth })
     } else {
-      res.json({ dates: [], values: [] })
+      res.status(200).json({ netWorth: [] })
     }
   } catch (error) {
     res.status(500).json(error)

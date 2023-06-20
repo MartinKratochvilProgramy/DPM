@@ -5,44 +5,29 @@ export async function incrementNetWorth (email: string, incrementValue: number) 
   // else create new write
   // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
 
+  const lastNetWorth = await prisma.netWorth.findFirst({
+    where: {
+      userEmail: email
+    },
+    orderBy: {
+      date: 'desc'
+    }
+  })
+
+  if (lastNetWorth === null) {
+    throw new Error('netWorth not found')
+  }
+
   const netWorth = await prisma.netWorth.create({
     data: {
       date: new Date(),
-      value: incrementValue,
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      value: lastNetWorth.value + incrementValue,
       user: { connect: { email } }
     }
   })
 
   if (netWorth === null) {
-    throw new Error('netWorth not found')
+    throw new Error('Failed to create netWorth')
   }
-
-  const netWorthValues = await prisma.netWorth.findMany({
-    where: {
-      userEmail: email
-    },
-    orderBy: {
-      date: 'asc'
-    }
-  })
-
-  let lastNetWorth: number
-  if (netWorthValues.length === 0) {
-    lastNetWorth = 0
-  } else {
-    lastNetWorth = netWorthValues[netWorthValues.length - 1].value
-  }
-
-  const newNetWorth = await prisma.netWorth.update({
-    where: {
-      email
-    },
-    data: {
-      netWorth: {
-        push
-      }
-    }
-  })
-
-  return newNetWorth
 }

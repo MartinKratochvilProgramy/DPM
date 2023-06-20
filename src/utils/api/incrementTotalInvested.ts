@@ -1,40 +1,28 @@
 import prisma from '@/lib/prisma'
 
 export async function incrementTotalInvested (email: string, incrementValue: number) {
-  try {
-    const totalInvested = await prisma.totalInvested.findUnique({
-      where: {
-        email
-      }
-    })
-
-    if (totalInvested === null) {
-      throw new Error('netWorth not found')
+  const lastTotalInvested = await prisma.totalInvested.findFirst({
+    where: {
+      userEmail: email
+    },
+    orderBy: {
+      date: 'desc'
     }
+  })
 
-    let lastTotalInvested: number
-    if (totalInvested.totalInvestedValues.length === 0) {
-      lastTotalInvested = 0
-    } else {
-      lastTotalInvested = totalInvested.totalInvestedValues[totalInvested.totalInvestedValues.length - 1]
+  if (lastTotalInvested === null) {
+    throw new Error('netWorth not found')
+  }
+
+  const totalInvested = await prisma.totalInvested.create({
+    data: {
+      date: new Date(),
+      value: lastTotalInvested.value + incrementValue,
+      user: { connect: { email } }
     }
+  })
 
-    const newTotalInvested = await prisma.totalInvested.update({
-      where: {
-        email
-      },
-      data: {
-        totalInvestedDates: {
-          push: new Date()
-        },
-        totalInvestedValues: {
-          push: parseFloat((lastTotalInvested + incrementValue).toFixed(2))
-        }
-      }
-    })
-
-    return newTotalInvested
-  } catch (error: any) {
-    throw new Error(error)
+  if (totalInvested === null) {
+    throw new Error('Failed to create netWorth')
   }
 }

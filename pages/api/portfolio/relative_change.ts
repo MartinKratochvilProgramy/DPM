@@ -5,16 +5,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email } = req.body
 
-    const relativeChange = await prisma.relativeChange.findUnique({
+    const relativeChange = await prisma.relativeChange.findMany({
       where: {
-        email
+        userEmail: email
       }
     })
 
     if (relativeChange !== null) {
-      res.json({ dates: relativeChange.relativeChangeDates, values: relativeChange.relativeChangeValues })
+      res.status(200).json({ relativeChange })
     } else {
-      res.json({ dates: [], values: [] })
+      res.status(200).json({ relativeChange: [] })
     }
   } catch (error) {
     res.status(500).json(error)

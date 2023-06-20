@@ -106,6 +106,11 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         const values: number[] = history.values
         const dates: Date[] = history.dates
 
+        for (const entry of history) {
+          values.push(entry.value)
+          dates.push(entry.date)
+        }
+
         setNetWorthValues(values)
         setNetWorthDates(dates)
 
@@ -150,10 +155,15 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(response => response.json())
       .then((relativeChange) => {
         let values: number[] = relativeChange.values
-        values = values.map(value => { return (value * 100 - 100) })
         const dates: Date[] = relativeChange.dates
 
-        // do not need to set timeScale here as it is being set in api/net_wort call
+        for (const entry of relativeChange) {
+          values.push(entry.value)
+          dates.push(entry.date)
+        }
+
+        values = values.map(value => { return (value * 100 - 100) })
+        // do not need to set timeScale here as it is being set in api/net_worth call
 
         setRelativeChangeValues(values)
         setRelativeChangeDates(dates)
@@ -179,8 +189,15 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((totalInvested) => {
+        if (totalInvested.length === 0) return
+
         const values: number[] = totalInvested.values
         const dates: Date[] = totalInvested.dates
+
+        for (const entry of totalInvested) {
+          values.push(entry.value)
+          dates.push(entry.date)
+        }
 
         // do not need to set timeScale here as it is being set in api/net_wort call
 

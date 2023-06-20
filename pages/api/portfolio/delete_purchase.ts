@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import { updateStocks } from '@/utils/api/updateStocks'
 import { addNetWorth } from '@/utils/api/addNetWorth'
 import { incrementTotalInvested } from '@/utils/api/incrementTotalInvested'
+import { getAccount } from '@/utils/api/getAccount'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   // remove stock from db
@@ -10,7 +11,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, ticker, purchaseId } = req.body
 
-    const purchase = await prisma.purchase.findUnique({
+    const purchase = await prisma.purchase.delete({
       where: {
         id: purchaseId
       }
@@ -21,43 +22,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error(`Purchase not found: ${email} ${ticker} ${purchaseId}`)
     }
 
-    const updatedStocks = await prisma.stocks.update({
-      where: {
-        email
-      },
-      data: {
-        stocks: {
-          update: {
-            where: {
-              ticker
-            },
-            data: {
-              amount: {
-                decrement: purchase?.amount
-              },
-              purchases: {
-                deleteMany: {
-                  id: purchaseId
-                }
-              }
-            }
-          }
-        }
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true
-          }
-        }
-      }
-    })
-
     const newTotalNetWorth = await updateStocks(email)
-    const newNetWorth = await addNetWorth(email, newTotalNetWorth)
-    const newTotalInvested = await incrementTotalInvested(email, -purchase?.amount * purchase?.price)
+    await addNetWorth(email, newTotalNetWorth)
+    await incrementTotalInvested(email, -purchase?.amount * purchase?.price)
 
-    res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    const user = await getAccount(email)
+
+    res.json({ stocks: user.stocks, netWorth: user.netWorth, totalInvested: user.totalInvested })
   } catch (error) {
     res.status(500).json(error)
   }

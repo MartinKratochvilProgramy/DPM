@@ -6,16 +6,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, selectedCurrency } = JSON.parse(req.body)
 
-    const stocks = await prisma.stocks.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email
       }
     })
 
-    if (stocks === null) {
+    if (user === null) {
       await createDbWrite(email, selectedCurrency)
     } else {
-      await prisma.stocks.update({
+      await prisma.user.update({
         where: {
           email
         },

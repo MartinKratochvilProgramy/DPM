@@ -9,30 +9,26 @@ export async function updateStocks (email: string) {
   // returns new total net worth value
 
   try {
-    const stocks = await prisma.stocks.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email
       },
       include: {
-        stocks: {
-          include: {
-            purchases: true
-          }
-        }
+        stocks: true
       }
     })
 
-    if (stocks === null) {
+    if (user === null) {
       throw new Error(`Could not find stocks for user ${email}`)
     }
 
     let newTotalNetWorth = 0
     await Promise.all(
-      stocks.stocks.map(async (stock) => {
+      user.stocks.map(async (stock) => {
         const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${stock.ticker}`)
         const stockInfoJson: any = await stockInfo.json()
 
-        const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
+        const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, user.currency)
         const prevClose = parseFloat((parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2))
 
         newTotalNetWorth += prevClose * stock.amount
@@ -43,7 +39,7 @@ export async function updateStocks (email: string) {
             ticker: stock.ticker
           },
           data: {
-            prevClose
+            price: prevClose
           }
         })
 

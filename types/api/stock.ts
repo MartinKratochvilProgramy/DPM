@@ -8,7 +8,7 @@ export interface TotalInvestedHistoryInterface {
 export interface FormattedStockInterface {
   ticker: string
   amount: number
-  prevClose: number
+  price: number
   firstPurchase: Date
   lastPurchase: Date
   purchaseHistory: PurchaseInterface[]
@@ -23,7 +23,7 @@ export interface StocksInterface {
 export interface StockInterface {
   ticker: string
   amount: number
-  prevClose: number
+  price: number
 }
 
 export interface PurchaseHistoryInterface {

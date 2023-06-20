@@ -5,16 +5,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email } = JSON.parse(req.body)
 
-    const stocks = await prisma.stocks.findUnique({
+    const user = await prisma.user.findUnique({
       where: {
         email
       }
     })
 
-    if (stocks === null) {
+    if (user === null) {
       res.json({ currency: undefined })
     } else {
-      res.json({ currency: stocks.currency })
+      res.json({ currency: user.currency })
     }
   } catch (error) {
     res.status(500).json(error)

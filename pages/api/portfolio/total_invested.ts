@@ -5,16 +5,16 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email } = req.body
 
-    const totalInvested = await prisma.totalInvested.findUnique({
+    const totalInvested = await prisma.totalInvested.findMany({
       where: {
-        email
+        userEmail: email
       }
     })
 
     if (totalInvested !== null) {
-      res.json({ dates: totalInvested.totalInvestedDates, values: totalInvested.totalInvestedValues })
+      res.json(totalInvested)
     } else {
-      res.json({ dates: [], values: [] })
+      res.json([])
     }
   } catch (error) {
     res.status(500).json(error)

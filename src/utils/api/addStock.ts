@@ -4,7 +4,7 @@ import { incrementNetWorth } from './incrementNetWorth'
 import { incrementTotalInvested } from './incrementTotalInvested'
 
 export async function addStock (newStock: StockInterface, email: string) {
-  const existingStocks = await prisma.stocks.findUnique({
+  const existingStocks = await prisma.user.findUnique({
     where: {
       email
     },
@@ -24,82 +24,43 @@ export async function addStock (newStock: StockInterface, email: string) {
     throw new Error('Stocks not found')
   }
 
-  let newStocks
-
   if (existingStocks.stocks.length === 0) {
     // create new stock
-    newStocks = await prisma.stocks.update({
-      where: {
-        email
-      },
+    await prisma.stock.create({
       data: {
-        stocks: {
-          create: {
-            ticker: newStock.ticker,
-            amount: newStock.amount,
-            prevClose: parseFloat(newStock.prevClose.toFixed(2)),
-            firstPurchase: new Date(),
-            lastPurchase: new Date(),
-            purchases: {
-              create: [
-                {
-                  date: new Date(),
-                  amount: newStock.amount,
-                  price: parseFloat(newStock.prevClose.toFixed(2))
-                }
-              ]
+        ticker: newStock.ticker,
+        amount: newStock.amount,
+        price: newStock.price,
+        firstPurchase: new Date(),
+        lastPurchase: new Date(),
+        purchases: {
+          create: [
+            {
+              date: new Date(),
+              amount: newStock.amount,
+              price: parseFloat(newStock.price.toFixed(2))
             }
-          }
-        }
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true
-          }
-        }
+          ]
+        },
+        userEmail: email
       }
     })
   } else {
     // increment existing stock
-
-    newStocks = await prisma.stocks.update({
-      where: {
-        email
-      },
+    await prisma.purchase.create({
       data: {
-        stocks: {
-          update: {
-            where: {
-              ticker: newStock.ticker
-            },
-            data: {
-              amount: { increment: newStock.amount },
-              lastPurchase: new Date(),
-              purchases: {
-                create: {
-                  date: new Date(),
-                  amount: newStock.amount,
-                  price: parseFloat(newStock.prevClose.toFixed(2))
-                }
-              }
-            }
-          }
-        }
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true
+        amount: newStock.amount,
+        date: new Date(),
+        price: newStock.price,
+        stock: {
+          connect: {
+            ticker: newStock.ticker
           }
         }
       }
     })
   }
 
-  const newNetWorth = await incrementNetWorth(email, newStock.prevClose * newStock.amount)
-  const newTotalInvested = await incrementTotalInvested(email, newStock.prevClose * newStock.amount)
-
-  await prisma.$disconnect()
-  return { newStocks, newNetWorth, newTotalInvested }
+  await incrementNetWorth(email, newStock.price * newStock.amount)
+  await incrementTotalInvested(email, newStock.price * newStock.amount)
 }
