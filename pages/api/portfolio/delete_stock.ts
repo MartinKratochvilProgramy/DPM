@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const purchases = await prisma.purchase.findMany({
       where: {
-        Stock: {
+        stock: {
           stocksEmail: email,
           ticker
         }
