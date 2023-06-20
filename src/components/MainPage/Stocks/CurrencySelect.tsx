@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
-import '../../../app/globals.css'
 import { useTheme } from 'next-themes'
 import { useUser } from '@auth0/nextjs-auth0/client'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { CurrencyContext } from '@/pages/_app'
+import '../../../app/globals.css'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 
 export const CurrencySelect = () => {
   const [selectedCurrency, setSelectedCurrency] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const { user } = useUser()
   const { theme } = useTheme()
@@ -25,6 +27,8 @@ export const CurrencySelect = () => {
   function selectCurrency () {
     if (selectedCurrency === '') return
 
+    setLoading(true)
+
     fetch('api/user/set_currency', {
       method: 'POST',
       body: JSON.stringify({ email: user?.email, selectedCurrency })
@@ -33,9 +37,11 @@ export const CurrencySelect = () => {
       .then((response: any) => response.json())
       .then(res => {
         setCurrency(res.selectedCurrency)
+        setLoading(false)
       })
       .catch(error => {
         console.log(error)
+        setLoading(false)
       }
       )
   }
@@ -48,7 +54,7 @@ export const CurrencySelect = () => {
       >
         Select Currency
       </label>
-      <div className='flex flex-col'>
+      <div className='flex flex-col items-center justify-center'>
         <ThemeProvider theme={selectTheme}>
           <FormControl
             sx={{ my: 2, width: 110 }}
@@ -68,11 +74,15 @@ export const CurrencySelect = () => {
             </Select>
           </FormControl>
         </ThemeProvider>
-        <button
-          onClick={selectCurrency}
-          className="flex flex-row justify-center w-full py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-[4px] whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-          Select
-        </button>
+        {
+          loading
+            ? <LoadingSpinner size={40} />
+            : <button
+              onClick={selectCurrency}
+              className="flex flex-row justify-center w-full py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-[4px] whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                Select
+            </button>
+        }
       </div>
     </div>
   )
