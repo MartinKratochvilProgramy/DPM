@@ -9,7 +9,7 @@ datasource db {
 }
 
 model Stocks {
-  email    String  @unique
+  email    String   @id @unique
   currency String
   stocks   Stock[]
 
@@ -17,7 +17,8 @@ model Stocks {
 }
 
 model Stock {
-  ticker        String     @unique
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  ticker        String
   amount        Float
   prevClose     Float
   firstPurchase DateTime
@@ -32,9 +33,11 @@ model Purchase {
   date          DateTime
   amount        Int
   price         Float
-  stockTicker   String?
-  stock         Stock?     @relation(fields: [stockTicker], references: [ticker])
+  stockId       Int?
+  stock         Stock?     @relation(fields: [stockId], references: [id])
 }
+
+
 
 model NetWorth {
   email          String     @unique
