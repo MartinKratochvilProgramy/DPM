@@ -8,14 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Stocks {
-  email    String   @id @unique
+model User {
+  email    String     @id @unique
   currency String
   stocks   Stock[]
 
   @@map("stocks")
 }
-
 
 model Stock {
   id            Int        @id @default(autoincrement())
@@ -24,18 +23,18 @@ model Stock {
   prevClose     Float
   firstPurchase DateTime
   lastPurchase  DateTime
-  stocksEmail   String?
+  userEmail     String     
+  user          User       @relation(fields: [userEmail], references: [email])
   purchases     Purchase[]
-  Stocks        Stocks?    @relation(fields: [stocksEmail], references: [email])
 }
 
 model Purchase {
-  id            Int        @id @default(autoincrement())
-  date          DateTime
-  amount        Int
-  price         Float
-  stockId       Int?
-  stock         Stock?     @relation(fields: [stockId], references: [id])
+  id        Int      @id @default(autoincrement())
+  date      DateTime
+  amount    Int
+  price     Float
+  stock     Stock    @relation(fields: [stockId], references: [id])
+  stockId   Int
 }
 
 model NetWorth {

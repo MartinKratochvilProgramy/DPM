@@ -6,7 +6,7 @@ const prisma = new PrismaClient()
 
 async function createStocksWrite () {
   try {
-    const createdStocks = await prisma.stocks.create({
+    const createdStocks = await prisma.user.create({
       data: {
         email: 'demo',
         currency: 'USD',

@@ -4,7 +4,7 @@ import { incrementNetWorth } from './incrementNetWorth'
 import { incrementTotalInvested } from './incrementTotalInvested'
 
 export async function addStock (newStock: StockInterface, email: string) {
-  const existingStocks = await prisma.stocks.findUnique({
+  const existingStocks = await prisma.user.findUnique({
     where: {
       email
     },
@@ -26,9 +26,11 @@ export async function addStock (newStock: StockInterface, email: string) {
 
   let newStocks
 
+  console.log(existingStocks.stocks)
+
   if (existingStocks.stocks.length === 0) {
     // create new stock
-    newStocks = await prisma.stocks.update({
+    newStocks = await prisma.user.update({
       where: {
         email
       },
@@ -63,7 +65,7 @@ export async function addStock (newStock: StockInterface, email: string) {
   } else {
     // increment existing stock
 
-    newStocks = await prisma.stocks.update({
+    newStocks = await prisma.user.update({
       where: {
         email
       },
@@ -71,7 +73,7 @@ export async function addStock (newStock: StockInterface, email: string) {
         stocks: {
           update: {
             where: {
-              ticker: newStock.ticker
+              id: existingStocks.stocks[0].id
             },
             data: {
               amount: { increment: newStock.amount },

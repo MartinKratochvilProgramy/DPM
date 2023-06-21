@@ -65,6 +65,7 @@ export const Stocks: React.FC<Props> = ({
         setTotalInvestedValues(totalInvested.totalInvestedValues)
 
         formatStocks(stocks)
+        sortStocks('NEWEST', stocks)
         setStocks(stocks)
 
         setStocksInputLoading(false)
@@ -104,6 +105,7 @@ export const Stocks: React.FC<Props> = ({
         setTotalInvestedValues(totalInvested.totalInvestedValues)
 
         formatStocks(stocks)
+        sortStocks('NEWEST', stocks)
         setStocks(stocks)
 
         setStocksInputLoading(false)

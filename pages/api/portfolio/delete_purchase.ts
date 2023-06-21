@@ -26,24 +26,27 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error(`Purchase not found: ${email} ${ticker} ${purchaseId}`)
     }
 
-    const updatedStocks = await prisma.stocks.update({
+    console.log(purchase)
+
+    await prisma.purchase.delete({
+      where: {
+        id: purchaseId
+      }
+    })
+
+    const updatedStocks = await prisma.user.update({
       where: {
         email
       },
       data: {
         stocks: {
-          update: {
+          updateMany: {
             where: {
               ticker
             },
             data: {
               amount: {
-                decrement: purchase?.amount
-              },
-              purchases: {
-                deleteMany: {
-                  id: purchaseId
-                }
+                decrement: purchase.amount
               }
             }
           }
