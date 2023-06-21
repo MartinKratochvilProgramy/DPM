@@ -16,6 +16,7 @@ model Stocks {
   @@map("stocks")
 }
 
+
 model Stock {
   id            Int        @id @default(autoincrement())
   ticker        String
