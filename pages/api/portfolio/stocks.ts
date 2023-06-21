@@ -18,6 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
+    console.log(stocks)
     if (stocks !== null) {
       res.json(stocks.stocks)
     } else {
@@ -28,5 +29,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     }
   } catch (error) {
     res.status(500).json(error)
+    console.log(error)
   }
 }
