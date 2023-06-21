@@ -26,8 +26,6 @@ export async function addStock (newStock: StockInterface, email: string) {
 
   let newStocks
 
-  console.log(existingStocks.stocks)
-
   if (existingStocks.stocks.length === 0) {
     // create new stock
     newStocks = await prisma.user.update({
