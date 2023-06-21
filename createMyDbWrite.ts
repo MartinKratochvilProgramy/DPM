@@ -1,7 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { relativeChangeParsed } from './dbSource/relativeChangeParsed'
-import { netWorthHistoryParsed } from './dbSource/netWorthHistoryParsed'
-import { totalInvestedParsed } from './dbSource/totalInvestedHistoryParsed'
+const data = require('./dbSource/stocks.json')
 
 const prisma = new PrismaClient()
 
@@ -392,9 +390,9 @@ async function createNetWorthWrite () {
   try {
     const netWorthDates: Date[] = []
     const netWorthValues: number[] = []
-    for (const write of netWorthHistoryParsed) {
-      netWorthDates.push(new Date(write.netWorthDates))
-      netWorthValues.push(write.netWorthValues)
+    for (const write of data[1].netWorthHistory) {
+      netWorthDates.push(new Date(write.date))
+      netWorthValues.push(write.netWorth)
     }
     const createdStocks = await prisma.netWorth.create({
       data: {
@@ -422,9 +420,9 @@ async function createTotalInvestedWrite () {
   try {
     const totalInvestedDates: Date[] = []
     const totalInvestedValues: number[] = []
-    for (const write of totalInvestedParsed) {
-      totalInvestedDates.push(new Date(write.totalInvestedDates))
-      totalInvestedValues.push(write.totalInvestedValues)
+    for (const write of data[1].totalInvestedHistory) {
+      totalInvestedDates.push(new Date(write.date))
+      totalInvestedValues.push(write.total)
     }
     const createdStocks = await prisma.totalInvested.create({
       data: {
@@ -452,9 +450,9 @@ async function createRelativeChangeWrite () {
   try {
     const relativeChangeDates: Date[] = []
     const relativeChangeValues = []
-    for (const write of relativeChangeParsed) {
-      relativeChangeDates.push(new Date(write.relativeChangeDates))
-      relativeChangeValues.push(write.relativeChangeValues)
+    for (const write of data[1].relativeChangeHistory) {
+      relativeChangeDates.push(new Date(write.date))
+      relativeChangeValues.push(write.relativeChange)
     }
     const createdRelativeChange = await prisma.relativeChange.create({
       data: {

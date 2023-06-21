@@ -10,6 +10,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, ticker } = req.body
 
+    if (email === 'demo') {
+      res.status(500).json('Cannot edit in demo mode')
+      return
+    }
+
     const purchases = await prisma.purchase.findMany({
       where: {
         stock: {

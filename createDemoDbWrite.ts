@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import { relativeChangeParsed } from './dbSource/relativeChangeParsed'
-import { netWorthHistoryParsed } from './dbSource/netWorthHistoryParsed'
-import { totalInvestedParsed } from './dbSource/totalInvestedHistoryParsed'
+import fs from 'fs'
+const data = require('./dbSource/stocks.json')
 
 const prisma = new PrismaClient()
 
@@ -10,21 +9,89 @@ async function createStocksWrite () {
     const createdStocks = await prisma.stocks.create({
       data: {
         email: 'demo',
-        currency: 'CZK',
+        currency: 'USD',
         stocks: {
           create: [
             {
-              ticker: 'META',
-              amount: 4,
-              prevClose: 5985.43,
-              firstPurchase: new Date('2022-10-20'),
+              ticker: 'AAPL',
+              amount: 3,
+              prevClose: 186.01,
+              firstPurchase: new Date('2022-10-18'),
+              lastPurchase: new Date('2022-10-21'),
+              purchases: {
+                create: [
+                  {
+                    date: new Date('2022-10-18'),
+                    amount: 1,
+                    price: 143.79
+                  },
+                  {
+                    date: new Date('2022-10-19'),
+                    amount: 1,
+                    price: 142.96
+                  },
+                  {
+                    date: new Date('2022-10-21'),
+                    amount: 1,
+                    price: 142.96
+                  }
+                ]
+              }
+            },
+            {
+              ticker: 'TSLA',
+              amount: 1,
+              prevClose: 255.9,
+              firstPurchase: new Date('2022-10-18'),
+              lastPurchase: new Date('2022-10-18'),
+              purchases: {
+                create: [
+                  {
+                    date: new Date('2022-10-18'),
+                    amount: 1,
+                    price: 219.53
+                  }
+                ]
+              }
+            },
+            {
+              ticker: 'MSFT',
+              amount: 2,
+              prevClose: 348.1,
+              firstPurchase: new Date('2022-10-18'),
+              lastPurchase: new Date('2022-10-24'),
+              purchases: {
+                create: [
+                  {
+                    date: new Date('2022-10-18'),
+                    amount: 1,
+                    price: 236.85
+                  },
+                  {
+                    date: new Date('2022-10-24'),
+                    amount: 1,
+                    price: 241.51
+                  }
+                ]
+              }
+            },
+            {
+              ticker: 'AMZN',
+              amount: 2,
+              prevClose: 127.11,
+              firstPurchase: new Date('2022-10-19'),
               lastPurchase: new Date('2022-10-20'),
               purchases: {
                 create: [
                   {
+                    date: new Date('2022-10-19'),
+                    amount: 1,
+                    price: 114.33
+                  },
+                  {
                     date: new Date('2022-10-20'),
-                    amount: 4,
-                    price: 3343.34
+                    amount: 1,
+                    price: 114.51
                   }
                 ]
               }
@@ -52,9 +119,9 @@ async function createNetWorthWrite () {
   try {
     const netWorthDates: Date[] = []
     const netWorthValues: number[] = []
-    for (const write of netWorthHistoryParsed) {
-      netWorthDates.push(new Date(write.netWorthDates))
-      netWorthValues.push(write.netWorthValues)
+    for (const write of data[0].netWorthHistory) {
+      netWorthDates.push(new Date(write.date))
+      netWorthValues.push(write.netWorth)
     }
     const createdStocks = await prisma.netWorth.create({
       data: {
@@ -82,9 +149,9 @@ async function createTotalInvestedWrite () {
   try {
     const totalInvestedDates: Date[] = []
     const totalInvestedValues: number[] = []
-    for (const write of totalInvestedParsed) {
-      totalInvestedDates.push(new Date(write.totalInvestedDates))
-      totalInvestedValues.push(write.totalInvestedValues)
+    for (const write of data[0].totalInvestedHistory) {
+      totalInvestedDates.push(new Date(write.date))
+      totalInvestedValues.push(write.total)
     }
     const createdStocks = await prisma.totalInvested.create({
       data: {
@@ -112,9 +179,9 @@ async function createRelativeChangeWrite () {
   try {
     const relativeChangeDates: Date[] = []
     const relativeChangeValues = []
-    for (const write of relativeChangeParsed) {
-      relativeChangeDates.push(new Date(write.relativeChangeDates))
-      relativeChangeValues.push(write.relativeChangeValues)
+    for (const write of data[0].relativeChangeHistory) {
+      relativeChangeDates.push(new Date(write.date))
+      relativeChangeValues.push(write.relativeChange)
     }
     const createdRelativeChange = await prisma.relativeChange.create({
       data: {

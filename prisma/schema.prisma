@@ -17,7 +17,7 @@ model Stocks {
 }
 
 model Stock {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  id            Int        @id @default(autoincrement())
   ticker        String
   amount        Float
   prevClose     Float
@@ -36,8 +36,6 @@ model Purchase {
   stockId       Int?
   stock         Stock?     @relation(fields: [stockId], references: [id])
 }
-
-
 
 model NetWorth {
   email          String     @unique

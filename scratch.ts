@@ -1,12 +1,4 @@
-import prisma from './lib/prisma'
+import { PrismaClient } from '@prisma/client'
+const data = require('./dbSource/stocks.json')
 
-async function main () {
-  const stocks = await prisma.stocks.findMany({
-    where: {
-      email: 'martvil96@gmail.com'
-    }
-  })
-  console.log(stocks)
-}
-
-main().catch()
+console.log(data[1].relativeChangeHistory)

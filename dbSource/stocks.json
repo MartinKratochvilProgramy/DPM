@@ -1,140 +1,5971 @@
-[
+[{
+  "_id": {
+    "$oid": "634ecb790ccf6ea1b9ed26ae"
+  },
+  "username": "demouser",
+  "stocks": [
     {
-        "username": "martvil96@gmail.com",
-        "currency": "CZK",
-        "stocks": [
-            {
-              "ticker": "META",
-              "amount": 4,
-              "prevClose": 5985.43,
-              "purchases": [
-                {
-                  "date": "2022-10-20",
-                  "amount": 4,
-                  "price": 3343.34
-                }
-              ]
-            },
-            {
-              "ticker": "CEZ.PR",
-              "amount": 45,
-              "prevClose": 1000,
-              "_id": {
-                "$oid": "63510a6a75c9ade2f0814648"
-              }
-            },
-            {
-              "ticker": "AAPL",
-              "amount": 14,
-              "prevClose": 3954.06,
-              "_id": {
-                "$oid": "63510a8775c9ade2f0814659"
-              }
-            },
-            {
-              "ticker": "ERBAG.PR",
-              "amount": 42,
-              "prevClose": 726.6,
-              "_id": {
-                "$oid": "63510a8d75c9ade2f081466e"
-              }
-            },
-            {
-              "ticker": "MSFT",
-              "amount": 9,
-              "prevClose": 7302.13,
-              "_id": {
-                "$oid": "63510a9275c9ade2f0814687"
-              }
-            },
-            {
-              "ticker": "VOW.DE",
-              "amount": 4,
-              "prevClose": 3382.81,
-              "_id": {
-                "$oid": "63510b38f1c3bbf86158396a"
-              }
-            },
-            {
-              "ticker": "INTC",
-              "amount": 10,
-              "prevClose": 683.49,
-              "_id": {
-                "$oid": "63510b5da38f2bbe9a2c92d3"
-              }
-            },
-            {
-              "ticker": "KO",
-              "amount": 18,
-              "prevClose": 1317.36,
-              "_id": {
-                "$oid": "63510b61a38f2bbe9a2c92f8"
-              }
-            },
-            {
-              "ticker": "TABAK.PR",
-              "amount": 1,
-              "prevClose": 16760,
-              "_id": {
-                "$oid": "63510b6aa38f2bbe9a2c9321"
-              }
-            },
-            {
-              "ticker": "NVDA",
-              "amount": 5,
-              "prevClose": 8731.9,
-              "_id": {
-                "$oid": "63510b70a38f2bbe9a2c934e"
-              }
-            },
-            {
-              "ticker": "BRK-B",
-              "amount": 4,
-              "prevClose": 7094.42,
-              "_id": {
-                "$oid": "63510b7ea38f2bbe9a2c937f"
-              }
-            },
-            {
-              "ticker": "AMD",
-              "amount": 6,
-              "prevClose": 2623.08,
-              "_id": {
-                "$oid": "63510b82a38f2bbe9a2c93b4"
-              }
-            },
-            {
-              "ticker": "CSPX.L",
-              "amount": 18,
-              "prevClose": 9614.09,
-              "_id": {
-                "$oid": "63510b8aa38f2bbe9a2c93ed"
-              }
-            },
-            {
-              "ticker": "MONET.PR",
-              "amount": 434,
-              "prevClose": 79,
-              "_id": {
-                "$oid": "63510b91a38f2bbe9a2c942a"
-              }
-            },
-            {
-              "ticker": "KOMB.PR",
-              "amount": 52,
-              "prevClose": 659,
-              "_id": {
-                "$oid": "63510b99a38f2bbe9a2c946b"
-              }
-            },
-            {
-              "ticker": "VWCE.DE",
-              "amount": 134,
-              "prevClose": 2316.94,
-              "_id": {
-                "$oid": "63972a8bc497dac76ff0b617"
-              }
-            }
-          ]
+      "ticker": "AAPL",
+      "amount": 3,
+      "prevClose": 186.01,
+      "_id": {
+        "$oid": "634ecb790ccf6ea1b9ed26af"
+      }
+    },
+    {
+      "ticker": "TSLA",
+      "amount": 1,
+      "prevClose": 255.9,
+      "_id": {
+        "$oid": "634ecb7d0ccf6ea1b9ed26be"
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "amount": 2,
+      "prevClose": 348.1,
+      "_id": {
+        "$oid": "634ecb7f0ccf6ea1b9ed26cf"
+      }
+    },
+    {
+      "ticker": "AMZN",
+      "amount": 2,
+      "prevClose": 127.11,
+      "_id": {
+        "$oid": "634ffca610d025d58645676a"
+      }
     }
-]
+  ],
+  "purchaseHistory": [
+    {
+      "ticker": "AAPL",
+      "purchases": [
+        {
+          "date": "2022-10-18",
+          "amount": 1,
+          "currentPrice": 143.79,
+          "totalAmount": 143.79,
+          "_id": {
+            "$oid": "634ecb790ccf6ea1b9ed26b1"
+          }
+        },
+        {
+          "date": "2022-10-19",
+          "amount": 1,
+          "currentPrice": 142.96,
+          "totalAmount": 142.96,
+          "_id": {
+            "$oid": "634ffcb010d025d5864567e3"
+          }
+        },
+        {
+          "date": "2022-10-21",
+          "amount": 1,
+          "currentPrice": 143.07,
+          "totalAmount": 143.07,
+          "_id": {
+            "$oid": "63529fc0ea2c542564ba42b3"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "634ecb790ccf6ea1b9ed26b0"
+      }
+    },
+    {
+      "ticker": "TSLA",
+      "purchases": [
+        {
+          "date": "2022-10-18",
+          "amount": 1,
+          "currentPrice": 219.53,
+          "totalAmount": 219.53,
+          "_id": {
+            "$oid": "634ecb7d0ccf6ea1b9ed26c0"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "634ecb7d0ccf6ea1b9ed26bf"
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "purchases": [
+        {
+          "date": "2022-10-18",
+          "amount": 1,
+          "currentPrice": 236.85,
+          "totalAmount": 236.85,
+          "_id": {
+            "$oid": "634ecb7f0ccf6ea1b9ed26d1"
+          }
+        },
+        {
+          "date": "2022-10-24",
+          "amount": 1,
+          "currentPrice": 241.51,
+          "totalAmount": 241.51,
+          "_id": {
+            "$oid": "63569ffaaee14f99364b88bc"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "634ecb7f0ccf6ea1b9ed26d0"
+      }
+    },
+    {
+      "ticker": "AMZN",
+      "purchases": [
+        {
+          "date": "2022-10-19",
+          "amount": 1,
+          "currentPrice": 114.33,
+          "totalAmount": 114.33,
+          "_id": {
+            "$oid": "634ffca610d025d58645676c"
+          }
+        },
+        {
+            "date": "2022-10-20",
+            "amount": 1,
+            "currentPrice": 114.51,
+          "totalAmount": 114.51,
+          "_id": {
+            "$oid": "63514e965ad1be5170def8dd"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "634ffca610d025d58645676b"
+      }
+    }
+  ],
+  "netWorthHistory": [
+    {
+      "date": "2022-10-18",
+      "netWorth": 143.79,
+      "_id": {
+        "$oid": "634ecb790ccf6ea1b9ed26b2"
+      }
+    },
+    {
+      "date": "2022-10-18",
+      "netWorth": 363.32,
+      "_id": {
+        "$oid": "634ecb7d0ccf6ea1b9ed26c1"
+      }
+    },
+    {
+      "date": "2022-10-18",
+      "netWorth": 600.17,
+      "_id": {
+        "$oid": "634ecb7f0ccf6ea1b9ed26d2"
+      }
+    },
+    {
+      "date": "2022-10-19",
+      "netWorth": 602.44,
+      "_id": {
+        "$oid": "634ffc6d10d025d5864566fc"
+      }
+    },
+    {
+      "date": "2022-10-19",
+      "netWorth": 716.77,
+      "_id": {
+        "$oid": "634ffca610d025d58645676d"
+      }
+    },
+    {
+      "date": "2022-10-19",
+      "netWorth": 859.73,
+      "_id": {
+        "$oid": "634ffcb010d025d5864567e4"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "netWorth": 861.31,
+      "_id": {
+        "$oid": "63514df55ad1be5170def60a"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "netWorth": 975.82,
+      "_id": {
+        "$oid": "63514e965ad1be5170def8de"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "netWorth": 960.71,
+      "_id": {
+        "$oid": "63529f79ea2c542564ba3f0f"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "netWorth": 1103.78,
+      "_id": {
+        "$oid": "63529fc0ea2c542564ba42b4"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "netWorth": 1137.01,
+      "_id": {
+        "$oid": "63569401ddc1d601bd6870a2"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "netWorth": 1378.52,
+      "_id": {
+        "$oid": "63569ffaaee14f99364b88bd"
+      }
+    },
+    {
+      "date": "2022-10-25",
+      "netWorth": 1393.74,
+      "_id": {
+        "$oid": "6357e58cb22642df3528236a"
+      }
+    },
+    {
+      "date": "2022-10-26",
+      "netWorth": 1421.95,
+      "_id": {
+        "$oid": "63593716fdb7bc6fbe1cfb84"
+      }
+    },
+    {
+      "date": "2022-10-27",
+      "netWorth": 1366.65,
+      "_id": {
+        "$oid": "635a88a0a4e4218a6c699736"
+      }
+    },
+    {
+      "date": "2022-10-28",
+      "netWorth": 1334.91,
+      "_id": {
+        "$oid": "635bda23e5cbe2e96dbe9041"
+      }
+    },
+    {
+      "date": "2022-10-31",
+      "netWorth": 1374.3,
+      "_id": {
+        "$oid": "635fceab2bb25b55b5a23c2d"
+      }
+    },
+    {
+      "date": "2022-11-1",
+      "netWorth": 1356.7,
+      "_id": {
+        "$oid": "63612dbdf567732c9427ecb9"
+      }
+    },
+    {
+      "date": "2022-11-2",
+      "netWorth": 1329.69,
+      "_id": {
+        "$oid": "63627f49d1786ef1e847e71c"
+      }
+    },
+    {
+      "date": "2022-11-3",
+      "netWorth": 1274.51,
+      "_id": {
+        "$oid": "6363d0d342f88d17883804ed"
+      }
+    },
+    {
+      "date": "2022-11-4",
+      "netWorth": 1238.36,
+      "_id": {
+        "$oid": "6365225d16c8632ce07f2afa"
+      }
+    },
+    {
+      "date": "2022-11-7",
+      "netWorth": 1247.35,
+      "_id": {
+        "$oid": "636916e82b1cd73b6bcd3e19"
+      }
+    },
+    {
+      "date": "2022-11-8",
+      "netWorth": 1250.64,
+      "_id": {
+        "$oid": "636a68716a7d2799bd2dd760"
+      }
+    },
+    {
+      "date": "2022-11-9",
+      "netWorth": 1247.5,
+      "_id": {
+        "$oid": "636bb9fdbf8bfd2b0f35ab70"
+      }
+    },
+    {
+      "date": "2022-11-10",
+      "netWorth": 1203.5,
+      "_id": {
+        "$oid": "636d0b80e506a9514237d951"
+      }
+    },
+    {
+      "date": "2022-11-11",
+      "netWorth": 1310.55,
+      "_id": {
+        "$oid": "636e5d0a278c88f06812dbca"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "netWorth": 1315.87,
+      "_id": {
+        "$oid": "6373a277054f83e50a2de4a6"
+      }
+    },
+    {
+      "date": "2022-11-16",
+      "netWorth": 1325,
+      "_id": {
+        "$oid": "6374f402d117f74e26be787f"
+      }
+    },
+    {
+      "date": "2022-11-17",
+      "netWorth": 1310.99,
+      "_id": {
+        "$oid": "637645902557d9a842531ec9"
+      }
+    },
+    {
+      "date": "2022-11-18",
+      "netWorth": 1308.39,
+      "_id": {
+        "$oid": "6377971d010cb3f118a5e340"
+      }
+    },
+    {
+      "date": "2022-11-21",
+      "netWorth": 1304.78,
+      "_id": {
+        "$oid": "637b8baf77f237abb9797668"
+      }
+    },
+    {
+      "date": "2022-11-22",
+      "netWorth": 1304.78,
+      "_id": {
+        "$oid": "637cc8e92c5d633cbdc4150b"
+      }
+    },
+    {
+      "date": "2022-11-23",
+      "netWorth": 1296.91,
+      "_id": {
+        "$oid": "637e57ce239632611896df39"
+      }
+    },
+    {
+      "date": "2022-11-24",
+      "netWorth": 1296.91,
+      "_id": {
+        "$oid": "637f800ce63c99d6dc043bea"
+      }
+    },
+    {
+      "date": "2022-11-25",
+      "netWorth": 1319.83,
+      "_id": {
+        "$oid": "6380d18b4e16789606f53d5f"
+      }
+    },
+    {
+      "date": "2022-11-28",
+      "netWorth": 1308.99,
+      "_id": {
+        "$oid": "6384c60b53b9b4d58e75d452"
+      }
+    },
+    {
+      "date": "2022-11-29",
+      "netWorth": 1287,
+      "_id": {
+        "$oid": "6386178b9f966548233b241c"
+      }
+    },
+    {
+      "date": "2022-11-30",
+      "netWorth": 1269.84,
+      "_id": {
+        "$oid": "6387690b6e3fe878d90beb03"
+      }
+    },
+    {
+      "date": "2022-12-1",
+      "netWorth": 1342.15,
+      "_id": {
+        "$oid": "6388ba8b99a053bb25f938c8"
+      }
+    },
+    {
+      "date": "2022-12-2",
+      "netWorth": 1340.01,
+      "_id": {
+        "$oid": "638a0c0b63f3134bd8b4d839"
+      }
+    },
+    {
+      "date": "2022-12-5",
+      "netWorth": 1336.59,
+      "_id": {
+        "$oid": "638e008cb7acf50e832faff6"
+      }
+    },
+    {
+      "date": "2022-12-6",
+      "netWorth": 1304.76,
+      "_id": {
+        "$oid": "638f520c37445aad66a71db5"
+      }
+    },
+    {
+      "date": "2022-12-7",
+      "netWorth": 1275.29,
+      "_id": {
+        "$oid": "6390a38c38303b73c8ae4efd"
+      }
+    },
+    {
+      "date": "2022-12-8",
+      "netWorth": 1262.52,
+      "_id": {
+        "$oid": "6391f50ba7f5be55b730e7c4"
+      }
+    },
+    {
+      "date": "2022-12-9",
+      "netWorth": 1276.89,
+      "_id": {
+        "$oid": "6393468c4384aae9089d24e2"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 1274.55,
+      "_id": {
+        "$oid": "63973b06805cfc6b0d335581"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "netWorth": 1287.41,
+      "_id": {
+        "$oid": "63988c8cafaa236a775064b4"
+      }
+    },
+    {
+      "date": "2022-12-14",
+      "netWorth": 1296.18,
+      "_id": {
+        "$oid": "6399de0b59ea4432c50a0b38"
+      }
+    },
+    {
+      "date": "2022-12-15",
+      "netWorth": 1284.03,
+      "_id": {
+        "$oid": "639b2f8c9b55b6c7f48b3850"
+      }
+    },
+    {
+      "date": "2022-12-16",
+      "netWorth": 1242.09,
+      "_id": {
+        "$oid": "639c8107f221f79311c7f06d"
+      }
+    },
+    {
+      "date": "2022-12-19",
+      "netWorth": 1218.86,
+      "_id": {
+        "$oid": "63a08701b22880e8feb375bf"
+      }
+    },
+    {
+      "date": "2022-12-20",
+      "netWorth": 1197.72,
+      "_id": {
+        "$oid": "63a1c70be8df9114ea24563f"
+      }
+    },
+    {
+      "date": "2022-12-21",
+      "netWorth": 1188.68,
+      "_id": {
+        "$oid": "63a3188c1c377b08fc05f25e"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "netWorth": 1206.32,
+      "_id": {
+        "$oid": "63a46a0be42b7f237e6ceb61"
+      }
+    },
+    {
+      "date": "2022-12-23",
+      "netWorth": 1166,
+      "_id": {
+        "$oid": "63a5bb879346305c540dc165"
+      }
+    },
+    {
+      "date": "2022-12-26",
+      "netWorth": 1166,
+      "_id": {
+        "$oid": "63a9b00b665ada1ff7dbbc00"
+      }
+    },
+    {
+      "date": "2022-12-27",
+      "netWorth": 1166.69,
+      "_id": {
+        "$oid": "63ab0186911168c7f7ad739d"
+      }
+    },
+    {
+      "date": "2022-12-28",
+      "netWorth": 1139.19,
+      "_id": {
+        "$oid": "63ac530cc64101cbc872924f"
+      }
+    },
+    {
+      "date": "2022-12-29",
+      "netWorth": 1123.53,
+      "_id": {
+        "$oid": "63ada48b14e1241bdfbccdea"
+      }
+    },
+    {
+      "date": "2022-12-30",
+      "netWorth": 1161.03,
+      "_id": {
+        "$oid": "63aef60b1e8e905c596c63a3"
+      }
+    },
+    {
+      "date": "2023-1-2",
+      "netWorth": 1161.03,
+      "_id": {
+        "$oid": "63b2ea8c48157fbf10553fcd"
+      }
+    },
+    {
+      "date": "2023-1-3",
+      "netWorth": 1160.61,
+      "_id": {
+        "$oid": "63b43c0b3103dd4dfa54c6ee"
+      }
+    },
+    {
+      "date": "2023-1-4",
+      "netWorth": 1134.11,
+      "_id": {
+        "$oid": "63b58d8bb2c6b6fe6b67a440"
+      }
+    },
+    {
+      "date": "2023-1-5",
+      "netWorth": 1121.2,
+      "_id": {
+        "$oid": "63b6df0b103f2f4fc2501c6d"
+      }
+    },
+    {
+      "date": "2023-1-6",
+      "netWorth": 1096.26,
+      "_id": {
+        "$oid": "63b8308c4698354702e7ba8c"
+      }
+    },
+    {
+      "date": "2023-1-9",
+      "netWorth": 1123.94,
+      "_id": {
+        "$oid": "63bc250b0dfad5fb0e7255b6"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "netWorth": 1139.18,
+      "_id": {
+        "$oid": "63bd768c025122766745f5e0"
+      }
+    },
+    {
+      "date": "2023-1-11",
+      "netWorth": 1148.48,
+      "_id": {
+        "$oid": "63bec8062e7b1ed50cf50349"
+      }
+    },
+    {
+      "date": "2023-1-12",
+      "netWorth": 1185.41,
+      "_id": {
+        "$oid": "63c0198c5d0579b2830c2bd3"
+      }
+    },
+    {
+      "date": "2023-1-13",
+      "netWorth": 1191.35,
+      "_id": {
+        "$oid": "63c16b0d06ff9c3f59f9814b"
+      }
+    },
+    {
+      "date": "2023-1-16",
+      "netWorth": 1191.35,
+      "_id": {
+        "$oid": "63c55f8c9b5e987436d1dbea"
+      }
+    },
+    {
+      "date": "2023-1-17",
+      "netWorth": 1201.38,
+      "_id": {
+        "$oid": "63c6b10dd2ed846c16c6ed57"
+      }
+    },
+    {
+      "date": "2023-1-18",
+      "netWorth": 1212.11,
+      "_id": {
+        "$oid": "63c8028cc26c40505d5ff2a0"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "netWorth": 1196.95,
+      "_id": {
+        "$oid": "63c9540cd40ddf29ad67978b"
+      }
+    },
+    {
+      "date": "2023-1-20",
+      "netWorth": 1184.2,
+      "_id": {
+        "$oid": "63caa58d6b4f0bab4a94d17b"
+      }
+    },
+    {
+      "date": "2023-1-23",
+      "netWorth": 1221.97,
+      "_id": {
+        "$oid": "63ce9a0dfb795d0550bca75d"
+      }
+    },
+    {
+      "date": "2023-1-24",
+      "netWorth": 1247.28,
+      "_id": {
+        "$oid": "63cfeb8c8c1e8e1a8b46ea68"
+      }
+    },
+    {
+      "date": "2023-1-25",
+      "netWorth": 1248.2,
+      "_id": {
+        "$oid": "63d13d0d08caaf42fa8a1247"
+      }
+    },
+    {
+      "date": "2023-1-26",
+      "netWorth": 1245.59,
+      "_id": {
+        "$oid": "63d28e8cf3b8c2820a9ac92b"
+      }
+    },
+    {
+      "date": "2023-1-27",
+      "netWorth": 1286.59,
+      "_id": {
+        "$oid": "63d3e00db5e05429e3872228"
+      }
+    },
+    {
+      "date": "2023-1-30",
+      "netWorth": 1316.49,
+      "_id": {
+        "$oid": "63d7d48de3d7411be31e815c"
+      }
+    },
+    {
+      "date": "2023-1-31",
+      "netWorth": 1282.18,
+      "_id": {
+        "$oid": "63d9260d1d957fa0b19f15af"
+      }
+    },
+    {
+      "date": "2023-2-1",
+      "netWorth": 1307.97,
+      "_id": {
+        "$oid": "63da778c2fa0c22b656a2bf5"
+      }
+    },
+    {
+      "date": "2023-2-2",
+      "netWorth": 1333.5,
+      "_id": {
+        "$oid": "63dbc90dd0d7920fe47e3dd3"
+      }
+    },
+    {
+      "date": "2023-2-3",
+      "netWorth": 1395.75,
+      "_id": {
+        "$oid": "63dd1a8d72be7dc0ef246def"
+      }
+    },
+    {
+      "date": "2023-2-6",
+      "netWorth": 1376.96,
+      "_id": {
+        "$oid": "63e10f0db89ab978604b8955"
+      }
+    },
+    {
+      "date": "2023-2-7",
+      "netWorth": 1367.85,
+      "_id": {
+        "$oid": "63e2608c28381b5a260c55da"
+      }
+    },
+    {
+      "date": "2023-2-8",
+      "netWorth": 1400.1,
+      "_id": {
+        "$oid": "63e3b20da1d6072b4174c2d5"
+      }
+    },
+    {
+      "date": "2023-2-9",
+      "netWorth": 1390.61,
+      "_id": {
+        "$oid": "63e5038d7212a6b117a7e995"
+      }
+    },
+    {
+      "date": "2023-2-10",
+      "netWorth": 1382.96,
+      "_id": {
+        "$oid": "63e6550da823c6f7491c7609"
+      }
+    },
+    {
+      "date": "2023-2-13",
+      "netWorth": 1371.34,
+      "_id": {
+        "$oid": "63ea498dbeddb4fb645b70d4"
+      }
+    },
+    {
+      "date": "2023-2-14",
+      "netWorth": 1397.91,
+      "_id": {
+        "$oid": "63eb9b0e710c2f70a3e7d90f"
+      }
+    },
+    {
+      "date": "2023-2-15",
+      "netWorth": 1411.23,
+      "_id": {
+        "$oid": "63ecec8d1d64574efaf35f15"
+      }
+    },
+    {
+      "date": "2023-2-16",
+      "netWorth": 1421.19,
+      "_id": {
+        "$oid": "63ee3e0d989d94147d8fbaa5"
+      }
+    },
+    {
+      "date": "2023-2-17",
+      "netWorth": 1383.77,
+      "_id": {
+        "$oid": "63ef8f8ef445c29ae9215ecd"
+      }
+    },
+    {
+      "date": "2023-2-20",
+      "netWorth": 1383.77,
+      "_id": {
+        "$oid": "63f3840dd1279bdf61469f0a"
+      }
+    },
+    {
+      "date": "2023-2-21",
+      "netWorth": 1376.48,
+      "_id": {
+        "$oid": "63f4d58d24f8dbded6d9cac5"
+      }
+    },
+    {
+      "date": "2023-2-22",
+      "netWorth": 1337.31,
+      "_id": {
+        "$oid": "63f6270ca13afe2e3275ecae"
+      }
+    },
+    {
+      "date": "2023-2-23",
+      "netWorth": 1342.19,
+      "_id": {
+        "$oid": "63f7788d33bd8050078ed33d"
+      }
+    },
+    {
+      "date": "2023-2-24",
+      "netWorth": 1351.45,
+      "_id": {
+        "$oid": "63f8ca0d86da1d52ea57471c"
+      }
+    },
+    {
+      "date": "2023-2-27",
+      "netWorth": 1322.45,
+      "_id": {
+        "$oid": "63fcbe8e13a7f58b7c841a01"
+      }
+    },
+    {
+      "date": "2023-2-28",
+      "netWorth": 1339.23,
+      "_id": {
+        "$oid": "63fe100d95cd4a8cc47b1d73"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "netWorth": 1335.24,
+      "_id": {
+        "$oid": "63ff618d93e0990c68e9567e"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 1315.58,
+      "_id": {
+        "$oid": "6400b30d119a19feb08660fe"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "netWorth": 1315.11,
+      "_id": {
+        "$oid": "6402048d31c2501ad601d684"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "netWorth": 1351.26,
+      "_id": {
+        "$oid": "6405f90d610382dabc3e204a"
+      }
+    },
+    {
+      "date": "2023-3-7",
+      "netWorth": 1356.54,
+      "_id": {
+        "$oid": "64074a8d53847ea2f1a3c055"
+      }
+    },
+    {
+      "date": "2023-3-8",
+      "netWorth": 1337.91,
+      "_id": {
+        "$oid": "64089c0c50c186d2a8ac3e98"
+      }
+    },
+    {
+      "date": "2023-3-9",
+      "netWorth": 1335.85,
+      "_id": {
+        "$oid": "6409ed8da4ab750a91498b4f"
+      }
+    },
+    {
+      "date": "2023-3-10",
+      "netWorth": 1313.83,
+      "_id": {
+        "$oid": "640b3f0de20004ad61cd2995"
+      }
+    },
+    {
+      "date": "2023-3-13",
+      "netWorth": 1297.58,
+      "_id": {
+        "$oid": "640f338e6b9232c81ebf8b6f"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "netWorth": 1318.59,
+      "_id": {
+        "$oid": "6410850c0a6709666bc9ea6c"
+      }
+    },
+    {
+      "date": "2023-3-15",
+      "netWorth": 1352.37,
+      "_id": {
+        "$oid": "6411d68e9ad840709935e707"
+      }
+    },
+    {
+      "date": "2023-3-16",
+      "netWorth": 1362.7,
+      "_id": {
+        "$oid": "6413280dcb695c74d9231ba0"
+      }
+    },
+    {
+      "date": "2023-3-17",
+      "netWorth": 1404.16,
+      "_id": {
+        "$oid": "6414798db207818141447999"
+      }
+    },
+    {
+      "date": "2023-3-20",
+      "netWorth": 1401.89,
+      "_id": {
+        "$oid": "64186e0d6d82375872ce424b"
+      }
+    },
+    {
+      "date": "2023-3-21",
+      "netWorth": 1395.33,
+      "_id": {
+        "$oid": "6419bf8d531fe0749fb8f327"
+      }
+    },
+    {
+      "date": "2023-3-22",
+      "netWorth": 1424.2,
+      "_id": {
+        "$oid": "641b110d7623fdccf09b807b"
+      }
+    },
+    {
+      "date": "2023-3-23",
+      "netWorth": 1406.62,
+      "_id": {
+        "$oid": "641c628ddb982a249e6eb5fb"
+      }
+    },
+    {
+      "date": "2023-3-24",
+      "netWorth": 1421.75,
+      "_id": {
+        "$oid": "641db40d5ffb59e8e081d8fb"
+      }
+    },
+    {
+      "date": "2023-3-27",
+      "netWorth": 1428.56,
+      "_id": {
+        "$oid": "64219a7d932f4b7f67a90785"
+      }
+    },
+    {
+      "date": "2023-3-28",
+      "netWorth": 1415.49,
+      "_id": {
+        "$oid": "6422ebfde04cd8a92a3853fc"
+      }
+    },
+    {
+      "date": "2023-3-29",
+      "netWorth": 1407.08,
+      "_id": {
+        "$oid": "64243d7dc79e9f9e6ba6d4a4"
+      }
+    },
+    {
+      "date": "2023-3-30",
+      "netWorth": 1437.71,
+      "_id": {
+        "$oid": "64258efc1210b7a30736d6d9"
+      }
+    },
+    {
+      "date": "2023-3-31",
+      "netWorth": 1454.46,
+      "_id": {
+        "$oid": "6426e07d31ab3345cd5b1c02"
+      }
+    },
+    {
+      "date": "2023-4-3",
+      "netWorth": 1485.34,
+      "_id": {
+        "$oid": "642ad4fd27d51a61fce2b975"
+      }
+    },
+    {
+      "date": "2023-4-4",
+      "netWorth": 1472.56,
+      "_id": {
+        "$oid": "642c267d52b86c53b1f65420"
+      }
+    },
+    {
+      "date": "2023-4-5",
+      "netWorth": 1471.73,
+      "_id": {
+        "$oid": "642d77fd18d38156cc439ef8"
+      }
+    },
+    {
+      "date": "2023-4-6",
+      "netWorth": 1447.68,
+      "_id": {
+        "$oid": "642ec97e86579295288aba49"
+      }
+    },
+    {
+      "date": "2023-4-7",
+      "netWorth": 1447.68,
+      "_id": {
+        "$oid": "64301afd3e851c0dbfccaa9b"
+      }
+    },
+    {
+      "date": "2023-4-10",
+      "netWorth": 1466.36,
+      "_id": {
+        "$oid": "64340f7d1cf4a3f956506216"
+      }
+    },
+    {
+      "date": "2023-4-11",
+      "netWorth": 1453.72,
+      "_id": {
+        "$oid": "643560fd6b4cb5e8633648b5"
+      }
+    },
+    {
+      "date": "2023-4-12",
+      "netWorth": 1434.69,
+      "_id": {
+        "$oid": "6436b27d0f04da58c4a1aa74"
+      }
+    },
+    {
+      "date": "2023-4-13",
+      "netWorth": 1423.48,
+      "_id": {
+        "$oid": "643803fdc51cfacbbc7c6a94"
+      }
+    },
+    {
+      "date": "2023-4-14",
+      "netWorth": 1467.06,
+      "_id": {
+        "$oid": "6439557d32c7eae7fa1853fa"
+      }
+    },
+    {
+      "date": "2023-4-17",
+      "netWorth": 1457.93,
+      "_id": {
+        "$oid": "643d49fd257d5f7a1bdb18fd"
+      }
+    },
+    {
+      "date": "2023-4-18",
+      "netWorth": 1465.81,
+      "_id": {
+        "$oid": "643e9b7ddeb4f432ac8e0ad1"
+      }
+    },
+    {
+      "date": "2023-4-19",
+      "netWorth": 1465.06,
+      "_id": {
+        "$oid": "643fecfddb964675bff4a6b6"
+      }
+    },
+    {
+      "date": "2023-4-20",
+      "netWorth": 1468.98,
+      "_id": {
+        "$oid": "64413e7d6434fe602aaf9547"
+      }
+    },
+    {
+      "date": "2023-4-21",
+      "netWorth": 1442.78,
+      "_id": {
+        "$oid": "64428ffc557db84a9745d494"
+      }
+    },
+    {
+      "date": "2023-4-24",
+      "netWorth": 1445.58,
+      "_id": {
+        "$oid": "6446847df9b86cb9d9835115"
+      }
+    },
+    {
+      "date": "2023-4-25",
+      "netWorth": 1434.5,
+      "_id": {
+        "$oid": "6447d5fc7bc729d67513a978"
+      }
+    },
+    {
+      "date": "2023-4-26",
+      "netWorth": 1407.96,
+      "_id": {
+        "$oid": "6449277dc3464d04b7928c34"
+      }
+    },
+    {
+      "date": "2023-4-27",
+      "netWorth": 1445.73,
+      "_id": {
+        "$oid": "644a78fd40a90ec1b990e9bf"
+      }
+    },
+    {
+      "date": "2023-4-28",
+      "netWorth": 1494.72,
+      "_id": {
+        "$oid": "644bca7d53c6ef902681f499"
+      }
+    },
+    {
+      "date": "2023-5-1",
+      "netWorth": 1498.77,
+      "_id": {
+        "$oid": "644fbefc1ed987a1ce9901e5"
+      }
+    },
+    {
+      "date": "2023-5-2",
+      "netWorth": 1485.82,
+      "_id": {
+        "$oid": "6451107cfd98002f740460e1"
+      }
+    },
+    {
+      "date": "2023-5-3",
+      "netWorth": 1484.01,
+      "_id": {
+        "$oid": "645261fd94c617a25b3ea917"
+      }
+    },
+    {
+      "date": "2023-5-4",
+      "netWorth": 1479.06,
+      "_id": {
+        "$oid": "6453b37d6e30de67a5600f2c"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "netWorth": 1477.39,
+      "_id": {
+        "$oid": "645504f76d627162722e4044"
+      }
+    },
+    {
+      "date": "2023-5-8",
+      "netWorth": 1523.39,
+      "_id": {
+        "$oid": "6458f97d92f97645a03cf9a2"
+      }
+    },
+    {
+      "date": "2023-5-9",
+      "netWorth": 1521.25,
+      "_id": {
+        "$oid": "645a4afc1b32a6af1b5bcc96"
+      }
+    },
+    {
+      "date": "2023-5-10",
+      "netWorth": 1511.7,
+      "_id": {
+        "$oid": "645b9c7d0d2654cca24e5485"
+      }
+    },
+    {
+      "date": "2023-5-11",
+      "netWorth": 1534.22,
+      "_id": {
+        "$oid": "645cedfcf90462f19a9bb213"
+      }
+    },
+    {
+      "date": "2023-5-12",
+      "netWorth": 1537.19,
+      "_id": {
+        "$oid": "645e3f7d175d3f83157d26b3"
+      }
+    },
+    {
+      "date": "2023-5-15",
+      "netWorth": 1524.15,
+      "_id": {
+        "$oid": "646233fcaecf14ed3af696e4"
+      }
+    },
+    {
+      "date": "2023-5-16",
+      "netWorth": 1523.88,
+      "_id": {
+        "$oid": "6463857c2fc76b6d8788fe19"
+      }
+    },
+    {
+      "date": "2023-5-17",
+      "netWorth": 1531.65,
+      "_id": {
+        "$oid": "6464d6f7cf6f46b2efaaf4bb"
+      }
+    },
+    {
+      "date": "2023-5-18",
+      "netWorth": 1550.93,
+      "_id": {
+        "$oid": "6466287a3d6816fbad3b3585"
+      }
+    },
+    {
+      "date": "2023-5-19",
+      "netWorth": 1575.38,
+      "_id": {
+        "$oid": "646779fb620eef5d72ba1b88"
+      }
+    },
+    {
+      "date": "2023-5-22",
+      "netWorth": 1574.8,
+      "_id": {
+        "$oid": "646b6e7a9b28f239e8c18b62"
+      }
+    },
+    {
+      "date": "2023-5-23",
+      "netWorth": 1583.85,
+      "_id": {
+        "$oid": "646cbffa2850da91232982fc"
+      }
+    },
+    {
+      "date": "2023-5-24",
+      "netWorth": 1560.95,
+      "_id": {
+        "$oid": "646e117a578e45e970826d9e"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "netWorth": 1559.62,
+      "_id": {
+        "$oid": "646f62fa4918e2b3232204f0"
+      }
+    },
+    {
+      "date": "2023-5-26",
+      "netWorth": 1585.28,
+      "_id": {
+        "$oid": "6470b47a291bc117cff6d1ed"
+      }
+    },
+    {
+      "date": "2023-5-29",
+      "netWorth": 1585.28,
+      "_id": {
+        "$oid": "6474a8fa52428bd9cb51edbf"
+      }
+    },
+    {
+      "date": "2023-5-30",
+      "netWorth": 1625.46,
+      "_id": {
+        "$oid": "6475fa7aef6758fb9ab38bdf"
+      }
+    },
+    {
+      "date": "2023-5-31",
+      "netWorth": 1638.8,
+      "_id": {
+        "$oid": "64774bfa063993a62b09d02f"
+      }
+    },
+    {
+      "date": "2023-6-1",
+      "netWorth": 1633.62,
+      "_id": {
+        "$oid": "64789d7a5bb29632133c20e4"
+      }
+    },
+    {
+      "date": "2023-6-2",
+      "netWorth": 1658.49,
+      "_id": {
+        "$oid": "6479eefa7205db685f4518fe"
+      }
+    },
+    {
+      "date": "2023-6-5",
+      "netWorth": 1676.12,
+      "_id": {
+        "$oid": "647de37a5815c2f42a528f0f"
+      }
+    },
+    {
+      "date": "2023-6-6",
+      "netWorth": 1678.83,
+      "_id": {
+        "$oid": "647f34f9eb923d6ee85da2de"
+      }
+    },
+    {
+      "date": "2023-6-7",
+      "netWorth": 1679.52,
+      "_id": {
+        "$oid": "6480867ae7b0b9cec4406ad0"
+      }
+    },
+    {
+      "date": "2023-6-8",
+      "netWorth": 1647.25,
+      "_id": {
+        "$oid": "6481d7fa34951dc05cf79c60"
+      }
+    },
+    {
+      "date": "2023-6-9",
+      "netWorth": 1675.59,
+      "_id": {
+        "$oid": "6483297a4f56d340dbe56fdb"
+      }
+    },
+    {
+      "date": "2023-6-12",
+      "netWorth": 1687.72,
+      "_id": {
+        "$oid": "64871df6d6e8d942df9302aa"
+      }
+    },
+    {
+      "date": "2023-6-13",
+      "netWorth": 1718.04,
+      "_id": {
+        "$oid": "64886f7abf509586235f65e5"
+      }
+    },
+    {
+      "date": "2023-6-14",
+      "netWorth": 1730.54,
+      "_id": {
+        "$oid": "6489c0fac8a67f64885e6096"
+      }
+    },
+    {
+      "date": "2023-6-15",
+      "netWorth": 1736.16,
+      "_id": {
+        "$oid": "648b127a1eb4ed026fe23f39"
+      }
+    },
+    {
+      "date": "2023-6-16",
+      "netWorth": 1764.35,
+      "_id": {
+        "$oid": "648c63faaf52e39c9a2645e7"
+      }
+    },
+    {
+      "date": "2023-6-19",
+      "netWorth": 1764.35,
+      "_id": {
+        "$oid": "6490587a4b5326d93c14b620"
+      }
+    }
+  ],
+  "relativeChangeHistory": [
+    {
+      "date": "2022-10-18",
+      "relativeChange": 1,
+      "_id": {
+        "$oid": "634ecb790ccf6ea1b9ed26b3"
+      }
+    },
+    {
+      "date": "2022-10-19",
+      "relativeChange": 1.0037822616925207,
+      "_id": {
+        "$oid": "634ffc6e10d025d58645670e"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "relativeChange": 1.0056269989629127,
+      "_id": {
+        "$oid": "63514df55ad1be5170def625"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "relativeChange": 0.9900554550774322,
+      "_id": {
+        "$oid": "63529f79ea2c542564ba3f2f"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "relativeChange": 1.019861705210813,
+      "_id": {
+        "$oid": "63569401ddc1d601bd6870c7"
+      }
+    },
+    {
+      "date": "2022-10-25",
+      "relativeChange": 1.0311218212434485,
+      "_id": {
+        "$oid": "6357e58cb22642df35282394"
+      }
+    },
+    {
+      "date": "2022-10-26",
+      "relativeChange": 1.0519922465575515,
+      "_id": {
+        "$oid": "63593716fdb7bc6fbe1cfbb0"
+      }
+    },
+    {
+      "date": "2022-10-27",
+      "relativeChange": 1.0110799984232062,
+      "_id": {
+        "$oid": "635a88a0a4e4218a6c699764"
+      }
+    },
+    {
+      "date": "2022-10-28",
+      "relativeChange": 0.9875979956061334,
+      "_id": {
+        "$oid": "635bda23e5cbe2e96dbe9071"
+      }
+    },
+    {
+      "date": "2022-10-31",
+      "relativeChange": 1.016739649385733,
+      "_id": {
+        "$oid": "635fceab2bb25b55b5a23c5f"
+      }
+    },
+    {
+      "date": "2022-11-1",
+      "relativeChange": 1.0037187530536449,
+      "_id": {
+        "$oid": "63612dbdf567732c9427eced"
+      }
+    },
+    {
+      "date": "2022-11-2",
+      "relativeChange": 0.9837361161258208,
+      "_id": {
+        "$oid": "63627f49d1786ef1e847e752"
+      }
+    },
+    {
+      "date": "2022-11-3",
+      "relativeChange": 0.9429126468301031,
+      "_id": {
+        "$oid": "6363d0d342f88d1788380525"
+      }
+    },
+    {
+      "date": "2022-11-4",
+      "relativeChange": 0.9161680216934559,
+      "_id": {
+        "$oid": "6365225e16c8632ce07f2b34"
+      }
+    },
+    {
+      "date": "2022-11-7",
+      "relativeChange": 0.9228190363539941,
+      "_id": {
+        "$oid": "636916e82b1cd73b6bcd3e55"
+      }
+    },
+    {
+      "date": "2022-11-8",
+      "relativeChange": 0.9252530561797085,
+      "_id": {
+        "$oid": "636a68716a7d2799bd2dd79e"
+      }
+    },
+    {
+      "date": "2022-11-9",
+      "relativeChange": 0.922930009902279,
+      "_id": {
+        "$oid": "636bb9fdbf8bfd2b0f35abb0"
+      }
+    },
+    {
+      "date": "2022-11-10",
+      "relativeChange": 0.8903777690720583,
+      "_id": {
+        "$oid": "636d0b80e506a9514237d993"
+      }
+    },
+    {
+      "date": "2022-11-11",
+      "relativeChange": 0.9695758913646747,
+      "_id": {
+        "$oid": "636e5d0a278c88f06812dc0e"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "relativeChange": 0.9735117532105105,
+      "_id": {
+        "$oid": "6373a277054f83e50a2de4ec"
+      }
+    },
+    {
+      "date": "2022-11-16",
+      "relativeChange": 0.9802663431827814,
+      "_id": {
+        "$oid": "6374f403d117f74e26be78c7"
+      }
+    },
+    {
+      "date": "2022-11-17",
+      "relativeChange": 0.969901413772977,
+      "_id": {
+        "$oid": "637645902557d9a842531f13"
+      }
+    },
+    {
+      "date": "2022-11-18",
+      "relativeChange": 0.9679778722693732,
+      "_id": {
+        "$oid": "6377971e010cb3f118a5e38c"
+      }
+    },
+    {
+      "date": "2022-11-21",
+      "relativeChange": 0.9653071088739845,
+      "_id": {
+        "$oid": "637b8baf77f237abb97976b6"
+      }
+    },
+    {
+      "date": "2022-11-22",
+      "relativeChange": 0.9653071088739845,
+      "_id": {
+        "$oid": "637cc8e92c5d633cbdc4155b"
+      }
+    },
+    {
+      "date": "2022-11-23",
+      "relativeChange": 0.9594846967073065,
+      "_id": {
+        "$oid": "637e57ce239632611896df8b"
+      }
+    },
+    {
+      "date": "2022-11-24",
+      "relativeChange": 0.9594846967073065,
+      "_id": {
+        "$oid": "637f800ce63c99d6dc043c3e"
+      }
+    },
+    {
+      "date": "2022-11-25",
+      "relativeChange": 0.9764414548852305,
+      "_id": {
+        "$oid": "6380d18b4e16789606f53db5"
+      }
+    },
+    {
+      "date": "2022-11-28",
+      "relativeChange": 0.9684217664625125,
+      "_id": {
+        "$oid": "6384c60b53b9b4d58e75d4aa"
+      }
+    },
+    {
+      "date": "2022-11-29",
+      "relativeChange": 0.9521530442839545,
+      "_id": {
+        "$oid": "6386178b9f966548233b2476"
+      }
+    },
+    {
+      "date": "2022-11-30",
+      "relativeChange": 0.9394576703601684,
+      "_id": {
+        "$oid": "6387690b6e3fe878d90beb5f"
+      }
+    },
+    {
+      "date": "2022-12-1",
+      "relativeChange": 0.9929543188700152,
+      "_id": {
+        "$oid": "6388ba8c99a053bb25f93926"
+      }
+    },
+    {
+      "date": "2022-12-2",
+      "relativeChange": 0.9913710962478179,
+      "_id": {
+        "$oid": "638a0c0b63f3134bd8b4d899"
+      }
+    },
+    {
+      "date": "2022-12-5",
+      "relativeChange": 0.9888408993469234,
+      "_id": {
+        "$oid": "638e008cb7acf50e832fb058"
+      }
+    },
+    {
+      "date": "2022-12-6",
+      "relativeChange": 0.9652923124008798,
+      "_id": {
+        "$oid": "638f520c37445aad66a71e19"
+      }
+    },
+    {
+      "date": "2022-12-7",
+      "relativeChange": 0.9434897092811843,
+      "_id": {
+        "$oid": "6390a38c38303b73c8ae4f63"
+      }
+    },
+    {
+      "date": "2022-12-8",
+      "relativeChange": 0.934042161203868,
+      "_id": {
+        "$oid": "6391f50ba7f5be55b730e82c"
+      }
+    },
+    {
+      "date": "2022-12-9",
+      "relativeChange": 0.9446734271295559,
+      "_id": {
+        "$oid": "6393468c4384aae9089d254c"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "relativeChange": 0.9429422397763123,
+      "_id": {
+        "$oid": "63973b06805cfc6b0d3355ed"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "relativeChange": 0.9524563719825996,
+      "_id": {
+        "$oid": "63988c8cafaa236a77506522"
+      }
+    },
+    {
+      "date": "2022-12-14",
+      "relativeChange": 0.9589446254389867,
+      "_id": {
+        "$oid": "6399de0b59ea4432c50a0ba8"
+      }
+    },
+    {
+      "date": "2022-12-15",
+      "relativeChange": 0.9499557680279144,
+      "_id": {
+        "$oid": "639b2f8c9b55b6c7f48b38c2"
+      }
+    },
+    {
+      "date": "2022-12-16",
+      "relativeChange": 0.9189275639274722,
+      "_id": {
+        "$oid": "639c8107f221f79311c7f0e1"
+      }
+    },
+    {
+      "date": "2022-12-19",
+      "relativeChange": 0.9017414604164261,
+      "_id": {
+        "$oid": "63a08702b22880e8feb37635"
+      }
+    },
+    {
+      "date": "2022-12-20",
+      "relativeChange": 0.8861015883448157,
+      "_id": {
+        "$oid": "63a1c70be8df9114ea2456b7"
+      }
+    },
+    {
+      "date": "2022-12-21",
+      "relativeChange": 0.8794135825015158,
+      "_id": {
+        "$oid": "63a3188c1c377b08fc05f2d8"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "relativeChange": 0.8924640717798132,
+      "_id": {
+        "$oid": "63a46a0be42b7f237e6cebdd"
+      }
+    },
+    {
+      "date": "2022-12-23",
+      "relativeChange": 0.8626343820008474,
+      "_id": {
+        "$oid": "63a5bb879346305c540dc1e3"
+      }
+    },
+    {
+      "date": "2022-12-26",
+      "relativeChange": 0.8626343820008474,
+      "_id": {
+        "$oid": "63a9b00c665ada1ff7dbbc80"
+      }
+    },
+    {
+      "date": "2022-12-27",
+      "relativeChange": 0.8631448603229577,
+      "_id": {
+        "$oid": "63ab0186911168c7f7ad741f"
+      }
+    },
+    {
+      "date": "2022-12-28",
+      "relativeChange": 0.8427997098040698,
+      "_id": {
+        "$oid": "63ac530cc64101cbc87292d3"
+      }
+    },
+    {
+      "date": "2022-12-29",
+      "relativeChange": 0.8312140713631321,
+      "_id": {
+        "$oid": "63ada48b14e1241bdfbcce70"
+      }
+    },
+    {
+      "date": "2022-12-30",
+      "relativeChange": 0.8589574584343428,
+      "_id": {
+        "$oid": "63aef60b1e8e905c596c642b"
+      }
+    },
+    {
+      "date": "2023-1-2",
+      "relativeChange": 0.8589574584343428,
+      "_id": {
+        "$oid": "63b2ea8c48157fbf10554057"
+      }
+    },
+    {
+      "date": "2023-1-3",
+      "relativeChange": 0.8586467324991452,
+      "_id": {
+        "$oid": "63b43c0c3103dd4dfa54c77a"
+      }
+    },
+    {
+      "date": "2023-1-4",
+      "relativeChange": 0.8390414056354896,
+      "_id": {
+        "$oid": "63b58d8cb2c6b6fe6b67a4ce"
+      }
+    },
+    {
+      "date": "2023-1-5",
+      "relativeChange": 0.8294902822464408,
+      "_id": {
+        "$oid": "63b6df0b103f2f4fc2501cfd"
+      }
+    },
+    {
+      "date": "2023-1-6",
+      "relativeChange": 0.8110390802849475,
+      "_id": {
+        "$oid": "63b8308c4698354702e7bb1e"
+      }
+    },
+    {
+      "date": "2023-1-9",
+      "relativeChange": 0.8315173990617774,
+      "_id": {
+        "$oid": "63bc250c0dfad5fb0e72564a"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "relativeChange": 0.8427923115675174,
+      "_id": {
+        "$oid": "63bd768c025122766745f676"
+      }
+    },
+    {
+      "date": "2023-1-11",
+      "relativeChange": 0.8496726715611778,
+      "_id": {
+        "$oid": "63bec8072e7b1ed50cf503e1"
+      }
+    },
+    {
+      "date": "2023-1-12",
+      "relativeChange": 0.8769943591489061,
+      "_id": {
+        "$oid": "63c0198d5d0579b2830c2c6d"
+      }
+    },
+    {
+      "date": "2023-1-13",
+      "relativeChange": 0.8813889116609857,
+      "_id": {
+        "$oid": "63c16b0d06ff9c3f59f981e7"
+      }
+    },
+    {
+      "date": "2023-1-16",
+      "relativeChange": 0.8813889116609857,
+      "_id": {
+        "$oid": "63c55f8c9b5e987436d1dc88"
+      }
+    },
+    {
+      "date": "2023-1-17",
+      "relativeChange": 0.8888093429229657,
+      "_id": {
+        "$oid": "63c6b10dd2ed846c16c6edf7"
+      }
+    },
+    {
+      "date": "2023-1-18",
+      "relativeChange": 0.896747650743608,
+      "_id": {
+        "$oid": "63c8028cc26c40505d5ff342"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "relativeChange": 0.8855319241302866,
+      "_id": {
+        "$oid": "63c9540dd40ddf29ad67982f"
+      }
+    },
+    {
+      "date": "2023-1-20",
+      "relativeChange": 0.8760991725260748,
+      "_id": {
+        "$oid": "63caa58d6b4f0bab4a94d221"
+      }
+    },
+    {
+      "date": "2023-1-23",
+      "relativeChange": 0.9040423119841984,
+      "_id": {
+        "$oid": "63ce9a0dfb795d0550bca805"
+      }
+    },
+    {
+      "date": "2023-1-24",
+      "relativeChange": 0.9227672486981277,
+      "_id": {
+        "$oid": "63cfeb8c8c1e8e1a8b46eb12"
+      }
+    },
+    {
+      "date": "2023-1-25",
+      "relativeChange": 0.9234478864609413,
+      "_id": {
+        "$oid": "63d13d0d08caaf42fa8a12f3"
+      }
+    },
+    {
+      "date": "2023-1-26",
+      "relativeChange": 0.921516946720785,
+      "_id": {
+        "$oid": "63d28e8df3b8c2820a9ac9d9"
+      }
+    },
+    {
+      "date": "2023-1-27",
+      "relativeChange": 0.9518497165853088,
+      "_id": {
+        "$oid": "63d3e00db5e05429e38722d8"
+      }
+    },
+    {
+      "date": "2023-1-30",
+      "relativeChange": 0.9739704438767542,
+      "_id": {
+        "$oid": "63d7d48de3d7411be31e820e"
+      }
+    },
+    {
+      "date": "2023-1-31",
+      "relativeChange": 0.9485870942657345,
+      "_id": {
+        "$oid": "63d9260d1d957fa0b19f1663"
+      }
+    },
+    {
+      "date": "2023-2-1",
+      "relativeChange": 0.9676671463341752,
+      "_id": {
+        "$oid": "63da778d2fa0c22b656a2cab"
+      }
+    },
+    {
+      "date": "2023-2-2",
+      "relativeChange": 0.9865548442522555,
+      "_id": {
+        "$oid": "63dbc90dd0d7920fe47e3e8b"
+      }
+    },
+    {
+      "date": "2023-2-3",
+      "relativeChange": 1.0326088667904654,
+      "_id": {
+        "$oid": "63dd1a8d72be7dc0ef246ea9"
+      }
+    },
+    {
+      "date": "2023-2-6",
+      "relativeChange": 1.0187075803086507,
+      "_id": {
+        "$oid": "63e10f0db89ab978604b8a11"
+      }
+    },
+    {
+      "date": "2023-2-7",
+      "relativeChange": 1.0119677868094845,
+      "_id": {
+        "$oid": "63e2608c28381b5a260c5698"
+      }
+    },
+    {
+      "date": "2023-2-8",
+      "relativeChange": 1.0358270996907257,
+      "_id": {
+        "$oid": "63e3b20da1d6072b4174c395"
+      }
+    },
+    {
+      "date": "2023-2-9",
+      "relativeChange": 1.0288061732025713,
+      "_id": {
+        "$oid": "63e5038d7212a6b117a7ea57"
+      }
+    },
+    {
+      "date": "2023-2-10",
+      "relativeChange": 1.0231465222400444,
+      "_id": {
+        "$oid": "63e6550da823c6f7491c76cd"
+      }
+    },
+    {
+      "date": "2023-2-13",
+      "relativeChange": 1.0145497713662452,
+      "_id": {
+        "$oid": "63ea498ebeddb4fb645b719a"
+      }
+    },
+    {
+      "date": "2023-2-14",
+      "relativeChange": 1.0342068858857671,
+      "_id": {
+        "$oid": "63eb9b0e710c2f70a3e7d9d7"
+      }
+    },
+    {
+      "date": "2023-2-15",
+      "relativeChange": 1.044061336973461,
+      "_id": {
+        "$oid": "63ecec8d1d64574efaf35fdf"
+      }
+    },
+    {
+      "date": "2023-2-16",
+      "relativeChange": 1.0514299805795746,
+      "_id": {
+        "$oid": "63ee3e0e989d94147d8fbb71"
+      }
+    },
+    {
+      "date": "2023-2-17",
+      "relativeChange": 1.0237457794007823,
+      "_id": {
+        "$oid": "63ef8f8ef445c29ae9215f9b"
+      }
+    },
+    {
+      "date": "2023-2-20",
+      "relativeChange": 1.0237457794007823,
+      "_id": {
+        "$oid": "63f3840ed1279bdf61469fda"
+      }
+    },
+    {
+      "date": "2023-2-21",
+      "relativeChange": 1.018352464954139,
+      "_id": {
+        "$oid": "63f4d58e24f8dbded6d9cb97"
+      }
+    },
+    {
+      "date": "2023-2-22",
+      "relativeChange": 0.9893735723786902,
+      "_id": {
+        "$oid": "63f6270ca13afe2e3275ed82"
+      }
+    },
+    {
+      "date": "2023-2-23",
+      "relativeChange": 0.9929839118162238,
+      "_id": {
+        "$oid": "63f7788d33bd8050078ed413"
+      }
+    },
+    {
+      "date": "2023-2-24",
+      "relativeChange": 0.9998346788636748,
+      "_id": {
+        "$oid": "63f8ca0e86da1d52ea5747f4"
+      }
+    },
+    {
+      "date": "2023-2-27",
+      "relativeChange": 0.9783797928619385,
+      "_id": {
+        "$oid": "63fcbe8e13a7f58b7c841adb"
+      }
+    },
+    {
+      "date": "2023-2-28",
+      "relativeChange": 0.9907940337967364,
+      "_id": {
+        "$oid": "63fe100d95cd4a8cc47b1e4f"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "relativeChange": 0.9878421374123596,
+      "_id": {
+        "$oid": "63ff618d93e0990c68e9575c"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "relativeChange": 0.9732972043504927,
+      "_id": {
+        "$oid": "6400b30d119a19feb08661de"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "relativeChange": 0.9729494872325336,
+      "_id": {
+        "$oid": "6402048e31c2501ad601d766"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "relativeChange": 0.9996941123691808,
+      "_id": {
+        "$oid": "6405f90d610382dabc3e212e"
+      }
+    },
+    {
+      "date": "2023-3-7",
+      "relativeChange": 1.0036003812688072,
+      "_id": {
+        "$oid": "64074a8e53847ea2f1a3c13b"
+      }
+    },
+    {
+      "date": "2023-3-8",
+      "relativeChange": 0.9898174665718298,
+      "_id": {
+        "$oid": "64089c0d50c186d2a8ac3f80"
+      }
+    },
+    {
+      "date": "2023-3-9",
+      "relativeChange": 0.9882934298420512,
+      "_id": {
+        "$oid": "6409ed8da4ab750a91498c39"
+      }
+    },
+    {
+      "date": "2023-3-10",
+      "relativeChange": 0.9720025129538362,
+      "_id": {
+        "$oid": "640b3f0de20004ad61cd2a81"
+      }
+    },
+    {
+      "date": "2023-3-13",
+      "relativeChange": 0.9599803785563116,
+      "_id": {
+        "$oid": "640f338e6b9232c81ebf8c5d"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "relativeChange": 0.975524073552742,
+      "_id": {
+        "$oid": "6410850d0a6709666bc9eb5c"
+      }
+    },
+    {
+      "date": "2023-3-15",
+      "relativeChange": 1.0005153166264886,
+      "_id": {
+        "$oid": "6411d68e9ad840709935e7f9"
+      }
+    },
+    {
+      "date": "2023-3-16",
+      "relativeChange": 1.0081576949850384,
+      "_id": {
+        "$oid": "6413280dcb695c74d9231c94"
+      }
+    },
+    {
+      "date": "2023-3-17",
+      "relativeChange": 1.0388307837309692,
+      "_id": {
+        "$oid": "6414798eb207818141447a8f"
+      }
+    },
+    {
+      "date": "2023-3-20",
+      "relativeChange": 1.037151384033592,
+      "_id": {
+        "$oid": "64186e0d6d82375872ce4343"
+      }
+    },
+    {
+      "date": "2023-3-21",
+      "relativeChange": 1.032298140855268,
+      "_id": {
+        "$oid": "6419bf8d531fe0749fb8f421"
+      }
+    },
+    {
+      "date": "2023-3-22",
+      "relativeChange": 1.0536568497818242,
+      "_id": {
+        "$oid": "641b110d7623fdccf09b8177"
+      }
+    },
+    {
+      "date": "2023-3-23",
+      "relativeChange": 1.0406507499228403,
+      "_id": {
+        "$oid": "641c628ddb982a249e6eb6f9"
+      }
+    },
+    {
+      "date": "2023-3-24",
+      "relativeChange": 1.051844281826505,
+      "_id": {
+        "$oid": "641db40d5ffb59e8e081d9fb"
+      }
+    },
+    {
+      "date": "2023-3-27",
+      "relativeChange": 1.0568824809186368,
+      "_id": {
+        "$oid": "64219a7d932f4b7f67a90887"
+      }
+    },
+    {
+      "date": "2023-3-28",
+      "relativeChange": 1.0472129857447507,
+      "_id": {
+        "$oid": "6422ebfee04cd8a92a385500"
+      }
+    },
+    {
+      "date": "2023-3-29",
+      "relativeChange": 1.0409910688042472,
+      "_id": {
+        "$oid": "64243d7dc79e9f9e6ba6d5aa"
+      }
+    },
+    {
+      "date": "2023-3-30",
+      "relativeChange": 1.0636518673640123,
+      "_id": {
+        "$oid": "64258efd1210b7a30736d7e1"
+      }
+    },
+    {
+      "date": "2023-3-31",
+      "relativeChange": 1.076043913589153,
+      "_id": {
+        "$oid": "6426e07d31ab3345cd5b1d0c"
+      }
+    },
+    {
+      "date": "2023-4-3",
+      "relativeChange": 1.098889668062726,
+      "_id": {
+        "$oid": "642ad4fe27d51a61fce2ba81"
+      }
+    },
+    {
+      "date": "2023-4-4",
+      "relativeChange": 1.0894347217488574,
+      "_id": {
+        "$oid": "642c267e52b86c53b1f6552e"
+      }
+    },
+    {
+      "date": "2023-4-5",
+      "relativeChange": 1.0888206681150145,
+      "_id": {
+        "$oid": "642d77fe18d38156cc43a008"
+      }
+    },
+    {
+      "date": "2023-4-6",
+      "relativeChange": 1.0710279092066781,
+      "_id": {
+        "$oid": "642ec97e86579295288abb5b"
+      }
+    },
+    {
+      "date": "2023-4-7",
+      "relativeChange": 1.0710279092066781,
+      "_id": {
+        "$oid": "64301afe3e851c0dbfccabaf"
+      }
+    },
+    {
+      "date": "2023-4-10",
+      "relativeChange": 1.0848478150864171,
+      "_id": {
+        "$oid": "64340f7d1cf4a3f95650632c"
+      }
+    },
+    {
+      "date": "2023-4-11",
+      "relativeChange": 1.0754964440842811,
+      "_id": {
+        "$oid": "643560fd6b4cb5e8633649cd"
+      }
+    },
+    {
+      "date": "2023-4-12",
+      "relativeChange": 1.0614175999252107,
+      "_id": {
+        "$oid": "6436b27d0f04da58c4a1ab8e"
+      }
+    },
+    {
+      "date": "2023-4-13",
+      "relativeChange": 1.0531241767500568,
+      "_id": {
+        "$oid": "643803fdc51cfacbbc7c6bb0"
+      }
+    },
+    {
+      "date": "2023-4-14",
+      "relativeChange": 1.0853656916450798,
+      "_id": {
+        "$oid": "6439557d32c7eae7fa185518"
+      }
+    },
+    {
+      "date": "2023-4-17",
+      "relativeChange": 1.078611101672809,
+      "_id": {
+        "$oid": "643d49fd257d5f7a1bdb1a1d"
+      }
+    },
+    {
+      "date": "2023-4-18",
+      "relativeChange": 1.0844409120760394,
+      "_id": {
+        "$oid": "643e9b7edeb4f432ac8e0bf3"
+      }
+    },
+    {
+      "date": "2023-4-19",
+      "relativeChange": 1.0838860443346152,
+      "_id": {
+        "$oid": "643fecfedb964675bff4a7da"
+      }
+    },
+    {
+      "date": "2023-4-20",
+      "relativeChange": 1.0867861530631258,
+      "_id": {
+        "$oid": "64413e7d6434fe602aaf966d"
+      }
+    },
+    {
+      "date": "2023-4-21",
+      "relativeChange": 1.0674027732960398,
+      "_id": {
+        "$oid": "64428ffd557db84a9745d5bc"
+      }
+    },
+    {
+      "date": "2023-4-24",
+      "relativeChange": 1.0694742795306902,
+      "_id": {
+        "$oid": "6446847df9b86cb9d983523f"
+      }
+    },
+    {
+      "date": "2023-4-25",
+      "relativeChange": 1.0612770334307164,
+      "_id": {
+        "$oid": "6447d5fd7bc729d67513aaa4"
+      }
+    },
+    {
+      "date": "2023-4-26",
+      "relativeChange": 1.0416421136208516,
+      "_id": {
+        "$oid": "6449277dc3464d04b7928d62"
+      }
+    },
+    {
+      "date": "2023-4-27",
+      "relativeChange": 1.0695852530789751,
+      "_id": {
+        "$oid": "644a78fd40a90ec1b990eaef"
+      }
+    },
+    {
+      "date": "2023-4-28",
+      "relativeChange": 1.1058292139488048,
+      "_id": {
+        "$oid": "644bca7d53c6ef902681f5cb"
+      }
+    },
+    {
+      "date": "2023-5-1",
+      "relativeChange": 1.1088254997524956,
+      "_id": {
+        "$oid": "644fbefd1ed987a1ce990319"
+      }
+    },
+    {
+      "date": "2023-5-2",
+      "relativeChange": 1.0992447834172374,
+      "_id": {
+        "$oid": "6451107dfd98002f74046217"
+      }
+    },
+    {
+      "date": "2023-5-3",
+      "relativeChange": 1.097905702601267,
+      "_id": {
+        "$oid": "645261fd94c617a25b3eaa4f"
+      }
+    },
+    {
+      "date": "2023-5-4",
+      "relativeChange": 1.0942435755078672,
+      "_id": {
+        "$oid": "6453b37d6e30de67a5601066"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "relativeChange": 1.0930080700036293,
+      "_id": {
+        "$oid": "645504f86d627162722e4180"
+      }
+    },
+    {
+      "date": "2023-5-8",
+      "relativeChange": 1.1270399581443145,
+      "_id": {
+        "$oid": "6458f97d92f97645a03cfae0"
+      }
+    },
+    {
+      "date": "2023-5-9",
+      "relativeChange": 1.1254567355221172,
+      "_id": {
+        "$oid": "645a4afd1b32a6af1b5bcdd6"
+      }
+    },
+    {
+      "date": "2023-5-10",
+      "relativeChange": 1.118391419614649,
+      "_id": {
+        "$oid": "645b9c7d0d2654cca24e55c7"
+      }
+    },
+    {
+      "date": "2023-5-11",
+      "relativeChange": 1.1350522483304801,
+      "_id": {
+        "$oid": "645cedfdf90462f19a9bb357"
+      }
+    },
+    {
+      "date": "2023-5-12",
+      "relativeChange": 1.1372495245865202,
+      "_id": {
+        "$oid": "645e3f7d175d3f83157d27f9"
+      }
+    },
+    {
+      "date": "2023-5-15",
+      "relativeChange": 1.1276022241222912,
+      "_id": {
+        "$oid": "646233fdaecf14ed3af6982c"
+      }
+    },
+    {
+      "date": "2023-5-16",
+      "relativeChange": 1.1274024717353783,
+      "_id": {
+        "$oid": "6463857d2fc76b6d8788ff63"
+      }
+    },
+    {
+      "date": "2023-5-17",
+      "relativeChange": 1.133150901536533,
+      "_id": {
+        "$oid": "6464d6f7cf6f46b2efaaf607"
+      }
+    },
+    {
+      "date": "2023-5-18",
+      "relativeChange": 1.1474147016094116,
+      "_id": {
+        "$oid": "6466287a3d6816fbad3b36d3"
+      }
+    },
+    {
+      "date": "2023-5-19",
+      "relativeChange": 1.1655033899798413,
+      "_id": {
+        "$oid": "646779fb620eef5d72ba1cd8"
+      }
+    },
+    {
+      "date": "2023-5-22",
+      "relativeChange": 1.1650742922598063,
+      "_id": {
+        "$oid": "646b6e7a9b28f239e8c18cb4"
+      }
+    },
+    {
+      "date": "2023-5-23",
+      "relativeChange": 1.1717696963396584,
+      "_id": {
+        "$oid": "646cbffa2850da9123298450"
+      }
+    },
+    {
+      "date": "2023-5-24",
+      "relativeChange": 1.154827734634839,
+      "_id": {
+        "$oid": "646e117b578e45e970826ef4"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "relativeChange": 1.1538437691733798,
+      "_id": {
+        "$oid": "646f62fa4918e2b323220648"
+      }
+    },
+    {
+      "date": "2023-5-26",
+      "relativeChange": 1.1728276441666403,
+      "_id": {
+        "$oid": "6470b47a291bc117cff6d347"
+      }
+    },
+    {
+      "date": "2023-5-29",
+      "relativeChange": 1.1728276441666403,
+      "_id": {
+        "$oid": "6474a8fb52428bd9cb51ef1b"
+      }
+    },
+    {
+      "date": "2023-5-30",
+      "relativeChange": 1.2025537586338737,
+      "_id": {
+        "$oid": "6475fa7bef6758fb9ab38d3d"
+      }
+    },
+    {
+      "date": "2023-5-31",
+      "relativeChange": 1.2124230061946724,
+      "_id": {
+        "$oid": "64774bfb063993a62b09d18f"
+      }
+    },
+    {
+      "date": "2023-6-1",
+      "relativeChange": 1.2085907196605692,
+      "_id": {
+        "$oid": "64789d7a5bb29632133c2246"
+      }
+    },
+    {
+      "date": "2023-6-2",
+      "relativeChange": 1.2269901339661962,
+      "_id": {
+        "$oid": "6479eefa7205db685f451a62"
+      }
+    },
+    {
+      "date": "2023-6-5",
+      "relativeChange": 1.2400332250079413,
+      "_id": {
+        "$oid": "647de37a5815c2f42a529075"
+      }
+    },
+    {
+      "date": "2023-6-6",
+      "relativeChange": 1.2420381471136208,
+      "_id": {
+        "$oid": "647f34faeb923d6ee85da446"
+      }
+    },
+    {
+      "date": "2023-6-7",
+      "relativeChange": 1.2425486254357312,
+      "_id": {
+        "$oid": "6480867be7b0b9cec4406c3a"
+      }
+    },
+    {
+      "date": "2023-6-8",
+      "relativeChange": 1.2186745160813852,
+      "_id": {
+        "$oid": "6481d7fa34951dc05cf79dcc"
+      }
+    },
+    {
+      "date": "2023-6-9",
+      "relativeChange": 1.2396411184706682,
+      "_id": {
+        "$oid": "6483297a4f56d340dbe57149"
+      }
+    },
+    {
+      "date": "2023-6-12",
+      "relativeChange": 1.248615179408636,
+      "_id": {
+        "$oid": "64871df7d6e8d942df93041a"
+      }
+    },
+    {
+      "date": "2023-6-13",
+      "relativeChange": 1.2710466326352787,
+      "_id": {
+        "$oid": "64886f7bbf509586235f6757"
+      }
+    },
+    {
+      "date": "2023-6-14",
+      "relativeChange": 1.2802944283256823,
+      "_id": {
+        "$oid": "6489c0fbc8a67f64885e620a"
+      }
+    },
+    {
+      "date": "2023-6-15",
+      "relativeChange": 1.2844522372680878,
+      "_id": {
+        "$oid": "648b127a1eb4ed026fe240af"
+      }
+    },
+    {
+      "date": "2023-6-16",
+      "relativeChange": 1.3053078661090858,
+      "_id": {
+        "$oid": "648c63faaf52e39c9a26475f"
+      }
+    },
+    {
+      "date": "2023-6-19",
+      "relativeChange": 1.3053078661090858,
+      "_id": {
+        "$oid": "6490587a4b5326d93c14b79a"
+      }
+    }
+  ],
+  "totalInvestedHistory": [
+    {
+      "date": "2022-10-18",
+      "total": 600.17,
+      "_id": {
+        "$oid": "634ecb790ccf6ea1b9ed26b4"
+      }
+    },
+    {
+      "date": "2022-10-19",
+      "total": 857.46,
+      "_id": {
+        "$oid": "634ffca610d025d58645676e"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "total": 971.97,
+      "_id": {
+        "$oid": "63514e965ad1be5170def8df"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "total": 1115.04,
+      "_id": {
+        "$oid": "63529fc0ea2c542564ba42b5"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "total": 1356.55,
+      "_id": {
+        "$oid": "63569ffaaee14f99364b88be"
+      }
+    }
+  ],
+  "__v": 351
+},{
+  "_id": {
+    "$oid": "63510a6675c9ade2f0814638"
+  },
+  "username": "martinCZK",
+  "stocks": [
+    {
+      "ticker": "META",
+      "amount": 4,
+      "prevClose": 6110.92,
+      "_id": {
+        "$oid": "63510a6675c9ade2f0814639"
+      }
+    },
+    {
+      "ticker": "CEZ.PR",
+      "amount": 45,
+      "prevClose": 1042,
+      "_id": {
+        "$oid": "63510a6a75c9ade2f0814648"
+      }
+    },
+    {
+      "ticker": "AAPL",
+      "amount": 14,
+      "prevClose": 4033.25,
+      "_id": {
+        "$oid": "63510a8775c9ade2f0814659"
+      }
+    },
+    {
+      "ticker": "ERBAG.PR",
+      "amount": 42,
+      "prevClose": 754,
+      "_id": {
+        "$oid": "63510a8d75c9ade2f081466e"
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "amount": 9,
+      "prevClose": 7547.85,
+      "_id": {
+        "$oid": "63510a9275c9ade2f0814687"
+      }
+    },
+    {
+      "ticker": "VOW.DE",
+      "amount": 4,
+      "prevClose": 3792.44,
+      "_id": {
+        "$oid": "63510b38f1c3bbf86158396a"
+      }
+    },
+    {
+      "ticker": "INTC",
+      "amount": 10,
+      "prevClose": 776.69,
+      "_id": {
+        "$oid": "63510b5da38f2bbe9a2c92d3"
+      }
+    },
+    {
+      "ticker": "KO",
+      "amount": 18,
+      "prevClose": 1327.65,
+      "_id": {
+        "$oid": "63510b61a38f2bbe9a2c92f8"
+      }
+    },
+    {
+      "ticker": "TABAK.PR",
+      "amount": 1,
+      "prevClose": 17280,
+      "_id": {
+        "$oid": "63510b6aa38f2bbe9a2c9321"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "amount": 5,
+      "prevClose": 9248.45,
+      "_id": {
+        "$oid": "63510b70a38f2bbe9a2c934e"
+      }
+    },
+    {
+      "ticker": "BRK-B",
+      "amount": 4,
+      "prevClose": 7368.32,
+      "_id": {
+        "$oid": "63510b7ea38f2bbe9a2c937f"
+      }
+    },
+    {
+      "ticker": "AMD",
+      "amount": 6,
+      "prevClose": 2693.9,
+      "_id": {
+        "$oid": "63510b82a38f2bbe9a2c93b4"
+      }
+    },
+    {
+      "ticker": "CSPX.L",
+      "amount": 18,
+      "prevClose": 9992.83,
+      "_id": {
+        "$oid": "63510b8aa38f2bbe9a2c93ed"
+      }
+    },
+    {
+      "ticker": "MONET.PR",
+      "amount": 434,
+      "prevClose": 80,
+      "_id": {
+        "$oid": "63510b91a38f2bbe9a2c942a"
+      }
+    },
+    {
+      "ticker": "KOMB.PR",
+      "amount": 52,
+      "prevClose": 673.5,
+      "_id": {
+        "$oid": "63510b99a38f2bbe9a2c946b"
+      }
+    },
+    {
+      "ticker": "VWCE.DE",
+      "amount": 134,
+      "prevClose": 2405.72,
+      "_id": {
+        "$oid": "63972a8bc497dac76ff0b617"
+      }
+    }
+  ],
+  "purchaseHistory": [
+    {
+      "ticker": "META",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 4,
+          "currentPrice": 3343.34,
+          "totalAmount": 13373.36,
+          "_id": {
+            "$oid": "63510a6675c9ade2f081463b"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510a6675c9ade2f081463a"
+      }
+    },
+    {
+      "ticker": "CEZ.PR",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 37,
+          "currentPrice": 755,
+          "totalAmount": 27935,
+          "_id": {
+            "$oid": "63510a6a75c9ade2f081464a"
+          }
+        },
+        {
+          "date": "2022-11-15",
+          "amount": 1,
+          "currentPrice": 840,
+          "totalAmount": 840,
+          "_id": {
+            "$oid": "63736799ceb5f17e8527e605"
+          }
+        },
+        {
+          "date": "2022-12-13",
+          "amount": 7,
+          "currentPrice": 770,
+          "totalAmount": 5390,
+          "_id": {
+            "$oid": "63983aed1f47de2b16a998cf"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510a6a75c9ade2f0814649"
+      }
+    },
+    {
+      "ticker": "AAPL",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 9,
+          "currentPrice": 3609.59,
+          "totalAmount": 32486.31,
+          "_id": {
+            "$oid": "63510a8775c9ade2f081465b"
+          }
+        },
+        {
+          "date": "2023-3-3",
+          "amount": 5,
+          "currentPrice": 3218.77,
+          "totalAmount": 16093.85,
+          "_id": {
+            "$oid": "6401c00388862253757143cc"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510a8775c9ade2f081465a"
+      }
+    },
+    {
+      "ticker": "ERBAG.PR",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 20,
+          "currentPrice": 604,
+          "totalAmount": 12080,
+          "_id": {
+            "$oid": "63510a8d75c9ade2f0814670"
+          }
+        },
+        {
+          "date": "2022-12-22",
+          "amount": 1,
+          "currentPrice": 722.6,
+          "totalAmount": 722.6,
+          "_id": {
+            "$oid": "63a459c9f79f7c6f4d12ed25"
+          }
+        },
+        {
+          "date": "2023-3-2",
+          "amount": 21,
+          "currentPrice": 850,
+          "totalAmount": 17850,
+          "_id": {
+            "$oid": "640080308baf61f9f3c3f757"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510a8d75c9ade2f081466f"
+      }
+    },
+    {
+      "ticker": "MSFT",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 6,
+          "currentPrice": 5932.1,
+          "totalAmount": 35592.6,
+          "_id": {
+            "$oid": "63510a9275c9ade2f0814689"
+          }
+        },
+        {
+          "date": "2023-3-2",
+          "amount": 3,
+          "currentPrice": 5383.95,
+          "totalAmount": 16151.85,
+          "_id": {
+            "$oid": "6400a5dc43290932ebfb99cb"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510a9275c9ade2f0814688"
+      }
+    },
+    {
+      "ticker": "VOW.DE",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 4,
+          "currentPrice": 4162.15,
+          "totalAmount": 16648.6,
+          "_id": {
+            "$oid": "63510b38f1c3bbf86158396c"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b38f1c3bbf86158396b"
+      }
+    },
+    {
+      "ticker": "INTC",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 10,
+          "currentPrice": 652.5,
+          "totalAmount": 6525,
+          "_id": {
+            "$oid": "63510b5da38f2bbe9a2c92d5"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b5da38f2bbe9a2c92d4"
+      }
+    },
+    {
+      "ticker": "KO",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 18,
+          "currentPrice": 1404.32,
+          "totalAmount": 25277.76,
+          "_id": {
+            "$oid": "63510b61a38f2bbe9a2c92fa"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b61a38f2bbe9a2c92f9"
+      }
+    },
+    {
+      "ticker": "TABAK.PR",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 1,
+          "currentPrice": 16500,
+          "totalAmount": 16500,
+          "_id": {
+            "$oid": "63510b6aa38f2bbe9a2c9323"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b6aa38f2bbe9a2c9322"
+      }
+    },
+    {
+      "ticker": "NVDA",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 5,
+          "currentPrice": 3023.35,
+          "totalAmount": 15116.75,
+          "_id": {
+            "$oid": "63510b70a38f2bbe9a2c9350"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b70a38f2bbe9a2c934f"
+      }
+    },
+    {
+      "ticker": "BRK-B",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 4,
+          "currentPrice": 6983.05,
+          "totalAmount": 27932.2,
+          "_id": {
+            "$oid": "63510b7ea38f2bbe9a2c9381"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b7ea38f2bbe9a2c9380"
+      }
+    },
+    {
+      "ticker": "AMD",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 6,
+          "currentPrice": 1435.73,
+          "totalAmount": 8614.38,
+          "_id": {
+            "$oid": "63510b82a38f2bbe9a2c93b6"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b82a38f2bbe9a2c93b5"
+      }
+    },
+    {
+      "ticker": "CSPX.L",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 15,
+          "currentPrice": 9516.12,
+          "totalAmount": 142741.8,
+          "_id": {
+            "$oid": "63510b8aa38f2bbe9a2c93ef"
+          }
+        },
+        {
+          "date": "2022-11-14",
+          "amount": 2,
+          "currentPrice": 9632.96,
+          "totalAmount": 19265.92,
+          "_id": {
+            "$oid": "63726e24df34911cff53a457"
+          }
+        },
+        {
+          "date": "2023-3-6",
+          "amount": 1,
+          "currentPrice": 9275.07,
+          "totalAmount": 9275.07,
+          "_id": {
+            "$oid": "6405ada04445cfef0df180d2"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b8aa38f2bbe9a2c93ee"
+      }
+    },
+    {
+      "ticker": "MONET.PR",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 145,
+          "currentPrice": 73.6,
+          "totalAmount": 10672,
+          "_id": {
+            "$oid": "63510b91a38f2bbe9a2c942c"
+          }
+        },
+        {
+          "date": "2022-11-15",
+          "amount": 8,
+          "currentPrice": 73.1,
+          "totalAmount": 584.8,
+          "_id": {
+            "$oid": "63736d69ceb5f17e8527e8e1"
+          }
+        },
+        {
+          "date": "2022-12-13",
+          "amount": 69,
+          "currentPrice": 71.5,
+          "totalAmount": 4933.5,
+          "_id": {
+            "$oid": "639839b2b0af3fe7aa427932"
+          }
+        },
+        {
+          "date": "2023-3-2",
+          "amount": 212,
+          "currentPrice": 84.4,
+          "totalAmount": 17892.8,
+          "_id": {
+            "$oid": "640080188baf61f9f3c3f512"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b91a38f2bbe9a2c942b"
+      }
+    },
+    {
+      "ticker": "KOMB.PR",
+      "purchases": [
+        {
+          "date": "2022-10-20",
+          "amount": 16,
+          "currentPrice": 684,
+          "totalAmount": 10944,
+          "_id": {
+            "$oid": "63510b99a38f2bbe9a2c946d"
+          }
+        },
+        {
+          "date": "2022-12-13",
+          "amount": 7,
+          "currentPrice": 647,
+          "totalAmount": 4529,
+          "_id": {
+            "$oid": "63983c0aec0dee8d23fb408e"
+          }
+        },
+        {
+          "date": "2023-1-10",
+          "amount": 2,
+          "currentPrice": 711.5,
+          "totalAmount": 1423,
+          "_id": {
+            "$oid": "63bd1d0e191b526ba87ef465"
+          }
+        },
+        {
+          "date": "2023-3-2",
+          "amount": 27,
+          "currentPrice": 747,
+          "totalAmount": 20169,
+          "_id": {
+            "$oid": "6400929c471e380fd8366049"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63510b99a38f2bbe9a2c946c"
+      }
+    },
+    {
+      "ticker": "VWCE.DE",
+      "purchases": [
+        {
+          "date": "2022-12-12",
+          "amount": 7,
+          "currentPrice": 2274.04,
+          "totalAmount": 15918.28,
+          "_id": {
+            "$oid": "63972a8bc497dac76ff0b619"
+          }
+        },
+        {
+          "date": "2023-1-19",
+          "amount": 10,
+          "currentPrice": 2239.2,
+          "totalAmount": 22392,
+          "_id": {
+            "$oid": "63c8fe4753182d9a04803a01"
+          }
+        },
+        {
+          "date": "2023-3-1",
+          "amount": 40,
+          "currentPrice": 2238.8,
+          "totalAmount": 89552,
+          "_id": {
+            "$oid": "63ff182f94a5705eef191f22"
+          }
+        },
+        {
+          "date": "2023-3-2",
+          "amount": 5,
+          "currentPrice": 2204.94,
+          "totalAmount": 11024.7,
+          "_id": {
+            "$oid": "6400a66a81fd06bb0c219940"
+          }
+        },
+        {
+          "date": "2023-3-14",
+          "amount": 20,
+          "currentPrice": 2177.28,
+          "totalAmount": 43545.6,
+          "_id": {
+            "$oid": "6410484d3eb26b48f59be645"
+          }
+        },
+        {
+          "date": "2023-5-5",
+          "amount": 27,
+          "currentPrice": 2223.42,
+          "totalAmount": 60032.34,
+          "_id": {
+            "$oid": "645503e3a5092150470f74e1"
+          }
+        },
+        {
+          "date": "2023-5-25",
+          "amount": 25,
+          "currentPrice": 2292.83,
+          "totalAmount": 57320.75,
+          "_id": {
+            "$oid": "646f6ae53e35d34fc9aa08b9"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "63972a8bc497dac76ff0b618"
+      }
+    }
+  ],
+  "netWorthHistory": [
+    {
+      "date": "2022-10-20",
+      "netWorth": 380823.76,
+      "_id": {
+        "$oid": "63510b8aa38f2bbe9a2c93f0"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "netWorth": 391495.76,
+      "_id": {
+        "$oid": "63510b91a38f2bbe9a2c942d"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "netWorth": 402439.76,
+      "_id": {
+        "$oid": "63510b99a38f2bbe9a2c946e"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "netWorth": 402005.44,
+      "_id": {
+        "$oid": "63514df75ad1be5170def6ed"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "netWorth": 403985.97,
+      "_id": {
+        "$oid": "63529f7aea2c542564ba3ffd"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "netWorth": 404982.03,
+      "_id": {
+        "$oid": "63569405ddc1d601bd68719b"
+      }
+    },
+    {
+      "date": "2022-10-25",
+      "netWorth": 407094.62,
+      "_id": {
+        "$oid": "6357e58eb22642df3528246e"
+      }
+    },
+    {
+      "date": "2022-10-26",
+      "netWorth": 411707.28,
+      "_id": {
+        "$oid": "63593717fdb7bc6fbe1cfc90"
+      }
+    },
+    {
+      "date": "2022-10-27",
+      "netWorth": 409736.99,
+      "_id": {
+        "$oid": "635a88a2a4e4218a6c69984a"
+      }
+    },
+    {
+      "date": "2022-10-28",
+      "netWorth": 403613.86,
+      "_id": {
+        "$oid": "635bda25e5cbe2e96dbe915d"
+      }
+    },
+    {
+      "date": "2022-10-31",
+      "netWorth": 414791.82,
+      "_id": {
+        "$oid": "635fcead2bb25b55b5a23d51"
+      }
+    },
+    {
+      "date": "2022-11-1",
+      "netWorth": 412017.61,
+      "_id": {
+        "$oid": "63612dbff567732c9427ede5"
+      }
+    },
+    {
+      "date": "2022-11-2",
+      "netWorth": 411016.25,
+      "_id": {
+        "$oid": "63627f4bd1786ef1e847e850"
+      }
+    },
+    {
+      "date": "2022-11-3",
+      "netWorth": 408269.04,
+      "_id": {
+        "$oid": "6363d0d442f88d1788380629"
+      }
+    },
+    {
+      "date": "2022-11-4",
+      "netWorth": 396570.65,
+      "_id": {
+        "$oid": "6365225f16c8632ce07f2c3e"
+      }
+    },
+    {
+      "date": "2022-11-7",
+      "netWorth": 398104,
+      "_id": {
+        "$oid": "636916ea2b1cd73b6bcd3f65"
+      }
+    },
+    {
+      "date": "2022-11-8",
+      "netWorth": 403503.4,
+      "_id": {
+        "$oid": "636a68736a7d2799bd2dd8b4"
+      }
+    },
+    {
+      "date": "2022-11-9",
+      "netWorth": 407509.03,
+      "_id": {
+        "$oid": "636bb9ffbf8bfd2b0f35accc"
+      }
+    },
+    {
+      "date": "2022-11-10",
+      "netWorth": 398187.13,
+      "_id": {
+        "$oid": "636d0b82e506a9514237dab5"
+      }
+    },
+    {
+      "date": "2022-11-11",
+      "netWorth": 410842.94,
+      "_id": {
+        "$oid": "636e5d0b278c88f06812dd36"
+      }
+    },
+    {
+      "date": "2022-11-14",
+      "netWorth": 430108.86,
+      "_id": {
+        "$oid": "63726e24df34911cff53a458"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "netWorth": 430948.86,
+      "_id": {
+        "$oid": "63736799ceb5f17e8527e606"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "netWorth": 431533.66,
+      "_id": {
+        "$oid": "63736d69ceb5f17e8527e8e2"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "netWorth": 434583.67,
+      "_id": {
+        "$oid": "6373a279054f83e50a2de622"
+      }
+    },
+    {
+      "date": "2022-11-16",
+      "netWorth": 437617.02,
+      "_id": {
+        "$oid": "6374f408d117f74e26be7a03"
+      }
+    },
+    {
+      "date": "2022-11-17",
+      "netWorth": 435629.78,
+      "_id": {
+        "$oid": "637645922557d9a842532055"
+      }
+    },
+    {
+      "date": "2022-11-18",
+      "netWorth": 431774.91,
+      "_id": {
+        "$oid": "63779724010cb3f118a5e4d4"
+      }
+    },
+    {
+      "date": "2022-11-21",
+      "netWorth": 437261.75,
+      "_id": {
+        "$oid": "637b8bb277f237abb9797804"
+      }
+    },
+    {
+      "date": "2022-11-22",
+      "netWorth": 435333.75,
+      "_id": {
+        "$oid": "637d03b649308ba1e0ac9e8c"
+      }
+    },
+    {
+      "date": "2022-11-23",
+      "netWorth": 437983.61,
+      "_id": {
+        "$oid": "637e57d2239632611896e0e6"
+      }
+    },
+    {
+      "date": "2022-11-24",
+      "netWorth": 436335.45,
+      "_id": {
+        "$oid": "637f800fe63c99d6dc043d9f"
+      }
+    },
+    {
+      "date": "2022-11-25",
+      "netWorth": 439660.92,
+      "_id": {
+        "$oid": "6380d18f4e16789606f53f1c"
+      }
+    },
+    {
+      "date": "2022-11-28",
+      "netWorth": 437683.17,
+      "_id": {
+        "$oid": "6384c60f53b9b4d58e75d617"
+      }
+    },
+    {
+      "date": "2022-11-29",
+      "netWorth": 433421.52,
+      "_id": {
+        "$oid": "6386178e9f966548233b25e9"
+      }
+    },
+    {
+      "date": "2022-11-30",
+      "netWorth": 430428,
+      "_id": {
+        "$oid": "6387690e6e3fe878d90becd8"
+      }
+    },
+    {
+      "date": "2022-12-1",
+      "netWorth": 436541.48,
+      "_id": {
+        "$oid": "6388ba8f99a053bb25f93aa5"
+      }
+    },
+    {
+      "date": "2022-12-2",
+      "netWorth": 438363.34,
+      "_id": {
+        "$oid": "638a0c0f63f3134bd8b4da1e"
+      }
+    },
+    {
+      "date": "2022-12-5",
+      "netWorth": 434880.75,
+      "_id": {
+        "$oid": "638e008fb7acf50e832fb1e3"
+      }
+    },
+    {
+      "date": "2022-12-6",
+      "netWorth": 431952.74,
+      "_id": {
+        "$oid": "638f521037445aad66a71faa"
+      }
+    },
+    {
+      "date": "2022-12-7",
+      "netWorth": 425195.44,
+      "_id": {
+        "$oid": "6390a39038303b73c8ae50fa"
+      }
+    },
+    {
+      "date": "2022-12-8",
+      "netWorth": 421059.99,
+      "_id": {
+        "$oid": "6391f50ea7f5be55b730e9c9"
+      }
+    },
+    {
+      "date": "2022-12-9",
+      "netWorth": 422045.09,
+      "_id": {
+        "$oid": "6393468f4384aae9089d26ef"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 422736.13,
+      "_id": {
+        "$oid": "6396e6995c31f11e782c767b"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 423503.14,
+      "_id": {
+        "$oid": "6396e80148525ba7625c6d7f"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 439416.38,
+      "_id": {
+        "$oid": "6397052dcbd9ee6c63fb432f"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 423503.14,
+      "_id": {
+        "$oid": "63972a7696116752e75b798b"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 439421.42,
+      "_id": {
+        "$oid": "63972a8bc497dac76ff0b61a"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "netWorth": 438479.89,
+      "_id": {
+        "$oid": "63973b0a805cfc6b0d3357a3"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "netWorth": 443413.39,
+      "_id": {
+        "$oid": "639839b2b0af3fe7aa427933"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "netWorth": 448803.39,
+      "_id": {
+        "$oid": "63983aed1f47de2b16a998d0"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "netWorth": 453332.39,
+      "_id": {
+        "$oid": "63983c0aec0dee8d23fb408f"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "netWorth": 455012.55,
+      "_id": {
+        "$oid": "63988c90afaa236a775066e5"
+      }
+    },
+    {
+      "date": "2022-12-14",
+      "netWorth": 460306.82,
+      "_id": {
+        "$oid": "6399de0f59ea4432c50a0d6c"
+      }
+    },
+    {
+      "date": "2022-12-15",
+      "netWorth": 456837.2,
+      "_id": {
+        "$oid": "639b2f909b55b6c7f48b3a8c"
+      }
+    },
+    {
+      "date": "2022-12-16",
+      "netWorth": 445199.45,
+      "_id": {
+        "$oid": "639c8109f221f79311c7f189"
+      }
+    },
+    {
+      "date": "2022-12-19",
+      "netWorth": 439055.38,
+      "_id": {
+        "$oid": "63a08703b22880e8feb376df"
+      }
+    },
+    {
+      "date": "2022-12-20",
+      "netWorth": 436696.61,
+      "_id": {
+        "$oid": "63a1c70de8df9114ea245763"
+      }
+    },
+    {
+      "date": "2022-12-21",
+      "netWorth": 435004.81,
+      "_id": {
+        "$oid": "63a3188f1c377b08fc05f386"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "netWorth": 435727.41,
+      "_id": {
+        "$oid": "63a459c9f79f7c6f4d12ed26"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "netWorth": 442394.49,
+      "_id": {
+        "$oid": "63a46a0de42b7f237e6cec90"
+      }
+    },
+    {
+      "date": "2022-12-23",
+      "netWorth": 435901.62,
+      "_id": {
+        "$oid": "63a5bb889346305c540dc298"
+      }
+    },
+    {
+      "date": "2022-12-26",
+      "netWorth": 435108.62,
+      "_id": {
+        "$oid": "63a9b00d665ada1ff7dbbd37"
+      }
+    },
+    {
+      "date": "2022-12-27",
+      "netWorth": 435869.43,
+      "_id": {
+        "$oid": "63ab0188911168c7f7ad74d8"
+      }
+    },
+    {
+      "date": "2022-12-28",
+      "netWorth": 435671.05,
+      "_id": {
+        "$oid": "63ac530dc64101cbc872938e"
+      }
+    },
+    {
+      "date": "2022-12-29",
+      "netWorth": 433254.22,
+      "_id": {
+        "$oid": "63ada48c14e1241bdfbccf2d"
+      }
+    },
+    {
+      "date": "2022-12-30",
+      "netWorth": 436957,
+      "_id": {
+        "$oid": "63aef60d1e8e905c596c64ea"
+      }
+    },
+    {
+      "date": "2023-1-2",
+      "netWorth": 435349.95,
+      "_id": {
+        "$oid": "63b2ea8d48157fbf10554118"
+      }
+    },
+    {
+      "date": "2023-1-3",
+      "netWorth": 436080.24,
+      "_id": {
+        "$oid": "63b43c0d3103dd4dfa54c83d"
+      }
+    },
+    {
+      "date": "2023-1-4",
+      "netWorth": 437930.59,
+      "_id": {
+        "$oid": "63b58d8db2c6b6fe6b67a593"
+      }
+    },
+    {
+      "date": "2023-1-5",
+      "netWorth": 438377.57,
+      "_id": {
+        "$oid": "63b6df0d103f2f4fc2501dc4"
+      }
+    },
+    {
+      "date": "2023-1-6",
+      "netWorth": 437848.14,
+      "_id": {
+        "$oid": "63b8308e4698354702e7bbe7"
+      }
+    },
+    {
+      "date": "2023-1-9",
+      "netWorth": 440121.39,
+      "_id": {
+        "$oid": "63bc250d0dfad5fb0e725715"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "netWorth": 441544.39,
+      "_id": {
+        "$oid": "63bd1d0e191b526ba87ef466"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "netWorth": 445774.87,
+      "_id": {
+        "$oid": "63bd768e025122766745f746"
+      }
+    },
+    {
+      "date": "2023-1-11",
+      "netWorth": 444141.79,
+      "_id": {
+        "$oid": "63bec8082e7b1ed50cf504b3"
+      }
+    },
+    {
+      "date": "2023-1-12",
+      "netWorth": 447879.03,
+      "_id": {
+        "$oid": "63c0198e5d0579b2830c2d41"
+      }
+    },
+    {
+      "date": "2023-1-13",
+      "netWorth": 448639.07,
+      "_id": {
+        "$oid": "63c16b0f06ff9c3f59f982bd"
+      }
+    },
+    {
+      "date": "2023-1-16",
+      "netWorth": 447590,
+      "_id": {
+        "$oid": "63c55f8e9b5e987436d1dd60"
+      }
+    },
+    {
+      "date": "2023-1-17",
+      "netWorth": 450305.37,
+      "_id": {
+        "$oid": "63c6b10fd2ed846c16c6eed1"
+      }
+    },
+    {
+      "date": "2023-1-18",
+      "netWorth": 450509.45,
+      "_id": {
+        "$oid": "63c8028ec26c40505d5ff41e"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "netWorth": 472901.45,
+      "_id": {
+        "$oid": "63c8fe4753182d9a04803a02"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "netWorth": 469156.86,
+      "_id": {
+        "$oid": "63c9540ed40ddf29ad679910"
+      }
+    },
+    {
+      "date": "2023-1-20",
+      "netWorth": 462060.88,
+      "_id": {
+        "$oid": "63caa58f6b4f0bab4a94d304"
+      }
+    },
+    {
+      "date": "2023-1-23",
+      "netWorth": 467990.46,
+      "_id": {
+        "$oid": "63ce9a0ffb795d0550bca8ea"
+      }
+    },
+    {
+      "date": "2023-1-24",
+      "netWorth": 476078.18,
+      "_id": {
+        "$oid": "63cfeb8e8c1e8e1a8b46ebf9"
+      }
+    },
+    {
+      "date": "2023-1-25",
+      "netWorth": 475865.76,
+      "_id": {
+        "$oid": "63d13d0f08caaf42fa8a13dc"
+      }
+    },
+    {
+      "date": "2023-1-26",
+      "netWorth": 473106.6,
+      "_id": {
+        "$oid": "63d28e8ef3b8c2820a9acac4"
+      }
+    },
+    {
+      "date": "2023-1-27",
+      "netWorth": 481239.81,
+      "_id": {
+        "$oid": "63d3e00fb5e05429e38723c5"
+      }
+    },
+    {
+      "date": "2023-1-30",
+      "netWorth": 485852.31,
+      "_id": {
+        "$oid": "63d7d48fe3d7411be31e82fd"
+      }
+    },
+    {
+      "date": "2023-1-31",
+      "netWorth": 481675.3,
+      "_id": {
+        "$oid": "63d9260f1d957fa0b19f1754"
+      }
+    },
+    {
+      "date": "2023-2-1",
+      "netWorth": 482481.27,
+      "_id": {
+        "$oid": "63da778e2fa0c22b656a2d9e"
+      }
+    },
+    {
+      "date": "2023-2-2",
+      "netWorth": 484704.39,
+      "_id": {
+        "$oid": "63dbc90fd0d7920fe47e3f80"
+      }
+    },
+    {
+      "date": "2023-2-3",
+      "netWorth": 500382.98,
+      "_id": {
+        "$oid": "63dd1a8f72be7dc0ef246fa0"
+      }
+    },
+    {
+      "date": "2023-2-6",
+      "netWorth": 502939.58,
+      "_id": {
+        "$oid": "63e10f0eb89ab978604b8b0a"
+      }
+    },
+    {
+      "date": "2023-2-7",
+      "netWorth": 502646.77,
+      "_id": {
+        "$oid": "63e2608e28381b5a260c5793"
+      }
+    },
+    {
+      "date": "2023-2-8",
+      "netWorth": 506397.89,
+      "_id": {
+        "$oid": "63e3b20fa1d6072b4174c492"
+      }
+    },
+    {
+      "date": "2023-2-9",
+      "netWorth": 505940.12,
+      "_id": {
+        "$oid": "63e5038f7212a6b117a7eb56"
+      }
+    },
+    {
+      "date": "2023-2-10",
+      "netWorth": 503580.25,
+      "_id": {
+        "$oid": "63e6550fa823c6f7491c77ce"
+      }
+    },
+    {
+      "date": "2023-2-13",
+      "netWorth": 499670.25,
+      "_id": {
+        "$oid": "63ea498fbeddb4fb645b729d"
+      }
+    },
+    {
+      "date": "2023-2-14",
+      "netWorth": 509584.6,
+      "_id": {
+        "$oid": "63eb9b10710c2f70a3e7dadc"
+      }
+    },
+    {
+      "date": "2023-2-15",
+      "netWorth": 510036.29,
+      "_id": {
+        "$oid": "63ecec8f1d64574efaf360e6"
+      }
+    },
+    {
+      "date": "2023-2-16",
+      "netWorth": 510876.03,
+      "_id": {
+        "$oid": "63ee3e0f989d94147d8fbc7a"
+      }
+    },
+    {
+      "date": "2023-2-17",
+      "netWorth": 507441.12,
+      "_id": {
+        "$oid": "63ef8f90f445c29ae92160a6"
+      }
+    },
+    {
+      "date": "2023-2-20",
+      "netWorth": 502908.52,
+      "_id": {
+        "$oid": "63f3840fd1279bdf6146a0e7"
+      }
+    },
+    {
+      "date": "2023-2-21",
+      "netWorth": 501189.56,
+      "_id": {
+        "$oid": "63f4d58f24f8dbded6d9cca6"
+      }
+    },
+    {
+      "date": "2023-2-22",
+      "netWorth": 497533.31,
+      "_id": {
+        "$oid": "63f6270ea13afe2e3275ee93"
+      }
+    },
+    {
+      "date": "2023-2-23",
+      "netWorth": 497036.79,
+      "_id": {
+        "$oid": "63f7788f33bd8050078ed526"
+      }
+    },
+    {
+      "date": "2023-2-24",
+      "netWorth": 502296.25,
+      "_id": {
+        "$oid": "63f8ca0f86da1d52ea574909"
+      }
+    },
+    {
+      "date": "2023-2-27",
+      "netWorth": 499519.91,
+      "_id": {
+        "$oid": "63fcbe9013a7f58b7c841bf2"
+      }
+    },
+    {
+      "date": "2023-2-28",
+      "netWorth": 500554.17,
+      "_id": {
+        "$oid": "63fe100f95cd4a8cc47b1f68"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "netWorth": 590106.17,
+      "_id": {
+        "$oid": "63ff182f94a5705eef191f23"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "netWorth": 589499.28,
+      "_id": {
+        "$oid": "63ff618f93e0990c68e9587a"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 607392.08,
+      "_id": {
+        "$oid": "640080188baf61f9f3c3f513"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 625242.08,
+      "_id": {
+        "$oid": "640080308baf61f9f3c3f758"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 645411.08,
+      "_id": {
+        "$oid": "6400929c471e380fd836604a"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 661562.93,
+      "_id": {
+        "$oid": "6400a5dc43290932ebfb99cc"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 672587.63,
+      "_id": {
+        "$oid": "6400a66a81fd06bb0c219941"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "netWorth": 663308.73,
+      "_id": {
+        "$oid": "6400b30f119a19feb0866309"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "netWorth": 679402.58,
+      "_id": {
+        "$oid": "6401c00388862253757143cd"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "netWorth": 685206.77,
+      "_id": {
+        "$oid": "6402048f31c2501ad601d896"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "netWorth": 694481.84,
+      "_id": {
+        "$oid": "6405ada04445cfef0df180d3"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "netWorth": 707076.75,
+      "_id": {
+        "$oid": "6405f90f610382dabc3e2263"
+      }
+    },
+    {
+      "date": "2023-3-7",
+      "netWorth": 710413.33,
+      "_id": {
+        "$oid": "64074a8f53847ea2f1a3c272"
+      }
+    },
+    {
+      "date": "2023-3-8",
+      "netWorth": 706516.12,
+      "_id": {
+        "$oid": "64089c0f50c186d2a8ac40b9"
+      }
+    },
+    {
+      "date": "2023-3-9",
+      "netWorth": 709223.93,
+      "_id": {
+        "$oid": "6409ed8fa4ab750a91498d74"
+      }
+    },
+    {
+      "date": "2023-3-10",
+      "netWorth": 704683.01,
+      "_id": {
+        "$oid": "640b3f0fe20004ad61cd2bbe"
+      }
+    },
+    {
+      "date": "2023-3-13",
+      "netWorth": 692658.66,
+      "_id": {
+        "$oid": "640f33906b9232c81ebf8d9c"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "netWorth": 736204.26,
+      "_id": {
+        "$oid": "6410484d3eb26b48f59be646"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "netWorth": 727840.48,
+      "_id": {
+        "$oid": "6410850e0a6709666bc9eca0"
+      }
+    },
+    {
+      "date": "2023-3-15",
+      "netWorth": 739955.78,
+      "_id": {
+        "$oid": "6411d6909ad840709935e93f"
+      }
+    },
+    {
+      "date": "2023-3-16",
+      "netWorth": 742568.73,
+      "_id": {
+        "$oid": "6413280fcb695c74d9231ddc"
+      }
+    },
+    {
+      "date": "2023-3-17",
+      "netWorth": 753895.84,
+      "_id": {
+        "$oid": "6414798fb207818141447bd9"
+      }
+    },
+    {
+      "date": "2023-3-20",
+      "netWorth": 749007.86,
+      "_id": {
+        "$oid": "64186e0f6d82375872ce448f"
+      }
+    },
+    {
+      "date": "2023-3-21",
+      "netWorth": 748004.65,
+      "_id": {
+        "$oid": "6419bf8f531fe0749fb8f56f"
+      }
+    },
+    {
+      "date": "2023-3-22",
+      "netWorth": 749530.65,
+      "_id": {
+        "$oid": "641b110f7623fdccf09b82c7"
+      }
+    },
+    {
+      "date": "2023-3-23",
+      "netWorth": 741910.92,
+      "_id": {
+        "$oid": "641c628fdb982a249e6eb83f"
+      }
+    },
+    {
+      "date": "2023-3-24",
+      "netWorth": 741659.63,
+      "_id": {
+        "$oid": "641db40f5ffb59e8e081db43"
+      }
+    },
+    {
+      "date": "2023-3-27",
+      "netWorth": 739619.91,
+      "_id": {
+        "$oid": "64219a7f932f4b7f67a909d1"
+      }
+    },
+    {
+      "date": "2023-3-28",
+      "netWorth": 742870.27,
+      "_id": {
+        "$oid": "6422ec00e04cd8a92a38564c"
+      }
+    },
+    {
+      "date": "2023-3-29",
+      "netWorth": 735920.74,
+      "_id": {
+        "$oid": "64243d7fc79e9f9e6ba6d6f8"
+      }
+    },
+    {
+      "date": "2023-3-30",
+      "netWorth": 744057.72,
+      "_id": {
+        "$oid": "64258eff1210b7a30736d931"
+      }
+    },
+    {
+      "date": "2023-3-31",
+      "netWorth": 748164.05,
+      "_id": {
+        "$oid": "6426e07f31ab3345cd5b1e5e"
+      }
+    },
+    {
+      "date": "2023-4-3",
+      "netWorth": 758390.64,
+      "_id": {
+        "$oid": "642ad4ff27d51a61fce2bbd5"
+      }
+    },
+    {
+      "date": "2023-4-4",
+      "netWorth": 757628.94,
+      "_id": {
+        "$oid": "642c267f52b86c53b1f65684"
+      }
+    },
+    {
+      "date": "2023-4-5",
+      "netWorth": 755470.34,
+      "_id": {
+        "$oid": "642d77ff18d38156cc43a160"
+      }
+    },
+    {
+      "date": "2023-4-6",
+      "netWorth": 753451.43,
+      "_id": {
+        "$oid": "642ec97f86579295288abcb5"
+      }
+    },
+    {
+      "date": "2023-4-7",
+      "netWorth": 751826.9,
+      "_id": {
+        "$oid": "64301b003e851c0dbfccad0b"
+      }
+    },
+    {
+      "date": "2023-4-10",
+      "netWorth": 753543.74,
+      "_id": {
+        "$oid": "64340f7f1cf4a3f95650648a"
+      }
+    },
+    {
+      "date": "2023-4-11",
+      "netWorth": 756407.43,
+      "_id": {
+        "$oid": "643560ff6b4cb5e863364b2d"
+      }
+    },
+    {
+      "date": "2023-4-12",
+      "netWorth": 761194.68,
+      "_id": {
+        "$oid": "6436b27f0f04da58c4a1acf0"
+      }
+    },
+    {
+      "date": "2023-4-13",
+      "netWorth": 752922.06,
+      "_id": {
+        "$oid": "643803ffc51cfacbbc7c6d14"
+      }
+    },
+    {
+      "date": "2023-4-14",
+      "netWorth": 753140.18,
+      "_id": {
+        "$oid": "6439557f32c7eae7fa18567e"
+      }
+    },
+    {
+      "date": "2023-4-17",
+      "netWorth": 760046.44,
+      "_id": {
+        "$oid": "643d49ff257d5f7a1bdb1b85"
+      }
+    },
+    {
+      "date": "2023-4-18",
+      "netWorth": 765042.69,
+      "_id": {
+        "$oid": "643e9b7fdeb4f432ac8e0d5d"
+      }
+    },
+    {
+      "date": "2023-4-19",
+      "netWorth": 766450.46,
+      "_id": {
+        "$oid": "643fecffdb964675bff4a946"
+      }
+    },
+    {
+      "date": "2023-4-20",
+      "netWorth": 764789.2,
+      "_id": {
+        "$oid": "64413e7f6434fe602aaf97db"
+      }
+    },
+    {
+      "date": "2023-4-21",
+      "netWorth": 762291.98,
+      "_id": {
+        "$oid": "64428fff557db84a9745d72c"
+      }
+    },
+    {
+      "date": "2023-4-24",
+      "netWorth": 762284.5,
+      "_id": {
+        "$oid": "6446847ff9b86cb9d98353b1"
+      }
+    },
+    {
+      "date": "2023-4-25",
+      "netWorth": 757668.95,
+      "_id": {
+        "$oid": "6447d5fe7bc729d67513ac18"
+      }
+    },
+    {
+      "date": "2023-4-26",
+      "netWorth": 755448.15,
+      "_id": {
+        "$oid": "6449277fc3464d04b7928ed8"
+      }
+    },
+    {
+      "date": "2023-4-27",
+      "netWorth": 754603.9,
+      "_id": {
+        "$oid": "644a78ff40a90ec1b990ec67"
+      }
+    },
+    {
+      "date": "2023-4-28",
+      "netWorth": 764043.71,
+      "_id": {
+        "$oid": "644bca7f53c6ef902681f745"
+      }
+    },
+    {
+      "date": "2023-5-1",
+      "netWorth": 767845.97,
+      "_id": {
+        "$oid": "644fbefe1ed987a1ce990495"
+      }
+    },
+    {
+      "date": "2023-5-2",
+      "netWorth": 770415.05,
+      "_id": {
+        "$oid": "6451107ffd98002f74046395"
+      }
+    },
+    {
+      "date": "2023-5-3",
+      "netWorth": 762569.1,
+      "_id": {
+        "$oid": "645261ff94c617a25b3eabcf"
+      }
+    },
+    {
+      "date": "2023-5-4",
+      "netWorth": 757390.08,
+      "_id": {
+        "$oid": "6453b37f6e30de67a56011e8"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "netWorth": 817422.42,
+      "_id": {
+        "$oid": "645503e3a5092150470f74e2"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "netWorth": 814431.51,
+      "_id": {
+        "$oid": "645504f96d627162722e4307"
+      }
+    },
+    {
+      "date": "2023-5-8",
+      "netWorth": 821172.26,
+      "_id": {
+        "$oid": "6458f97f92f97645a03cfc69"
+      }
+    },
+    {
+      "date": "2023-5-9",
+      "netWorth": 826941.83,
+      "_id": {
+        "$oid": "645a4afe1b32a6af1b5bcf61"
+      }
+    },
+    {
+      "date": "2023-5-10",
+      "netWorth": 825773.14,
+      "_id": {
+        "$oid": "645b9c7f0d2654cca24e5754"
+      }
+    },
+    {
+      "date": "2023-5-11",
+      "netWorth": 829155.61,
+      "_id": {
+        "$oid": "645cedfef90462f19a9bb4e6"
+      }
+    },
+    {
+      "date": "2023-5-12",
+      "netWorth": 834252.27,
+      "_id": {
+        "$oid": "645e3f7f175d3f83157d298a"
+      }
+    },
+    {
+      "date": "2023-5-15",
+      "netWorth": 834991.84,
+      "_id": {
+        "$oid": "646233feaecf14ed3af699bf"
+      }
+    },
+    {
+      "date": "2023-5-16",
+      "netWorth": 832978.79,
+      "_id": {
+        "$oid": "6463857f2fc76b6d878900f8"
+      }
+    },
+    {
+      "date": "2023-5-17",
+      "netWorth": 835036,
+      "_id": {
+        "$oid": "6464d6f9cf6f46b2efaaf79e"
+      }
+    },
+    {
+      "date": "2023-5-18",
+      "netWorth": 838475.79,
+      "_id": {
+        "$oid": "6466287c3d6816fbad3b386c"
+      }
+    },
+    {
+      "date": "2023-5-19",
+      "netWorth": 848625.39,
+      "_id": {
+        "$oid": "646779fd620eef5d72ba1e73"
+      }
+    },
+    {
+      "date": "2023-5-22",
+      "netWorth": 848697.29,
+      "_id": {
+        "$oid": "646b6e7c9b28f239e8c18e51"
+      }
+    },
+    {
+      "date": "2023-5-23",
+      "netWorth": 848609.38,
+      "_id": {
+        "$oid": "646cbffc2850da91232985ef"
+      }
+    },
+    {
+      "date": "2023-5-24",
+      "netWorth": 845827.13,
+      "_id": {
+        "$oid": "646e117c578e45e970827095"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "netWorth": 838072.45,
+      "_id": {
+        "$oid": "646f62fc4918e2b3232207eb"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "netWorth": 895393.2,
+      "_id": {
+        "$oid": "646f6ae53e35d34fc9aa08ba"
+      }
+    },
+    {
+      "date": "2023-5-26",
+      "netWorth": 909167.98,
+      "_id": {
+        "$oid": "6470b47c291bc117cff6d4ef"
+      }
+    },
+    {
+      "date": "2023-5-29",
+      "netWorth": 914667.78,
+      "_id": {
+        "$oid": "6474a8fc52428bd9cb51f0c5"
+      }
+    },
+    {
+      "date": "2023-5-30",
+      "netWorth": 925619.88,
+      "_id": {
+        "$oid": "6475fa7def6758fb9ab38ee9"
+      }
+    },
+    {
+      "date": "2023-5-31",
+      "netWorth": 922242.52,
+      "_id": {
+        "$oid": "64774bfc063993a62b09d33d"
+      }
+    },
+    {
+      "date": "2023-6-1",
+      "netWorth": 917590.79,
+      "_id": {
+        "$oid": "64789d7c5bb29632133c23f6"
+      }
+    },
+    {
+      "date": "2023-6-2",
+      "netWorth": 921226.79,
+      "_id": {
+        "$oid": "6479eefc7205db685f451c14"
+      }
+    },
+    {
+      "date": "2023-6-5",
+      "netWorth": 934919.71,
+      "_id": {
+        "$oid": "647de37c5815c2f42a529229"
+      }
+    },
+    {
+      "date": "2023-6-6",
+      "netWorth": 933072.43,
+      "_id": {
+        "$oid": "647f34fbeb923d6ee85da5fc"
+      }
+    },
+    {
+      "date": "2023-6-7",
+      "netWorth": 934176.65,
+      "_id": {
+        "$oid": "6480867ce7b0b9cec4406df2"
+      }
+    },
+    {
+      "date": "2023-6-8",
+      "netWorth": 930842.56,
+      "_id": {
+        "$oid": "6481d7fc34951dc05cf79f86"
+      }
+    },
+    {
+      "date": "2023-6-9",
+      "netWorth": 930552.78,
+      "_id": {
+        "$oid": "6483297c4f56d340dbe57305"
+      }
+    },
+    {
+      "date": "2023-6-12",
+      "netWorth": 936390.8,
+      "_id": {
+        "$oid": "64871df8d6e8d942df9305d8"
+      }
+    },
+    {
+      "date": "2023-6-13",
+      "netWorth": 945133.53,
+      "_id": {
+        "$oid": "64886f7dbf509586235f6917"
+      }
+    },
+    {
+      "date": "2023-6-14",
+      "netWorth": 953741.57,
+      "_id": {
+        "$oid": "6489c0fdc8a67f64885e63cc"
+      }
+    },
+    {
+      "date": "2023-6-15",
+      "netWorth": 955848.57,
+      "_id": {
+        "$oid": "648b127c1eb4ed026fe24273"
+      }
+    },
+    {
+      "date": "2023-6-16",
+      "netWorth": 951965.2,
+      "_id": {
+        "$oid": "648c63fcaf52e39c9a264925"
+      }
+    },
+    {
+      "date": "2023-6-19",
+      "netWorth": 955370.54,
+      "_id": {
+        "$oid": "6490587c4b5326d93c14b962"
+      }
+    }
+  ],
+  "relativeChangeHistory": [
+    {
+      "date": "2022-10-20",
+      "relativeChange": 1,
+      "_id": {
+        "$oid": "63510a6675c9ade2f081463d"
+      }
+    },
+    {
+      "date": "2022-10-20",
+      "relativeChange": 0.9989207825787392,
+      "_id": {
+        "$oid": "63514df75ad1be5170def72f"
+      }
+    },
+    {
+      "date": "2022-10-21",
+      "relativeChange": 1.0038420905528818,
+      "_id": {
+        "$oid": "63529f7aea2c542564ba4041"
+      }
+    },
+    {
+      "date": "2022-10-24",
+      "relativeChange": 1.006317144210602,
+      "_id": {
+        "$oid": "63569405ddc1d601bd6871e1"
+      }
+    },
+    {
+      "date": "2022-10-25",
+      "relativeChange": 1.0115666006758377,
+      "_id": {
+        "$oid": "6357e58eb22642df352824b6"
+      }
+    },
+    {
+      "date": "2022-10-26",
+      "relativeChange": 1.0230283409372871,
+      "_id": {
+        "$oid": "63593718fdb7bc6fbe1cfcda"
+      }
+    },
+    {
+      "date": "2022-10-27",
+      "relativeChange": 1.0181324777651193,
+      "_id": {
+        "$oid": "635a88a2a4e4218a6c699896"
+      }
+    },
+    {
+      "date": "2022-10-28",
+      "relativeChange": 1.0029174552733058,
+      "_id": {
+        "$oid": "635bda25e5cbe2e96dbe91ab"
+      }
+    },
+    {
+      "date": "2022-10-31",
+      "relativeChange": 1.0306929414727808,
+      "_id": {
+        "$oid": "635fcead2bb25b55b5a23da1"
+      }
+    },
+    {
+      "date": "2022-11-1",
+      "relativeChange": 1.023799462558073,
+      "_id": {
+        "$oid": "63612dbff567732c9427ee37"
+      }
+    },
+    {
+      "date": "2022-11-2",
+      "relativeChange": 1.021311239227456,
+      "_id": {
+        "$oid": "63627f4bd1786ef1e847e8a4"
+      }
+    },
+    {
+      "date": "2022-11-3",
+      "relativeChange": 1.0144848510992053,
+      "_id": {
+        "$oid": "6363d0d442f88d178838067f"
+      }
+    },
+    {
+      "date": "2022-11-4",
+      "relativeChange": 0.9854161775665504,
+      "_id": {
+        "$oid": "6365225f16c8632ce07f2c96"
+      }
+    },
+    {
+      "date": "2022-11-7",
+      "relativeChange": 0.9892263130263271,
+      "_id": {
+        "$oid": "636916ea2b1cd73b6bcd3fbf"
+      }
+    },
+    {
+      "date": "2022-11-8",
+      "relativeChange": 1.0026429794113783,
+      "_id": {
+        "$oid": "636a68736a7d2799bd2dd910"
+      }
+    },
+    {
+      "date": "2022-11-9",
+      "relativeChange": 1.0125963448541961,
+      "_id": {
+        "$oid": "636bb9ffbf8bfd2b0f35ad2a"
+      }
+    },
+    {
+      "date": "2022-11-10",
+      "relativeChange": 0.9894328781032966,
+      "_id": {
+        "$oid": "636d0b82e506a9514237db15"
+      }
+    },
+    {
+      "date": "2022-11-11",
+      "relativeChange": 1.0208805909237197,
+      "_id": {
+        "$oid": "636e5d0b278c88f06812dd98"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "relativeChange": 1.0280960095567024,
+      "_id": {
+        "$oid": "6373a279054f83e50a2de68e"
+      }
+    },
+    {
+      "date": "2022-11-16",
+      "relativeChange": 1.0352720155731936,
+      "_id": {
+        "$oid": "6374f408d117f74e26be7a71"
+      }
+    },
+    {
+      "date": "2022-11-17",
+      "relativeChange": 1.0305707954053225,
+      "_id": {
+        "$oid": "637645922557d9a8425320c5"
+      }
+    },
+    {
+      "date": "2022-11-18",
+      "relativeChange": 1.0214513168378008,
+      "_id": {
+        "$oid": "63779724010cb3f118a5e546"
+      }
+    },
+    {
+      "date": "2022-11-21",
+      "relativeChange": 1.0344315521721752,
+      "_id": {
+        "$oid": "637b8bb277f237abb9797878"
+      }
+    },
+    {
+      "date": "2022-11-23",
+      "relativeChange": 1.0407280977371332,
+      "_id": {
+        "$oid": "637e57d2239632611896e15d"
+      }
+    },
+    {
+      "date": "2022-11-24",
+      "relativeChange": 1.0368117721431995,
+      "_id": {
+        "$oid": "637f800fe63c99d6dc043e18"
+      }
+    },
+    {
+      "date": "2022-11-25",
+      "relativeChange": 1.044713688991599,
+      "_id": {
+        "$oid": "6380d18f4e16789606f53f97"
+      }
+    },
+    {
+      "date": "2022-11-28",
+      "relativeChange": 1.0400141980784583,
+      "_id": {
+        "$oid": "6384c60f53b9b4d58e75d694"
+      }
+    },
+    {
+      "date": "2022-11-29",
+      "relativeChange": 1.0298877486030513,
+      "_id": {
+        "$oid": "6386178e9f966548233b2668"
+      }
+    },
+    {
+      "date": "2022-11-30",
+      "relativeChange": 1.0227746048597546,
+      "_id": {
+        "$oid": "6387690e6e3fe878d90bed59"
+      }
+    },
+    {
+      "date": "2022-12-1",
+      "relativeChange": 1.037301336604246,
+      "_id": {
+        "$oid": "6388ba8f99a053bb25f93b28"
+      }
+    },
+    {
+      "date": "2022-12-2",
+      "relativeChange": 1.0416304047448175,
+      "_id": {
+        "$oid": "638a0c0f63f3134bd8b4daa3"
+      }
+    },
+    {
+      "date": "2022-12-5",
+      "relativeChange": 1.0333551424218772,
+      "_id": {
+        "$oid": "638e008fb7acf50e832fb26a"
+      }
+    },
+    {
+      "date": "2022-12-6",
+      "relativeChange": 1.0263976622607924,
+      "_id": {
+        "$oid": "638f521037445aad66a72033"
+      }
+    },
+    {
+      "date": "2022-12-7",
+      "relativeChange": 1.010341098009817,
+      "_id": {
+        "$oid": "6390a39038303b73c8ae5185"
+      }
+    },
+    {
+      "date": "2022-12-8",
+      "relativeChange": 1.0005145225089962,
+      "_id": {
+        "$oid": "6391f50ea7f5be55b730ea56"
+      }
+    },
+    {
+      "date": "2022-12-9",
+      "relativeChange": 1.0028552978843142,
+      "_id": {
+        "$oid": "639346904384aae9089d277e"
+      }
+    },
+    {
+      "date": "2022-12-12",
+      "relativeChange": 1.0007065215487931,
+      "_id": {
+        "$oid": "63973b0a805cfc6b0d335841"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "relativeChange": 1.0044153830957154,
+      "_id": {
+        "$oid": "63988c90afaa236a7750678c"
+      }
+    },
+    {
+      "date": "2022-12-14",
+      "relativeChange": 1.0161021953171854,
+      "_id": {
+        "$oid": "6399de0f59ea4432c50a0e10"
+      }
+    },
+    {
+      "date": "2022-12-15",
+      "relativeChange": 1.0084431984356783,
+      "_id": {
+        "$oid": "639b2f909b55b6c7f48b3b32"
+      }
+    },
+    {
+      "date": "2022-12-16",
+      "relativeChange": 0.9827535001523625,
+      "_id": {
+        "$oid": "639c8109f221f79311c7f231"
+      }
+    },
+    {
+      "date": "2022-12-19",
+      "relativeChange": 0.9691908007876595,
+      "_id": {
+        "$oid": "63a08704b22880e8feb37789"
+      }
+    },
+    {
+      "date": "2022-12-20",
+      "relativeChange": 0.9639839446840538,
+      "_id": {
+        "$oid": "63a1c70de8df9114ea24580f"
+      }
+    },
+    {
+      "date": "2022-12-21",
+      "relativeChange": 0.960249388472096,
+      "_id": {
+        "$oid": "63a318901c377b08fc05f434"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "relativeChange": 0.9749421972005956,
+      "_id": {
+        "$oid": "63a46a0de42b7f237e6ced43"
+      }
+    },
+    {
+      "date": "2022-12-23",
+      "relativeChange": 0.9606333098002624,
+      "_id": {
+        "$oid": "63a5bb899346305c540dc34d"
+      }
+    },
+    {
+      "date": "2022-12-26",
+      "relativeChange": 0.9588857085532847,
+      "_id": {
+        "$oid": "63a9b00e665ada1ff7dbbdee"
+      }
+    },
+    {
+      "date": "2022-12-27",
+      "relativeChange": 0.9605623699715862,
+      "_id": {
+        "$oid": "63ab0188911168c7f7ad7591"
+      }
+    },
+    {
+      "date": "2022-12-28",
+      "relativeChange": 0.960125183167834,
+      "_id": {
+        "$oid": "63ac530ec64101cbc8729449"
+      }
+    },
+    {
+      "date": "2022-12-29",
+      "relativeChange": 0.9547990102526597,
+      "_id": {
+        "$oid": "63ada48d14e1241bdfbccfea"
+      }
+    },
+    {
+      "date": "2022-12-30",
+      "relativeChange": 0.9629591400701681,
+      "_id": {
+        "$oid": "63aef60d1e8e905c596c65a9"
+      }
+    },
+    {
+      "date": "2023-1-2",
+      "relativeChange": 0.9594175479088118,
+      "_id": {
+        "$oid": "63b2ea8e48157fbf105541d9"
+      }
+    },
+    {
+      "date": "2023-1-3",
+      "relativeChange": 0.9610269498188437,
+      "_id": {
+        "$oid": "63b43c0e3103dd4dfa54c900"
+      }
+    },
+    {
+      "date": "2023-1-4",
+      "relativeChange": 0.9651047227915364,
+      "_id": {
+        "$oid": "63b58d8db2c6b6fe6b67a658"
+      }
+    },
+    {
+      "date": "2023-1-5",
+      "relativeChange": 0.9660897704654002,
+      "_id": {
+        "$oid": "63b6df0d103f2f4fc2501e8b"
+      }
+    },
+    {
+      "date": "2023-1-6",
+      "relativeChange": 0.9649230207451134,
+      "_id": {
+        "$oid": "63b8308e4698354702e7bcb0"
+      }
+    },
+    {
+      "date": "2023-1-9",
+      "relativeChange": 0.9699327742567049,
+      "_id": {
+        "$oid": "63bc250e0dfad5fb0e7257e0"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "relativeChange": 0.9792257950622405,
+      "_id": {
+        "$oid": "63bd768e025122766745f816"
+      }
+    },
+    {
+      "date": "2023-1-11",
+      "relativeChange": 0.975638437027903,
+      "_id": {
+        "$oid": "63bec8092e7b1ed50cf50585"
+      }
+    },
+    {
+      "date": "2023-1-12",
+      "relativeChange": 0.9838479662244196,
+      "_id": {
+        "$oid": "63c0198f5d0579b2830c2e15"
+      }
+    },
+    {
+      "date": "2023-1-13",
+      "relativeChange": 0.9855175326880453,
+      "_id": {
+        "$oid": "63c16b0f06ff9c3f59f98393"
+      }
+    },
+    {
+      "date": "2023-1-16",
+      "relativeChange": 0.9832130591208702,
+      "_id": {
+        "$oid": "63c55f8e9b5e987436d1de38"
+      }
+    },
+    {
+      "date": "2023-1-17",
+      "relativeChange": 0.9891778645105013,
+      "_id": {
+        "$oid": "63c6b10fd2ed846c16c6efab"
+      }
+    },
+    {
+      "date": "2023-1-18",
+      "relativeChange": 0.9896261634472635,
+      "_id": {
+        "$oid": "63c8028ec26c40505d5ff4fa"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "relativeChange": 0.9817899763613854,
+      "_id": {
+        "$oid": "63c9540fd40ddf29ad6799f1"
+      }
+    },
+    {
+      "date": "2023-1-20",
+      "relativeChange": 0.9669404396063205,
+      "_id": {
+        "$oid": "63caa58f6b4f0bab4a94d3e7"
+      }
+    },
+    {
+      "date": "2023-1-23",
+      "relativeChange": 0.9793490873409673,
+      "_id": {
+        "$oid": "63ce9a0ffb795d0550bca9cf"
+      }
+    },
+    {
+      "date": "2023-1-24",
+      "relativeChange": 0.9962740075640617,
+      "_id": {
+        "$oid": "63cfeb8e8c1e8e1a8b46ece0"
+      }
+    },
+    {
+      "date": "2023-1-25",
+      "relativeChange": 0.9958294828335086,
+      "_id": {
+        "$oid": "63d13d0f08caaf42fa8a14c5"
+      }
+    },
+    {
+      "date": "2023-1-26",
+      "relativeChange": 0.9900554744748173,
+      "_id": {
+        "$oid": "63d28e8ff3b8c2820a9acbaf"
+      }
+    },
+    {
+      "date": "2023-1-27",
+      "relativeChange": 1.0070755902067758,
+      "_id": {
+        "$oid": "63d3e00fb5e05429e38724b2"
+      }
+    },
+    {
+      "date": "2023-1-30",
+      "relativeChange": 1.0167280255691553,
+      "_id": {
+        "$oid": "63d7d490e3d7411be31e83ec"
+      }
+    },
+    {
+      "date": "2023-1-31",
+      "relativeChange": 1.0079869265918084,
+      "_id": {
+        "$oid": "63d9260f1d957fa0b19f1845"
+      }
+    },
+    {
+      "date": "2023-2-1",
+      "relativeChange": 1.009673554955823,
+      "_id": {
+        "$oid": "63da778f2fa0c22b656a2e91"
+      }
+    },
+    {
+      "date": "2023-2-2",
+      "relativeChange": 1.014325809070254,
+      "_id": {
+        "$oid": "63dbc910d0d7920fe47e4075"
+      }
+    },
+    {
+      "date": "2023-2-3",
+      "relativeChange": 1.0471359069668933,
+      "_id": {
+        "$oid": "63dd1a8f72be7dc0ef247097"
+      }
+    },
+    {
+      "date": "2023-2-6",
+      "relativeChange": 1.0524860243105159,
+      "_id": {
+        "$oid": "63e10f0fb89ab978604b8c03"
+      }
+    },
+    {
+      "date": "2023-2-7",
+      "relativeChange": 1.0518732699260263,
+      "_id": {
+        "$oid": "63e2608e28381b5a260c588e"
+      }
+    },
+    {
+      "date": "2023-2-8",
+      "relativeChange": 1.059723122139908,
+      "_id": {
+        "$oid": "63e3b20fa1d6072b4174c58f"
+      }
+    },
+    {
+      "date": "2023-2-9",
+      "relativeChange": 1.058765161091488,
+      "_id": {
+        "$oid": "63e503907212a6b117a7ec55"
+      }
+    },
+    {
+      "date": "2023-2-10",
+      "relativeChange": 1.0538267345031698,
+      "_id": {
+        "$oid": "63e6550fa823c6f7491c78cf"
+      }
+    },
+    {
+      "date": "2023-2-13",
+      "relativeChange": 1.0456443990523505,
+      "_id": {
+        "$oid": "63ea4990beddb4fb645b73a0"
+      }
+    },
+    {
+      "date": "2023-2-14",
+      "relativeChange": 1.0663918510924602,
+      "_id": {
+        "$oid": "63eb9b10710c2f70a3e7dbe1"
+      }
+    },
+    {
+      "date": "2023-2-15",
+      "relativeChange": 1.0673370887138875,
+      "_id": {
+        "$oid": "63ecec8f1d64574efaf361ed"
+      }
+    },
+    {
+      "date": "2023-2-16",
+      "relativeChange": 1.0690943865071028,
+      "_id": {
+        "$oid": "63ee3e10989d94147d8fbd83"
+      }
+    },
+    {
+      "date": "2023-2-17",
+      "relativeChange": 1.0619062571302809,
+      "_id": {
+        "$oid": "63ef8f90f445c29ae92161b1"
+      }
+    },
+    {
+      "date": "2023-2-20",
+      "relativeChange": 1.0524210260140705,
+      "_id": {
+        "$oid": "63f38410d1279bdf6146a1f4"
+      }
+    },
+    {
+      "date": "2023-2-21",
+      "relativeChange": 1.048823811858945,
+      "_id": {
+        "$oid": "63f4d59024f8dbded6d9cdb5"
+      }
+    },
+    {
+      "date": "2023-2-22",
+      "relativeChange": 1.0411724911448637,
+      "_id": {
+        "$oid": "63f6270ea13afe2e3275efa4"
+      }
+    },
+    {
+      "date": "2023-2-23",
+      "relativeChange": 1.0401334391760553,
+      "_id": {
+        "$oid": "63f7788f33bd8050078ed639"
+      }
+    },
+    {
+      "date": "2023-2-24",
+      "relativeChange": 1.0511397476185529,
+      "_id": {
+        "$oid": "63f8ca1086da1d52ea574a1e"
+      }
+    },
+    {
+      "date": "2023-2-27",
+      "relativeChange": 1.045329787207932,
+      "_id": {
+        "$oid": "63fcbe9013a7f58b7c841d09"
+      }
+    },
+    {
+      "date": "2023-2-28",
+      "relativeChange": 1.047494150958153,
+      "_id": {
+        "$oid": "63fe100f95cd4a8cc47b2081"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "relativeChange": 1.046416863924745,
+      "_id": {
+        "$oid": "63ff618f93e0990c68e95998"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "relativeChange": 1.031980681923195,
+      "_id": {
+        "$oid": "6400b30f119a19feb0866434"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "relativeChange": 1.040796974546358,
+      "_id": {
+        "$oid": "6402049031c2501ad601d9c6"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "relativeChange": 1.059672549784846,
+      "_id": {
+        "$oid": "6405f910610382dabc3e2398"
+      }
+    },
+    {
+      "date": "2023-3-7",
+      "relativeChange": 1.0646729719259518,
+      "_id": {
+        "$oid": "64074a9053847ea2f1a3c3a9"
+      }
+    },
+    {
+      "date": "2023-3-8",
+      "relativeChange": 1.0588323521378638,
+      "_id": {
+        "$oid": "64089c0f50c186d2a8ac41f2"
+      }
+    },
+    {
+      "date": "2023-3-9",
+      "relativeChange": 1.0628904574666458,
+      "_id": {
+        "$oid": "6409ed8fa4ab750a91498eaf"
+      }
+    },
+    {
+      "date": "2023-3-10",
+      "relativeChange": 1.0560851307821393,
+      "_id": {
+        "$oid": "640b3f0fe20004ad61cd2cfb"
+      }
+    },
+    {
+      "date": "2023-3-13",
+      "relativeChange": 1.0380646349533549,
+      "_id": {
+        "$oid": "640f33906b9232c81ebf8edb"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "relativeChange": 1.0262715162439764,
+      "_id": {
+        "$oid": "6410850f0a6709666bc9ede4"
+      }
+    },
+    {
+      "date": "2023-3-15",
+      "relativeChange": 1.0433543628874478,
+      "_id": {
+        "$oid": "6411d6909ad840709935ea85"
+      }
+    },
+    {
+      "date": "2023-3-16",
+      "relativeChange": 1.047038681405112,
+      "_id": {
+        "$oid": "64132810cb695c74d9231f24"
+      }
+    },
+    {
+      "date": "2023-3-17",
+      "relativeChange": 1.0630101623460488,
+      "_id": {
+        "$oid": "64147990b207818141447d23"
+      }
+    },
+    {
+      "date": "2023-3-20",
+      "relativeChange": 1.0561180001431851,
+      "_id": {
+        "$oid": "64186e106d82375872ce45db"
+      }
+    },
+    {
+      "date": "2023-3-21",
+      "relativeChange": 1.0547034513840792,
+      "_id": {
+        "$oid": "6419bf90531fe0749fb8f6bd"
+      }
+    },
+    {
+      "date": "2023-3-22",
+      "relativeChange": 1.0568551458512354,
+      "_id": {
+        "$oid": "641b110f7623fdccf09b8417"
+      }
+    },
+    {
+      "date": "2023-3-23",
+      "relativeChange": 1.0461111544474189,
+      "_id": {
+        "$oid": "641c628fdb982a249e6eb985"
+      }
+    },
+    {
+      "date": "2023-3-24",
+      "relativeChange": 1.0457568298716313,
+      "_id": {
+        "$oid": "641db40f5ffb59e8e081dc8b"
+      }
+    },
+    {
+      "date": "2023-3-27",
+      "relativeChange": 1.0428807786012855,
+      "_id": {
+        "$oid": "64219a7f932f4b7f67a90b1b"
+      }
+    },
+    {
+      "date": "2023-3-28",
+      "relativeChange": 1.0474638596158763,
+      "_id": {
+        "$oid": "6422ec00e04cd8a92a385798"
+      }
+    },
+    {
+      "date": "2023-3-29",
+      "relativeChange": 1.037664865349601,
+      "_id": {
+        "$oid": "64243d7fc79e9f9e6ba6d846"
+      }
+    },
+    {
+      "date": "2023-3-30",
+      "relativeChange": 1.049138190936338,
+      "_id": {
+        "$oid": "64258eff1210b7a30736da81"
+      }
+    },
+    {
+      "date": "2023-3-31",
+      "relativeChange": 1.0549282089843837,
+      "_id": {
+        "$oid": "6426e08031ab3345cd5b1fb0"
+      }
+    },
+    {
+      "date": "2023-4-3",
+      "relativeChange": 1.0693479318683121,
+      "_id": {
+        "$oid": "642ad50027d51a61fce2bd29"
+      }
+    },
+    {
+      "date": "2023-4-4",
+      "relativeChange": 1.0682739176640965,
+      "_id": {
+        "$oid": "642c268052b86c53b1f657da"
+      }
+    },
+    {
+      "date": "2023-4-5",
+      "relativeChange": 1.0652302429086553,
+      "_id": {
+        "$oid": "642d780018d38156cc43a2b8"
+      }
+    },
+    {
+      "date": "2023-4-6",
+      "relativeChange": 1.0623835342083368,
+      "_id": {
+        "$oid": "642ec98086579295288abe0f"
+      }
+    },
+    {
+      "date": "2023-4-7",
+      "relativeChange": 1.0600929102157226,
+      "_id": {
+        "$oid": "64301b003e851c0dbfccae67"
+      }
+    },
+    {
+      "date": "2023-4-10",
+      "relativeChange": 1.062513693393306,
+      "_id": {
+        "$oid": "64340f801cf4a3f9565065e8"
+      }
+    },
+    {
+      "date": "2023-4-11",
+      "relativeChange": 1.0665515609743352,
+      "_id": {
+        "$oid": "643561006b4cb5e863364c8d"
+      }
+    },
+    {
+      "date": "2023-4-12",
+      "relativeChange": 1.0733016916020506,
+      "_id": {
+        "$oid": "6436b27f0f04da58c4a1ae52"
+      }
+    },
+    {
+      "date": "2023-4-13",
+      "relativeChange": 1.0616371105516667,
+      "_id": {
+        "$oid": "64380400c51cfacbbc7c6e78"
+      }
+    },
+    {
+      "date": "2023-4-14",
+      "relativeChange": 1.0619446646782564,
+      "_id": {
+        "$oid": "6439557f32c7eae7fa1857e4"
+      }
+    },
+    {
+      "date": "2023-4-17",
+      "relativeChange": 1.0716826472672092,
+      "_id": {
+        "$oid": "643d49ff257d5f7a1bdb1ced"
+      }
+    },
+    {
+      "date": "2023-4-18",
+      "relativeChange": 1.0787274726155245,
+      "_id": {
+        "$oid": "643e9b80deb4f432ac8e0ec7"
+      }
+    },
+    {
+      "date": "2023-4-19",
+      "relativeChange": 1.0807124601122666,
+      "_id": {
+        "$oid": "643fed00db964675bff4aab2"
+      }
+    },
+    {
+      "date": "2023-4-20",
+      "relativeChange": 1.0783700459900465,
+      "_id": {
+        "$oid": "64413e7f6434fe602aaf9949"
+      }
+    },
+    {
+      "date": "2023-4-21",
+      "relativeChange": 1.0748489093863298,
+      "_id": {
+        "$oid": "64428fff557db84a9745d89c"
+      }
+    },
+    {
+      "date": "2023-4-24",
+      "relativeChange": 1.074838362417382,
+      "_id": {
+        "$oid": "6446847ff9b86cb9d9835523"
+      }
+    },
+    {
+      "date": "2023-4-25",
+      "relativeChange": 1.0683303326677864,
+      "_id": {
+        "$oid": "6447d5ff7bc729d67513ad8c"
+      }
+    },
+    {
+      "date": "2023-4-26",
+      "relativeChange": 1.0651989545074585,
+      "_id": {
+        "$oid": "64492780c3464d04b792904e"
+      }
+    },
+    {
+      "date": "2023-4-27",
+      "relativeChange": 1.064008542938719,
+      "_id": {
+        "$oid": "644a78ff40a90ec1b990eddf"
+      }
+    },
+    {
+      "date": "2023-4-28",
+      "relativeChange": 1.07731888825196,
+      "_id": {
+        "$oid": "644bca7f53c6ef902681f8bf"
+      }
+    },
+    {
+      "date": "2023-5-1",
+      "relativeChange": 1.0826801607320973,
+      "_id": {
+        "$oid": "644fbeff1ed987a1ce990611"
+      }
+    },
+    {
+      "date": "2023-5-2",
+      "relativeChange": 1.0863026215588873,
+      "_id": {
+        "$oid": "6451107ffd98002f74046513"
+      }
+    },
+    {
+      "date": "2023-5-3",
+      "relativeChange": 1.0752396548455294,
+      "_id": {
+        "$oid": "645261ff94c617a25b3ead4f"
+      }
+    },
+    {
+      "date": "2023-5-4",
+      "relativeChange": 1.0679371196690608,
+      "_id": {
+        "$oid": "6453b37f6e30de67a560136a"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "relativeChange": 1.0640295882233373,
+      "_id": {
+        "$oid": "645504fa6d627162722e448e"
+      }
+    },
+    {
+      "date": "2023-5-8",
+      "relativeChange": 1.0728361696961202,
+      "_id": {
+        "$oid": "6458f97f92f97645a03cfdf2"
+      }
+    },
+    {
+      "date": "2023-5-9",
+      "relativeChange": 1.0803739345246517,
+      "_id": {
+        "$oid": "645a4aff1b32a6af1b5bd0ec"
+      }
+    },
+    {
+      "date": "2023-5-10",
+      "relativeChange": 1.0788470771717718,
+      "_id": {
+        "$oid": "645b9c7f0d2654cca24e58e1"
+      }
+    },
+    {
+      "date": "2023-5-11",
+      "relativeChange": 1.0832661696517247,
+      "_id": {
+        "$oid": "645cedfff90462f19a9bb675"
+      }
+    },
+    {
+      "date": "2023-5-12",
+      "relativeChange": 1.0899247983694598,
+      "_id": {
+        "$oid": "645e3f80175d3f83157d2b1b"
+      }
+    },
+    {
+      "date": "2023-5-15",
+      "relativeChange": 1.0908910237093443,
+      "_id": {
+        "$oid": "646233ffaecf14ed3af69b52"
+      }
+    },
+    {
+      "date": "2023-5-16",
+      "relativeChange": 1.0882610361213483,
+      "_id": {
+        "$oid": "6463857f2fc76b6d8789028d"
+      }
+    },
+    {
+      "date": "2023-5-17",
+      "relativeChange": 1.0909487173840597,
+      "_id": {
+        "$oid": "6464d6f9cf6f46b2efaaf935"
+      }
+    },
+    {
+      "date": "2023-5-18",
+      "relativeChange": 1.0954426966718636,
+      "_id": {
+        "$oid": "6466287c3d6816fbad3b3a05"
+      }
+    },
+    {
+      "date": "2023-5-19",
+      "relativeChange": 1.108702835279015,
+      "_id": {
+        "$oid": "646779fd620eef5d72ba200e"
+      }
+    },
+    {
+      "date": "2023-5-22",
+      "relativeChange": 1.1087967704060993,
+      "_id": {
+        "$oid": "646b6e7c9b28f239e8c18fee"
+      }
+    },
+    {
+      "date": "2023-5-23",
+      "relativeChange": 1.1086819187089925,
+      "_id": {
+        "$oid": "646cbffc2850da912329878e"
+      }
+    },
+    {
+      "date": "2023-5-24",
+      "relativeChange": 1.1050469951021757,
+      "_id": {
+        "$oid": "646e117d578e45e970827236"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "relativeChange": 1.0949157454318335,
+      "_id": {
+        "$oid": "646f62fd4918e2b32322098e"
+      }
+    },
+    {
+      "date": "2023-5-26",
+      "relativeChange": 1.111759991637701,
+      "_id": {
+        "$oid": "6470b47c291bc117cff6d697"
+      }
+    },
+    {
+      "date": "2023-5-29",
+      "relativeChange": 1.118485324839613,
+      "_id": {
+        "$oid": "6474a8fd52428bd9cb51f26f"
+      }
+    },
+    {
+      "date": "2023-5-30",
+      "relativeChange": 1.1318779067081641,
+      "_id": {
+        "$oid": "6475fa7def6758fb9ab39095"
+      }
+    },
+    {
+      "date": "2023-5-31",
+      "relativeChange": 1.1277479617387456,
+      "_id": {
+        "$oid": "64774bfd063993a62b09d4eb"
+      }
+    },
+    {
+      "date": "2023-6-1",
+      "relativeChange": 1.1220596759437478,
+      "_id": {
+        "$oid": "64789d7d5bb29632133c25a6"
+      }
+    },
+    {
+      "date": "2023-6-2",
+      "relativeChange": 1.1265058942648052,
+      "_id": {
+        "$oid": "6479eefc7205db685f451dc6"
+      }
+    },
+    {
+      "date": "2023-6-5",
+      "relativeChange": 1.1432500394168328,
+      "_id": {
+        "$oid": "647de37c5815c2f42a5293dd"
+      }
+    },
+    {
+      "date": "2023-6-6",
+      "relativeChange": 1.1409911257259302,
+      "_id": {
+        "$oid": "647f34fceb923d6ee85da7b2"
+      }
+    },
+    {
+      "date": "2023-6-7",
+      "relativeChange": 1.1423414016320022,
+      "_id": {
+        "$oid": "6480867de7b0b9cec4406faa"
+      }
+    },
+    {
+      "date": "2023-6-8",
+      "relativeChange": 1.1382643686171359,
+      "_id": {
+        "$oid": "6481d7fc34951dc05cf7a140"
+      }
+    },
+    {
+      "date": "2023-6-9",
+      "relativeChange": 1.1379100162670048,
+      "_id": {
+        "$oid": "6483297c4f56d340dbe574c1"
+      }
+    },
+    {
+      "date": "2023-6-12",
+      "relativeChange": 1.145048935816702,
+      "_id": {
+        "$oid": "64871df9d6e8d942df930796"
+      }
+    },
+    {
+      "date": "2023-6-13",
+      "relativeChange": 1.15573982863905,
+      "_id": {
+        "$oid": "64886f7dbf509586235f6ad7"
+      }
+    },
+    {
+      "date": "2023-6-14",
+      "relativeChange": 1.1662660181760118,
+      "_id": {
+        "$oid": "6489c0fdc8a67f64885e658e"
+      }
+    },
+    {
+      "date": "2023-6-15",
+      "relativeChange": 1.1688425258774606,
+      "_id": {
+        "$oid": "648b127d1eb4ed026fe24437"
+      }
+    },
+    {
+      "date": "2023-6-16",
+      "relativeChange": 1.1640938155250282,
+      "_id": {
+        "$oid": "648c63fdaf52e39c9a264aeb"
+      }
+    },
+    {
+      "date": "2023-6-19",
+      "relativeChange": 1.1682579753428033,
+      "_id": {
+        "$oid": "6490587d4b5326d93c14bb2a"
+      }
+    }
+  ],
+  "totalInvestedHistory": [
+    {
+      "date": "2022-10-20",
+      "total": 402439.76,
+      "_id": {
+        "$oid": "63510a6675c9ade2f081463e"
+      }
+    },
+    {
+      "date": "2022-11-14",
+      "total": 421705.68,
+      "_id": {
+        "$oid": "63726e24df34911cff53a459"
+      }
+    },
+    {
+      "date": "2022-11-15",
+      "total": 423130.48,
+      "_id": {
+        "$oid": "63736799ceb5f17e8527e607"
+      }
+    },
+    {
+      "date": "2022-12-13",
+      "total": 469805.54,
+      "_id": {
+        "$oid": "639839b2b0af3fe7aa427934"
+      }
+    },
+    {
+      "date": "2022-12-22",
+      "total": 470528.14,
+      "_id": {
+        "$oid": "63a459c9f79f7c6f4d12ed27"
+      }
+    },
+    {
+      "date": "2023-1-10",
+      "total": 471951.14,
+      "_id": {
+        "$oid": "63bd1d0e191b526ba87ef467"
+      }
+    },
+    {
+      "date": "2023-1-19",
+      "total": 494343.14,
+      "_id": {
+        "$oid": "63c8fe4753182d9a04803a03"
+      }
+    },
+    {
+      "date": "2023-3-1",
+      "total": 583895.14,
+      "_id": {
+        "$oid": "63ff182f94a5705eef191f24"
+      }
+    },
+    {
+      "date": "2023-3-2",
+      "total": 666983.49,
+      "_id": {
+        "$oid": "640080188baf61f9f3c3f514"
+      }
+    },
+    {
+      "date": "2023-3-3",
+      "total": 683077.34,
+      "_id": {
+        "$oid": "6401c00388862253757143ce"
+      }
+    },
+    {
+      "date": "2023-3-6",
+      "total": 692352.4099999999,
+      "_id": {
+        "$oid": "6405ada04445cfef0df180d4"
+      }
+    },
+    {
+      "date": "2023-3-14",
+      "total": 735898.0099999999,
+      "_id": {
+        "$oid": "6410484d3eb26b48f59be647"
+      }
+    },
+    {
+      "date": "2023-5-5",
+      "total": 795930.3499999999,
+      "_id": {
+        "$oid": "645503e3a5092150470f74e3"
+      }
+    },
+    {
+      "date": "2023-5-25",
+      "total": 853251.0999999999,
+      "_id": {
+        "$oid": "646f6ae53e35d34fc9aa08bb"
+      }
+    }
+  ],
+  "__v": 377
+}]
