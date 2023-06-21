@@ -18,7 +18,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
-    console.log(stocks)
     if (stocks !== null) {
       res.json(stocks.stocks)
     } else {

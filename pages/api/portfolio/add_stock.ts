@@ -42,5 +42,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.json({ stocks: newStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     res.status(500).json(error)
+    console.log(error)
   }
 };
