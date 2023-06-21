@@ -17,6 +17,7 @@ import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect'
 import { CurrencyContext } from '@/pages/_app'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
+import { splitDatesValues } from '@/utils/client/splitDatesValues'
 
 interface Props {
   demo: boolean
@@ -75,8 +76,6 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then((response: any) => response.json())
       .then(returnedStocks => {
-        console.log(returnedStocks)
-
         formatStocks(returnedStocks)
 
         setOrderDropdownValue('NEWEST')
@@ -105,13 +104,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((history) => {
-        const values: number[] = history.values
-        const dates: Date[] = history.dates
-
-        for (const entry of history) {
-          values.push(entry.value)
-          dates.push(entry.date)
-        }
+        const { dates, values } = splitDatesValues(history)
 
         setNetWorthValues(values)
         setNetWorthDates(dates)
@@ -156,13 +149,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((relativeChange) => {
-        let values: number[] = relativeChange.values
-        const dates: Date[] = relativeChange.dates
-
-        for (const entry of relativeChange) {
-          values.push(entry.value)
-          dates.push(entry.date)
-        }
+        let { dates, values } = splitDatesValues(relativeChange)
 
         values = values.map(value => { return (value * 100 - 100) })
         // do not need to set timeScale here as it is being set in api/net_worth call
@@ -193,13 +180,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then((totalInvested) => {
         if (totalInvested.length === 0) return
 
-        const values: number[] = totalInvested.values
-        const dates: Date[] = totalInvested.dates
-
-        for (const entry of totalInvested) {
-          values.push(entry.value)
-          dates.push(entry.date)
-        }
+        const { dates, values } = splitDatesValues(totalInvested)
 
         // do not need to set timeScale here as it is being set in api/net_wort call
 

@@ -25,7 +25,7 @@ model Stock {
   price         Float
   firstPurchase DateTime
   lastPurchase  DateTime
-  userEmail     String?   @unique
+  userEmail     String?   
   purchases     Purchase[]
   user          User?    @relation(fields: [userEmail], references: [email])
 }
@@ -36,7 +36,9 @@ model Purchase {
   amount        Int
   price         Float
   stockTicker   String?   @unique
+  userEmail     String?   @unique
   stock         Stock?     @relation(fields: [stockTicker], references: [ticker])
+  user          User?     @relation(fields: [userEmail], references: [email])
 }
 
 model NetWorth {

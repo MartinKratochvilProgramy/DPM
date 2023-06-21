@@ -25,33 +25,36 @@ export async function addStock (newStock: StockInterface, email: string) {
   }
 
   if (user.stocks.length === 0) {
-    console.log(user.stocks.length)
     // create new stock
-    const newStock = await prisma.stock.create({
+    await prisma.stock.create({
       data: {
-        ticker: 'AAPL',
-        amount: 100,
-        price: 150.5,
+        ticker: newStock.ticker,
+        amount: newStock.amount,
+        price: newStock.price,
         firstPurchase: new Date(),
         lastPurchase: new Date(),
-        userEmail: 'user@example.com'
+        user: {
+          connect: {
+            email
+          }
+        }
       }
     })
 
-    // const purchase = await prisma.purchase.create({
-    //   data: {
-    //     date: new Date(),
-    //     amount: newStock.amount,
-    //     price: newStock.price,
-    //     stock: {
-    //       connect: {
-    //         ticker: newStock.ticker,
-    //         userEmail: email
-    //       }
-    //     }
-    //   }
-    // })
-    console.log('stock', newStock)
+    const purchase = await prisma.purchase.create({
+      data: {
+        date: new Date(),
+        amount: newStock.amount,
+        price: newStock.price,
+        stock: {
+          connect: {
+            ticker: newStock.ticker,
+            userEmail: email
+          }
+        }
+      }
+    })
+    console.log('purchase', purchase)
   } else {
     // increment existing stock
     await prisma.purchase.create({

@@ -4,6 +4,7 @@ import { addStock } from '@/utils/api/addStock'
 import fetch from 'node-fetch'
 import { type StockInterface } from '@/types/api/stock'
 import { getAccount } from '@/utils/api/getAccount'
+import prisma from '@/lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -44,6 +45,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     res.status(200).json(user)
   } catch (error) {
+    console.log(error)
+
     res.status(500).json(error)
   }
 };

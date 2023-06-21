@@ -6,7 +6,11 @@ export async function getAccount (email: string) {
       email
     },
     include: {
-      stocks: true,
+      stocks: {
+        include: {
+          purchases: true
+        }
+      },
       netWorth: true,
       totalInvested: true
     }

@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     })
 
     if (netWorth !== null) {
-      res.status(200).json({ netWorth })
+      res.status(200).json(netWorth)
     } else {
       res.status(200).json({ netWorth: [] })
     }

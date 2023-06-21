@@ -7,6 +7,7 @@ import { handleErrors } from '@/utils/client/handleErrors'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
 import '../../../app/globals.css'
 import TickerHint from './TickerHint'
+import { splitDatesValues } from '@/utils/client/splitDatesValues'
 
 interface Props {
   demo: boolean
@@ -105,11 +106,15 @@ export const StockInput: React.FC<Props> = ({
       .then(handleErrors)
       .then(response => response.json())
       .then((res) => {
-        setNetWorthDates(res.netWorth.netWorthDates)
-        setNetWorthValues(res.netWorth.netWorthValues)
+        console.log(res)
 
-        setTotalInvestedDates(res.totalInvested.totalInvestedDates)
-        setTotalInvestedValues(res.totalInvested.totalInvestedValues)
+        const netWorth = splitDatesValues(res.netWorth)
+        setNetWorthDates(netWorth.dates)
+        setNetWorthValues(netWorth.values)
+
+        const totalInvested = splitDatesValues(res.netWorth)
+        setTotalInvestedDates(totalInvested.dates)
+        setTotalInvestedValues(totalInvested.values)
 
         const stocks = res.stocks
 
