@@ -57,7 +57,7 @@ async function createUserWithStockAndPurchases () {
       }
     })
 
-    console.log('Created user:', purchases)
+    console.log('Created user:', stocks, purchases)
   } catch (error) {
     console.error('Error creating user:', error)
   } finally {
