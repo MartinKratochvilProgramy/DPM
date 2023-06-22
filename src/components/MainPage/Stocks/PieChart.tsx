@@ -21,6 +21,8 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
   useEffect(() => {
     const chartCanvas = chartRef.current
 
+    if (chartCanvas === null) return
+
     const chartInstance = new Chart(chartCanvas, {
       type: 'pie',
       data: {
