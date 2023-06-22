@@ -17,6 +17,7 @@ import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect'
 import { CurrencyContext } from '@/pages/_app'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
+import { calculateTimeScale } from '@/utils/client/calculateTimeScale'
 
 interface Props {
   demo: boolean
@@ -34,12 +35,13 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [netWorthDates, setNetWorthDates] = useState<Date[]>([])
   const [netWorthValues, setNetWorthValues] = useState<number[]>([])
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
-  const [timeScale, setTimeScale] = useState<TimeScaleInterface>('month')
+  const [netWorthTimeScale, setNetWorthTimeScale] = useState<TimeScaleInterface>('month')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
 
   const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([])
   const [relativeChangeValues, setRelativeChangeValues] = useState<number[]>([])
   const [relativeChangeLoaded, setRelativeChangeLoaded] = useState(false)
+  const [relativeChangeTimeScale, setRelativeChangeTimeScale] = useState<TimeScaleInterface>('month')
   const [relativeChangeOpen, setRelativeChangeOpen] = useState(false)
 
   const [pieOpen, setPieOpen] = useState(false)
@@ -47,6 +49,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [totalInvestedDates, setTotalInvestedDates] = useState<Date[]>([])
   const [totalInvestedValues, setTotalInvestedValues] = useState<number[]>([])
   const [totalInvestedLoaded, setTotalInvestedLoaded] = useState(false)
+  const [totalInvestedTimeScale, setTotalInvestedTimeScale] = useState<TimeScaleInterface>('month')
   const [totalInvestedOpen, setTotalInvestedOpen] = useState(false)
 
   const { user } = useUser()
@@ -109,24 +112,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         setNetWorthValues(values)
         setNetWorthDates(dates)
 
-        // difference between first and last writes
-        const timeDiff = new Date(dates[dates.length - 1]).getTime() - new Date(dates[0]).getTime()
-        const hour = 3.6e+6
-
-        let newTimeScale: TimeScaleInterface
-        if (timeDiff < 2 * hour) {
-          newTimeScale = 'second'
-        } else if (timeDiff < 24 * hour) {
-          newTimeScale = 'hour'
-        } else if (24 * hour <= timeDiff && timeDiff < 4 * 30 * 24 * hour) {
-          newTimeScale = 'day'
-        } else if (4 * 30 * 24 * hour <= timeDiff && timeDiff < 2 * 8760 * hour) {
-          newTimeScale = 'month'
-        } else {
-          newTimeScale = 'year'
-        }
-
-        setTimeScale(newTimeScale)
+        const timeScale = calculateTimeScale(dates)
+        setNetWorthTimeScale(timeScale)
 
         setNetWorthLoaded(true)
       })
@@ -153,7 +140,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         values = values.map(value => { return (value * 100 - 100) })
         const dates: Date[] = relativeChange.dates
 
-        // do not need to set timeScale here as it is being set in api/net_wort call
+        const timeScale = calculateTimeScale(dates)
+        setRelativeChangeTimeScale(timeScale)
 
         setRelativeChangeValues(values)
         setRelativeChangeDates(dates)
@@ -182,7 +170,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         const values: number[] = totalInvested.values
         const dates: Date[] = totalInvested.dates
 
-        // do not need to set timeScale here as it is being set in api/net_wort call
+        const timeScale = calculateTimeScale(dates)
+        setTotalInvestedTimeScale(timeScale)
 
         setTotalInvestedDates(dates)
         setTotalInvestedValues(values)
@@ -296,7 +285,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             ? <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
-              timeScale={timeScale}
+              timeScale={netWorthTimeScale}
             />
             : <LoadingSpinner size={70} />
           }
@@ -312,7 +301,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             ? <RelativeChangeHistory
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
-              timeScale={timeScale}
+              timeScale={relativeChangeTimeScale}
             />
             : <LoadingSpinner size={70} />
           }
@@ -322,7 +311,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             ? <TotalInvestedHistory
               totalInvestedDates={totalInvestedDates}
               totalInvestedValues={totalInvestedValues}
-              timeScale={timeScale}
+              timeScale={totalInvestedTimeScale}
             />
             : <LoadingSpinner size={70} />
           }
@@ -365,7 +354,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
-              timeScale={timeScale}
+              timeScale={netWorthTimeScale}
             />
           </div>
         </div>
@@ -395,7 +384,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <RelativeChangeHistory
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
-              timeScale={timeScale}
+              timeScale={relativeChangeTimeScale}
             />
           </div>
         </div>
@@ -412,7 +401,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <TotalInvestedHistory
               totalInvestedDates={totalInvestedDates}
               totalInvestedValues={totalInvestedValues}
-              timeScale={timeScale}
+              timeScale={totalInvestedTimeScale}
             />
           </div>
         </div>
