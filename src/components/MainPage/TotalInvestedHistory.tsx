@@ -8,6 +8,7 @@ import '../../app/globals.css'
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
+import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
 
 Chart.register(...registerables)
 
@@ -22,7 +23,7 @@ const TotalInvestedHistory: React.FC<Props> = ({
   totalInvestedValues,
   timeScale
 }) => {
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
   const { theme } = useTheme()
 
@@ -55,66 +56,64 @@ const TotalInvestedHistory: React.FC<Props> = ({
         ]
       }
 
-      const chartOptions = {
-        responsive: true,
-        animation: firstLoad,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-            labels: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          },
-          title: {
-            display: false,
-            text: 'Total Invested'
-          }
-        },
-        scales: {
-          x: {
-            type: 'time',
-            time: {
-              unit: timeScale
-            },
-            display: true,
-            title: {
-              display: true
-            },
-            grid: {
-              color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
-            },
-            ticks: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          },
-          y: {
-            display: true,
-            title: {
-              display: false,
-              text: 'Total Invested'
-            },
-            grid: {
-              color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
-              z: 10
-            },
-            ticks: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          }
-        }
-      }
-
       // Create the chart instance
       chartInstanceRef.current = new Chart(ctx, {
         type: 'line',
         data: chartData,
-        options: chartOptions
+        options: {
+          responsive: true,
+          animation: { duration: loadDuration },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            },
+            title: {
+              display: false,
+              text: 'Total Invested'
+            }
+          },
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                unit: timeScale
+              },
+              display: true,
+              title: {
+                display: true
+              },
+              grid: {
+                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
+              },
+              ticks: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            },
+            y: {
+              display: true,
+              title: {
+                display: false,
+                text: 'Total Invested'
+              },
+              grid: {
+                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
+                z: 10
+              },
+              ticks: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            }
+          }
+        }
       })
     }
 
-    if (firstLoad) {
-      setFirstLoad(false)
+    if (loadDuration === 1000) {
+      setLoadDuration(0)
     }
 
     // Cleanup function

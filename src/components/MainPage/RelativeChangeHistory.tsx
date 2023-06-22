@@ -4,8 +4,9 @@ import {
 } from 'chart.js'
 import 'chartjs-adapter-moment'
 import { useTheme } from 'next-themes'
-import '../../app/globals.css'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
+import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
+import '../../app/globals.css'
 
 Chart.register(...registerables)
 
@@ -20,7 +21,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
   relativeChangeValues,
   timeScale
 }) => {
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
   const { theme } = useTheme()
 
@@ -55,66 +56,66 @@ const RelativeChangeHistory: React.FC<Props> = ({
         ]
       }
 
-      const chartOptions = {
-        responsive: true,
-        animation: firstLoad,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-            labels: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          },
-          title: {
-            display: false,
-            text: 'Change'
-          }
-        },
-        scales: {
-          x: {
-            type: 'time',
-            time: {
-              unit: timeScale
-            },
-            display: true,
-            title: {
-              display: true
-            },
-            grid: {
-              color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
-            },
-            ticks: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          },
-          y: {
-            display: true,
-            title: {
-              display: false,
-              text: 'Net Worth'
-            },
-            grid: {
-              color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
-              z: 10
-            },
-            ticks: {
-              color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
-            }
-          }
-        }
-      }
+      if (ctx === null) return
 
       // Create the chart instance
       chartInstanceRef.current = new Chart(ctx, {
         type: 'line',
         data: chartData,
-        options: chartOptions
+        options: {
+          responsive: true,
+          animation: { duration: loadDuration },
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            },
+            title: {
+              display: false,
+              text: 'Change'
+            }
+          },
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                unit: timeScale
+              },
+              display: true,
+              title: {
+                display: true
+              },
+              grid: {
+                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
+              },
+              ticks: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            },
+            y: {
+              display: true,
+              title: {
+                display: false,
+                text: 'Net Worth'
+              },
+              grid: {
+                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
+                z: 10
+              },
+              ticks: {
+                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+              }
+            }
+          }
+        }
       })
     }
 
-    if (firstLoad) {
-      setFirstLoad(false)
+    if (loadDuration === 1000) {
+      setLoadDuration(0)
     }
 
     // Cleanup function
