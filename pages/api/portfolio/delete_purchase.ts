@@ -10,6 +10,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, ticker, purchaseId } = req.body
 
+    if (email === 'demo') {
+      res.status(500).json('Cannot edit in demo mode')
+      return
+    }
+
     const purchase = await prisma.purchase.findUnique({
       where: {
         id: purchaseId
@@ -21,24 +26,27 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error(`Purchase not found: ${email} ${ticker} ${purchaseId}`)
     }
 
-    const updatedStocks = await prisma.stocks.update({
+    console.log(purchase)
+
+    await prisma.purchase.delete({
+      where: {
+        id: purchaseId
+      }
+    })
+
+    const updatedStocks = await prisma.user.update({
       where: {
         email
       },
       data: {
         stocks: {
-          update: {
+          updateMany: {
             where: {
               ticker
             },
             data: {
               amount: {
-                decrement: purchase?.amount
-              },
-              purchases: {
-                deleteMany: {
-                  id: purchaseId
-                }
+                decrement: purchase.amount
               }
             }
           }
@@ -60,5 +68,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     res.status(500).json(error)
+    console.log(error)
   }
 };

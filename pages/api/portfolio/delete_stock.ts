@@ -10,10 +10,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { email, ticker } = req.body
 
+    if (email === 'demo') {
+      res.status(500).json('Cannot edit in demo mode')
+      return
+    }
+
     const purchases = await prisma.purchase.findMany({
       where: {
-        Stock: {
-          stocksEmail: email,
+        stock: {
+          userEmail: email,
           ticker
         }
       }
@@ -29,16 +34,28 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       decrementTotalInvested += purchase.amount * purchase.price
     }
 
-    const updatedStocks = await prisma.stocks.update({
+    const stockId = await prisma.stock.findMany({
+      where: {
+        userEmail: email,
+        ticker
+      }
+    })
+
+    await prisma.purchase.deleteMany({
+      where: {
+        stockId: stockId[0].id
+      }
+    })
+
+    await prisma.stock.deleteMany({
+      where: {
+        id: stockId[0].id
+      }
+    })
+
+    const stocks = await prisma.user.findUnique({
       where: {
         email
-      },
-      data: {
-        stocks: {
-          deleteMany: {
-            ticker
-          }
-        }
       },
       include: {
         stocks: {
@@ -53,8 +70,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const newNetWorth = await addNetWorth(email, newTotalNetWorth)
     const newTotalInvested = await incrementTotalInvested(email, -decrementTotalInvested)
 
-    res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    res.json({ stocks: stocks?.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     res.status(500).json(error)
+    console.log(error)
   }
 };
