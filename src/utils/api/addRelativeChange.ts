@@ -1,3 +1,5 @@
+import prisma from '@/lib/prisma'
+
 export async function addRelativeChange (email: string, newValue: number) {
   // increase last net worth history if is the same date
   // else create new write new
@@ -17,7 +19,7 @@ export async function addRelativeChange (email: string, newValue: number) {
   if (relativeChange.relativeChangeValues.length === 0) {
     lastRelativeChange = 1
   } else {
-    lastRelativeChange = relativeChange.relativeChangeValues.at(-1)
+    lastRelativeChange = relativeChange.relativeChangeValues[relativeChange.relativeChangeValues.length - 1]
   }
 
   const newRelativeChange = await prisma.relativeChange.update({
