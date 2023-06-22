@@ -1,5 +1,5 @@
 export interface TickerChartData {
   ticker: string
-  dates: string[]
+  dates: Date[]
   values: number[]
 }

@@ -1,6 +1,6 @@
 import { type TickerChartData } from '@/types/api/tickerChartData'
 import { type Period } from '@/types/api/period'
-import yahooFinance from 'yahoo-finance'
+import yahooFinance from 'yahoo-finance2'
 
 const numberOfMonths = {
   '6m': -6,
@@ -9,7 +9,9 @@ const numberOfMonths = {
   '5y': -60
 }
 
-function addMonths (date: Date, period: Period) {
+function addMonths (period: Period) {
+  const date = new Date()
+  // return startDate with destance period from date
   date.setMonth(date.getMonth() + numberOfMonths[period])
   return date
 }
@@ -18,32 +20,28 @@ export default async function getTickerChartData (
   ticker: string,
   period: Period
 ): Promise<TickerChartData> {
-  const startDate = addMonths(new Date(), period)
+  const endDate = new Date()
+  const startDate = addMonths(period)
 
-  const tickerData: TickerChartData = await new Promise<TickerChartData>((resolve, reject) => {
-    yahooFinance.historical({
-      symbol: ticker,
-      period: 'd',
-      from: startDate,
-      to: new Date()
-    }, function (err: any, quotes: any) {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (err) reject(err)
+  const query = 'TSLA'
+  const queryOptions = { period1: startDate, period2: endDate }
+  const quotes = await yahooFinance.historical(query, queryOptions)
 
-      const dates: string[] = []
-      const values: number[] = []
+  const dates: Date[] = []
+  const values: number[] = []
 
-      for (let i = 0; i < quotes.length; i++) {
-        if (quotes[i].date !== null && quotes[i].open !== null) {
-          dates.push(quotes[i].date.toISOString().split('T')[0])
-          values.push(quotes[i].open.toFixed(2))
-        }
-      }
-      dates.reverse()
-      values.reverse()
-      resolve({ ticker, dates, values })
-    })
-  })
+  for (let i = 0; i < quotes.length; i++) {
+    if (quotes[i].date !== null && quotes[i].open !== null) {
+      dates.push(quotes[i].date)
+      values.push(quotes[i].close)
+    }
+  }
+  dates.reverse()
+  values.reverse()
 
-  return tickerData
+  return {
+    ticker,
+    dates,
+    values
+  }
 }

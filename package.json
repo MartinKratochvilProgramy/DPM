@@ -46,7 +46,8 @@
     "tailwindcss": "3.3.2",
     "universal-cookie": "^4.0.4",
     "uuid": "^9.0.0",
-    "yahoo-finance": "^0.3.8"
+    "yahoo-finance": "^0.3.8",
+    "yahoo-finance2": "^2.4.1"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.6.4",

@@ -1,70 +1,24 @@
-import { PrismaClient } from '@prisma/client'
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
+import yahooFinance from 'yahoo-finance2'
 
-const prisma = new PrismaClient()
+async function main () {
+  const currentDate = new Date()
 
-async function createUserWithStockAndPurchases () {
-  try {
-    // const user = await prisma.user.create({
-    //   data: {
-    //     email: 'example@example.com',
-    //     currency: 'USD',
-    //     stocks: {
-    //       create: {
-    //         ticker: 'AAPL',
-    //         amount: 10,
-    //         prevClose: 135.5,
-    //         firstPurchase: new Date(),
-    //         lastPurchase: new Date(),
-    //         purchases: {
-    //           create: [
-    //             {
-    //               date: new Date(),
-    //               amount: 5,
-    //               price: 130.25
-    //             },
-    //             {
-    //               date: new Date(),
-    //               amount: 5,
-    //               price: 132.75
-    //             }
-    //           ]
-    //         }
-    //       }
-    //     }
-    //   },
-    //   include: {
-    //     stocks: {
-    //       include: {
-    //         purchases: true
-    //       }
-    //     }
-    //   }
-    // })
+  // Extract year, month, and day
+  const year = currentDate.getFullYear()
+  const month = currentDate.getMonth() + 1 // Months are zero-based, so we add 1
+  const day = currentDate.getDate()
 
-    const stocks = await prisma.stock.findMany({
-      where: {
-        userEmail: 'martvil96@gmail.com',
-        ticker: 'AAPL'
-      },
-      include: {
-        purchases: true
-      }
-    })
+  // Format the values with leading zeros if necessary
+  const formattedDate = year + '-' + (month < 10 ? '0' + month : month) + '-' + (day < 10 ? '0' + day : day)
 
-    const purchases = await prisma.purchase.findMany({
-      where: {
-        stockId: 7
-      }
-    })
+  console.log(formattedDate)
 
-    console.log('Created user:', stocks, purchases)
-  } catch (error) {
-    console.error('Error creating user:', error)
-  } finally {
-    await prisma.$disconnect()
-  }
+  const query = 'AAPL'
+  const queryOptions = { period1: '2021-02-01', period2: new Date() }
+  const result = await yahooFinance.historical(query, queryOptions)
+
+  console.log(result)
 }
 
-createUserWithStockAndPurchases().catch(e => {
-  console.log(e)
-})
+main().catch(e => { console.log(e) })
