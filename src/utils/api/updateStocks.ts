@@ -9,7 +9,7 @@ export async function updateStocks (email: string) {
   // returns new total net worth value
 
   try {
-    const stocks = await prisma.stocks.findUnique({
+    const stocks = await prisma.user.findUnique({
       where: {
         email
       },
@@ -38,8 +38,9 @@ export async function updateStocks (email: string) {
         newTotalNetWorth += prevClose * stock.amount
 
         // Update the prevClose value
-        const updatedStock = await prisma.stock.update({
+        const updatedStock = await prisma.stock.updateMany({
           where: {
+            userEmail: email,
             ticker: stock.ticker
           },
           data: {
@@ -53,6 +54,7 @@ export async function updateStocks (email: string) {
 
     return newTotalNetWorth
   } catch (error) {
+    console.log(error)
     return 0
   }
 }

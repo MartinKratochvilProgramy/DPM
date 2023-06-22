@@ -149,8 +149,6 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then(response => response.json())
       .then((relativeChange) => {
-        console.log(relativeChange)
-
         let values: number[] = relativeChange.values
         values = values.map(value => { return (value * 100 - 100) })
         const dates: Date[] = relativeChange.dates

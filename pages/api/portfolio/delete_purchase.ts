@@ -26,15 +26,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error(`Purchase not found: ${email} ${ticker} ${purchaseId}`)
     }
 
-    console.log(purchase)
-
     await prisma.purchase.delete({
       where: {
         id: purchaseId
       }
     })
 
-    const updatedStocks = await prisma.user.update({
+    const updatedUser = await prisma.user.update({
       where: {
         email
       },
@@ -63,9 +61,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const newTotalNetWorth = await updateStocks(email)
     const newNetWorth = await addNetWorth(email, newTotalNetWorth)
-    const newTotalInvested = await incrementTotalInvested(email, -purchase?.amount * purchase?.price)
+    const newTotalInvested = await incrementTotalInvested(email, -purchase.amount * purchase.price)
 
-    res.json({ stocks: updatedStocks.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    res.json({ stocks: updatedUser.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     res.status(500).json(error)
     console.log(error)

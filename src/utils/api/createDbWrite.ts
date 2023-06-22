@@ -2,7 +2,7 @@ import prisma from '@/lib/prisma'
 
 export async function createDbWrite (email: string, currency: string) {
   // create each field in user account
-  await prisma.stocks.create({
+  await prisma.user.create({
     data: {
       email,
       currency,
