@@ -1,6 +1,0 @@
-{
-    "crons": [{
-      "path": "api/update_accounts",
-      "schedule": "30 9 * * 1-5"
-    }]
-  }
