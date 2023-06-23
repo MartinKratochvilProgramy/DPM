@@ -21,6 +21,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const te = new Date()
 
+    console.log({
+      executionTime: `${te.getMilliseconds() - ts.getMilliseconds()}ms`,
+      numberOfAccounts: users.length,
+      numberOfFailedAccounts: failMessages.length,
+      failMessages
+    })
+
     res.status(200).json({
       executionTime: `${te.getMilliseconds() - ts.getMilliseconds()}ms`,
       numberOfAccounts: users.length,
