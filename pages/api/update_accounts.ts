@@ -16,6 +16,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       responses.push(response)
     }
 
+    console.log(responses)
+
     res.status(200).json(responses)
   } catch (error) {
     console.log(error)
