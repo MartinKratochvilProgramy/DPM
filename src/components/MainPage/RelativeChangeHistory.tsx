@@ -3,7 +3,6 @@ import {
   Chart, registerables
 } from 'chart.js'
 import 'chartjs-adapter-moment'
-import { useTheme } from 'next-themes'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
 import '../../app/globals.css'
@@ -23,14 +22,10 @@ const RelativeChangeHistory: React.FC<Props> = ({
 }) => {
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
-  const { theme } = useTheme()
-
   const chartRef = useRef<HTMLCanvasElement>(null)
   const chartInstanceRef = useRef<Chart>()
 
-  const darkThemeChartColor = '#9ca3af'
-  const lightThemeChartColor = '#374151'
-  const extraLightThemeChartColor = 'rgb(192, 201, 217)'
+  const chartColor = '#949aa6'
 
   const green = 'rgba(19, 168, 41, 1)'
   const greenLowOpacity = 'rgba(19, 168, 41, 0.1)'
@@ -70,12 +65,12 @@ const RelativeChangeHistory: React.FC<Props> = ({
               display: true,
               position: 'top',
               labels: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             },
             title: {
               display: false,
-              text: 'Change'
+              text: 'Net Worth'
             }
           },
           scales: {
@@ -89,10 +84,10 @@ const RelativeChangeHistory: React.FC<Props> = ({
                 display: true
               },
               grid: {
-                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
+                color: chartColor
               },
               ticks: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             },
             y: {
@@ -102,11 +97,11 @@ const RelativeChangeHistory: React.FC<Props> = ({
                 text: 'Net Worth'
               },
               grid: {
-                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
+                color: chartColor,
                 z: 10
               },
               ticks: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             }
           }
@@ -124,7 +119,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
         chartInstanceRef.current.destroy()
       }
     }
-  }, [relativeChangeDates, relativeChangeValues, theme])
+  }, [relativeChangeDates, relativeChangeValues])
 
   let lastValue: number
   if (relativeChangeValues.at(-1) === undefined) {

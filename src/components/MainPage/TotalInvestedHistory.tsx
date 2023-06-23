@@ -3,7 +3,6 @@ import {
   Chart, registerables
 } from 'chart.js'
 import 'chartjs-adapter-moment'
-import { useTheme } from 'next-themes'
 import '../../app/globals.css'
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
@@ -25,16 +24,12 @@ const TotalInvestedHistory: React.FC<Props> = ({
 }) => {
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
-  const { theme } = useTheme()
-
   const { currency } = useContext(CurrencyContext)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
   const chartInstanceRef = useRef<Chart>()
 
-  const darkThemeChartColor = '#9ca3af'
-  const lightThemeChartColor = '#374151'
-  const extraLightThemeChartColor = 'rgb(192, 201, 217)'
+  const chartColor = '#949aa6'
 
   useEffect(() => {
     if (chartRef.current != null) {
@@ -68,12 +63,12 @@ const TotalInvestedHistory: React.FC<Props> = ({
               display: true,
               position: 'top',
               labels: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             },
             title: {
               display: false,
-              text: 'Total Invested'
+              text: 'Net Worth'
             }
           },
           scales: {
@@ -87,24 +82,24 @@ const TotalInvestedHistory: React.FC<Props> = ({
                 display: true
               },
               grid: {
-                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor
+                color: chartColor
               },
               ticks: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             },
             y: {
               display: true,
               title: {
                 display: false,
-                text: 'Total Invested'
+                text: 'Net Worth'
               },
               grid: {
-                color: theme === 'dark' ? darkThemeChartColor : extraLightThemeChartColor,
+                color: chartColor,
                 z: 10
               },
               ticks: {
-                color: theme === 'dark' ? darkThemeChartColor : lightThemeChartColor
+                color: chartColor
               }
             }
           }
@@ -122,7 +117,7 @@ const TotalInvestedHistory: React.FC<Props> = ({
         chartInstanceRef.current.destroy()
       }
     }
-  }, [totalInvestedDates, totalInvestedValues, theme])
+  }, [totalInvestedDates, totalInvestedValues])
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
