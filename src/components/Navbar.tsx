@@ -19,7 +19,7 @@ export const Navbar = () => {
     }
     const te = new Date()
 
-    console.log(`Changing theme took ${te - ts}ms`)
+    console.log(`Changing theme took ${te.getMilliseconds() - ts.getMilliseconds()}ms`)
   }
 
   return (
