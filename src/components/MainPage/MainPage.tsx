@@ -224,27 +224,6 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       })
   }
 
-  // function updateStocks () {
-  //   fetch('api/update_stocks', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       email: demo ? 'demo' : user?.email
-  //     })
-  //   })
-  //     .then(handleErrors)
-  //     .then(response => response.json())
-  //     .then((res) => {
-  //       console.log(res)
-  //     })
-  //     .catch((error) => {
-  //       setRelativeChangeLoaded(true)
-  //       setError(error)
-  //     })
-  // }
-
   return (
     <Container className='flex flex-col'>
       <StockInput
@@ -260,7 +239,6 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         setTotalInvestedDates={setTotalInvestedDates}
         setTotalInvestedValues={setTotalInvestedValues}
       />
-      {/* <button onClick={updateStocks}>Update</button> */}
       <div className='w-full flex flex-wrap justify-center gap-5 mt-4'>
         <Card setOpen={() => { setStocksOpen(true) }}>
           {stocksLoaded

@@ -9,6 +9,7 @@ export const Navbar = () => {
   const { user } = useUser()
 
   function toggleTheme () {
+    const ts = new Date()
     if (
       theme === 'light'
     ) {
@@ -16,6 +17,9 @@ export const Navbar = () => {
     } else {
       setTheme('light')
     }
+    const te = new Date()
+
+    console.log(`Changing theme took ${te - ts}ms`)
   }
 
   return (
