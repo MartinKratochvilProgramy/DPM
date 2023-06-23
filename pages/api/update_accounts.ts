@@ -3,20 +3,30 @@ import { updateAccount } from '@/utils/api/updateAccount'
 import prisma from '@/lib/prisma'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  // remove stock from db
+  // update all user accounts
 
   try {
+    const ts = new Date()
     const users = await prisma.user.findMany()
 
-    const responses = []
+    const failMessages = []
 
     for (let i = 0; i < users.length; i++) {
       const user = users[i]
       const response = await updateAccount(user.email)
-      responses.push(response)
+      if (!response.status) {
+        failMessages.push(response)
+      }
     }
 
-    res.status(200).json(responses)
+    const te = new Date()
+
+    res.status(200).json({
+      executionTime: `${te.getMilliseconds() - ts.getMilliseconds()}ms`,
+      numberOfAccounts: users.length,
+      numberOfFailedAccounts: failMessages.length,
+      failMessages
+    })
   } catch (error) {
     res.status(500).json(error)
   }
