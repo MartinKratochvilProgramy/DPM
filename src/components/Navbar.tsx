@@ -46,20 +46,21 @@ export const Navbar = () => {
         {(user != null)
           ? <li>
             <a href='/api/auth/logout' className='text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'>
-				Log Out
+              Log Out
             </a>
           </li>
           : <>
             <li>
               <a href='/api/auth/login' className='underline-appear text-md text-gray-300 hover:text-gray-50 transition duration-500 ease-in-out'>
-				Sign In
+                Sign In
               </a>
             </li>
             <li>
               <a
-                href='https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=elo1qQEI4scV6b6sK20yCHwEGz56NCb1&redirect_uri=http://localhost:3000/api/auth/callback&scope=openid%20profile%20email&screen_hint=signup'
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                href={`https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=elo1qQEI4scV6b6sK20yCHwEGz56NCb1&redirect_uri=${process.env.AUTH0_BASE_URL}/api/auth/callback&scope=openid%20profile%20email&screen_hint=signup`}
                 className='text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'>
-				Sign Up
+              Sign Up
               </a>
             </li>
           </>
