@@ -22,18 +22,13 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const te = new Date()
 
     console.log({
-      executionTime: `${te.getMilliseconds() - ts.getMilliseconds()}ms`,
+      executionTime: `${ts.getMilliseconds() - te.getMilliseconds()}ms`,
       numberOfAccounts: users.length,
       numberOfFailedAccounts: failMessages.length,
       failMessages
     })
 
-    res.status(200).json({
-      executionTime: `${te.getMilliseconds() - ts.getMilliseconds()}ms`,
-      numberOfAccounts: users.length,
-      numberOfFailedAccounts: failMessages.length,
-      failMessages
-    })
+    res.status(200)
   } catch (error) {
     res.status(500).json(error)
   }
