@@ -202,7 +202,7 @@ export const StockInput: React.FC<Props> = ({
       .then(handleErrors)
       .then(async response => response.json())
       .then(res => {
-        setTickerHints(res.tickers)
+        console.log(res)
       })
       .catch(e => {
         setError(e)
