@@ -7,7 +7,7 @@
     {
       "ticker": "AAPL",
       "amount": 3,
-      "prevClose": 186.01,
+      "prevClose": 187,
       "_id": {
         "$oid": "634ecb790ccf6ea1b9ed26af"
       }
@@ -15,7 +15,7 @@
     {
       "ticker": "TSLA",
       "amount": 1,
-      "prevClose": 255.9,
+      "prevClose": 264.61,
       "_id": {
         "$oid": "634ecb7d0ccf6ea1b9ed26be"
       }
@@ -23,7 +23,7 @@
     {
       "ticker": "MSFT",
       "amount": 2,
-      "prevClose": 348.1,
+      "prevClose": 339.71,
       "_id": {
         "$oid": "634ecb7f0ccf6ea1b9ed26cf"
       }
@@ -31,7 +31,7 @@
     {
       "ticker": "AMZN",
       "amount": 2,
-      "prevClose": 127.11,
+      "prevClose": 130.15,
       "_id": {
         "$oid": "634ffca610d025d58645676a"
       }
@@ -129,9 +129,9 @@
           }
         },
         {
-            "date": "2022-10-20",
-            "amount": 1,
-            "currentPrice": 114.51,
+          "date": "2022-10-20",
+          "amount": 1,
+          "currentPrice": 114.51,
           "totalAmount": 114.51,
           "_id": {
             "$oid": "63514e965ad1be5170def8dd"
@@ -1410,6 +1410,34 @@
       "_id": {
         "$oid": "6490587a4b5326d93c14b620"
       }
+    },
+    {
+      "date": "2023-6-20",
+      "netWorth": 1750.94,
+      "_id": {
+        "$oid": "6491a9fa20724e32aa0f566b"
+      }
+    },
+    {
+      "date": "2023-6-21",
+      "netWorth": 1757.14,
+      "_id": {
+        "$oid": "6492fb7a767191b2cfa382d9"
+      }
+    },
+    {
+      "date": "2023-6-22",
+      "netWorth": 1728.12,
+      "_id": {
+        "$oid": "64944cfa5b4ccec6a1500b0d"
+      }
+    },
+    {
+      "date": "2023-6-23",
+      "netWorth": 1765.33,
+      "_id": {
+        "$oid": "64959e7bb5498a6378c8eedd"
+      }
     }
   ],
   "relativeChangeHistory": [
@@ -2630,6 +2658,34 @@
       "_id": {
         "$oid": "6490587a4b5326d93c14b79a"
       }
+    },
+    {
+      "date": "2023-6-20",
+      "relativeChange": 1.295386830892421,
+      "_id": {
+        "$oid": "6491a9fa20724e32aa0f57e7"
+      }
+    },
+    {
+      "date": "2023-6-21",
+      "relativeChange": 1.2999737375548612,
+      "_id": {
+        "$oid": "6492fb7a767191b2cfa38457"
+      }
+    },
+    {
+      "date": "2023-6-22",
+      "relativeChange": 1.2785040550800202,
+      "_id": {
+        "$oid": "64944cfa5b4ccec6a1500c8d"
+      }
+    },
+    {
+      "date": "2023-6-23",
+      "relativeChange": 1.3060328932912137,
+      "_id": {
+        "$oid": "64959e7bb5498a6378c8f05f"
+      }
     }
   ],
   "totalInvestedHistory": [
@@ -2669,7 +2725,7 @@
       }
     }
   ],
-  "__v": 351
+  "__v": 359
 },{
   "_id": {
     "$oid": "63510a6675c9ade2f0814638"
@@ -2679,7 +2735,7 @@
     {
       "ticker": "META",
       "amount": 4,
-      "prevClose": 6110.92,
+      "prevClose": 6142.87,
       "_id": {
         "$oid": "63510a6675c9ade2f0814639"
       }
@@ -2687,7 +2743,7 @@
     {
       "ticker": "CEZ.PR",
       "amount": 45,
-      "prevClose": 1042,
+      "prevClose": 1032,
       "_id": {
         "$oid": "63510a6a75c9ade2f0814648"
       }
@@ -2695,7 +2751,7 @@
     {
       "ticker": "AAPL",
       "amount": 14,
-      "prevClose": 4033.25,
+      "prevClose": 4032.28,
       "_id": {
         "$oid": "63510a8775c9ade2f0814659"
       }
@@ -2703,7 +2759,7 @@
     {
       "ticker": "ERBAG.PR",
       "amount": 42,
-      "prevClose": 754,
+      "prevClose": 739.8,
       "_id": {
         "$oid": "63510a8d75c9ade2f081466e"
       }
@@ -2711,7 +2767,7 @@
     {
       "ticker": "MSFT",
       "amount": 9,
-      "prevClose": 7547.85,
+      "prevClose": 7325.17,
       "_id": {
         "$oid": "63510a9275c9ade2f0814687"
       }
@@ -2719,7 +2775,7 @@
     {
       "ticker": "VOW.DE",
       "amount": 4,
-      "prevClose": 3792.44,
+      "prevClose": 3581.7,
       "_id": {
         "$oid": "63510b38f1c3bbf86158396a"
       }
@@ -2727,7 +2783,7 @@
     {
       "ticker": "INTC",
       "amount": 10,
-      "prevClose": 776.69,
+      "prevClose": 705.33,
       "_id": {
         "$oid": "63510b5da38f2bbe9a2c92d3"
       }
@@ -2735,7 +2791,7 @@
     {
       "ticker": "KO",
       "amount": 18,
-      "prevClose": 1327.65,
+      "prevClose": 1333.67,
       "_id": {
         "$oid": "63510b61a38f2bbe9a2c92f8"
       }
@@ -2743,7 +2799,7 @@
     {
       "ticker": "TABAK.PR",
       "amount": 1,
-      "prevClose": 17280,
+      "prevClose": 16860,
       "_id": {
         "$oid": "63510b6aa38f2bbe9a2c9321"
       }
@@ -2751,7 +2807,7 @@
     {
       "ticker": "NVDA",
       "amount": 5,
-      "prevClose": 9248.45,
+      "prevClose": 9277.48,
       "_id": {
         "$oid": "63510b70a38f2bbe9a2c934e"
       }
@@ -2759,7 +2815,7 @@
     {
       "ticker": "BRK-B",
       "amount": 4,
-      "prevClose": 7368.32,
+      "prevClose": 7265.87,
       "_id": {
         "$oid": "63510b7ea38f2bbe9a2c937f"
       }
@@ -2767,7 +2823,7 @@
     {
       "ticker": "AMD",
       "amount": 6,
-      "prevClose": 2693.9,
+      "prevClose": 2387.02,
       "_id": {
         "$oid": "63510b82a38f2bbe9a2c93b4"
       }
@@ -2775,7 +2831,7 @@
     {
       "ticker": "CSPX.L",
       "amount": 18,
-      "prevClose": 9992.83,
+      "prevClose": 9810.73,
       "_id": {
         "$oid": "63510b8aa38f2bbe9a2c93ed"
       }
@@ -2783,7 +2839,7 @@
     {
       "ticker": "MONET.PR",
       "amount": 434,
-      "prevClose": 80,
+      "prevClose": 79.5,
       "_id": {
         "$oid": "63510b91a38f2bbe9a2c942a"
       }
@@ -2791,7 +2847,7 @@
     {
       "ticker": "KOMB.PR",
       "amount": 52,
-      "prevClose": 673.5,
+      "prevClose": 660.5,
       "_id": {
         "$oid": "63510b99a38f2bbe9a2c946b"
       }
@@ -2799,7 +2855,7 @@
     {
       "ticker": "VWCE.DE",
       "amount": 134,
-      "prevClose": 2405.72,
+      "prevClose": 2349.61,
       "_id": {
         "$oid": "63972a8bc497dac76ff0b617"
       }
@@ -4659,6 +4715,34 @@
       "_id": {
         "$oid": "6490587c4b5326d93c14b962"
       }
+    },
+    {
+      "date": "2023-6-20",
+      "netWorth": 951248.67,
+      "_id": {
+        "$oid": "6491a9fc20724e32aa0f59b1"
+      }
+    },
+    {
+      "date": "2023-6-21",
+      "netWorth": 948503.79,
+      "_id": {
+        "$oid": "6492fb7c767191b2cfa38623"
+      }
+    },
+    {
+      "date": "2023-6-22",
+      "netWorth": 937291.66,
+      "_id": {
+        "$oid": "64944cfc5b4ccec6a1500e5b"
+      }
+    },
+    {
+      "date": "2023-6-23",
+      "netWorth": 936770.57,
+      "_id": {
+        "$oid": "64959e7db5498a6378c8f22f"
+      }
     }
   ],
   "relativeChangeHistory": [
@@ -5865,6 +5949,34 @@
       "_id": {
         "$oid": "6490587d4b5326d93c14bb2a"
       }
+    },
+    {
+      "date": "2023-6-20",
+      "relativeChange": 1.1632176194816877,
+      "_id": {
+        "$oid": "6491a9fc20724e32aa0f5b7b"
+      }
+    },
+    {
+      "date": "2023-6-21",
+      "relativeChange": 1.1598610914989858,
+      "_id": {
+        "$oid": "6492fb7c767191b2cfa387ef"
+      }
+    },
+    {
+      "date": "2023-6-22",
+      "relativeChange": 1.146150536541869,
+      "_id": {
+        "$oid": "64944cfc5b4ccec6a1501029"
+      }
+    },
+    {
+      "date": "2023-6-23",
+      "relativeChange": 1.1455133308474463,
+      "_id": {
+        "$oid": "64959e7db5498a6378c8f3ff"
+      }
     }
   ],
   "totalInvestedHistory": [
@@ -5967,5 +6079,5 @@
       }
     }
   ],
-  "__v": 377
+  "__v": 385
 }]
