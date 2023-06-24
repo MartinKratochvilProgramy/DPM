@@ -23,7 +23,7 @@ export const Navbar = () => {
       className='border-gray-200 px-0 sm:px-4 bg-gray-900 p-3 flex flex-row xs:flex-col-reverse sm:flex-row justify-between items-center sm:items-center w-auto order-1'
       id='navbar-search'
     >
-      <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-4'>
+      <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-2 md:space-x-4'>
         <div className='pb-[2px]'>
           {user?.name}
         </div>
@@ -41,7 +41,7 @@ export const Navbar = () => {
       </div>
 
       <ul
-        className='flex flex-row justify-end items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 border-0 bg-gray-900'
+        className='flex flex-row justify-end items-center w-full sm:w-auto pr-2 p-0 sm:p-1 border-gray-100 space-x-1 md:space-x-4 mt-0 border-0 bg-gray-900'
       >
         {(user != null)
           ? <li>

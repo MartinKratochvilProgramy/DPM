@@ -51,8 +51,8 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
         ]
       },
       options: {
-        responsive: true,
-        animation: true,
+        responsive: false,
+        animation: false,
         plugins: {
           legend: {
             display: true,
@@ -78,7 +78,7 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
   }, [stocks, theme])
 
   return (
-    <div className='w-9/12 h-9/12 flex justify-center items-center'>
+    <div className='w-9/12 h-9/12 flex justify-center items-center pb-2'>
       <canvas ref={chartRef} />
     </div>
   )

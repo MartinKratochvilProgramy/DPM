@@ -126,7 +126,7 @@ export const Stocks: React.FC<Props> = ({
 
   return (
     <div
-      className="flex flex-col w-full h-full p-1 sm:p-6"
+      className="flex flex-col w-full h-full p-2 sm:p-6"
       id='stocks-output'
     >
       <div className='flex justify-start mb-2 space-x-2'>

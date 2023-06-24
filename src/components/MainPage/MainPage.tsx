@@ -328,7 +328,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
@@ -358,7 +358,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <RelativeChangeHistory
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
@@ -375,7 +375,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         aria-describedby="show-detailed-stock-chart"
       >
         <div>
-          <div className='fixed left-[5vw] right-[5vw] top-[5vh] bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+          <div className='fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <TotalInvestedHistory
               totalInvestedDates={totalInvestedDates}
               totalInvestedValues={totalInvestedValues}

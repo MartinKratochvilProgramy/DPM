@@ -10,7 +10,7 @@ export function calculateTimeScale (dates: Date[]): TimeScaleInterface {
     return 'hour'
   } else if (24 * hour <= timeDiff && timeDiff < 4 * 30 * 24 * hour) {
     return 'day'
-  } else if (4 * 30 * 24 * hour <= timeDiff && timeDiff < 2 * 8760 * hour) {
+  } else if (4 * 30 * 24 * hour <= timeDiff && timeDiff < 0.5 * 8760 * hour) {
     return 'month'
   } else {
     return 'year'
