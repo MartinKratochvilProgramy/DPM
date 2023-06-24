@@ -51,7 +51,7 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
         ]
       },
       options: {
-        responsive: false,
+        responsive: true,
         animation: false,
         plugins: {
           legend: {
