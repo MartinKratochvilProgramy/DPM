@@ -122,7 +122,7 @@ const TotalInvestedHistory: React.FC<Props> = ({
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <div className='flex py-0 md:py-0 lg:py-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
-        <h2 className='text-xl md:text-3xl playfair font-semibold mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-4 text-gray-700 dark:text-gray-300'>
+        <h2 className='text-xl md:text-3xl playfair mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-4 text-gray-700 dark:text-gray-300'>
           {numberWithSpacesRounded(totalInvestedValues[totalInvestedValues.length - 1])} <span className='text-sm md:text-2xl'>{currency === undefined ? '' : currency}</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>

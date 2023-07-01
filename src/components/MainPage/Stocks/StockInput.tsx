@@ -199,7 +199,7 @@ export const StockInput: React.FC<Props> = ({
         className="flex flex-col  items-center"
       >
         <label htmlFor="add-stock" className="sr-only">Add stock</label>
-        <h1 className='text-3xl playfair font-semibold mb-4 text-black dark:text-white'>
+        <h1 className='text-3xl playfair mb-4 text-black dark:text-white'>
           ADD NEW <span className='text-blue-600'>STOCK</span>
         </h1>
         <div className="relative flex rounded-md border border-gray-300 bg-white flex-row w-10/12 md:w-5/12 lg:w-4/12 h-full">
@@ -253,7 +253,7 @@ export const StockInput: React.FC<Props> = ({
             ? <LoadingSpinner size={32} />
             : <button
               type="submit"
-              className="flex flex-row mt-2 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-md whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+              className="flex flex-row mt-4 px-7 py-3 text-white bg-blue-600 font-medium text-sm leading-snug uppercase rounded-md whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
               Add stock
             </button>
           }

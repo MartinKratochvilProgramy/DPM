@@ -131,9 +131,9 @@ const RelativeChangeHistory: React.FC<Props> = ({
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <div className='flex py-0 md:py-0 lg:py-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
-        <h2 style={{ color: lastValue >= 0 ? green : red }} className='text-xl space-x-1 flex text-center md:text-3xl playfair font-semibold mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-2'>
+        <h2 style={{ color: lastValue >= 0 ? green : red }} className='text-xl space-x-1 flex text-center md:text-3xl playfair mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-2'>
           <div className='w-full h-full flex justify-center items-center'>{lastValue >= 0 ? '+' : ''}</div>
-          <div className='w-full h-full flex justify-center items-center pb-2'>{lastValue}</div>
+          <div className='w-full h-full flex justify-center items-center pb-0 sm:pb-2'>{lastValue}</div>
           <span className='w-full h-full flex justify-center pt-1 items-centertext-sm md:text-2xl'>%</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
