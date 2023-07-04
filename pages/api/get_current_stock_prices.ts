@@ -2,12 +2,14 @@ import { type NextApiRequest, type NextApiResponse } from 'next'
 import { getConversionRate } from '@/utils/client/getConversionRate'
 import fetch from 'node-fetch'
 
+type StockPrices = Record<string, number>
+
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
     const { tickers, currency } = req.body
 
     const converstionRates: any = {}
-    const result = []
+    const result: StockPrices = {}
 
     for (const ticker of tickers) {
       // get stocks ticker, if not exists, return
@@ -29,7 +31,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       // current price of stock in set currency
       const price = parseFloat((stockInfoJson.chart.result[0].meta.regularMarketPrice * converstionRates[tickerCurrency]).toFixed(2))
 
-      result.push({ ticker, price })
+      result[ticker] = price
     }
 
     res.status(200).json(result)

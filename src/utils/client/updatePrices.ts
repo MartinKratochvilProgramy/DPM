@@ -1,23 +1,15 @@
 import { type StockInterface } from '@/types/client/stock'
 
-interface StockPrices {
-  ticker: string
-  price: number
-}
+type StockPrices = Record<string, number>
 
-export function updatePrices (oldStocks: StockInterface[], newPrices: StockPrices[]) {
+export function updatePrices (oldStocks: StockInterface[], newPrices: StockPrices) {
   // map prices from newPrices to oldStocks based on ticker
-
-  const tickerPriceMap: any = {}
-  newPrices.forEach((data) => {
-    tickerPriceMap[data.ticker] = data.price
-  })
 
   oldStocks.forEach((data) => {
     const ticker = data.ticker
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (tickerPriceMap[ticker]) {
-      data.prevClose = tickerPriceMap[ticker]
+    if (newPrices[ticker]) {
+      data.prevClose = newPrices[ticker]
     }
   })
 
