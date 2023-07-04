@@ -28,8 +28,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       failMessages
     })
 
-    res.status(200)
+    res.status(200).send({ success: true })
   } catch (error) {
-    res.status(500).json(error)
+    console.log(error)
+    res.status(500).send({ success: false })
   }
 };
