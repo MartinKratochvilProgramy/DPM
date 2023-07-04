@@ -59,7 +59,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
   useEffect(() => {
     // set interval to refetch stocks
-    if (stocks.length === 0 || process.env.NODE_ENV === 'development' || currency === '') return
+    if (stocks.length === 0 || process.env.NODE_ENV === 'development') return
 
     const INTERVALms = 5000
 
@@ -187,6 +187,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   }, [])
 
   function getCurrentStockPrices () {
+    if (currency === '') return
     fetch('api/get_current_stock_prices', {
       method: 'POST',
       headers: {
