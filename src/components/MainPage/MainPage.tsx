@@ -18,6 +18,8 @@ import { CurrencyContext } from '@/pages/_app'
 import './MainPage.css'
 import '../LandingPage/Hero.css'
 import { calculateTimeScale } from '@/utils/client/calculateTimeScale'
+import { updatePrices } from '@/utils/client/updatePrices'
+import { type StockInterface } from '@/types/client/stock'
 
 interface Props {
   demo: boolean
@@ -57,7 +59,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
   useEffect(() => {
     // set interval to refetch stocks
-    if (stocks.length === 0 || process.env.NODE_ENV === 'development') return
+    if (stocks.length === 0 || process.env.NODE_ENV === 'development' || currency === '') return
 
     const INTERVALms = 5000
 
@@ -198,15 +200,17 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       .then(handleErrors)
       .then((response) => response.json())
       .then((res) => {
-        const newStocks = [...stocks]
-        let newNetWorth = 0
+        let newStocks: StockInterface[] = [...stocks]
 
-        for (let i = 0; i < res.length; i++) {
-          newStocks[i].prevClose = res[i].price
-          newNetWorth += newStocks[i].prevClose * newStocks[i].amount
-        }
-        newNetWorth = parseFloat(newNetWorth.toFixed(2))
+        newStocks = updatePrices(newStocks, res)
+
         setStocks(newStocks)
+
+        let newNetWorth = 0
+        newStocks.forEach(stock => {
+          newNetWorth += stock.amount * stock.prevClose
+        })
+        newNetWorth = parseFloat(newNetWorth.toFixed(2))
 
         if (netWorthDates.length > 0 && netWorthValues.length > 0) {
           setNetWorthDates([...netWorthDates, new Date()])

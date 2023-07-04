@@ -35,7 +35,7 @@ const App: React.FC<Props> = ({ Component, pageProps }) => {
   // this is necessary because the user has to be known to fetch currency
   // essentially a wrapper for CurrencyContext
 
-  const [currencyState, setCurrencyState] = useState<string | undefined>('')
+  const [currencyState, setCurrencyState] = useState<string>('')
   const { user } = useUser()
 
   useEffect(() => {
