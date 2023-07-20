@@ -4,7 +4,6 @@ import { useUser } from '@auth0/nextjs-auth0/client'
 import './Navbar.css'
 
 export const Navbar = () => {
-  // Const {theme, setTheme} = useContext(ThemeContext);
   const { theme, setTheme } = useTheme()
   const { user } = useUser()
 
