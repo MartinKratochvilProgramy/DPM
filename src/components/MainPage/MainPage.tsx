@@ -275,7 +275,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         </Card>
         <Card setOpen={() => { setPieOpen(true) }}>
           {stocksLoaded
-            ? <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
+            ? <PieChart stocks={stocks} />
             : <LoadingSpinner size={70} />
           }
         </Card>
@@ -351,7 +351,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       >
         <div>
           <div className='fixed flex justify-center items-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[90vh] p-0 md:px-14 border-solid border-[1px] border-blue-400 dark:border-gray-500'>
-            <PieChart stocks={stocks} stocksLoaded={stocksLoaded} />
+            <PieChart stocks={stocks} />
           </div>
         </div>
       </Modal>

@@ -5,10 +5,9 @@ import { type StockInterface } from '@/types/api/stock'
 
 interface Props {
   stocks: StockInterface[]
-  stocksLoaded: boolean
 }
 
-const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
+const PieChart: React.FC<Props> = ({ stocks }) => {
   const { theme } = useTheme()
 
   const chartRef = useRef(null)
@@ -22,6 +21,14 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
     const chartCanvas = chartRef.current
 
     if (chartCanvas === null) return
+
+    let netWorth = 0
+
+    for (let i = 0; i < stocks.length; i++) {
+      const stock = stocks[i]
+
+      netWorth += stock.prevClose * stock.amount
+    }
 
     const chartInstance = new Chart(chartCanvas, {
       type: 'pie',
@@ -64,6 +71,18 @@ const PieChart: React.FC<Props> = ({ stocks, stocksLoaded }) => {
           title: {
             display: false,
             text: 'Net Worth'
+          },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                const label = context.label || ''
+                if (label.includes('(')) return label
+                const value = context.dataset.data[context.dataIndex]
+                const percentage = ((value / netWorth) * 100).toFixed(2)
+                return `${label} (${percentage}%)`
+              }
+            }
           }
         }
       }

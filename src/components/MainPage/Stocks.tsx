@@ -118,7 +118,10 @@ export const Stocks: React.FC<Props> = ({
   }
 
   function handleDropdownClick (value: string) {
-    sortStocks(value, stocks)
+    const newStocks = [...stocks]
+    sortStocks(value, newStocks)
+    setStocks(newStocks)
+
     setOrderDropdownValue(value)
   }
 
