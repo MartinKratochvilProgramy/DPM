@@ -15,8 +15,6 @@ const PieChart: React.FC<Props> = ({ stocks }) => {
   const darkThemeChartColor = '#9ca3af'
   const lightThemeChartColor = '#374151'
 
-  let firstLoad = true
-
   useEffect(() => {
     const chartCanvas = chartRef.current
 
@@ -87,8 +85,6 @@ const PieChart: React.FC<Props> = ({ stocks }) => {
         }
       }
     })
-
-    if (firstLoad) firstLoad = false
 
     return () => {
       // Cleanup the chart instance when the component unmounts
