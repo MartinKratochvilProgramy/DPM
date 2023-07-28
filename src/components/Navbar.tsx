@@ -57,7 +57,7 @@ export const Navbar = () => {
             <li>
               <a
                 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                href={`https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=elo1qQEI4scV6b6sK20yCHwEGz56NCb1&redirect_uri=${process.env.AUTH0_BASE_URL}api/auth/callback&scope=openid%20profile%20email&screen_hint=signup`}
+                href={`https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=${process.env.AUTH0_CLIENT_ID}&redirect_uri=${process.env.AUTH0_BASE_URL}api/auth/callback&scope=openid%20profile%20email&screen_hint=signup`}
                 className='text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'>
               Sign Up
               </a>
