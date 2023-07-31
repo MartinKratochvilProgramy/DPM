@@ -1,4 +1,5 @@
 import React from 'react'
+import { signIn } from 'next-auth/react'
 import './Hero.css'
 import '../../app/globals.css'
 
@@ -18,16 +19,16 @@ const Hero = () => {
 
           <div className='flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row'>
             <a
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-              href={`https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=${process.env.AUTH0_CLIENT_ID}&redirect_uri=${process.env.AUTH0_BASE_URL}api/auth/callback&scope=openid%20profile%20email&screen_hint=signup`}
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={async () => { await signIn() }}
               rel='noopener noreferrer'
-              className='flex lg:text-xl flex-row px-4 py-2 my-2 mr-1 text-gray-100 rounded border-solid border-blue-600 border-[1px] bg-blue-600 font-medium text-md leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
-							Create a Free Account
+              className='cursor-pointer flex lg:text-xl flex-row px-4 py-2 my-2 mr-1 text-gray-100 rounded border-solid border-blue-600 border-[1px] bg-blue-600 font-medium text-md leading-snug whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-300 ease-in-out'>
+							CREATE A FREE ACCOUNT
             </a>
             <a
               href='/demo'
               rel='noopener noreferrer'
-              className='flex lg:text-xl flex-row px-4 py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium dark:bg-transparent dark:hover:text-gray-800 hover:bg-blue-50 dark:hover:bg-gray-100 text-md leading-snug uppercase whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-300 ease-in-out'>
+              className='flex lg:text-xl flex-row px-4 py-2 my-2 mr-1 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium dark:bg-transparent dark:hover:text-gray-800 hover:bg-blue-50 dark:hover:bg-gray-100 text-md leading-snug whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-300 ease-in-out'>
 							TRY DEMO
             </a>
           </div>

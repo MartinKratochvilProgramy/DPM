@@ -2,17 +2,17 @@ import React, { useContext, useState } from 'react'
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { useTheme } from 'next-themes'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { CurrencyContext } from '@/pages/_app'
-import '../../../app/globals.css'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
+import { useSession } from 'next-auth/react'
+import '../../../app/globals.css'
 
 export const CurrencySelect = () => {
   const [selectedCurrency, setSelectedCurrency] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const { user } = useUser()
+  const { data: session } = useSession()
   const { theme } = useTheme()
   const { setCurrency } = useContext(CurrencyContext)
 
@@ -31,7 +31,7 @@ export const CurrencySelect = () => {
 
     fetch('api/user/set_currency', {
       method: 'POST',
-      body: JSON.stringify({ email: user?.email, selectedCurrency })
+      body: JSON.stringify({ email: session?.user?.email, selectedCurrency })
     })
       .then(handleErrors)
       .then((response: any) => response.json())

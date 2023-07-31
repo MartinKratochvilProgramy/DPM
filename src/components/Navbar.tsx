@@ -1,11 +1,11 @@
 import React from 'react'
 import { useTheme } from 'next-themes'
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { signIn, signOut, useSession } from 'next-auth/react'
 import './Navbar.css'
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme()
-  const { user } = useUser()
+  const { data: session } = useSession()
 
   function toggleTheme () {
     if (
@@ -24,7 +24,7 @@ export const Navbar = () => {
     >
       <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-2 md:space-x-4'>
         <div className='pb-[2px]'>
-          {user?.name}
+          {session?.user?.name}
         </div>
         <div className='bg-gray-900 dark:text-gray-100'
           onClick={toggleTheme}>
@@ -42,24 +42,33 @@ export const Navbar = () => {
       <ul
         className='flex flex-row justify-end items-center w-full sm:w-auto pr-2 p-0 sm:p-1 border-gray-100 space-x-1 md:space-x-4 mt-0 border-0 bg-gray-900'
       >
-        {(user != null)
+        {(session != null)
           ? <li>
-            <a href='/api/auth/logout' className='text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'>
+            <a
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
+              onClick={async () => { await signOut() }}
+              className='cursor-pointer text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'
+            >
               Log Out
             </a>
           </li>
           : <>
             <li>
-              <a href='/api/auth/login' className='underline-appear text-md text-gray-300 hover:text-gray-50 transition duration-500 ease-in-out'>
+              <a
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={async () => { await signIn() }}
+                className='cursor-pointer underline-appear text-md text-gray-300 hover:text-gray-50 transition duration-500 ease-in-out'
+              >
                 Sign In
               </a>
             </li>
             <li>
               <a
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-                href={`https://daily-portfolio-management.uk.auth0.com/authorize?response_type=code&client_id=${process.env.AUTH0_CLIENT_ID}&redirect_uri=${process.env.AUTH0_BASE_URL}api/auth/callback&scope=openid%20profile%20email&screen_hint=signup`}
-                className='text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'>
-              Sign Up
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick={async () => { await signIn() }}
+                className='cursor-pointer text-md text-gray-300 hover:text-gray-900 hover:bg-gray-100 hover:text px-[6px] py-1 rounded-lg border-solid border-gray-300 hover:border-gray-100 border-[1px] transition duration-300 ease-in-out'
+              >
+                Sign Up
               </a>
             </li>
           </>

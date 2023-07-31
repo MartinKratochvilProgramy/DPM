@@ -1,21 +1,17 @@
 import React from 'react'
 import LandingPage from '@/components/LandingPage/LandingPage'
 import MainPage from '@/components/MainPage/MainPage'
-import { useUser } from '@auth0/nextjs-auth0/client'
+import { useSession } from 'next-auth/react'
 
 const index = () => {
-  const { user, isLoading } = useUser()
+  const { status } = useSession()
 
-  if (isLoading) return
-
-  if (user === undefined) {
-    return (
-      <LandingPage />
-    )
+  if (status === 'loading') {
+    return null
+  } else if (status === 'unauthenticated') {
+    return <LandingPage />
   } else {
-    return (
-      <MainPage demo={false} />
-    )
+    return <MainPage demo={false} />
   }
 }
 

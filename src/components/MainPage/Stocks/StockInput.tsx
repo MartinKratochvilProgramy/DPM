@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { type StockInterface } from '@/types/client/stock'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { LoadingSpinner } from '@/components/LoadingSpinner'
-import '../../../app/globals.css'
 import TickerHint from './TickerHint'
+import '../../../app/globals.css'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   demo: boolean
@@ -53,7 +53,7 @@ export const StockInput: React.FC<Props> = ({
   const [stockAmount, setStockAmount] = useState(0)
   const [tickerHints, setTickerHints] = useState<TickerHintI[]>([])
 
-  const { user } = useUser()
+  const { data: session } = useSession()
 
   useEffect(() => {
     // on click close ticker hints
@@ -97,7 +97,7 @@ export const StockInput: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email,
+        email: demo ? 'demo' : session?.user?.email,
         stockItems: newStock,
         settingsCurrency: 'CZK'
       })

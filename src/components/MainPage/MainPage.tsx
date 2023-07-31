@@ -5,7 +5,6 @@ import { StockInput } from './Stocks/StockInput'
 import { Stocks } from './Stocks'
 import PieChart from './Stocks/PieChart'
 import { handleErrors } from '@/utils/client/handleErrors'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { sortStocks } from '@/utils/client/sortStocks'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
@@ -20,6 +19,7 @@ import '../LandingPage/Hero.css'
 import { calculateTimeScale } from '@/utils/client/calculateTimeScale'
 import { updatePrices } from '@/utils/client/updatePrices'
 import { type StockInterface } from '@/types/client/stock'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   demo: boolean
@@ -54,7 +54,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [totalInvestedTimeScale, setTotalInvestedTimeScale] = useState<TimeScaleInterface>('month')
   const [totalInvestedOpen, setTotalInvestedOpen] = useState(false)
 
-  const { user } = useUser()
+  const { data: session } = useSession()
   const { currency } = useContext(CurrencyContext)
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
       method: 'POST',
-      body: JSON.stringify({ email: demo ? 'demo' : user?.email })
+      body: JSON.stringify({ email: demo ? 'demo' : session?.user?.email })
     })
       .then(handleErrors)
       .then((response: any) => response.json())
@@ -102,7 +102,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email
+        email: demo ? 'demo' : session?.user?.email
       })
     })
       .then(handleErrors)
@@ -132,7 +132,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email
+        email: demo ? 'demo' : session?.user?.email
       })
     })
       .then(handleErrors)
@@ -163,7 +163,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email
+        email: demo ? 'demo' : session?.user?.email
       })
     })
       .then(handleErrors)

@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { type StockInterface } from '@/types/client/stock'
-import { useUser } from '@auth0/nextjs-auth0/client'
 import { formatStocks } from '@/utils/client/formatStocks'
 import { OrderDropDown } from './Stocks/OrderDropdown'
 import { Stock } from './Stocks/Stock'
 import { handleErrors } from '@/utils/client/handleErrors'
 import { sortStocks } from '@/utils/client/sortStocks'
+import { useSession } from 'next-auth/react'
 
 interface Props {
   demo: boolean
@@ -36,7 +36,7 @@ export const Stocks: React.FC<Props> = ({
 }) => {
   const [searchKey, setSearchKey] = useState('')
 
-  const { user } = useUser()
+  const { data: session } = useSession()
 
   function deleteStock (ticker: string) {
     setStocksInputLoading(true)
@@ -47,7 +47,7 @@ export const Stocks: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email,
+        email: demo ? 'demo' : session?.user?.email,
         ticker
       })
     })
@@ -86,7 +86,7 @@ export const Stocks: React.FC<Props> = ({
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: demo ? 'demo' : user?.email,
+        email: demo ? 'demo' : session?.user?.email,
         ticker,
         purchaseId
       })
