@@ -1,5 +1,5 @@
 import React from 'react'
-import { signIn, getSession } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import Image from 'next/image'
 import picture from '../src/app/favicon.ico'
 
@@ -19,7 +19,7 @@ const signin = () => {
             // height={200} // Set the desired height of the image
             className='mb-5'
           />
-          <h1 className='text-2xl mb-4'>
+          <h1 className='text-2xl mb-4 dark:text-black'>
             Welcome
           </h1>
           <h3 className='mb-2 text-sm text-gray-600'>
@@ -28,6 +28,7 @@ const signin = () => {
           <div className="mb-1 px-6 sm:px-0 max-w-sm">
             <button
               type="button"
+              // eslint-disable-next-line @typescript-eslint/no-misused-promises
               onClick={handleSignIn}
               className="text-white w-full  bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-2 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center justify-between dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
             >
@@ -38,7 +39,11 @@ const signin = () => {
             </button>
           </div>
         </div>
-        <div className='text-gray-400 text-sm py-3 border-t w-full flex justify-center'>
+        <div
+          className='text-gray-400 text-sm py-3 border-t w-full flex justify-center'
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          onClick={async () => { await signIn() }}
+        >
           Don&apos;t have an account?&nbsp;<a className='text-blue-400 cursor-pointer underline-offset-2 transition duration-500 border-b border-transparent hover:text-[#4285F4]/90 hover:border-[#4285F4]/90'>Sign up</a>
         </div>
       </div>
