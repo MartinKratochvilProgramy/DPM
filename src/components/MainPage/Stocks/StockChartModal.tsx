@@ -90,8 +90,6 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
       const i = findIndexInDateArray(purchase.date, stockHistory.dates)
       if (i !== -1) {
         purchasesX.push(purchase.date)
-        console.log(i, stockHistory.values[i])
-
         purchasesY.push(stockHistory.values[i])
       }
     })
