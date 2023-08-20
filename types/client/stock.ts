@@ -1,7 +1,7 @@
 export interface PurchaseInterface {
   amount: number
   price: number
-  date: string
+  date: Date
   relativeChange: number
   totalAmount: number
   id: number

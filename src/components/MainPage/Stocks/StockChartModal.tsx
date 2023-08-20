@@ -4,17 +4,34 @@ import { Modal } from '@mui/material'
 import PlotComponent from '../PlotComponent'
 import { useTheme } from 'next-themes'
 import { type PurchaseInterface } from '@/types/client/stock'
-import getPricesInCurrency from '@/utils/client/getPricesInCurrency'
 import { chartThemeDark, chartThemeLight } from '@/themes/chartThemes'
 import '../../../app/globals.css'
 
 interface Props {
   stockTicker: string
   purchaseHistory: PurchaseInterface[]
-  stockHistory: { ticker: string, dates: string[], values: number[] }
+  stockHistory: { ticker: string, dates: Date[], values: number[] }
   loadingData: boolean
   dataLoaded: boolean
   stockChartLoadingError: string
+}
+
+function sameDay (d1: Date, d2: Date) {
+  return d1.getFullYear() === d2.getFullYear() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getDate() === d2.getDate()
+}
+
+function findIndexInDateArray (dateToFind: Date, array: Date[]) {
+  // dates are strings due to REST transfer bullshit
+  for (let i = 0; i < array.length; i++) {
+    const purchaseDate = new Date(dateToFind)
+    const stockDate = new Date(array[i])
+    if (sameDay(purchaseDate, stockDate)) {
+      return i // Return the index if the dates match
+    }
+  }
+  return -1 // Return -1 if the date is not found in the array
 }
 
 const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockHistory, loadingData, dataLoaded, stockChartLoadingError }) => {
@@ -67,11 +84,18 @@ const StockChartModal: React.FC<Props> = ({ stockTicker, purchaseHistory, stockH
       paper_bgcolor: 'rgba(0,0,0,0)'
     }
 
-    const purchasesX: string[] = []
+    const purchasesX: Date[] = []
+    const purchasesY: number[] = []
     purchaseHistory.forEach((purchase) => {
-      purchasesX.push(purchase.date)
+      const i = findIndexInDateArray(purchase.date, stockHistory.dates)
+      if (i !== -1) {
+        purchasesX.push(purchase.date)
+        console.log(i, stockHistory.values[i])
+
+        purchasesY.push(stockHistory.values[i])
+      }
     })
-    const purchasesY = getPricesInCurrency(stockHistory.dates, stockHistory.values, purchasesX)
+    // const purchasesY = getPricesInCurrency(stockHistory.dates, stockHistory.values, purchasesX)
 
     const historyData = [
       {

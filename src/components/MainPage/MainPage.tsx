@@ -28,7 +28,7 @@ interface Props {
 const MainPage: React.FC<Props> = ({ demo }) => {
   const [stocksInputLoading, setStocksInputLoading] = useState(false)
 
-  const [stocks, setStocks] = useState<any[]>([])
+  const [stocks, setStocks] = useState<StockInterface[]>([])
   const [stocksLoaded, setStocksLoaded] = useState(false)
   const [error, setError] = useState<string>('')
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST')
