@@ -19,19 +19,20 @@ export const Navbar = () => {
 
   return (
     <nav
-      className='border-gray-200 px-0 sm:px-4 bg-gray-900 p-3 flex flex-row xs:flex-col-reverse sm:flex-row justify-between items-center sm:items-center w-auto order-1'
+      className='border-gray-200 px-1 sm:px-4 bg-gray-900 p-3 flex flex-row xs:flex-col-reverse sm:flex-row justify-between items-center sm:items-center w-auto order-1'
       id='navbar-search'
     >
       <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-2 md:space-x-4'>
-        <div className='pb-[2px]'>
-          {session?.user?.name}
-        </div>
+        {(session != null) &&
+          <div className='pb-[2px]'>
+            {session?.user?.name}
+          </div>
+        }
         <div className='bg-gray-900 dark:text-gray-100'
           onClick={toggleTheme}>
           <div className='flex items-center justify-center space-x-2'>
             <label className='flex items-center h-5 p-1 duration-300 ease-in-out bg-gray-400 rounded-full cursor-pointer w-9 dark:bg-gray-600'>
-              <div
-                className='w-4 h-4 duration-300 ease-in-out transform bg-white rounded-full shadow-md toggle-dot dark:translate-x-3'>
+              <div className='w-4 h-4 duration-300 ease-in-out transform bg-white rounded-full shadow-md toggle-dot dark:translate-x-3'>
               </div>
             </label>
             <input id='toggle' type='checkbox' className='hidden' />
@@ -40,7 +41,7 @@ export const Navbar = () => {
       </div>
 
       <ul
-        className='flex flex-row justify-end items-center w-full sm:w-auto pr-2 p-0 sm:p-1 border-gray-100 space-x-1 md:space-x-4 mt-0 border-0 bg-gray-900'
+        className='flex flex-row justify-end items-center w-full sm:w-auto py-0 sm:py-1 border-gray-100 space-x-1 md:space-x-4 mt-0 border-0 bg-gray-900'
       >
         {(session != null)
           ? <li>
