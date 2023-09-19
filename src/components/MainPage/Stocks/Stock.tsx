@@ -91,10 +91,10 @@ export const Stock: React.FC<Props> = ({
       >
         <div className="flex flex-row w-full items-center justify-between mb-1">
           <div className='flex flex-row justify-start sm:justify-start w-full max-w-[400px] px-1 dark:text-gray-100'>
-            <div className=" w-[40px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-start font-bold">{stock.ticker}</div>
-            <div className=" w-[40px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">{stock.amount}</div>
-            <div className=" w-[40px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">{stock.prevClose.toFixed(2)}</div>
-            <div className=" w-[40px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">
+            <div className=" w-[45px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-start font-bold">{stock.ticker}</div>
+            <div className=" w-[45px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">{stock.amount}</div>
+            <div className=" w-[45px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">{stock.prevClose.toFixed(2)}</div>
+            <div className=" w-[45px] sm:w-[46px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">
               {stock.avgPercentageChange >= 0
                 ? <div className="text-green-600">{`+${stock.avgPercentageChange}%`}</div>
                 : <div className="text-red-600">{`${stock.avgPercentageChange}%`}</div>
@@ -115,25 +115,25 @@ export const Stock: React.FC<Props> = ({
         {expanded &&
             <div className="flex flex-col items-start justify-start border-t-[1px] border-t-gray-300 dark:border-t-gray-500">
               <div className="flex flex-row justify-start sm:justify-start w-full max-w-[400px] mt-4 mb-1 px-1 dark:text-gray-100">
-                <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-start">DATE</div>
-                <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">AMOUNT</div>
-                <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">PRICE</div>
-                <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">CHANGE</div>
+                <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-start">DATE</div>
+                <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">AMOUNT</div>
+                <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">PRICE</div>
+                <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex justify-center">CHANGE</div>
               </div>
 
               {stock.purchases.map((purchase: PurchaseInterface, i) => {
-                let [day, month, year] = formatDate(purchase.date).split('/')
+                let [month, day, year] = formatDate(purchase.date).split('/')
                 if (day.length === 1) day = '0' + day
                 if (month.length === 1) month = '0' + month
                 year = year.substring(2, 4)
 
                 return (
                   <div key={purchase.id} className="flex flex-row w-full justify-start sm:justify-between items-center rounded-2xl pr-1 py-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1">
-                    <div className="flex text-[12px] flex-row w-full max-w-[400px] px-1 justify-start sm:justify-start rounded-xl h-full dark:text-gray-300">
-                      <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-start">{day}-{month}-{year}</div>
-                      <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">{purchase.amount}</div>
-                      <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">{purchase.price}</div>
-                      <div className="w-[40px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">
+                    <div className="flex text-[10px] sm:text-[12px] flex-row w-full max-w-[400px] px-1 justify-start sm:justify-start rounded-xl h-full dark:text-gray-300">
+                      <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-start">{day}-{month}-{year}</div>
+                      <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">{purchase.amount}</div>
+                      <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">{purchase.price}</div>
+                      <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-center">
                         {purchase.relativeChange >= 0
                           ? <div className="text-green-600">{'+' + purchase.relativeChange.toFixed(1) + '%'}</div>
                           : <div className="text-red-600">{purchase.relativeChange.toFixed(1) + '%'}</div>
