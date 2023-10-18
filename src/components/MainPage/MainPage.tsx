@@ -39,12 +39,14 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
   const [netWorthTimeScale, setNetWorthTimeScale] = useState<TimeScaleInterface>('month')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
+  const [lastNetWorth, setLastNetWorth] = useState(0) // netWorth from previous day to use for today's rel. change calculation
 
   const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([])
   const [relativeChangeValues, setRelativeChangeValues] = useState<number[]>([])
   const [relativeChangeLoaded, setRelativeChangeLoaded] = useState(false)
   const [relativeChangeTimeScale, setRelativeChangeTimeScale] = useState<TimeScaleInterface>('month')
   const [relativeChangeOpen, setRelativeChangeOpen] = useState(false)
+  const [todaysRelativeChange, setTodaysRelativeChange] = useState(0)
 
   const [pieOpen, setPieOpen] = useState(false)
 
@@ -113,6 +115,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
         setNetWorthValues(values)
         setNetWorthDates(dates)
+        if (values.length > 0) setLastNetWorth(values[values.length - 1])
 
         const timeScale = calculateTimeScale(dates)
         setNetWorthTimeScale(timeScale)
@@ -213,6 +216,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         })
         newNetWorth = parseFloat(newNetWorth.toFixed(2))
 
+        setTodaysRelativeChange(100 * (newNetWorth / lastNetWorth - 1))
+
         if (netWorthDates.length > 0 && netWorthValues.length > 0) {
           setNetWorthDates([...netWorthDates, new Date()])
           setNetWorthValues([...netWorthValues, newNetWorth])
@@ -220,13 +225,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
         if (relativeChangeDates.length > 0 && relativeChangeValues.length > 0 && netWorthValues.length > 0) {
           const newRelativeChange = relativeChangeValues[relativeChangeValues.length - 1] * newNetWorth / netWorthValues[netWorthValues.length - 1]
-
-          if (newRelativeChange.toFixed(4) !== relativeChangeValues[relativeChangeValues.length - 1].toFixed(4)) {
-            // push new values only if relative change different
-            // this is to stop pushing the same value to the end -> RelativeChangeHistory would always display change 0%
-            setRelativeChangeDates([...relativeChangeDates, new Date()])
-            setRelativeChangeValues([...relativeChangeValues, newRelativeChange])
-          }
+          setRelativeChangeDates([...relativeChangeDates, new Date()])
+          setRelativeChangeValues([...relativeChangeValues, newRelativeChange])
         }
       })
       .catch((error) => {
@@ -287,6 +287,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         <Card setOpen={() => { setRelativeChangeOpen(true) }}>
           {relativeChangeLoaded
             ? <RelativeChangeHistory
+              todaysRelativeChange={todaysRelativeChange}
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
               timeScale={relativeChangeTimeScale}
@@ -370,6 +371,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         <div>
           <div className='fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
             <RelativeChangeHistory
+              todaysRelativeChange={todaysRelativeChange}
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
               timeScale={relativeChangeTimeScale}

@@ -10,12 +10,14 @@ import '../../app/globals.css'
 Chart.register(...registerables)
 
 interface Props {
+  todaysRelativeChange: number
   relativeChangeDates: Date[]
   relativeChangeValues: number[]
   timeScale: TimeScaleInterface
 }
 
 const RelativeChangeHistory: React.FC<Props> = ({
+  todaysRelativeChange,
   relativeChangeDates,
   relativeChangeValues,
   timeScale
@@ -129,11 +131,6 @@ const RelativeChangeHistory: React.FC<Props> = ({
     lastValue = Math.round(relativeChangeValues[relativeChangeValues.length - 1] * 100) / 100
   }
 
-  let todaysChange = 0
-  if (relativeChangeValues.length > 2) {
-    todaysChange = parseFloat((relativeChangeValues[relativeChangeValues.length - 1] - relativeChangeValues[relativeChangeValues.length - 2]).toFixed(2))
-  }
-
   return (
     <div className='w-full h-full flex justify-center items-center'>
       <div className='flex pt-0 md:pt-0 lg:pt-3 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
@@ -142,11 +139,13 @@ const RelativeChangeHistory: React.FC<Props> = ({
           <div className='w-full h-full flex justify-center items-center'>{lastValue}</div>
           <span className='w-full h-full flex justify-center items-centert'>%</span>
         </h2>
-        <h2 style={{ color: todaysChange >= 0 ? green : red }} className='playfair space-x-1 flex text-center mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0'>
-          <div className='w-full h-full flex justify-center items-center text-gray-400'>Today:</div>
-          <div className='w-full h-full flex justify-center items-center mt-[1px]'>{todaysChange >= 0 ? '+' : ''}</div>
-          <div className='w-full h-full flex justify-center items-center'>{todaysChange}</div>
-          <span className='w-full h-full flex justify-center items-centert'>%</span>
+        <h2 className={todaysRelativeChange > 0 ? 'text-green-600' : todaysRelativeChange === 0 ? 'text-gray-400' : 'text-red-500'}>
+          <div className='playfair space-x-1 flex text-center mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0'>
+            <div className='w-full h-full flex justify-center items-center text-gray-400'>Today:</div>
+            <div className='w-full h-full flex justify-center items-center mt-[1px]'>{todaysRelativeChange > 0 ? '+' : ''}</div>
+            <div className='w-full h-full flex justify-center items-center'>{todaysRelativeChange.toFixed(2)}</div>
+            <div className='w-full h-full flex justify-center items-center mt-[1px]'>%</div>
+          </div>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
           <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
