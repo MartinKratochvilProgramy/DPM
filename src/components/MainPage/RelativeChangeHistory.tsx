@@ -46,7 +46,8 @@ const RelativeChangeHistory: React.FC<Props> = ({
             borderColor: lastValue >= 0 ? green : red,
             backgroundColor: lastValue >= 0 ? greenLowOpacity : redLowOpacity,
             fill: true,
-            pointRadius: 2
+            borderWidth: 1,
+            pointRadius: 0.5
           }
         ]
       }

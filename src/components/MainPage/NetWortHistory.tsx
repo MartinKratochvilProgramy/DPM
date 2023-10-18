@@ -45,7 +45,8 @@ const NetWortHistory: React.FC<Props> = ({
             borderColor: '#3b82f6',
             backgroundColor: 'rgba(59, 130, 246, 0.1)',
             fill: true,
-            pointRadius: 2
+            borderWidth: 1,
+            pointRadius: 0.5
           }
         ]
       }
