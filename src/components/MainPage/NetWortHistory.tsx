@@ -123,10 +123,11 @@ const NetWortHistory: React.FC<Props> = ({
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
-      <div className='flex py-0 md:py-0 lg:py-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
-        <h2 className='text-xl font-bold md:text-3xl raleway mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-4 text-gray-700 dark:text-gray-300'>
-          {numberWithSpacesRounded(netWorthValues[netWorthValues.length - 1])} <span className='text-[16px] md:text-[26px] playfair'>{currency === undefined ? '' : currency}</span>
+      <div className='flex pt-0 md:pt-0 lg:pt-3 px-2 md:px-4 lg:px-0 flex-col w-full h-full justify-center items-center'>
+        <h2 className='text-xl font-bold md:text-3xl raleway mt-1 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-0 text-gray-700 dark:text-gray-300'>
+          {numberWithSpacesRounded(netWorthValues[netWorthValues.length - 1])} <span className='text-[16px] md:text-[28px] playfair'>{currency === undefined ? '' : currency}</span>
         </h2>
+        <div className='text-gray-400 playfair'>Max: {numberWithSpacesRounded(Math.max(...netWorthValues))} <span className='text-[8px] md:text-[12px] playfair'>{currency === undefined ? '' : currency}</span></div>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
           <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
         </div>

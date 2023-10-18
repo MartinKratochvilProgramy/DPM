@@ -219,9 +219,14 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         }
 
         if (relativeChangeDates.length > 0 && relativeChangeValues.length > 0 && netWorthValues.length > 0) {
-          setRelativeChangeDates([...relativeChangeDates, new Date()])
           const newRelativeChange = relativeChangeValues[relativeChangeValues.length - 1] * newNetWorth / netWorthValues[netWorthValues.length - 1]
-          setRelativeChangeValues([...relativeChangeValues, newRelativeChange])
+
+          if (newRelativeChange.toFixed(4) !== relativeChangeValues[relativeChangeValues.length - 1].toFixed(4)) {
+            // push new values only if relative change different
+            // this is to stop pushing the same value to the end -> RelativeChangeHistory would always display change 0%
+            setRelativeChangeDates([...relativeChangeDates, new Date()])
+            setRelativeChangeValues([...relativeChangeValues, newRelativeChange])
+          }
         }
       })
       .catch((error) => {

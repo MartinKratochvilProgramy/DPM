@@ -129,12 +129,23 @@ const RelativeChangeHistory: React.FC<Props> = ({
     lastValue = Math.round(relativeChangeValues[relativeChangeValues.length - 1] * 100) / 100
   }
 
+  let todaysChange = 0
+  if (relativeChangeValues.length > 2) {
+    todaysChange = parseFloat((relativeChangeValues[relativeChangeValues.length - 1] - relativeChangeValues[relativeChangeValues.length - 2]).toFixed(2))
+  }
+
   return (
     <div className='w-full h-full flex justify-center items-center'>
-      <div className='flex py-0 md:py-0 lg:py-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
-        <h2 style={{ color: lastValue >= 0 ? green : red }} className='text-xl space-x-1 flex text-center md:text-3xl raleway font-bold mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-2'>
+      <div className='flex pt-0 md:pt-0 lg:pt-3 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center'>
+        <h2 style={{ color: lastValue >= 0 ? green : red }} className='text-xl space-x-1 flex text-center md:text-3xl raleway font-bold mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0'>
           <div className='w-full h-full flex justify-center items-center'>{lastValue >= 0 ? '+' : ''}</div>
           <div className='w-full h-full flex justify-center items-center'>{lastValue}</div>
+          <span className='w-full h-full flex justify-center items-centert'>%</span>
+        </h2>
+        <h2 style={{ color: todaysChange >= 0 ? green : red }} className='playfair space-x-1 flex text-center mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0'>
+          <div className='w-full h-full flex justify-center items-center text-gray-400'>Today:</div>
+          <div className='w-full h-full flex justify-center items-center mt-[1px]'>{todaysChange >= 0 ? '+' : ''}</div>
+          <div className='w-full h-full flex justify-center items-center'>{todaysChange}</div>
           <span className='w-full h-full flex justify-center items-centert'>%</span>
         </h2>
         <div className='flex justify-center items-center w-full px-0 md:px-6 h-full'>
