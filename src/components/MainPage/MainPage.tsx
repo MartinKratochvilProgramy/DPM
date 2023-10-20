@@ -90,6 +90,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         setStocks(returnedStocks)
         setStocksLoaded(true)
       })
+      .then(() => {
+        getCurrentStockPrices()
+      })
       .catch(error => {
         setStocksLoaded(true)
         setError(error)
