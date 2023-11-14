@@ -63,7 +63,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
     // set interval to refetch stocks
     if (stocks.length === 0 || process.env.NODE_ENV === 'development') return
 
-    const INTERVALms = 5000
+    const INTERVALms = 1000
 
     const intervalId = setInterval(() => {
       getCurrentStockPrices()
@@ -90,9 +90,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         setStocks(returnedStocks)
         setStocksLoaded(true)
       })
-      // .then(() => {
-      //   getCurrentStockPrices()
-      // })
+      .then(() => {
+        getCurrentStockPrices()
+      })
       .catch(error => {
         setStocksLoaded(true)
         setError(error)
