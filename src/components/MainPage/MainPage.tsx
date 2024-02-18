@@ -61,9 +61,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
   useEffect(() => {
     // set interval to refetch stocks
-    if (stocks.length === 0 || process.env.NODE_ENV === 'development') return
+    if (process.env.NODE_ENV === 'development') return
 
-    const INTERVALms = 1000
+    const INTERVALms = 2000
 
     const intervalId = setInterval(() => {
       getCurrentStockPrices()
@@ -72,7 +72,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [stocks])
+  }, [])
 
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
