@@ -193,7 +193,10 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   }, [])
 
   function getCurrentStockPrices () {
-    if (currency === '') return
+    if (currency === '' || stocks.length === 0) {
+      return
+    }
+
     fetch('api/get_current_stock_prices', {
       method: 'POST',
       headers: {
