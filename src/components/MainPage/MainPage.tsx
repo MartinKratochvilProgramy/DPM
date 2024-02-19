@@ -72,7 +72,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [])
+  }, [stocks])
 
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
