@@ -61,16 +61,16 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
   useEffect(() => {
     // set interval to refetch stocks
-    if (process.env.NODE_ENV === 'development') return
+    if (stocks.length === 0) return
 
     const INTERVALms = 2000
 
-    const intervalId = setInterval(() => {
+    const timeoutId = setTimeout(() => {
       getCurrentStockPrices()
     }, INTERVALms)
 
     return () => {
-      clearInterval(intervalId)
+      clearTimeout(timeoutId)
     }
   }, [stocks])
 
