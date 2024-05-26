@@ -52,10 +52,21 @@ const NetWortHistory: React.FC<Props> = ({
         pointRadius: 0.5
       }
 
-      const totalInvestedData = totalInvestedDates.map((date, i) => ({
-        x: date,
-        y: totalInvestedValues[i]
-      }))
+      const totalInvestedData = totalInvestedDates.flatMap((date, i) => {
+        const values = []
+        if (i > 0) {
+          values.push({
+            x: totalInvestedDates[i],
+            y: totalInvestedValues[i - 1]
+          })
+        }
+        values.push({
+          x: totalInvestedDates[i],
+          y: totalInvestedValues[i]
+        })
+
+        return values
+      })
 
       const lastDate = netWorthDates.at(-1)
       const lastInvested = totalInvestedValues.at(-1)

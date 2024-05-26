@@ -8,6 +8,7 @@ import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
+import { chartColor } from './RelativeChangeHistory'
 
 Chart.register(...registerables)
 
@@ -27,35 +28,44 @@ const TotalInvestedHistory: React.FC<Props> = ({
   const { currency } = useContext(CurrencyContext)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
-  const chartInstanceRef = useRef<Chart>()
-
-  const chartColor = '#949aa6'
 
   useEffect(() => {
+    let chart: any
+
     if (chartRef.current != null) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const ctx = chartRef.current.getContext('2d')!
 
-      // Define your chart data and options
-      const chartData = {
-        labels: totalInvestedDates,
-        datasets: [
-          {
-            label: 'Total Invested',
-            data: totalInvestedValues,
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            fill: true,
-            borderWidth: 1,
-            pointRadius: 0.5
-          }
-        ]
+      const totalInvestedData = totalInvestedDates.flatMap((date, i) => {
+        const values = []
+        if (i > 0) {
+          values.push({
+            x: totalInvestedDates[i],
+            y: totalInvestedValues[i - 1]
+          })
+        }
+        values.push({
+          x: totalInvestedDates[i],
+          y: totalInvestedValues[i]
+        })
+
+        return values
+      })
+
+      const s1 = {
+        label: 'Net Worth',
+        data: totalInvestedData,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        fill: true,
+        borderWidth: 1,
+        pointRadius: 0.5
       }
 
       // Create the chart instance
-      chartInstanceRef.current = new Chart(ctx, {
+      chart = new Chart(ctx, {
         type: 'line',
-        data: chartData,
+        data: { datasets: [s1] },
         options: {
           responsive: true,
           animation: { duration: loadDuration },
@@ -114,8 +124,9 @@ const TotalInvestedHistory: React.FC<Props> = ({
 
     // Cleanup function
     return () => {
-      if (chartInstanceRef.current != null) {
-        chartInstanceRef.current.destroy()
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (chart) {
+        chart.destroy()
       }
     }
   }, [totalInvestedDates, totalInvestedValues])
