@@ -18,7 +18,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
-    const inflation = await prisma.inflation.findMany({ select: { date: true, value: true } })
+    const inflation = await prisma.inflation.findMany({
+      select: {
+        date: true,
+        value: true
+      }
+    })
 
     if (relativeChange !== null) {
       const inflationAdjustedValues = getInflationAdjustedChange(relativeChange, inflation)
@@ -48,31 +53,29 @@ function getInflationAdjustedChange (relativeChange: { relativeChangeValues: num
   let previousMonth: null | number = null
   let previousRealChange: null | number = 0
   let previousAdjustedChange: null | number = 0
+  let inflationValue: number = 0
 
   for (let i = 0; i < relativeChange?.relativeChangeDates.length; i++) {
     const date = relativeChange?.relativeChangeDates[i]
     const currentMonth = date.getMonth()
+    const currentValue = (relativeChange?.relativeChangeValues[i] - 1) * 100
+
+    // get current change in %
+    const inflationAdjustedValue: number = previousAdjustedChange + ((1 + (currentValue - previousRealChange) / 100) / (1 + inflationValue / 100) - 1) * 100
 
     if (currentMonth !== previousMonth && i > 0) {
-      // if month flips to new one, calculate change
+      // if month flips to new one, update prev change values
       previousMonth = currentMonth
 
       const currentInflation = inflation.find(e => e.date.getMonth() === date.getMonth() && e.date.getFullYear() === date.getFullYear())
-      const inflationValue = currentInflation?.value
+      inflationValue = currentInflation?.value ?? 0
 
-      if (inflationValue !== undefined) {
-        // get current change in %
-        const currentValue = (relativeChange?.relativeChangeValues[i] - 1) * 100
-
-        const inflationAdjustedValue: number = previousAdjustedChange + ((1 + (currentValue - previousRealChange) / 100) / (1 + inflationValue / 100) - 1) * 100
-
-        previousAdjustedChange = inflationAdjustedValue
-        previousRealChange = currentValue
-
-        inflationAdjustedValues.dates.push(relativeChange?.relativeChangeDates[i])
-        inflationAdjustedValues.values.push(inflationAdjustedValue)
-      }
+      previousAdjustedChange = inflationAdjustedValue
+      previousRealChange = currentValue
     }
+
+    inflationAdjustedValues.dates.push(relativeChange?.relativeChangeDates[i])
+    inflationAdjustedValues.values.push(inflationAdjustedValue)
   }
 
   return inflationAdjustedValues
