@@ -28,7 +28,6 @@ const RelativeChangeHistory: React.FC<Props> = ({
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
-  const chartInstanceRef = useRef<Chart>()
 
   const chartColor = '#949aa6'
 
@@ -40,6 +39,8 @@ const RelativeChangeHistory: React.FC<Props> = ({
   const orangeLowOpacity = 'rgb(249, 115, 22, 0.1)'
 
   useEffect(() => {
+    let chart: any
+
     if (chartRef.current != null) {
       const ctx = chartRef.current.getContext('2d')
 
@@ -71,7 +72,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
       if (ctx === null) return
 
       // Create the chart instance
-      chartInstanceRef.current = new Chart(ctx, {
+      chart = new Chart(ctx, {
         type: 'line',
         data: { datasets: [s1, s2] },
         options: {
@@ -132,8 +133,9 @@ const RelativeChangeHistory: React.FC<Props> = ({
 
     // Cleanup function
     return () => {
-      if (chartInstanceRef.current != null) {
-        chartInstanceRef.current.destroy()
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (chart) {
+        chart.destroy()
       }
     }
   }, [relativeChangeDates, relativeChangeValues])
