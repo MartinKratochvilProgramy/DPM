@@ -8,18 +8,23 @@ import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
 import '../../app/globals.css'
+import { chartColor, orange, orangeLowOpacity } from './RelativeChangeHistory'
 
 Chart.register(...registerables)
 
 interface Props {
   netWorthDates: Date[]
   netWorthValues: number[]
+  totalInvestedDates: Date[]
+  totalInvestedValues: number[]
   timeScale: TimeScaleInterface
 }
 
 const NetWortHistory: React.FC<Props> = ({
   netWorthDates,
   netWorthValues,
+  totalInvestedDates,
+  totalInvestedValues,
   timeScale
 }) => {
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
@@ -27,36 +32,55 @@ const NetWortHistory: React.FC<Props> = ({
   const { currency } = useContext(CurrencyContext)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
-  const chartInstanceRef = useRef<Chart>()
-
-  const chartColor = '#949aa6'
 
   useEffect(() => {
+    let chart: any
+
     if (chartRef.current != null) {
       const ctx = chartRef.current.getContext('2d')
 
-      // Define your chart data and options
-      const chartData: any = {
-        labels: netWorthDates,
-        datasets: [
-          {
-            label: 'Net Worth',
-            data: netWorthValues,
-            borderColor: '#3b82f6',
-            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-            fill: true,
-            borderWidth: 1,
-            pointRadius: 0.5
-          }
-        ]
+      const s1 = {
+        label: 'Net Worth',
+        data: netWorthDates.map((date, i) => ({
+          x: date,
+          y: netWorthValues[i]
+        })),
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+        fill: true,
+        borderWidth: 1,
+        pointRadius: 0.5
+      }
+
+      const totalInvestedData = totalInvestedDates.map((date, i) => ({
+        x: date,
+        y: totalInvestedValues[i]
+      }))
+
+      const lastDate = netWorthDates.at(-1)
+      const lastInvested = totalInvestedValues.at(-1)
+      if (lastDate !== undefined && lastInvested !== undefined) {
+        totalInvestedData.push({
+          x: lastDate,
+          y: lastInvested
+        })
+      }
+
+      const s2 = {
+        label: 'Total Invested',
+        data: totalInvestedData,
+        borderColor: orange,
+        backgroundColor: orangeLowOpacity,
+        borderWidth: 1,
+        pointRadius: 0.5
       }
 
       if (ctx === null) return
 
       // Create the chart instance
-      chartInstanceRef.current = new Chart(ctx, {
+      chart = new Chart(ctx, {
         type: 'line',
-        data: chartData,
+        data: { datasets: [s1, s2] },
         options: {
           responsive: true,
           animation: { duration: loadDuration },
@@ -115,8 +139,9 @@ const NetWortHistory: React.FC<Props> = ({
 
     // Cleanup function
     return () => {
-      if (chartInstanceRef.current != null) {
-        chartInstanceRef.current.destroy()
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (chart) {
+        chart.destroy()
       }
     }
   }, [netWorthDates, netWorthValues])

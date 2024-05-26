@@ -289,6 +289,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             ? <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
+              totalInvestedDates={totalInvestedDates}
+              totalInvestedValues={totalInvestedValues}
               timeScale={netWorthTimeScale}
             />
             : <LoadingSpinner size={70} />
@@ -360,6 +362,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <NetWortHistory
               netWorthDates={netWorthDates}
               netWorthValues={netWorthValues}
+              totalInvestedDates={totalInvestedDates}
+              totalInvestedValues={totalInvestedValues}
               timeScale={netWorthTimeScale}
             />
           </div>

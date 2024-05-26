@@ -18,6 +18,15 @@ interface Props {
   inflationAdjustedChange: InflationAdjustedValues
 }
 
+export const chartColor = '#949aa6'
+
+const green = 'rgba(19, 168, 41, 1)'
+const greenLowOpacity = 'rgba(19, 168, 41, 0.1)'
+const red = 'rgba(220, 38, 38, 1)'
+const redLowOpacity = 'rgba(220, 38, 38, 0.11)'
+export const orange = 'rgb(249, 115, 22)'
+export const orangeLowOpacity = 'rgb(249, 115, 22, 0.1)'
+
 const RelativeChangeHistory: React.FC<Props> = ({
   todaysRelativeChange,
   relativeChangeDates,
@@ -28,15 +37,6 @@ const RelativeChangeHistory: React.FC<Props> = ({
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
   const chartRef = useRef<HTMLCanvasElement>(null)
-
-  const chartColor = '#949aa6'
-
-  const green = 'rgba(19, 168, 41, 1)'
-  const greenLowOpacity = 'rgba(19, 168, 41, 0.1)'
-  const red = 'rgba(220, 38, 38, 1)'
-  const redLowOpacity = 'rgba(220, 38, 38, 0.11)'
-  const orange = 'rgb(249, 115, 22)'
-  const orangeLowOpacity = 'rgb(249, 115, 22, 0.1)'
 
   useEffect(() => {
     let chart: any
