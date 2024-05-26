@@ -54,3 +54,11 @@ model TotalInvested {
   totalInvestedDates  DateTime[]
   totalInvestedValues Float[]
 }
+
+model Inflation {
+  id    Int     @id @default(autoincrement())
+  date  DateTime
+  value Float
+
+  @@map("inflation")
+}

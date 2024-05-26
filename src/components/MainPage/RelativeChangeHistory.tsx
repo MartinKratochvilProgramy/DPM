@@ -6,6 +6,7 @@ import 'chartjs-adapter-moment'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration'
 import '../../app/globals.css'
+import { type InflationAdjustedValues } from '@/pages/api/portfolio/relative_change'
 
 Chart.register(...registerables)
 
@@ -14,13 +15,15 @@ interface Props {
   relativeChangeDates: Date[]
   relativeChangeValues: number[]
   timeScale: TimeScaleInterface
+  inflationAdjustedChange: InflationAdjustedValues
 }
 
 const RelativeChangeHistory: React.FC<Props> = ({
   todaysRelativeChange,
   relativeChangeDates,
   relativeChangeValues,
-  timeScale
+  timeScale,
+  inflationAdjustedChange
 }) => {
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000)
 
@@ -33,25 +36,36 @@ const RelativeChangeHistory: React.FC<Props> = ({
   const greenLowOpacity = 'rgba(19, 168, 41, 0.1)'
   const red = 'rgba(220, 38, 38, 1)'
   const redLowOpacity = 'rgba(220, 38, 38, 0.11)'
+  const orange = 'rgb(249, 115, 22)'
+  const orangeLowOpacity = 'rgb(249, 115, 22, 0.1)'
 
   useEffect(() => {
     if (chartRef.current != null) {
       const ctx = chartRef.current.getContext('2d')
 
-      // Define your chart data and options
-      const chartData = {
-        labels: relativeChangeDates,
-        datasets: [
-          {
-            label: 'Relative Change',
-            data: relativeChangeValues,
-            borderColor: lastValue >= 0 ? green : red,
-            backgroundColor: lastValue >= 0 ? greenLowOpacity : redLowOpacity,
-            fill: true,
-            borderWidth: 1,
-            pointRadius: 0.5
-          }
-        ]
+      const s1 = {
+        label: 'Total Cumulative Return',
+        data: relativeChangeDates.map((date, i) => ({
+          x: date,
+          y: relativeChangeValues[i]
+        })),
+        borderColor: lastValue >= 0 ? green : red,
+        backgroundColor: lastValue >= 0 ? greenLowOpacity : redLowOpacity,
+        fill: true,
+        borderWidth: 1,
+        pointRadius: 0.5
+      }
+
+      const s2 = {
+        label: 'Inflation Adjusted Return',
+        data: inflationAdjustedChange.dates.map((date, i) => ({
+          x: date,
+          y: inflationAdjustedChange.values[i]
+        })),
+        borderColor: orange,
+        backgroundColor: orangeLowOpacity,
+        borderWidth: 1,
+        pointRadius: 0.5
       }
 
       if (ctx === null) return
@@ -59,7 +73,7 @@ const RelativeChangeHistory: React.FC<Props> = ({
       // Create the chart instance
       chartInstanceRef.current = new Chart(ctx, {
         type: 'line',
-        data: chartData,
+        data: { datasets: [s1, s2] },
         options: {
           responsive: true,
           animation: { duration: loadDuration },

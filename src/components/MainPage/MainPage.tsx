@@ -20,6 +20,7 @@ import { calculateTimeScale } from '@/utils/client/calculateTimeScale'
 import { updatePrices } from '@/utils/client/updatePrices'
 import { type StockInterface } from '@/types/client/stock'
 import { useSession } from 'next-auth/react'
+import { type InflationAdjustedValues } from '@/pages/api/portfolio/relative_change'
 
 interface Props {
   demo: boolean
@@ -36,6 +37,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
   const [netWorthDates, setNetWorthDates] = useState<Date[]>([])
   const [netWorthValues, setNetWorthValues] = useState<number[]>([])
+
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
   const [netWorthTimeScale, setNetWorthTimeScale] = useState<TimeScaleInterface>('month')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
@@ -47,6 +49,10 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [relativeChangeTimeScale, setRelativeChangeTimeScale] = useState<TimeScaleInterface>('month')
   const [relativeChangeOpen, setRelativeChangeOpen] = useState(false)
   const [todaysRelativeChange, setTodaysRelativeChange] = useState(0)
+  const [inflationAdjustedChange, setInflationAdjustedChange] = useState<InflationAdjustedValues>({
+    dates: [],
+    values: []
+  })
 
   const [pieOpen, setPieOpen] = useState(false)
 
@@ -148,6 +154,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         values = values.map(value => { return (value * 100 - 100) })
         const dates: Date[] = relativeChange.dates
 
+        setInflationAdjustedChange(relativeChange.inflationAdjustedValues)
+
         const timeScale = calculateTimeScale(dates)
         setRelativeChangeTimeScale(timeScale)
 
@@ -222,7 +230,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         })
         newNetWorth = parseFloat(newNetWorth.toFixed(2))
 
-        setTodaysRelativeChange(100 * (newNetWorth / lastNetWorth - 1))
+        if (lastNetWorth !== 0) {
+          setTodaysRelativeChange(100 * (newNetWorth / lastNetWorth - 1))
+        }
 
         if (netWorthDates.length > 0 && netWorthValues.length > 0) {
           setNetWorthDates([...netWorthDates, new Date()])
@@ -297,6 +307,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
               timeScale={relativeChangeTimeScale}
+              inflationAdjustedChange={inflationAdjustedChange}
             />
             : <LoadingSpinner size={70} />
           }
@@ -381,6 +392,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
               relativeChangeDates={relativeChangeDates}
               relativeChangeValues={relativeChangeValues}
               timeScale={relativeChangeTimeScale}
+              inflationAdjustedChange={inflationAdjustedChange}
             />
           </div>
         </div>
