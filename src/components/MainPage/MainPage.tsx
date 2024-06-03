@@ -72,13 +72,15 @@ const MainPage: React.FC<Props> = ({ demo }) => {
     const INTERVALms = 2000
 
     const timeoutId = setTimeout(() => {
-      getCurrentStockPrices()
+      if (!pieOpen) {
+        getCurrentStockPrices()
+      }
     }, INTERVALms)
 
     return () => {
       clearTimeout(timeoutId)
     }
-  }, [stocks])
+  }, [stocks, pieOpen])
 
   useEffect(() => {
     fetch('/api/portfolio/stocks', {
