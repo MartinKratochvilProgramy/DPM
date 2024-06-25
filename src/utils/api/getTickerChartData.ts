@@ -23,9 +23,8 @@ export default async function getTickerChartData (
   const endDate = new Date()
   const startDate = addMonths(period)
 
-  const query = 'TSLA'
   const queryOptions = { period1: startDate, period2: endDate }
-  const quotes = await yahooFinance.historical(query, queryOptions)
+  const quotes = await yahooFinance.historical(ticker, queryOptions)
 
   const dates: Date[] = []
   const values: number[] = []
