@@ -224,6 +224,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
         newStocks = updatePrices(newStocks, res)
 
+        formatStocks(newStocks)
+
         setStocks(newStocks)
 
         let newNetWorth = 0
