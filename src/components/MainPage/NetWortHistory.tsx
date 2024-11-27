@@ -76,6 +76,13 @@ const NetWortHistory: React.FC<Props> = ({
       }
     }
 
+    // update last value
+    const lastNetWorthValue = netWorthValues.at(-1)
+    const lastDataPoint = netWorthSeries.data.at(-1)
+    if (lastNetWorthValue !== undefined && lastDataPoint?.value !== undefined) {
+      lastDataPoint.value = lastNetWorthValue
+    }
+
     setLineChartSeries([
       netWorthSeries,
       {
@@ -93,7 +100,7 @@ const NetWortHistory: React.FC<Props> = ({
           {numberWithSpacesRounded(netWorthValues[netWorthValues.length - 1])} <span className='text-[16px] md:text-[28px] playfair'>{currency === undefined ? '' : currency}</span>
         </h2>
         <div className='text-gray-400 playfair'>Max: {numberWithSpacesRounded(Math.max(...netWorthValues))} <span className='text-[8px] md:text-[12px] playfair'>{currency === undefined ? '' : currency}</span></div>
-        <div ref={containerRef} className='flex justify-center items-center w-[95%] md:px-6 w-full h-full'>
+        <div ref={containerRef} className='flex justify-center items-center w-[90%] md:px-6 w-full h-full'>
           {(lineChartSeries != null) && <LineChart series={lineChartSeries} width={containerRef.current.offsetWidth} height={containerRef.current.offsetHeight} />}
         </div>
       </div>
