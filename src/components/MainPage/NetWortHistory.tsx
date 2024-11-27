@@ -4,17 +4,17 @@ import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
 import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
 import '../../app/globals.css'
-import LineChart, { Series } from '../chart/LineChart'
-import { LineData } from 'lightweight-charts'
+import LineChart, { type Series } from '../chart/LineChart'
+import { type LineData } from 'lightweight-charts'
 import { orange } from './RelativeChangeHistory'
 
-function formatDateToYYYYMMDD(date: Date) {
-  const parsedDate = new Date(date);
+function formatDateToYYYYMMDD (date: Date) {
+  const parsedDate = new Date(date)
 
-  const year = parsedDate.getFullYear();
-  const month = String(parsedDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-  const day = String(parsedDate.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
+  const year = parsedDate.getFullYear()
+  const month = String(parsedDate.getMonth() + 1).padStart(2, '0') // Months are zero-based
+  const day = String(parsedDate.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
 }
 
 interface Props {
@@ -29,16 +29,15 @@ const NetWortHistory: React.FC<Props> = ({
   netWorthDates,
   netWorthValues,
   totalInvestedDates,
-  totalInvestedValues,
+  totalInvestedValues
 }) => {
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>()
 
   const { currency } = useContext(CurrencyContext)
 
-  const containerRef = useRef<any>();
+  const containerRef = useRef<any>()
 
   useEffect(() => {
-
     const totalInvestedData = totalInvestedDates.flatMap((date, i) => {
       const values = []
       if (i > 0) {
@@ -66,14 +65,14 @@ const NetWortHistory: React.FC<Props> = ({
 
     const netWorthSeries: Series = { data: [], color: '#3b82f6', type: 'area' }
     for (let i = 0; i < netWorthDates.length; i++) {
-      const time = formatDateToYYYYMMDD(netWorthDates[i]);
-    
+      const time = formatDateToYYYYMMDD(netWorthDates[i])
+
       // Push only if the date (time) does not already exist in the data array
       if (!netWorthSeries.data.some((e: LineData) => e.time === time)) {
         netWorthSeries.data.push({
-          time: time,
-          value: netWorthValues[i],
-        });
+          time,
+          value: netWorthValues[i]
+        })
       }
     }
 
@@ -85,9 +84,7 @@ const NetWortHistory: React.FC<Props> = ({
         type: 'line'
       }
     ])
-    
   }, [netWorthDates, netWorthValues, totalInvestedDates, totalInvestedValues])
-
 
   return (
     <div className='w-full h-full flex justify-center items-center'>
@@ -97,7 +94,7 @@ const NetWortHistory: React.FC<Props> = ({
         </h2>
         <div className='text-gray-400 playfair'>Max: {numberWithSpacesRounded(Math.max(...netWorthValues))} <span className='text-[8px] md:text-[12px] playfair'>{currency === undefined ? '' : currency}</span></div>
         <div ref={containerRef} className='flex justify-center items-center w-[95%] md:px-6 w-full h-full'>
-          {lineChartSeries && <LineChart series={lineChartSeries} width={containerRef.current.offsetWidth} height={containerRef.current.offsetHeight} />}
+          {(lineChartSeries != null) && <LineChart series={lineChartSeries} width={containerRef.current.offsetWidth} height={containerRef.current.offsetHeight} />}
         </div>
       </div>
     </div>
