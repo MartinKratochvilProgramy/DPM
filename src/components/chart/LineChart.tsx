@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { createChart, type LineData, ColorType } from 'lightweight-charts'
+import { createChart, type LineData, ColorType, type IChartApi } from 'lightweight-charts'
 import { chartColor } from '../MainPage/RelativeChangeHistory'
 
 export interface Series {
@@ -16,11 +16,11 @@ interface LineChartProps {
 
 const LineChart: React.FC<LineChartProps> = ({ series, width = 600, height = 300 }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null)
-  const chartRef = useRef<any>(null)
-  const seriesRef = useRef<any>(null)
+  const chartRef = useRef<IChartApi | null>(null)
+  const seriesRef = useRef<any[]>([])
 
   useEffect(() => {
-    if (chartContainerRef.current == null) return
+    if (chartContainerRef.current === null) return
 
     // Create chart
     chartRef.current = createChart(chartContainerRef.current, {
@@ -41,6 +41,7 @@ const LineChart: React.FC<LineChartProps> = ({ series, width = 600, height = 300
       timeScale: {
         fixLeftEdge: true,
         fixRightEdge: true,
+        shiftVisibleRangeOnNewBar: false,
         borderVisible: false
       },
       rightPriceScale: {
@@ -50,33 +51,48 @@ const LineChart: React.FC<LineChartProps> = ({ series, width = 600, height = 300
 
     chartRef.current.timeScale().fitContent()
 
-    // Add data to series
-    seriesRef.current = series.map(({ data, color, type }) => {
-      if (type === 'area') {
-        const areaSeries = chartRef.current.addAreaSeries({
-          lineColor: color, // Color of the line
-          topColor: color, // Gradient color near the line
-          bottomColor: 'rgba(255, 255, 255, 0.28)', // Gradient color at the bottom
-          lineWidth: 1 // Line thickness
-        })
-        areaSeries.setData(data)
-
-        return areaSeries
-      } else {
-        const lineSeries = chartRef.current.addLineSeries({
-          color,
-          lineWidth: 1
-        })
-        lineSeries.setData(data)
-        return lineSeries
-      }
-    })
-
     return () => {
-      // Clean up the chart
+      // Cleanup on component unmount
       chartRef.current?.remove()
     }
-  }, [series, width, height])
+  }, [width, height])
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!chartRef.current) return
+
+    series.forEach(({ data, color, type }, index) => {
+      let chartSeries = seriesRef.current[index]
+
+      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+      if (!chartSeries) {
+        chartSeries =
+          type === 'area'
+            ? chartRef.current?.addAreaSeries({
+              lineColor: color,
+              topColor: color,
+              bottomColor: 'rgba(255, 255, 255, 0.28)',
+              lineWidth: 1
+            })
+            : chartRef.current?.addLineSeries({
+              color,
+              lineWidth: 1
+            })
+
+        seriesRef.current[index] = chartSeries
+      }
+
+      chartSeries.setData(data)
+    })
+
+    // Remove extra series if the `series` prop has fewer items
+    if (series.length < seriesRef.current.length) {
+      seriesRef.current.slice(series.length).forEach((extraSeries) => {
+        chartRef.current?.removeSeries(extraSeries)
+      })
+      seriesRef.current.length = series.length // Trim the series reference array
+    }
+  }, [series])
 
   return <div ref={chartContainerRef} />
 }
