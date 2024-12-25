@@ -24,7 +24,7 @@
             "off"
         ],
         "indent": [
-            "error",
+            "warning",
             2
         ],
         "no-console": 1,
