@@ -42,6 +42,21 @@ const Portfolio = () => {
         return stocks.filter((stock) => stock.quoteType !== 'ETF')
     }
 
+    const sortedStocks = getFilteredStocks().slice().sort((a, b) => {
+        if (orderBy) {
+            const aValue = a[orderBy as keyof StockInterface];
+            const bValue = b[orderBy as keyof StockInterface];
+
+            if (aValue < bValue) {
+                return order === 'asc' ? -1 : 1;
+            }
+            if (aValue > bValue) {
+                return order === 'asc' ? 1 : -1;
+            }
+        }
+        return 0;
+    });
+
     return (
         <Grid>
             <Grid
@@ -149,7 +164,7 @@ const Portfolio = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {getFilteredStocks().map((stock) => (
+                        {sortedStocks.map((stock) => (
                             <TableRow
                                 key={stock.ticker}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -200,7 +215,7 @@ const Portfolio = () => {
                 alignItems='center'
                 mx={50}
             >
-                <PieChart stocks={getFilteredStocks()} />
+                <PieChart stocks={sortedStocks} />
             </Grid>
         </Grid>
 
