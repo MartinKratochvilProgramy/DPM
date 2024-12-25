@@ -1,11 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTheme } from 'next-themes'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import './Navbar.css'
+import { Box, Button, Drawer, List, ListItem, ListItemButton } from '@mui/material'
+import Link from 'next/link'
+
+interface Route {
+  name: string
+  path: string
+}
+
+const routes: Route[] = [
+  {
+    name: 'Overview',
+    path: '/'
+  },
+  {
+    name: 'Portfolio',
+    path: '/portfolio'
+  },
+  {
+    name: 'History',
+    path: '/history'
+  }
+]
 
 export const Navbar = () => {
   const { theme, setTheme } = useTheme()
   const { data: session } = useSession()
+
+  const [open, setOpen] = useState(false)
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen)
+  }
 
   function toggleTheme () {
     if (
@@ -17,12 +45,33 @@ export const Navbar = () => {
     }
   }
 
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {routes.map((route, index) => (
+          <ListItem key={route.name} disablePadding>
+            <ListItemButton onClick={() => { console.log(route.path) }}>
+              <Link href={route.path}>{route.name}</Link>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  )
+
   return (
     <nav
       className='border-gray-200 px-1 sm:px-4 bg-gray-900 p-3 flex flex-row xs:flex-col-reverse sm:flex-row justify-between items-center sm:items-center w-auto order-1'
       id='navbar-search'
     >
       <div className='flex w-full sm:w-auto py-1 justify-start items-center text-white space-x-2 md:space-x-4'>
+        {(session != null) && <>
+          <Button onClick={toggleDrawer(true)}>Open drawer</Button>
+          <Drawer open={open} onClose={toggleDrawer(false)} >
+            {DrawerList}
+          </Drawer>
+        </>
+        }
         {(session != null) &&
           <div className='pb-[2px]'>
             {session?.user?.name}

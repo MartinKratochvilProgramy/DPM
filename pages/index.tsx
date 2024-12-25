@@ -1,18 +1,13 @@
 import React from 'react'
-import LandingPage from '@/components/LandingPage/LandingPage'
 import MainPage from '@/components/MainPage/MainPage'
-import { useSession } from 'next-auth/react'
+import Page from '@/components/Page'
 
 const index = () => {
-  const { status } = useSession()
-
-  if (status === 'loading') {
-    return null
-  } else if (status === 'unauthenticated') {
-    return <LandingPage />
-  } else {
-    return <MainPage demo={false} />
-  }
+  return (
+    <Page>
+      <MainPage demo={false} />
+    </Page>
+  )
 }
 
 export default index
