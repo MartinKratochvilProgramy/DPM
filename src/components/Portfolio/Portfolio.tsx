@@ -166,6 +166,7 @@ const Portfolio = () => {
                     <TableBody>
                         {sortedStocks.map((stock) => (
                             <TableRow
+                                hover
                                 key={stock.ticker}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
