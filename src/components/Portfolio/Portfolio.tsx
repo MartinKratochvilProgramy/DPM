@@ -6,9 +6,13 @@ import { FormControlLabel, FormGroup, Grid, Link, Paper, Switch, Table, TableBod
 import PieChart from '../MainPage/Stocks/PieChart'
 import { useSession } from 'next-auth/react'
 
+interface PortfolioStockInterface extends StockInterface {
+    totalSize: number;
+}
+
 const Portfolio = () => {
     const [includeEtfs, setIncludeEtfs] = useState(false)
-    const [stocks, setStocks] = useState<StockInterface[]>([])
+    const [stocks, setStocks] = useState<PortfolioStockInterface[]>([])
     const [order, setOrder] = useState<'asc' | 'desc'>('asc')
     const [orderBy, setOrderBy] = useState<string>('')
 
@@ -23,7 +27,15 @@ const Portfolio = () => {
             .then((response: any) => response.json())
             .then(returnedStocks => {
                 formatStocks(returnedStocks)
-                setStocks(returnedStocks)
+
+                const portfolioStocks: PortfolioStockInterface[] = returnedStocks.map((stock: StockInterface) => {
+                    return {
+                        ...stock,
+                        totalSize: stock.prevClose * stock.amount
+                    }
+                })
+
+                setStocks(portfolioStocks)
             })
             .catch(error => {
                 console.error(error)
@@ -106,9 +118,9 @@ const Portfolio = () => {
                             </TableCell>
                             <TableCell align="center">
                                 <TableSortLabel
-                                    active={orderBy === 'prevClose'}
-                                    direction={orderBy === 'prevClose' ? order : 'asc'}
-                                    onClick={() => { handleSort('prevClose') }}
+                                    active={orderBy === 'totalSize'}
+                                    direction={orderBy === 'totalSize' ? order : 'asc'}
+                                    onClick={() => { handleSort('totalSize') }}
                                 >
                                     Size
                                 </TableSortLabel>
@@ -183,7 +195,7 @@ const Portfolio = () => {
                                 </TableCell>
                                 <TableCell align="center">{stock.amount}</TableCell>
                                 <TableCell align="center">{stock.prevClose}</TableCell>
-                                <TableCell align="center">{stock.amount * stock.prevClose}</TableCell>
+                                <TableCell align="center">{stock.totalSize}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{
