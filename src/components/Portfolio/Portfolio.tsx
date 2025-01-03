@@ -167,9 +167,6 @@ const Portfolio = () => {
                                     Dividend
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell align='center'>
-                                Quote Type
-                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -214,7 +211,6 @@ const Portfolio = () => {
                                 <TableCell align="center">{Math.round(stock.trailingPE)}</TableCell>
                                 <TableCell align="center">{Math.round(stock.forwardPE)}</TableCell>
                                 <TableCell align="center">{Math.round(stock.dividendRatePercent * 100) / 100}%</TableCell>
-                                <TableCell align="center">{stock.quoteType}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
