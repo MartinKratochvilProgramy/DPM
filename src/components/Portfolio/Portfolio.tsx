@@ -106,6 +106,15 @@ const Portfolio = () => {
                             </TableCell>
                             <TableCell align="center">
                                 <TableSortLabel
+                                    active={orderBy === 'prevClose'}
+                                    direction={orderBy === 'prevClose' ? order : 'asc'}
+                                    onClick={() => { handleSort('prevClose') }}
+                                >
+                                    Size
+                                </TableSortLabel>
+                            </TableCell>
+                            <TableCell align="center">
+                                <TableSortLabel
                                     active={orderBy === 'avgPercentageChange'}
                                     direction={orderBy === 'avgPercentageChange' ? order : 'asc'}
                                     onClick={() => { handleSort('avgPercentageChange') }}
@@ -177,6 +186,7 @@ const Portfolio = () => {
                                 </TableCell>
                                 <TableCell align="center">{stock.amount}</TableCell>
                                 <TableCell align="center">{stock.prevClose}</TableCell>
+                                <TableCell align="center">{stock.amount * stock.prevClose}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{
