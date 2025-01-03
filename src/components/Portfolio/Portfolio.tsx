@@ -195,7 +195,7 @@ const Portfolio = () => {
                                 </TableCell>
                                 <TableCell align="center">{stock.amount}</TableCell>
                                 <TableCell align="center">{stock.prevClose}</TableCell>
-                                <TableCell align="center">{Math.round(stock.totalSize)}</TableCell>
+                                <TableCell align="center">{new Intl.NumberFormat('en-US').format(Math.round(stock.totalSize))}</TableCell>
                                 <TableCell
                                     align="center"
                                     sx={{
