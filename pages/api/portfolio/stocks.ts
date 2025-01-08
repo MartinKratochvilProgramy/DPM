@@ -14,7 +14,11 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       include: {
         stocks: {
           include: {
-            purchases: true
+            purchases: {
+              orderBy: {
+                date: 'desc'
+              }
+            }
           }
         }
       }
