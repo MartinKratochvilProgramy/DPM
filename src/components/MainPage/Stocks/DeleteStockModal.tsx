@@ -9,6 +9,7 @@ interface Props {
   ticker: string
   currentAmount: number
   amountToDelete: number
+  setAmountToDelete: (amountToDelete: number) => void
   purchaseId: number | null
 }
 
@@ -20,9 +21,10 @@ export const DeleteStockModal: React.FC<Props> = ({
   ticker,
   currentAmount,
   amountToDelete,
+  setAmountToDelete,
   purchaseId
 }) => {
-  function submit (e: React.FormEvent<HTMLFormElement>) {
+  function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     // if no purchaseID or remaining amount is 0, delete stock
@@ -35,7 +37,7 @@ export const DeleteStockModal: React.FC<Props> = ({
     setShowDeleteModal(false)
   }
 
-  function handleModalClose (e: any) {
+  function handleModalClose(e: any) {
     e.stopPropagation()
     setShowDeleteModal(false)
   }
@@ -61,7 +63,22 @@ export const DeleteStockModal: React.FC<Props> = ({
                     </svg>
                   </div>
                   <div className="mt-3 sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Remove {ticker} ({amountToDelete})?</h3>
+                    <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">Remove {ticker}?
+
+                      <input
+                        type="number"
+                        id="amount-input"
+                        className="text-center rounded-r-md bg-gray-100 w-5/12 border-0 border-l-[1px] border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
+                        placeholder="Amount..."
+                        onChange={(e) => {
+                          const newValue = Number(e.target.value)
+                          if (newValue <= currentAmount && newValue > 0) {
+                            setAmountToDelete(newValue)
+                          }
+                        }}
+                        value={amountToDelete}
+                      />
+                    </h3>
                   </div>
                 </div>
               </div>
@@ -70,7 +87,7 @@ export const DeleteStockModal: React.FC<Props> = ({
                   type="submit"
                   onClick={(e) => { e.stopPropagation() }}
                   className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm">
-                    Remove
+                  Remove
                 </button>
                 <button
                   type="button"

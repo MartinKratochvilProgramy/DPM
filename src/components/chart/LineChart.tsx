@@ -62,7 +62,16 @@ const LineChart: React.FC<LineChartProps> = ({ series, width = 600, height = 300
     if (!chartRef.current) return
 
     series.forEach(({ data, color, type }, index) => {
-      let chartSeries = seriesRef.current[index]
+      // Filter data to keep only the last entry for each date
+      const uniqueDates = new Map();
+      data.forEach(entry => {
+        uniqueDates.set(entry.time, entry.value); // Overwrites previous entry for the same date
+      });
+
+      // Convert the Map back to an array
+      const filteredData = Array.from(uniqueDates, ([time, value]) => ({ time, value }));
+
+      let chartSeries = seriesRef.current[index];
 
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!chartSeries) {
@@ -77,13 +86,14 @@ const LineChart: React.FC<LineChartProps> = ({ series, width = 600, height = 300
             : chartRef.current?.addLineSeries({
               color,
               lineWidth: 1
-            })
+            });
 
-        seriesRef.current[index] = chartSeries
+        seriesRef.current[index] = chartSeries;
       }
 
-      chartSeries.setData(data)
-    })
+      chartSeries.setData(filteredData); // Use the filtered data for further operations
+    });
+
 
     // Remove extra series if the `series` prop has fewer items
     if (series.length < seriesRef.current.length) {

@@ -8,54 +8,49 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   // remove stock from db
 
   try {
-    const { email, ticker } = req.body
+    const { email, ticker, amountToDelete } = req.body
 
     if (email === 'demo') {
       res.status(500).json('Cannot edit in demo mode')
       return
     }
 
-    const purchases = await prisma.purchase.findMany({
+    // find stock
+    const stock = await prisma.stock.findFirst({
       where: {
-        stock: {
-          userEmail: email,
-          ticker
-        }
+        userEmail: email,
+        ticker: ticker
       }
     })
 
-    if (purchases === null) {
+    if (stock === null) {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Purchase not found: ${email} ${ticker}`)
     }
 
-    let decrementTotalInvested = 0
-    for (const purchase of purchases) {
-      decrementTotalInvested += purchase.amount * purchase.price
-    }
-
-    const stockId = await prisma.stock.findMany({
-      where: {
-        userEmail: email,
-        ticker
-      }
-    })
-
-    await prisma.purchase.deleteMany({
-      where: {
-        stockId: stockId[0].id
-      }
-    })
-
-    await prisma.stock.deleteMany({
-      where: {
-        id: stockId[0].id
-      }
-    })
-
-    const stocks = await prisma.user.findUnique({
+    const newStocks = await prisma.user.update({
       where: {
         email
+      },
+      data: {
+        stocks: {
+          update: {
+            where: {
+              id: stock.id
+            },
+            data: {
+              amount: { decrement: amountToDelete },
+              lastPurchase: new Date(),
+              purchases: {
+                create: {
+                  date: new Date(),
+                  amount: -amountToDelete,
+                  price: parseFloat(stock.prevClose.toFixed(2))
+                }
+              }
+            }
+          }
+        }
       },
       include: {
         stocks: {
@@ -68,9 +63,9 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const newTotalNetWorth = await updateStocks(email)
     const newNetWorth = await addNetWorth(email, newTotalNetWorth)
-    const newTotalInvested = await incrementTotalInvested(email, -decrementTotalInvested)
+    const newTotalInvested = await incrementTotalInvested(email, -amountToDelete * stock.prevClose)
 
-    res.json({ stocks: stocks?.stocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
+    res.json({ stocks: newStocks, netWorth: newNetWorth, totalInvested: newTotalInvested })
   } catch (error) {
     res.status(500).json(error)
     console.log(error)

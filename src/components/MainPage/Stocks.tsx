@@ -38,46 +38,7 @@ export const Stocks: React.FC<Props> = ({
 
   const { data: session } = useSession()
 
-  function deleteStock (ticker: string) {
-    setStocksInputLoading(true)
-
-    fetch('api/portfolio/delete_stock', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: demo ? 'demo' : session?.user?.email,
-        ticker
-      })
-    })
-      .then(handleErrors)
-      .then((response) => response.json())
-      .then((res) => {
-        const stocks = res.stocks
-        const netWorth = res.netWorth
-        const totalInvested = res.totalInvested
-
-        setNetWorthDates(netWorth.netWorthDates)
-        setNetWorthValues(netWorth.netWorthValues)
-
-        setTotalInvestedDates(totalInvested.totalInvestedDates)
-        setTotalInvestedValues(totalInvested.totalInvestedValues)
-
-        formatStocks(stocks)
-        sortStocks('NEWEST', stocks)
-        setStocks(stocks)
-
-        setStocksInputLoading(false)
-      })
-      .catch((error) => {
-        setError(error.message)
-
-        setStocksInputLoading(false)
-      })
-  }
-
-  function deletePurchase (ticker: string, purchaseId: number) {
+  function deletePurchase(ticker: string, purchaseId: number) {
     setStocksInputLoading(true)
 
     fetch('api/portfolio/delete_purchase', {
@@ -117,7 +78,7 @@ export const Stocks: React.FC<Props> = ({
       })
   }
 
-  function handleDropdownClick (value: string) {
+  function handleDropdownClick(value: string) {
     const newStocks = [...stocks]
     sortStocks(value, newStocks)
     setStocks(newStocks)
@@ -152,9 +113,9 @@ export const Stocks: React.FC<Props> = ({
           if (stock.ticker.includes(searchKey.toUpperCase())) {
             return (
               <Stock
+                demo={demo}
                 stock={stock}
                 key={stock.ticker}
-                deleteStock={deleteStock}
                 deletePurchase={deletePurchase}
               />
             )
