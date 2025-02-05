@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import prisma from '@/lib/prisma'
 import { getConversionRate } from '../client/getConversionRate'
 
-export async function updateStocks (email: string) {
+export async function updateStocks(email: string) {
   // loop through all user's stocks and update prev close
   // calculate total net worth and push it to netWorthHistory
   // calculate relative change in net worth and push it to relativeChangeHistory
@@ -35,7 +35,9 @@ export async function updateStocks (email: string) {
         const conversionRate = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, stocks.currency)
         const prevClose = parseFloat((parseFloat(stockInfoJson.chart.result[0].meta.previousClose) * conversionRate).toFixed(2))
 
-        newTotalNetWorth += prevClose * stock.amount
+        if (stock.amount > 0) {
+          newTotalNetWorth += prevClose * stock.amount
+        }
 
         // Update the prevClose value
         const updatedStock = await prisma.stock.updateMany({
