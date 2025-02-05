@@ -202,7 +202,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       })
   }, [])
 
-  function getCurrentStockPrices () {
+  function getCurrentStockPrices() {
     if (currency === '' || stocks.length === 0) {
       return
     }
@@ -230,7 +230,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
         let newNetWorth = 0
         newStocks.forEach(stock => {
-          newNetWorth += stock.amount * stock.prevClose
+          if (stock.amount > 0) {
+            newNetWorth += stock.amount * stock.prevClose
+          }
         })
         newNetWorth = parseFloat(newNetWorth.toFixed(2))
 
