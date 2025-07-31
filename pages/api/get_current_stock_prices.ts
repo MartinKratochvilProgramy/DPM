@@ -1,6 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from 'next'
 import { getConversionRate } from '@/utils/client/getConversionRate'
 import fetch from 'node-fetch'
+import yahooFinance from 'yahoo-finance2'
 
 type StockPrices = Record<string, number>
 
@@ -11,11 +12,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const converstionRates: any = {}
     const result: StockPrices = {}
 
+    // TODO: maybe this can be in one API call?
     for (const ticker of tickers) {
       // get stocks ticker, if not exists, return
-      const stockInfo = await fetch(`https://query1.finance.yahoo.com/v8/finance/chart/${String(ticker)}`)
-      const stockInfoJson: any = await stockInfo.json()
-      if (stockInfoJson.chart.result === undefined || stockInfoJson.chart.result === null) {
+
+      const r: Record<any, any> = await yahooFinance.quoteSummary(ticker)
+      const regularMarketPrice = r?.price?.regularMarketPrice
+      const tickerCurrency = r?.price?.currency
+
+      if (!regularMarketPrice) {
         res.status(403)
         res.json({
           message: `Ticker not found: ${String(ticker)}`
@@ -23,13 +28,12 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         return
       }
 
-      const tickerCurrency: string = stockInfoJson.chart.result[0].meta.currency
       if (converstionRates[tickerCurrency] === undefined) {
-        converstionRates[tickerCurrency] = await getConversionRate(stockInfoJson.chart.result[0].meta.currency, currency)
+        converstionRates[tickerCurrency] = await getConversionRate(tickerCurrency, currency)
       }
 
       // current price of stock in set currency
-      const price = parseFloat((stockInfoJson.chart.result[0].meta.regularMarketPrice * converstionRates[tickerCurrency]).toFixed(2))
+      const price = parseFloat((regularMarketPrice * converstionRates[tickerCurrency]).toFixed(2))
 
       result[ticker] = price
     }
