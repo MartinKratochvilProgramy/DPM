@@ -1,20 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import 'chartjs-adapter-moment'
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
-import { type TimeScaleInterface } from '@/types/client/timeScale'
+import { TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
-import '../../app/globals.css'
-import LineChart, { type Series } from '../chart/LineChart'
-import { type LineData } from 'lightweight-charts'
-import { orange } from './RelativeChangeHistory'
+import LineChart, { Series } from '../chart/LineChart'
 
 function formatDateToYYYYMMDD(date: Date) {
-  const parsedDate = new Date(date)
-
-  const year = parsedDate.getFullYear()
-  const month = String(parsedDate.getMonth() + 1).padStart(2, '0')
-  const day = String(parsedDate.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+  const parsed = new Date(date)
+  return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, '0')}-${String(
+    parsed.getDate()
+  ).padStart(2, '0')}`
 }
 
 interface Props {
@@ -36,52 +30,40 @@ const NetGainHistory: React.FC<Props> = ({
   const containerRef = useRef<any>()
 
   useEffect(() => {
-    if (
-      netWorthDates.length === 0 ||
-      netWorthValues.length === 0 ||
-      totalInvestedDates.length === 0 ||
-      totalInvestedValues.length === 0
-    ) return
+    if (!netWorthDates.length || !totalInvestedDates.length) return
 
-    // Build an index for totalInvested by date for fast lookups
-    const investedIndex: Record<string, number> = {}
-    for (let i = 0; i < totalInvestedDates.length; i++) {
-      investedIndex[formatDateToYYYYMMDD(totalInvestedDates[i])] = totalInvestedValues[i]
+    // 1. Create an array of {time, value} for invested
+    const investedTimeline = totalInvestedDates.map((d, i) => ({
+      time: formatDateToYYYYMMDD(d),
+      value: totalInvestedValues[i]
+    }))
+
+    // 2. Iterate netWorthDates and always keep last known invested value
+    let investedPointer = 0
+    let lastKnownInvested = investedTimeline[0].value
+
+    const netGainSeries: Series = {
+      data: [],
+      color: '#10b981',
+      type: 'area'
     }
-
-    const netGainSeries: Series = { data: [], color: '#10b981', type: 'area' }
 
     for (let i = 0; i < netWorthDates.length; i++) {
       const time = formatDateToYYYYMMDD(netWorthDates[i])
 
-      // Get previous invested value:
-      let investedPrev: number
-      if (i === 0) {
-        // For first date: subtract first totalInvested value
-        investedPrev = totalInvestedValues[0]
-      } else {
-        const prevTime = formatDateToYYYYMMDD(netWorthDates[i - 1])
-        investedPrev = investedIndex[prevTime] ?? totalInvestedValues[0]
+      // Move investedPointer forward while dates are <= current netWorth date
+      while (
+        investedPointer < investedTimeline.length - 1 &&
+        investedTimeline[investedPointer + 1].time <= time
+      ) {
+        investedPointer++
+        lastKnownInvested = investedTimeline[investedPointer].value
       }
 
-      const netGain = netWorthValues[i] - investedPrev
+      // Net gain = netWorth(i) - invested(previous)
+      const gain = netWorthValues[i] - lastKnownInvested
 
-      netGainSeries.data.push({
-        time,
-        value: netGain
-      })
-    }
-
-    // Update last value just to ensure correct last datapoint
-    const lastNetWorth = netWorthValues.at(-1)
-    if (lastNetWorth !== undefined && netGainSeries.data.length > 0) {
-      const lastTime = formatDateToYYYYMMDD(netWorthDates.at(-1)!)
-      const lastPrevInvested =
-        investedIndex[formatDateToYYYYMMDD(netWorthDates.at(-2)!)] ??
-        totalInvestedValues.at(-1)!
-
-      const lastPoint = netWorthValues.at(-1)! - lastPrevInvested
-      netGainSeries.data[netGainSeries.data.length - 1].value = lastPoint
+      netGainSeries.data.push({ time, value: gain })
     }
 
     setLineChartSeries([netGainSeries])
