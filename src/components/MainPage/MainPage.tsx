@@ -21,6 +21,7 @@ import { updatePrices } from '@/utils/client/updatePrices'
 import { type StockInterface } from '@/types/client/stock'
 import { useSession } from 'next-auth/react'
 import { type InflationAdjustedValues } from '@/pages/api/portfolio/relative_change'
+import NetGainHistory from './NetGainHistory'
 
 interface Props {
   demo: boolean
@@ -41,6 +42,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [netWorthLoaded, setNetWorthLoaded] = useState(false)
   const [netWorthTimeScale, setNetWorthTimeScale] = useState<TimeScaleInterface>('month')
   const [netWorthHistoryOpen, setNetWorthHistoryOpen] = useState(false)
+  const [netGainOpen, setNetGainOpen] = useState(false)
   const [lastNetWorth, setLastNetWorth] = useState(0) // netWorth from previous day to use for today's rel. change calculation
 
   const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([])
@@ -330,6 +332,18 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             : <LoadingSpinner size={70} />
           }
         </Card>
+        <Card setOpen={() => { setNetGainOpen(true) }}>
+          {netWorthLoaded
+            ? <NetGainHistory
+              netWorthDates={netWorthDates}
+              netWorthValues={netWorthValues}
+              totalInvestedDates={totalInvestedDates}
+              totalInvestedValues={totalInvestedValues}
+              timeScale={netWorthTimeScale}
+            />
+            : <LoadingSpinner size={70} />
+          }
+        </Card>
       </div>
 
       <Modal
@@ -420,6 +434,25 @@ const MainPage: React.FC<Props> = ({ demo }) => {
               totalInvestedDates={totalInvestedDates}
               totalInvestedValues={totalInvestedValues}
               timeScale={totalInvestedTimeScale}
+            />
+          </div>
+        </div>
+      </Modal>
+
+      <Modal
+        open={netGainOpen}
+        onClose={() => { setNetGainOpen(false) }}
+        aria-labelledby="stock-chart-modal"
+        aria-describedby="show-detailed-stock-chart"
+      >
+        <div>
+          <div className='fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500'>
+            <NetGainHistory
+              netWorthDates={netWorthDates}
+              netWorthValues={netWorthValues}
+              totalInvestedDates={totalInvestedDates}
+              totalInvestedValues={totalInvestedValues}
+              timeScale={netWorthTimeScale}
             />
           </div>
         </div>
