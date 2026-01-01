@@ -59,7 +59,7 @@ const Portfolio = () => {
     useEffect(() => {
         fetch('/api/portfolio/stocks', {
             method: 'POST',
-            body: JSON.stringify({ email: 'demo' })
+            body: JSON.stringify({ email: session?.user?.email })
         })
             .then(handleErrors)
             .then((response: any) => response.json())
