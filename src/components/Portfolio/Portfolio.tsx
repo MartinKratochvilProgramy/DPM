@@ -10,6 +10,44 @@ interface PortfolioStockInterface extends StockInterface {
     totalSize: number;
 }
 
+function aggregateStocks(
+  stocks: StockInterface[],
+  quoteType: string
+): StockInterface {
+  const prevCloseSum = stocks.reduce(
+    (sum, s) => sum + s.amount * s.prevClose,
+    0
+  )
+
+  return {
+    amount: 1,
+    avgPercentageChange: 0,
+    firstPurchase: '',
+    lastPurchase: '',
+    prevClose: prevCloseSum,
+    purchases: [],
+    ticker: quoteType,
+    trailingPE: 0,
+    forwardPE: 0,
+    regularMarketChangePercent: 0,
+    fiftyTwoWeekChangePercent: 0,
+    dividendRatePercent: 0,
+    quoteType
+  }
+}
+
+function transformStocks(
+  stocks: StockInterface[]
+): [StockInterface, StockInterface] {
+  const etfs = stocks.filter(s => s.quoteType === 'ETF')
+  const others = stocks.filter(s => s.quoteType !== 'ETF')
+
+  return [
+    aggregateStocks(etfs, 'ETF'),
+    aggregateStocks(others, 'INDIVIDUAL')
+  ]
+}
+
 const Portfolio = () => {
     const [includeEtfs, setIncludeEtfs] = useState(false)
     const [stocks, setStocks] = useState<PortfolioStockInterface[]>([])
@@ -21,7 +59,7 @@ const Portfolio = () => {
     useEffect(() => {
         fetch('/api/portfolio/stocks', {
             method: 'POST',
-            body: JSON.stringify({ email: session?.user?.email })
+            body: JSON.stringify({ email: 'demo' })
         })
             .then(handleErrors)
             .then((response: any) => response.json())
@@ -68,6 +106,8 @@ const Portfolio = () => {
         }
         return 0;
     });
+
+    const picksVsEtfs = transformStocks(stocks);
 
     return (
         <Grid>
@@ -235,6 +275,7 @@ const Portfolio = () => {
                 mx={50}
             >
                 <PieChart stocks={sortedStocks} />
+                <PieChart stocks={picksVsEtfs} />
             </Grid>
         </Grid>
 
