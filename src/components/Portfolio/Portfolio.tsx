@@ -38,14 +38,16 @@ function aggregateStocks(
 
 function transformStocks(
   stocks: StockInterface[]
-): [StockInterface, StockInterface] {
-  const etfs = stocks.filter(s => s.quoteType === 'ETF')
-  const others = stocks.filter(s => s.quoteType !== 'ETF')
+): StockInterface[] {
+    if (stocks.length === 0) return [];
 
-  return [
-    aggregateStocks(etfs, 'ETF'),
-    aggregateStocks(others, 'INDIVIDUAL')
-  ]
+    const etfs = stocks.filter(s => s.quoteType === 'ETF')
+    const others = stocks.filter(s => s.quoteType !== 'ETF')
+
+    return [
+        aggregateStocks(etfs, 'ETF'),
+        aggregateStocks(others, 'INDIVIDUAL')
+    ]
 }
 
 const Portfolio = () => {
