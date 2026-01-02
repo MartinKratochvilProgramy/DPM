@@ -112,7 +112,7 @@ const NetWortHistory: React.FC<Props> = ({
           ref={containerRef}
           className="flex justify-center items-center w-[90%] md:px-6 w-full h-full"
         >
-          {lineChartSeries != null && (
+          {lineChartSeries && (
             <LineChart
               series={lineChartSeries}
               width={containerRef.current.offsetWidth}

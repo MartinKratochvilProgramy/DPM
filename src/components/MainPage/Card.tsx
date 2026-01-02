@@ -1,11 +1,12 @@
-import { Modal } from '@mui/material';
+import { Modal, modalClasses } from '@mui/material';
 import { useState, type ReactNode } from 'react';
 
 interface CardInterface {
   children: ReactNode;
+  modalClassName: string;
 }
 
-const Card: React.FC<CardInterface> = ({ children }) => {
+const Card: React.FC<CardInterface> = ({ children, modalClassName }) => {
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,11 +24,11 @@ const Card: React.FC<CardInterface> = ({ children }) => {
         onClose={() => {
           setIsOpen(false);
         }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
+        aria-labelledby="modal"
+        aria-describedby="show-detailed-modal"
       >
         <div>
-          <div className="fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500">
+          <div className={modalClassName}>
             {children}
           </div>
         </div>

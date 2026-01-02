@@ -90,20 +90,20 @@ const LineChart: React.FC<LineChartProps> = ({
         chartSeries =
           type === 'area'
             ? chartRef.current?.addAreaSeries({
-                lineColor: color,
-                topColor: color,
-                bottomColor: 'rgba(255, 255, 255, 0.28)',
-                lineWidth: 1,
-              })
+              lineColor: color,
+              topColor: color,
+              bottomColor: 'rgba(255, 255, 255, 0.28)',
+              lineWidth: 1,
+            })
             : chartRef.current?.addLineSeries({
-                color,
-                lineWidth: 1,
-              });
+              color,
+              lineWidth: 1,
+            });
 
         seriesRef.current[index] = chartSeries;
       }
 
-      chartSeries.setData(filteredData); // Use the filtered data for further operations
+      chartSeries?.setData(filteredData); // Use the filtered data for further operations
     });
 
     // Remove extra series if the `series` prop has fewer items
