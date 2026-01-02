@@ -7,6 +7,7 @@ import '../../app/globals.css';
 import LineChart, { type Series } from '../chart/LineChart';
 import { type LineData } from 'lightweight-charts';
 import { orange } from './RelativeChangeHistory';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 function formatDateToYYYYMMDD(date: Date) {
   const parsedDate = new Date(date);
@@ -18,18 +19,14 @@ function formatDateToYYYYMMDD(date: Date) {
 }
 
 interface Props {
-  netWorthDates: Date[];
-  netWorthValues: number[];
-  totalInvestedDates: Date[];
-  totalInvestedValues: number[];
+  netWorth: TimeSeries;
+  totalInvested: TimeSeries;
   timeScale: TimeScaleInterface;
 }
 
 const NetWortHistory: React.FC<Props> = ({
-  netWorthDates,
-  netWorthValues,
-  totalInvestedDates,
-  totalInvestedValues,
+  netWorth,
+  totalInvested,
 }) => {
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
 
@@ -38,24 +35,24 @@ const NetWortHistory: React.FC<Props> = ({
   const containerRef = useRef<any>();
 
   useEffect(() => {
-    const totalInvestedData = totalInvestedDates.flatMap((date, i) => {
+    const totalInvestedData = totalInvested.dates.flatMap((date, i) => {
       const values = [];
       if (i > 0) {
         values.push({
-          time: formatDateToYYYYMMDD(totalInvestedDates[i]),
-          value: totalInvestedValues[i - 1],
+          time: formatDateToYYYYMMDD(totalInvested.dates[i]),
+          value: totalInvested.values[i - 1],
         });
       } else {
         values.push({
-          time: formatDateToYYYYMMDD(totalInvestedDates[i]),
-          value: totalInvestedValues[i],
+          time: formatDateToYYYYMMDD(totalInvested.dates[i]),
+          value: totalInvested.values[i],
         });
       }
       return values;
     });
 
-    const lastDate = netWorthDates.at(-1);
-    const lastInvested = totalInvestedValues.at(-1);
+    const lastDate = netWorth.dates.at(-1);
+    const lastInvested = totalInvested.values.at(-1);
     if (lastDate !== undefined && lastInvested !== undefined) {
       totalInvestedData.push({
         time: formatDateToYYYYMMDD(lastDate),
@@ -64,20 +61,20 @@ const NetWortHistory: React.FC<Props> = ({
     }
 
     const netWorthSeries: Series = { data: [], color: '#3b82f6', type: 'area' };
-    for (let i = 0; i < netWorthDates.length; i++) {
-      const time = formatDateToYYYYMMDD(netWorthDates[i]);
+    for (let i = 0; i < netWorth.dates.length; i++) {
+      const time = formatDateToYYYYMMDD(netWorth.dates[i]);
 
       // Push only if the date (time) does not already exist in the data array
       if (!netWorthSeries.data.some((e: LineData) => e.time === time)) {
         netWorthSeries.data.push({
           time,
-          value: netWorthValues[i],
+          value: netWorth.values[i],
         });
       }
     }
 
     // update last value
-    const lastNetWorthValue = netWorthValues.at(-1);
+    const lastNetWorthValue = netWorth.values.at(-1);
     const lastDataPoint = netWorthSeries.data.at(-1);
     if (lastNetWorthValue !== undefined && lastDataPoint?.value !== undefined) {
       lastDataPoint.value = lastNetWorthValue;
@@ -91,19 +88,19 @@ const NetWortHistory: React.FC<Props> = ({
         type: 'line',
       },
     ]);
-  }, [netWorthDates, netWorthValues, totalInvestedDates, totalInvestedValues]);
+  }, [netWorth, totalInvested, totalInvested]);
 
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="flex pt-0 md:pt-0 lg:pt-3 px-2 md:px-4 lg:px-0 flex-col w-full h-full justify-center items-center">
         <h2 className="text-xl font-bold md:text-3xl raleway mt-1 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-0 text-gray-700 dark:text-gray-300">
-          {numberWithSpacesRounded(netWorthValues[netWorthValues.length - 1])}{' '}
+          {numberWithSpacesRounded(netWorth.values[netWorth.values.length - 1])}{' '}
           <span className="text-[16px] md:text-[28px] playfair">
             {currency === undefined ? '' : currency}
           </span>
         </h2>
         <div className="text-gray-400 playfair">
-          Max: {numberWithSpacesRounded(Math.max(...netWorthValues))}{' '}
+          Max: {numberWithSpacesRounded(Math.max(...netWorth.values))}{' '}
           <span className="text-[8px] md:text-[12px] playfair">
             {currency === undefined ? '' : currency}
           </span>

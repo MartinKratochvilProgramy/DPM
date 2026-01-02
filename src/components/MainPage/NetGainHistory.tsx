@@ -3,6 +3,7 @@ import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
 import { type TimeScaleInterface } from '@/types/client/timeScale';
 import { CurrencyContext } from '@/pages/_app';
 import LineChart, { type Series } from '../chart/LineChart';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 function formatDateToYYYYMMDD(date: Date) {
   const parsed = new Date(date);
@@ -12,33 +13,29 @@ function formatDateToYYYYMMDD(date: Date) {
 }
 
 interface Props {
-  netWorthDates: Date[];
-  netWorthValues: number[];
-  totalInvestedDates: Date[];
-  totalInvestedValues: number[];
+  netWorth: TimeSeries;
+  totalInvested: TimeSeries;
   timeScale: TimeScaleInterface;
 }
 
 const NetGainHistory: React.FC<Props> = ({
-  netWorthDates,
-  netWorthValues,
-  totalInvestedDates,
-  totalInvestedValues,
+  netWorth,
+  totalInvested,
 }) => {
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
   const { currency } = useContext(CurrencyContext);
   const containerRef = useRef<any>();
 
   useEffect(() => {
-    if (netWorthDates.length === 0 || totalInvestedDates.length === 0) return;
+    if (netWorth.dates.length === 0 || totalInvested.dates.length === 0) return;
 
     // 1. Create an array of {time, value} for invested
-    const investedTimeline = totalInvestedDates.map((d, i) => ({
+    const investedTimeline = totalInvested.dates.map((d, i) => ({
       time: formatDateToYYYYMMDD(d),
-      value: totalInvestedValues[i],
+      value: totalInvested.values[i],
     }));
 
-    // 2. Iterate netWorthDates and always keep last known invested value
+    // 2. Iterate netWorth.dates and always keep last known invested value
     let investedPointer = 0;
     let lastKnownInvested = investedTimeline[0].value;
 
@@ -48,8 +45,8 @@ const NetGainHistory: React.FC<Props> = ({
       type: 'area',
     };
 
-    for (let i = 0; i < netWorthDates.length; i++) {
-      const time = formatDateToYYYYMMDD(netWorthDates[i]);
+    for (let i = 0; i < netWorth.dates.length; i++) {
+      const time = formatDateToYYYYMMDD(netWorth.dates[i]);
 
       // Move investedPointer forward while dates are <= current netWorth date
       while (
@@ -61,13 +58,13 @@ const NetGainHistory: React.FC<Props> = ({
       }
 
       // Net gain = netWorth(i) - invested(previous)
-      const gain = netWorthValues[i] - lastKnownInvested;
+      const gain = netWorth.values[i] - lastKnownInvested;
 
       netGainSeries.data.push({ time, value: gain });
     }
 
     setLineChartSeries([netGainSeries]);
-  }, [netWorthDates, netWorthValues, totalInvestedDates, totalInvestedValues]);
+  }, [netWorth, totalInvested, totalInvested]);
 
   const latestGain = lineChartSeries?.[0]?.data.at(-1)?.value ?? 0;
 

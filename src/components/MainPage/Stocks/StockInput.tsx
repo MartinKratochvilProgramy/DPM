@@ -7,6 +7,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner';
 import TickerHint from './TickerHint';
 import '../../../app/globals.css';
 import { useSession } from 'next-auth/react';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 interface Props {
   demo: boolean;
@@ -16,10 +17,8 @@ interface Props {
   setError: (error: string) => void;
   stocksInputLoading: boolean;
   setStocksInputLoading: (stocksInputLoading: boolean) => void;
-  setNetWorthDates: (netWorthDates: Date[]) => void;
-  setNetWorthValues: (netWorthValues: number[]) => void;
-  setTotalInvestedDates: (totalInvestedDates: Date[]) => void;
-  setTotalInvestedValues: (totalInvestedValues: number[]) => void;
+  setNetWorth: (netWorth: TimeSeries) => void;
+  setTotalInvested: (totalInvested: TimeSeries) => void;
 }
 
 interface StockI {
@@ -37,13 +36,11 @@ export const StockInput: React.FC<Props> = ({
   setStocks,
   setOrderDropdownValue,
   error,
+  setError,
   stocksInputLoading,
   setStocksInputLoading,
-  setError,
-  setNetWorthDates,
-  setNetWorthValues,
-  setTotalInvestedDates,
-  setTotalInvestedValues,
+  setNetWorth,
+  setTotalInvested
 }) => {
   const [selectedTicker, setSelectedTicker] = useState('');
   // set fetchTickers to false when user selects ticker by clicking
@@ -107,11 +104,15 @@ export const StockInput: React.FC<Props> = ({
       .then(handleErrors)
       .then((response) => response.json())
       .then((res) => {
-        setNetWorthDates(res.netWorth.netWorthDates);
-        setNetWorthValues(res.netWorth.netWorthValues);
+        setNetWorth({
+          dates: res.netWorth.netWorthDates,
+          values: res.netWorth.netWorthValues,
+        });
 
-        setTotalInvestedDates(res.totalInvested.totalInvestedDates);
-        setTotalInvestedValues(res.totalInvested.totalInvestedValues);
+        setTotalInvested({
+          dates: res.totalInvested.totalInvestedDates,
+          values: res.totalInvested.totalInvestedValues
+        })
 
         const stocks = res.stocks;
 

@@ -5,13 +5,13 @@ import { type TimeScaleInterface } from '@/types/client/timeScale';
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration';
 import '../../app/globals.css';
 import { type InflationAdjustedValues } from '@/pages/api/portfolio/relative_change';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 Chart.register(...registerables);
 
 interface Props {
   todaysRelativeChange: number;
-  relativeChangeDates: Date[];
-  relativeChangeValues: number[];
+  relativeChange: TimeSeries;
   timeScale: TimeScaleInterface;
   inflationAdjustedChange: InflationAdjustedValues;
 }
@@ -27,8 +27,7 @@ export const orangeLowOpacity = 'rgb(249, 115, 22, 0.1)';
 
 const RelativeChangeHistory: React.FC<Props> = ({
   todaysRelativeChange,
-  relativeChangeDates,
-  relativeChangeValues,
+  relativeChange,
   timeScale,
   inflationAdjustedChange,
 }) => {
@@ -44,9 +43,9 @@ const RelativeChangeHistory: React.FC<Props> = ({
 
       const s1 = {
         label: 'Total Cumulative Return',
-        data: relativeChangeDates.map((date, i) => ({
+        data: relativeChange.dates.map((date, i) => ({
           x: date,
-          y: relativeChangeValues[i],
+          y: relativeChange.values[i],
         })),
         borderColor: lastValue >= 0 ? green : red,
         backgroundColor: lastValue >= 0 ? greenLowOpacity : redLowOpacity,
@@ -136,14 +135,14 @@ const RelativeChangeHistory: React.FC<Props> = ({
         chart.destroy();
       }
     };
-  }, [relativeChangeDates, relativeChangeValues]);
+  }, [relativeChange]);
 
   let lastValue: number;
-  if (relativeChangeValues.at(-1) === undefined) {
+  if (relativeChange.values.at(-1) === undefined) {
     lastValue = 0;
   } else {
     lastValue =
-      Math.round(relativeChangeValues[relativeChangeValues.length - 1] * 100) /
+      Math.round(relativeChange.values[relativeChange.values.length - 1] * 100) /
       100;
   }
 

@@ -23,6 +23,7 @@ import { useSession } from 'next-auth/react';
 import { type InflationAdjustedValues } from '@/pages/api/portfolio/relative_change';
 import NetGainHistory from './NetGainHistory';
 import Card from './Card';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 interface Props {
   demo: boolean;
@@ -36,18 +37,20 @@ const MainPage: React.FC<Props> = ({ demo }) => {
   const [error, setError] = useState<string>('');
   const [orderDropdownValue, setOrderDropdownValue] = useState('NEWEST');
 
-  const [netWorthDates, setNetWorthDates] = useState<Date[]>([]);
-  const [netWorthValues, setNetWorthValues] = useState<number[]>([]);
+  const [netWorth, setNetWorth] = useState<TimeSeries>({
+    dates: [],
+    values: []
+  })
 
   const [netWorthLoaded, setNetWorthLoaded] = useState(false);
   const [netWorthTimeScale, setNetWorthTimeScale] =
     useState<TimeScaleInterface>('month');
   const [lastNetWorth, setLastNetWorth] = useState(0); // netWorth from previous day to use for today's rel. change calculation
 
-  const [relativeChangeDates, setRelativeChangeDates] = useState<Date[]>([]);
-  const [relativeChangeValues, setRelativeChangeValues] = useState<number[]>(
-    [],
-  );
+  const [relativeChange, setRelativeChange] = useState<TimeSeries>({
+    dates: [],
+    values: []
+  })
   const [relativeChangeLoaded, setRelativeChangeLoaded] = useState(false);
   const [relativeChangeTimeScale, setRelativeChangeTimeScale] =
     useState<TimeScaleInterface>('month');
@@ -58,8 +61,10 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       values: [],
     });
 
-  const [totalInvestedDates, setTotalInvestedDates] = useState<Date[]>([]);
-  const [totalInvestedValues, setTotalInvestedValues] = useState<number[]>([]);
+  const [totalInvested, setTotalInvested] = useState<TimeSeries>({
+    dates: [],
+    values: []
+  })
   const [totalInvestedLoaded, setTotalInvestedLoaded] = useState(false);
   const [totalInvestedTimeScale, setTotalInvestedTimeScale] =
     useState<TimeScaleInterface>('month');
@@ -123,8 +128,11 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         const values: number[] = history.values;
         const dates: Date[] = history.dates;
 
-        setNetWorthValues(values);
-        setNetWorthDates(dates);
+        setNetWorth({
+          dates: dates,
+          values: values,
+        })
+
         if (values.length > 0) setLastNetWorth(values[values.length - 1]);
 
         const timeScale = calculateTimeScale(dates);
@@ -162,8 +170,10 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         const timeScale = calculateTimeScale(dates);
         setRelativeChangeTimeScale(timeScale);
 
-        setRelativeChangeValues(values);
-        setRelativeChangeDates(dates);
+        setRelativeChange({
+          dates: dates,
+          values: values
+        })
 
         setRelativeChangeLoaded(true);
       })
@@ -192,8 +202,10 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         const timeScale = calculateTimeScale(dates);
         setTotalInvestedTimeScale(timeScale);
 
-        setTotalInvestedDates(dates);
-        setTotalInvestedValues(values);
+        setTotalInvested({
+          dates: dates,
+          values: values
+        })
 
         setTotalInvestedLoaded(true);
       })
@@ -229,34 +241,40 @@ const MainPage: React.FC<Props> = ({ demo }) => {
 
         setStocks(newStocks);
 
-        let newNetWorth = 0;
+        let newNetWorthValue = 0;
         newStocks.forEach((stock) => {
           if (stock.amount > 0) {
-            newNetWorth += stock.amount * stock.prevClose;
+            newNetWorthValue += stock.amount * stock.prevClose;
           }
         });
-        newNetWorth = parseFloat(newNetWorth.toFixed(2));
+        newNetWorthValue = parseFloat(newNetWorthValue.toFixed(2));
 
         if (lastNetWorth !== 0) {
-          setTodaysRelativeChange(100 * (newNetWorth / lastNetWorth - 1));
+          setTodaysRelativeChange(100 * (newNetWorthValue / lastNetWorth - 1));
         }
 
-        if (netWorthDates.length > 0 && netWorthValues.length > 0) {
-          setNetWorthDates([...netWorthDates, new Date()]);
-          setNetWorthValues([...netWorthValues, newNetWorth]);
+        if (netWorth.dates.length > 0 && netWorth.values.length > 0) {
+          const newNetWorth = netWorth
+          newNetWorth.dates.push(new Date())
+          newNetWorth.values.push(newNetWorthValue)
+
+          setNetWorth(newNetWorth)
         }
 
         if (
-          relativeChangeDates.length > 0 &&
-          relativeChangeValues.length > 0 &&
-          netWorthValues.length > 0
+          relativeChange.dates.length > 0 &&
+          relativeChange.values.length > 0 &&
+          netWorth.values.length > 0
         ) {
           const newRelativeChange =
-            (relativeChangeValues[relativeChangeValues.length - 1] *
-              newNetWorth) /
-            netWorthValues[netWorthValues.length - 1];
-          setRelativeChangeDates([...relativeChangeDates, new Date()]);
-          setRelativeChangeValues([...relativeChangeValues, newRelativeChange]);
+            (relativeChange.values[relativeChange.values.length - 1] *
+              newNetWorthValue) /
+            netWorth.values[netWorth.values.length - 1];
+
+          setRelativeChange({
+            dates: [...relativeChange.dates, new Date()],
+            values: [...relativeChange.values, newRelativeChange]
+          })
         }
       })
       .catch((error) => {
@@ -273,11 +291,9 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         error={error}
         setError={setError}
         stocksInputLoading={stocksInputLoading}
+        setNetWorth={setNetWorth}
         setStocksInputLoading={setStocksInputLoading}
-        setNetWorthDates={setNetWorthDates}
-        setNetWorthValues={setNetWorthValues}
-        setTotalInvestedDates={setTotalInvestedDates}
-        setTotalInvestedValues={setTotalInvestedValues}
+        setTotalInvested={setTotalInvested}
       />
       <div className="w-full flex flex-wrap justify-center gap-5 mt-4">
         <Card
@@ -292,10 +308,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
               setStocks={setStocks}
               setError={setError}
               setStocksInputLoading={setStocksInputLoading}
-              setNetWorthDates={setNetWorthDates}
-              setNetWorthValues={setNetWorthValues}
-              setTotalInvestedDates={setTotalInvestedDates}
-              setTotalInvestedValues={setTotalInvestedValues}
+              setNetWorth={setNetWorth}
+              setTotalInvested={setTotalInvested}
             />
           ) : (
             <LoadingSpinner size={70} />
@@ -306,10 +320,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         >
           {netWorthLoaded ? (
             <NetWortHistory
-              netWorthDates={netWorthDates}
-              netWorthValues={netWorthValues}
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
+              netWorth={netWorth}
+              totalInvested={totalInvested}
               timeScale={netWorthTimeScale}
             />
           ) : (
@@ -331,8 +343,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
           {relativeChangeLoaded ? (
             <RelativeChangeHistory
               todaysRelativeChange={todaysRelativeChange}
-              relativeChangeDates={relativeChangeDates}
-              relativeChangeValues={relativeChangeValues}
+              relativeChange={relativeChange}
               timeScale={relativeChangeTimeScale}
               inflationAdjustedChange={inflationAdjustedChange}
             />
@@ -345,8 +356,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         >
           {totalInvestedLoaded ? (
             <TotalInvestedHistory
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
+              totalInvested={totalInvested}
               timeScale={totalInvestedTimeScale}
             />
           ) : (
@@ -358,10 +368,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
         >
           {netWorthLoaded ? (
             <NetGainHistory
-              netWorthDates={netWorthDates}
-              netWorthValues={netWorthValues}
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
+              netWorth={netWorth}
+              totalInvested={totalInvested}
               timeScale={netWorthTimeScale}
             />
           ) : (

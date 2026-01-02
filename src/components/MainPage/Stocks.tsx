@@ -6,6 +6,7 @@ import { Stock } from './Stocks/Stock';
 import { handleErrors } from '@/utils/client/handleErrors';
 import { sortStocks } from '@/utils/client/sortStocks';
 import { useSession } from 'next-auth/react';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 interface Props {
   demo: boolean;
@@ -15,10 +16,8 @@ interface Props {
   setStocks: (stocks: StockInterface[]) => void;
   setError: (error: string) => void;
   setStocksInputLoading: (stocksInputLoading: boolean) => void;
-  setNetWorthDates: (netWorthDates: Date[]) => void;
-  setNetWorthValues: (netWorthValues: number[]) => void;
-  setTotalInvestedDates: (totalInvestedDates: Date[]) => void;
-  setTotalInvestedValues: (totalInvestedValues: number[]) => void;
+  setNetWorth: (netWorth: TimeSeries) => void;
+  setTotalInvested: (totalInvested: TimeSeries) => void;
 }
 
 export const Stocks: React.FC<Props> = ({
@@ -29,10 +28,8 @@ export const Stocks: React.FC<Props> = ({
   setStocks,
   setError,
   setStocksInputLoading,
-  setNetWorthDates,
-  setNetWorthValues,
-  setTotalInvestedDates,
-  setTotalInvestedValues,
+  setNetWorth,
+  setTotalInvested,
 }) => {
   const [searchKey, setSearchKey] = useState('');
 
@@ -59,11 +56,15 @@ export const Stocks: React.FC<Props> = ({
         const netWorth = res.netWorth;
         const totalInvested = res.totalInvested;
 
-        setNetWorthDates(netWorth.netWorthDates);
-        setNetWorthValues(netWorth.netWorthValues);
+        setNetWorth({
+          dates: netWorth.netWorthDates,
+          values: netWorth.netWorthValues
+        })
 
-        setTotalInvestedDates(totalInvested.totalInvestedDates);
-        setTotalInvestedValues(totalInvested.totalInvestedValues);
+        setTotalInvested({
+          dates: totalInvested.totalInvestedDates,
+          values: totalInvested.totalInvestedValues
+        })
 
         formatStocks(stocks);
         sortStocks('NEWEST', stocks);

@@ -7,18 +7,17 @@ import { type TimeScaleInterface } from '@/types/client/timeScale';
 import { CurrencyContext } from '@/pages/_app';
 import { type ChartLoadDuration } from '@/types/client/chartLoadDuration';
 import { chartColor } from './RelativeChangeHistory';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 Chart.register(...registerables);
 
 interface Props {
-  totalInvestedDates: Date[];
-  totalInvestedValues: number[];
+  totalInvested: TimeSeries;
   timeScale: TimeScaleInterface;
 }
 
 const TotalInvestedHistory: React.FC<Props> = ({
-  totalInvestedDates,
-  totalInvestedValues,
+  totalInvested,
   timeScale,
 }) => {
   const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000);
@@ -34,17 +33,17 @@ const TotalInvestedHistory: React.FC<Props> = ({
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const ctx = chartRef.current.getContext('2d')!;
 
-      const totalInvestedData = totalInvestedDates.flatMap((date, i) => {
+      const totalInvestedData = totalInvested.dates.flatMap((date, i) => {
         const values = [];
         if (i > 0) {
           values.push({
-            x: totalInvestedDates[i],
-            y: totalInvestedValues[i - 1],
+            x: totalInvested.dates[i],
+            y: totalInvested.values[i - 1],
           });
         }
         values.push({
-          x: totalInvestedDates[i],
-          y: totalInvestedValues[i],
+          x: totalInvested.dates[i],
+          y: totalInvested.values[i],
         });
 
         return values;
@@ -127,14 +126,14 @@ const TotalInvestedHistory: React.FC<Props> = ({
         chart.destroy();
       }
     };
-  }, [totalInvestedDates, totalInvestedValues]);
+  }, [totalInvested]);
 
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="flex pt-0 md:pt-0 lg:pt-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center">
         <h2 className="text-xl md:text-3xl font-bold raleway mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-4 text-gray-700 dark:text-gray-300">
           {numberWithSpacesRounded(
-            totalInvestedValues[totalInvestedValues.length - 1],
+            totalInvested.values[totalInvested.values.length - 1],
           )}{' '}
           <span className="playfair text-[16px] md:text-[28px]">
             {currency === undefined ? '' : currency}
