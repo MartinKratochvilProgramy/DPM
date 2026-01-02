@@ -290,33 +290,28 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       />
       <div className="w-full flex flex-wrap justify-center gap-5 mt-4">
         <Card
-          setOpen={() => {
-            setStocksOpen(true);
-          }}
         >
           {stocksLoaded ? (
-            <Stocks
-              demo={demo}
-              stocks={stocks}
-              orderDropdownValue={orderDropdownValue}
-              setOrderDropdownValue={setOrderDropdownValue}
-              setStocks={setStocks}
-              setError={setError}
-              setStocksInputLoading={setStocksInputLoading}
-              setNetWorthDates={setNetWorthDates}
-              setNetWorthValues={setNetWorthValues}
-              setTotalInvestedDates={setTotalInvestedDates}
-              setTotalInvestedValues={setTotalInvestedValues}
-            />
+            <div className="fixed max-w-[600px]">
+              <Stocks
+                demo={demo}
+                stocks={stocks}
+                orderDropdownValue={orderDropdownValue}
+                setOrderDropdownValue={setOrderDropdownValue}
+                setStocks={setStocks}
+                setError={setError}
+                setStocksInputLoading={setStocksInputLoading}
+                setNetWorthDates={setNetWorthDates}
+                setNetWorthValues={setNetWorthValues}
+                setTotalInvestedDates={setTotalInvestedDates}
+                setTotalInvestedValues={setTotalInvestedValues}
+              />
+            </div>
           ) : (
             <LoadingSpinner size={70} />
           )}
         </Card>
-        <Card
-          setOpen={() => {
-            setNetWorthHistoryOpen(true);
-          }}
-        >
+        <Card>
           {netWorthLoaded ? (
             <NetWortHistory
               netWorthDates={netWorthDates}
@@ -329,22 +324,14 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <LoadingSpinner size={70} />
           )}
         </Card>
-        <Card
-          setOpen={() => {
-            setPieOpen(true);
-          }}
-        >
+        <Card>
           {stocksLoaded ? (
             <PieChart stocks={stocks} />
           ) : (
             <LoadingSpinner size={70} />
           )}
         </Card>
-        <Card
-          setOpen={() => {
-            setRelativeChangeOpen(true);
-          }}
-        >
+        <Card>
           {relativeChangeLoaded ? (
             <RelativeChangeHistory
               todaysRelativeChange={todaysRelativeChange}
@@ -357,11 +344,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <LoadingSpinner size={70} />
           )}
         </Card>
-        <Card
-          setOpen={() => {
-            setTotalInvestedOpen(true);
-          }}
-        >
+        <Card>
           {totalInvestedLoaded ? (
             <TotalInvestedHistory
               totalInvestedDates={totalInvestedDates}
@@ -372,11 +355,7 @@ const MainPage: React.FC<Props> = ({ demo }) => {
             <LoadingSpinner size={70} />
           )}
         </Card>
-        <Card
-          setOpen={() => {
-            setNetGainOpen(true);
-          }}
-        >
+        <Card>
           {netWorthLoaded ? (
             <NetGainHistory
               netWorthDates={netWorthDates}
@@ -392,132 +371,8 @@ const MainPage: React.FC<Props> = ({ demo }) => {
       </div>
 
       <Modal
-        open={stocksOpen}
-        onClose={() => {
-          setStocksOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed max-w-[600px] left-1/2 top-[5vh] bottom-[5vh] transform -translate-x-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md w-[90vw] border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <Stocks
-              demo={demo}
-              stocks={stocks}
-              orderDropdownValue={orderDropdownValue}
-              setOrderDropdownValue={setOrderDropdownValue}
-              setStocks={setStocks}
-              setError={setError}
-              setStocksInputLoading={setStocksInputLoading}
-              setNetWorthDates={setNetWorthDates}
-              setNetWorthValues={setNetWorthValues}
-              setTotalInvestedDates={setTotalInvestedDates}
-              setTotalInvestedValues={setTotalInvestedValues}
-            />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
-        open={netWorthHistoryOpen}
-        onClose={() => {
-          setNetWorthHistoryOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <NetWortHistory
-              netWorthDates={netWorthDates}
-              netWorthValues={netWorthValues}
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
-              timeScale={netWorthTimeScale}
-            />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
-        open={pieOpen}
-        onClose={() => {
-          setPieOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed flex justify-center items-center left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md aspect-auto md:aspect-[1.2] w-[90vw] md:w-auto h-[40vh] md:h-[90vh] p-0 md:px-14 border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <PieChart stocks={stocks} />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
-        open={relativeChangeOpen}
-        onClose={() => {
-          setRelativeChangeOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <RelativeChangeHistory
-              todaysRelativeChange={todaysRelativeChange}
-              relativeChangeDates={relativeChangeDates}
-              relativeChangeValues={relativeChangeValues}
-              timeScale={relativeChangeTimeScale}
-              inflationAdjustedChange={inflationAdjustedChange}
-            />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
-        open={totalInvestedOpen}
-        onClose={() => {
-          setTotalInvestedOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <TotalInvestedHistory
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
-              timeScale={totalInvestedTimeScale}
-            />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
-        open={netGainOpen}
-        onClose={() => {
-          setNetGainOpen(false);
-        }}
-        aria-labelledby="stock-chart-modal"
-        aria-describedby="show-detailed-stock-chart"
-      >
-        <div>
-          <div className="fixed flex justify-center items-center h-[400px] sm:h-auto transform -translate-y-1/2 sm:-translate-y-0 left-[5vw] right-[5vw] top-1/2 sm:top-[5vh] aspect-auto sm:bottom-[5vh] overflow-y-auto bg-gray-100 dark:bg-[#1e2836] opacity-[0.96] rounded-md border-solid border-[1px] border-blue-400 dark:border-gray-500">
-            <NetGainHistory
-              netWorthDates={netWorthDates}
-              netWorthValues={netWorthValues}
-              totalInvestedDates={totalInvestedDates}
-              totalInvestedValues={totalInvestedValues}
-              timeScale={netWorthTimeScale}
-            />
-          </div>
-        </div>
-      </Modal>
-
-      <Modal
         open={currency === undefined}
-        onClose={() => {}}
+        onClose={() => { }}
         aria-labelledby="set-currency-modal"
         aria-describedby="show-currency-select-modal"
       >
