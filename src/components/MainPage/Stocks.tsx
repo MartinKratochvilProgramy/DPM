@@ -38,7 +38,7 @@ export const Stocks: React.FC<Props> = ({
 
   const { data: session } = useSession()
 
-  function deletePurchase(ticker: string, purchaseId: number) {
+  function deletePurchase (ticker: string, purchaseId: number) {
     setStocksInputLoading(true)
 
     fetch('api/portfolio/delete_purchase', {
@@ -78,7 +78,7 @@ export const Stocks: React.FC<Props> = ({
       })
   }
 
-  function handleDropdownClick(value: string) {
+  function handleDropdownClick (value: string) {
     const newStocks = [...stocks]
     sortStocks(value, newStocks)
     setStocks(newStocks)

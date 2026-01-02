@@ -7,10 +7,10 @@ import PieChart from '../MainPage/Stocks/PieChart'
 import { useSession } from 'next-auth/react'
 
 interface PortfolioStockInterface extends StockInterface {
-    totalSize: number;
+  totalSize: number
 }
 
-function aggregateStocks(
+function aggregateStocks (
   stocks: StockInterface[],
   quoteType: string
 ): StockInterface {
@@ -36,82 +36,82 @@ function aggregateStocks(
   }
 }
 
-function transformStocks(
+function transformStocks (
   stocks: StockInterface[]
 ): StockInterface[] {
-    if (stocks.length === 0) return [];
+  if (stocks.length === 0) return []
 
-    const etfs = stocks.filter(s => s.quoteType === 'ETF')
-    const others = stocks.filter(s => s.quoteType !== 'ETF')
+  const etfs = stocks.filter(s => s.quoteType === 'ETF')
+  const others = stocks.filter(s => s.quoteType !== 'ETF')
 
-    return [
-        aggregateStocks(etfs, 'ETF'),
-        aggregateStocks(others, 'INDIVIDUAL')
-    ]
+  return [
+    aggregateStocks(etfs, 'ETF'),
+    aggregateStocks(others, 'INDIVIDUAL')
+  ]
 }
 
 const Portfolio = () => {
-    const [includeEtfs, setIncludeEtfs] = useState(false)
-    const [stocks, setStocks] = useState<PortfolioStockInterface[]>([])
-    const [order, setOrder] = useState<'asc' | 'desc'>('asc')
-    const [orderBy, setOrderBy] = useState<string>('')
+  const [includeEtfs, setIncludeEtfs] = useState(false)
+  const [stocks, setStocks] = useState<PortfolioStockInterface[]>([])
+  const [order, setOrder] = useState<'asc' | 'desc'>('asc')
+  const [orderBy, setOrderBy] = useState<string>('')
 
-    const { data: session } = useSession()
+  const { data: session } = useSession()
 
-    useEffect(() => {
-        fetch('/api/portfolio/stocks', {
-            method: 'POST',
-            body: JSON.stringify({ email: session?.user?.email })
+  useEffect(() => {
+    fetch('/api/portfolio/stocks', {
+      method: 'POST',
+      body: JSON.stringify({ email: session?.user?.email })
+    })
+      .then(handleErrors)
+      .then((response: any) => response.json())
+      .then(returnedStocks => {
+        formatStocks(returnedStocks)
+
+        const portfolioStocks: PortfolioStockInterface[] = returnedStocks.map((stock: StockInterface) => {
+          return {
+            ...stock,
+            totalSize: stock.prevClose * stock.amount
+          }
         })
-            .then(handleErrors)
-            .then((response: any) => response.json())
-            .then(returnedStocks => {
-                formatStocks(returnedStocks)
 
-                const portfolioStocks: PortfolioStockInterface[] = returnedStocks.map((stock: StockInterface) => {
-                    return {
-                        ...stock,
-                        totalSize: stock.prevClose * stock.amount
-                    }
-                })
+        setStocks(portfolioStocks)
+      })
+      .catch(error => {
+        console.error(error)
+      })
+  }, [])
 
-                setStocks(portfolioStocks)
-            })
-            .catch(error => {
-                console.error(error)
-            })
-    }, [])
+  const handleSort = (property: string) => {
+    const isAsc = orderBy === property && order === 'asc'
+    setOrder(isAsc ? 'desc' : 'asc')
+    setOrderBy(property)
+  }
 
-    const handleSort = (property: string) => {
-        const isAsc = orderBy === property && order === 'asc'
-        setOrder(isAsc ? 'desc' : 'asc')
-        setOrderBy(property)
+  const getFilteredStocks = () => {
+    if (includeEtfs) return stocks
+
+    return stocks.filter((stock) => stock.quoteType !== 'ETF')
+  }
+
+  const sortedStocks = getFilteredStocks().slice().sort((a, b) => {
+    if (orderBy) {
+      const aValue = a[orderBy as keyof StockInterface]
+      const bValue = b[orderBy as keyof StockInterface]
+
+      if (aValue < bValue) {
+        return order === 'asc' ? -1 : 1
+      }
+      if (aValue > bValue) {
+        return order === 'asc' ? 1 : -1
+      }
     }
+    return 0
+  })
 
-    const getFilteredStocks = () => {
-        if (includeEtfs) return stocks
+  const picksVsEtfs = transformStocks(stocks)
 
-        return stocks.filter((stock) => stock.quoteType !== 'ETF')
-    }
-
-    const sortedStocks = getFilteredStocks().slice().sort((a, b) => {
-        if (orderBy) {
-            const aValue = a[orderBy as keyof StockInterface];
-            const bValue = b[orderBy as keyof StockInterface];
-
-            if (aValue < bValue) {
-                return order === 'asc' ? -1 : 1;
-            }
-            if (aValue > bValue) {
-                return order === 'asc' ? 1 : -1;
-            }
-        }
-        return 0;
-    });
-
-    const picksVsEtfs = transformStocks(stocks);
-
-    return (
+  return (
         <Grid>
             <Grid
                 container
@@ -241,7 +241,7 @@ const Portfolio = () => {
                                 <TableCell
                                     align="center"
                                     sx={{
-                                        color: stock.avgPercentageChange >= 0 ? 'green' : 'red'
+                                      color: stock.avgPercentageChange >= 0 ? 'green' : 'red'
                                     }}
                                 >
                                     {stock.avgPercentageChange}%
@@ -249,7 +249,7 @@ const Portfolio = () => {
                                 <TableCell
                                     align="center"
                                     sx={{
-                                        color: stock.regularMarketChangePercent >= 0 ? 'green' : 'red'
+                                      color: stock.regularMarketChangePercent >= 0 ? 'green' : 'red'
                                     }}
                                 >
                                     {Math.round(stock.regularMarketChangePercent * 100) / 100}%
@@ -257,7 +257,7 @@ const Portfolio = () => {
                                 <TableCell
                                     align="center"
                                     sx={{
-                                        color: stock.fiftyTwoWeekChangePercent >= 0 ? 'green' : 'red'
+                                      color: stock.fiftyTwoWeekChangePercent >= 0 ? 'green' : 'red'
                                     }}
                                 >
                                     {Math.round(stock.fiftyTwoWeekChangePercent * 100) / 100}%
@@ -281,7 +281,7 @@ const Portfolio = () => {
             </Grid>
         </Grid>
 
-    )
+  )
 }
 
 export default Portfolio

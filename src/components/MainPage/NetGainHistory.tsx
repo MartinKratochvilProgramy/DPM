@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded'
-import { TimeScaleInterface } from '@/types/client/timeScale'
+import { type TimeScaleInterface } from '@/types/client/timeScale'
 import { CurrencyContext } from '@/pages/_app'
-import LineChart, { Series } from '../chart/LineChart'
+import LineChart, { type Series } from '../chart/LineChart'
 
-function formatDateToYYYYMMDD(date: Date) {
+function formatDateToYYYYMMDD (date: Date) {
   const parsed = new Date(date)
   return `${parsed.getFullYear()}-${String(parsed.getMonth() + 1).padStart(2, '0')}-${String(
     parsed.getDate()
@@ -30,7 +30,7 @@ const NetGainHistory: React.FC<Props> = ({
   const containerRef = useRef<any>()
 
   useEffect(() => {
-    if (!netWorthDates.length || !totalInvestedDates.length) return
+    if ((netWorthDates.length === 0) || (totalInvestedDates.length === 0)) return
 
     // 1. Create an array of {time, value} for invested
     const investedTimeline = totalInvestedDates.map((d, i) => ({
@@ -91,7 +91,7 @@ const NetGainHistory: React.FC<Props> = ({
           ref={containerRef}
           className='flex justify-center items-center w-[90%] md:px-6 w-full h-full'
         >
-          {lineChartSeries && (
+          {(lineChartSeries != null) && (
             <LineChart
               series={lineChartSeries}
               width={containerRef.current?.offsetWidth}

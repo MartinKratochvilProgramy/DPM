@@ -8,7 +8,7 @@ import LineChart, { type Series } from '../chart/LineChart'
 import { type LineData } from 'lightweight-charts'
 import { orange } from './RelativeChangeHistory'
 
-function formatDateToYYYYMMDD(date: Date) {
+function formatDateToYYYYMMDD (date: Date) {
   const parsedDate = new Date(date)
 
   const year = parsedDate.getFullYear()

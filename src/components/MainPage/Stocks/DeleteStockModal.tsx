@@ -24,7 +24,7 @@ export const DeleteStockModal: React.FC<Props> = ({
   setAmountToDelete,
   purchaseId
 }) => {
-  function submit(e: React.FormEvent<HTMLFormElement>) {
+  function submit (e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
 
     // if no purchaseID or remaining amount is 0, delete stock
@@ -37,7 +37,7 @@ export const DeleteStockModal: React.FC<Props> = ({
     setShowDeleteModal(false)
   }
 
-  function handleModalClose(e: any) {
+  function handleModalClose (e: any) {
     e.stopPropagation()
     setShowDeleteModal(false)
   }

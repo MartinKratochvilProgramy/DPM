@@ -29,10 +29,9 @@ export const Stock: React.FC<Props> = ({
   const [purchaseId, setPurchaseId] = useState<number | null>(null)
   const { theme } = useTheme()
 
-
   const { data: session } = useSession()
 
-  function deleteStock(ticker: string) {
+  function deleteStock (ticker: string) {
     fetch('api/portfolio/delete_stock', {
       method: 'POST',
       headers: {
@@ -44,7 +43,7 @@ export const Stock: React.FC<Props> = ({
         amountToDelete
       })
     })
-      .then((response) => response.json())
+      .then(async (response) => await response.json())
       .then((res) => {
       })
       .catch((error) => {
@@ -52,7 +51,7 @@ export const Stock: React.FC<Props> = ({
       })
   }
 
-  function handleChartDisplay(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  function handleChartDisplay (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.stopPropagation()
     setLoadingData(true)
     setDataLoaded(false)
@@ -87,11 +86,11 @@ export const Stock: React.FC<Props> = ({
       })
   }
 
-  function handleDropdownClick(value: string) {
+  function handleDropdownClick (value: string) {
     setPeriod(value)
   }
 
-  function expand(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  function expand (e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.stopPropagation()
     setExpanded(!expanded)
     if (loadingData || dataLoaded) {
@@ -100,7 +99,7 @@ export const Stock: React.FC<Props> = ({
     }
   }
 
-  function openDeleteStockModal(e: React.MouseEvent<HTMLDivElement, MouseEvent>, amountToDelete: number, purchaseIdToDelete: number | null) {
+  function openDeleteStockModal (e: React.MouseEvent<HTMLDivElement, MouseEvent>, amountToDelete: number, purchaseIdToDelete: number | null) {
     e.stopPropagation()
     setAmountToDelete(amountToDelete)
     setPurchaseId(purchaseIdToDelete)

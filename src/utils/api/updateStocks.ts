@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 import prisma from '@/lib/prisma'
 import { getConversionRate } from '../client/getConversionRate'
 
-export async function updateStocks(email: string) {
+export async function updateStocks (email: string) {
   // loop through all user's stocks and update prev close
   // calculate total net worth and push it to netWorthHistory
   // calculate relative change in net worth and push it to relativeChangeHistory

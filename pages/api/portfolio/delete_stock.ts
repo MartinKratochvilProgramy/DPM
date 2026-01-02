@@ -19,7 +19,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const stock = await prisma.stock.findFirst({
       where: {
         userEmail: email,
-        ticker: ticker
+        ticker
       }
     })
 
