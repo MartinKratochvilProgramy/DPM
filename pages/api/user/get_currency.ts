@@ -1,22 +1,22 @@
-import { type NextApiRequest, type NextApiResponse } from 'next'
-import prisma from '@/lib/prisma'
+import { type NextApiRequest, type NextApiResponse } from 'next';
+import prisma from '@/lib/prisma';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { email } = JSON.parse(req.body)
+    const { email } = JSON.parse(req.body);
 
     const stocks = await prisma.user.findUnique({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
 
     if (stocks === null) {
-      res.json({ currency: undefined })
+      res.json({ currency: undefined });
     } else {
-      res.json({ currency: stocks.currency })
+      res.json({ currency: stocks.currency });
     }
   } catch (error) {
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-};
+}

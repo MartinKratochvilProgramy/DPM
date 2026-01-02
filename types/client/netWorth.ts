@@ -1,4 +1,4 @@
 export interface NetWorthHistoryInterface {
-  date: string
-  netWorth: number
+  date: string;
+  netWorth: number;
 }

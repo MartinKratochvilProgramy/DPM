@@ -1,4 +1,4 @@
 export interface TimeDependetNumber {
-  netWorth: number
-  date: string
+  netWorth: number;
+  date: string;
 }

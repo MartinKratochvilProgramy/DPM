@@ -1,6 +1,8 @@
 {
-    "crons": [{
-        "path": "/api/update_accounts",
-        "schedule": "0 16 * * 1-5"
-      }]
+  "crons": [
+    {
+      "path": "/api/update_accounts",
+      "schedule": "0 16 * * 1-5"
+    }
+  ]
 }

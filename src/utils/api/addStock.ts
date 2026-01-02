@@ -1,36 +1,36 @@
-import prisma from '@/lib/prisma'
-import { type StockInterface } from '@/types/api/stock'
-import { incrementNetWorth } from './incrementNetWorth'
-import { incrementTotalInvested } from './incrementTotalInvested'
+import prisma from '@/lib/prisma';
+import { type StockInterface } from '@/types/api/stock';
+import { incrementNetWorth } from './incrementNetWorth';
+import { incrementTotalInvested } from './incrementTotalInvested';
 
-export async function addStock (newStock: StockInterface, email: string) {
+export async function addStock(newStock: StockInterface, email: string) {
   const existingStocks = await prisma.user.findUnique({
     where: {
-      email
+      email,
     },
     include: {
       stocks: {
         where: {
-          ticker: newStock.ticker
+          ticker: newStock.ticker,
         },
         include: {
-          purchases: true
-        }
-      }
-    }
-  })
+          purchases: true,
+        },
+      },
+    },
+  });
 
   if (existingStocks === null) {
-    throw new Error('Stocks not found')
+    throw new Error('Stocks not found');
   }
 
-  let newStocks
+  let newStocks;
 
   if (existingStocks.stocks.length === 0) {
     // create new stock
     newStocks = await prisma.user.update({
       where: {
-        email
+        email,
       },
       data: {
         stocks: {
@@ -45,33 +45,33 @@ export async function addStock (newStock: StockInterface, email: string) {
                 {
                   date: new Date(),
                   amount: newStock.amount,
-                  price: parseFloat(newStock.prevClose.toFixed(2))
-                }
-              ]
-            }
-          }
-        }
+                  price: parseFloat(newStock.prevClose.toFixed(2)),
+                },
+              ],
+            },
+          },
+        },
       },
       include: {
         stocks: {
           include: {
-            purchases: true
-          }
-        }
-      }
-    })
+            purchases: true,
+          },
+        },
+      },
+    });
   } else {
     // increment existing stock
 
     newStocks = await prisma.user.update({
       where: {
-        email
+        email,
       },
       data: {
         stocks: {
           update: {
             where: {
-              id: existingStocks.stocks[0].id
+              id: existingStocks.stocks[0].id,
             },
             data: {
               amount: { increment: newStock.amount },
@@ -80,26 +80,32 @@ export async function addStock (newStock: StockInterface, email: string) {
                 create: {
                   date: new Date(),
                   amount: newStock.amount,
-                  price: parseFloat(newStock.prevClose.toFixed(2))
-                }
-              }
-            }
-          }
-        }
+                  price: parseFloat(newStock.prevClose.toFixed(2)),
+                },
+              },
+            },
+          },
+        },
       },
       include: {
         stocks: {
           include: {
-            purchases: true
-          }
-        }
-      }
-    })
+            purchases: true,
+          },
+        },
+      },
+    });
   }
 
-  const newNetWorth = await incrementNetWorth(email, newStock.prevClose * newStock.amount)
-  const newTotalInvested = await incrementTotalInvested(email, newStock.prevClose * newStock.amount)
+  const newNetWorth = await incrementNetWorth(
+    email,
+    newStock.prevClose * newStock.amount,
+  );
+  const newTotalInvested = await incrementTotalInvested(
+    email,
+    newStock.prevClose * newStock.amount,
+  );
 
-  await prisma.$disconnect()
-  return { newStocks, newNetWorth, newTotalInvested }
+  await prisma.$disconnect();
+  return { newStocks, newNetWorth, newTotalInvested };
 }

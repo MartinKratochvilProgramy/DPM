@@ -1,13 +1,13 @@
-export function formatDate (date: Date): string {
-  const dateObject = new Date(date)
+export function formatDate(date: Date): string {
+  const dateObject = new Date(date);
   const formattedDate = dateObject.toLocaleString('en-US', {
     day: '2-digit',
     month: '2-digit',
-    year: 'numeric'
+    year: 'numeric',
     // hour: '2-digit',
     // minute: '2-digit',
     // second: '2-digit'
-  })
+  });
 
-  return formattedDate
+  return formattedDate;
 }

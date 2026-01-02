@@ -1,25 +1,25 @@
-import React, { type ReactNode } from 'react'
-import LandingPage from '@/components/LandingPage/LandingPage'
-import { useSession } from 'next-auth/react'
-import { LoadingSpinner } from './LoadingSpinner'
+import React, { type ReactNode } from 'react';
+import LandingPage from '@/components/LandingPage/LandingPage';
+import { useSession } from 'next-auth/react';
+import { LoadingSpinner } from './LoadingSpinner';
 
 interface Props {
-  children: ReactNode
+  children: ReactNode;
 }
 
 const Page: React.FC<Props> = ({ children }) => {
-  const { status } = useSession()
+  const { status } = useSession();
 
   if (status === 'loading') {
-    return <LoadingSpinner size={70} />
+    return <LoadingSpinner size={70} />;
   }
 
   if (status === 'unauthenticated') {
-    return <LandingPage />
+    return <LandingPage />;
   }
 
   // Default to rendering authenticated children
-  return <>{children}</>
-}
+  return <>{children}</>;
+};
 
-export default Page
+export default Page;

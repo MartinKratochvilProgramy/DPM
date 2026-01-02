@@ -1,12 +1,14 @@
-import React from 'react'
-import dynamic from 'next/dynamic'
+import React from 'react';
+import dynamic from 'next/dynamic';
 // import { type Data, type Layout } from 'plotly.js'
 
-const PlotlyChart = dynamic(async () => await import('react-plotly.js'), { ssr: false })
+const PlotlyChart = dynamic(async () => await import('react-plotly.js'), {
+  ssr: false,
+});
 
 interface Props {
-  data: any
-  layout: any
+  data: any;
+  layout: any;
 }
 
 const PlotComponent: React.FC<Props> = ({ data, layout }) => {
@@ -23,8 +25,13 @@ const PlotComponent: React.FC<Props> = ({ data, layout }) => {
   // }
 
   return (
-    <PlotlyChart className="w-full h-full" data={data} layout={layout} useResizeHandler />
-  )
-}
+    <PlotlyChart
+      className="w-full h-full"
+      data={data}
+      layout={layout}
+      useResizeHandler
+    />
+  );
+};
 
-export default PlotComponent
+export default PlotComponent;

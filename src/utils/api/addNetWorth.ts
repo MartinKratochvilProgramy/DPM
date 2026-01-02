@@ -1,6 +1,6 @@
-import prisma from '@/lib/prisma'
+import prisma from '@/lib/prisma';
 
-export async function addNetWorth (email: string, newValue: number) {
+export async function addNetWorth(email: string, newValue: number) {
   // increase last net worth history if is the same date
   // else create new write new
   // const netWorthHistory: TimeDependetNumber[] = await NetWorthHistory.findOne({ username }).exec()
@@ -8,20 +8,20 @@ export async function addNetWorth (email: string, newValue: number) {
   try {
     const newNetWorth = await prisma.netWorth.update({
       where: {
-        email
+        email,
       },
       data: {
         netWorthDates: {
-          push: new Date()
+          push: new Date(),
         },
         netWorthValues: {
-          push: parseFloat((newValue).toFixed(2))
-        }
-      }
-    })
+          push: parseFloat(newValue.toFixed(2)),
+        },
+      },
+    });
 
-    return newNetWorth
+    return newNetWorth;
   } catch (error: any) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }

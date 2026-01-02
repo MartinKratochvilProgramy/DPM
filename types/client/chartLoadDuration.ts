@@ -1,1 +1,1 @@
-export type ChartLoadDuration = 0 | 1000
+export type ChartLoadDuration = 0 | 1000;
