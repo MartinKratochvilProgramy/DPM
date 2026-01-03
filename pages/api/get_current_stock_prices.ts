@@ -1,7 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import { getConversionRate } from '@/utils/client/getConversionRate';
-import fetch from 'node-fetch';
-import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
 
 type StockPrices = Record<string, number>;
 
@@ -11,6 +10,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     const converstionRates: any = {};
     const result: StockPrices = {};
+
+    const yahooFinance = new YahooFinance();
 
     // TODO: maybe this can be in one API call?
     for (const ticker of tickers) {

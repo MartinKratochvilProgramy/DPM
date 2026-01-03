@@ -1,7 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import prisma from '@/lib/prisma';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const yahooFinance = require('yahoo-finance2').default;
+import YahooFinance from 'yahoo-finance2';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -31,6 +30,8 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       });
       return;
     }
+
+    const yahooFinance = new YahooFinance()
 
     // add financials to stocks
     const extendedStocks = await Promise.all(
