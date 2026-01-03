@@ -1,6 +1,7 @@
 import { type TickerChartData } from '@/types/api/tickerChartData';
 import { type Period } from '@/types/api/period';
 import yahooFinance from 'yahoo-finance2';
+import YahooFinance from 'yahoo-finance2';
 
 const numberOfMonths = {
   '6m': -6,
@@ -22,6 +23,8 @@ export default async function getTickerChartData(
 ): Promise<TickerChartData> {
   const endDate = new Date();
   const startDate = addMonths(period);
+
+  const yahooFinance = new YahooFinance();
 
   const queryOptions = { period1: startDate, period2: endDate };
   const quotes = await yahooFinance.historical(ticker, queryOptions);
