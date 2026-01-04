@@ -31,7 +31,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       return;
     }
 
-    const yahooFinance = new YahooFinance()
+    const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] })
 
     // add financials to stocks
     const extendedStocks = await Promise.all(

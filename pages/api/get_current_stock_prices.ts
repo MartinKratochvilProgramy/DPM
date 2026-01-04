@@ -11,7 +11,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     const converstionRates: any = {};
     const result: StockPrices = {};
 
-    const yahooFinance = new YahooFinance();
+    const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
     // TODO: maybe this can be in one API call?
     for (const ticker of tickers) {

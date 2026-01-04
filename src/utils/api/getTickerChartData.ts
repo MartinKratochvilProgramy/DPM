@@ -24,7 +24,7 @@ export default async function getTickerChartData(
   const endDate = new Date();
   const startDate = addMonths(period);
 
-  const yahooFinance = new YahooFinance();
+  const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
   const queryOptions = { period1: startDate, period2: endDate };
   const quotes = await yahooFinance.historical(ticker, queryOptions);
