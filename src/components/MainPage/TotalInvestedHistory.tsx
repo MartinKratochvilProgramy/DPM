@@ -1,146 +1,104 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Chart, registerables } from 'chart.js';
-import 'chartjs-adapter-moment';
-import '../../app/globals.css';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded';
-import { type TimeScaleInterface } from '@/types/client/timeScale';
 import { CurrencyContext } from '@/pages/_app';
-import { type ChartLoadDuration } from '@/types/client/chartLoadDuration';
-import { chartColor } from './RelativeChangeHistory';
+import LineChart, { type Series } from '../chart/LineChart';
 import { TimeSeries } from '@/types/client/timeSeries';
-
-Chart.register(...registerables);
+import { DateRange } from '@/types/client/dateRange';
+import { filterTimeSeriesByRange } from '@/utils/client/filterTimeSeriesByTimeRange';
+import { formatDateToYYYYMMDD } from '@/types/client/formatDate';
 
 interface Props {
   totalInvested: TimeSeries;
-  timeScale: TimeScaleInterface;
+  dateRange: DateRange;
 }
 
 const TotalInvestedHistory: React.FC<Props> = ({
   totalInvested,
-  timeScale,
+  dateRange,
 }) => {
-  const [loadDuration, setLoadDuration] = useState<ChartLoadDuration>(1000);
-
   const { currency } = useContext(CurrencyContext);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
 
-  const chartRef = useRef<HTMLCanvasElement>(null);
+  const filteredTotalInvested = useMemo(
+    () => filterTimeSeriesByRange(totalInvested, dateRange),
+    [totalInvested, dateRange]
+  );
 
   useEffect(() => {
-    let chart: any;
+    // 🟡 If empty → assume invested = 0
+    if (
+      filteredTotalInvested.dates.length === 0 ||
+      filteredTotalInvested.values.length === 0
+    ) {
+      const today = new Date();
 
-    if (chartRef.current != null) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const ctx = chartRef.current.getContext('2d')!;
-
-      const totalInvestedData = totalInvested.dates.flatMap((date, i) => {
-        const values = [];
-        if (i > 0) {
-          values.push({
-            x: totalInvested.dates[i],
-            y: totalInvested.values[i - 1],
-          });
-        }
-        values.push({
-          x: totalInvested.dates[i],
-          y: totalInvested.values[i],
-        });
-
-        return values;
-      });
-
-      const s1 = {
-        label: 'Net Worth',
-        data: totalInvestedData,
-        borderColor: '#3b82f6',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        fill: true,
-        borderWidth: 1,
-        pointRadius: 0.5,
-      };
-
-      // Create the chart instance
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: { datasets: [s1] },
-        options: {
-          responsive: true,
-          animation: { duration: loadDuration },
-          plugins: {
-            legend: {
-              display: true,
-              position: 'top',
-              labels: {
-                color: chartColor,
-              },
+      setLineChartSeries([
+        {
+          type: 'area',
+          color: '#3b82f6',
+          data: [
+            {
+              time: formatDateToYYYYMMDD(today),
+              value: 0,
             },
-            title: {
-              display: false,
-              text: 'Net Worth',
-            },
-          },
-          scales: {
-            x: {
-              type: 'time',
-              time: {
-                unit: timeScale,
-              },
-              display: true,
-              title: {
-                display: true,
-              },
-              grid: {
-                color: chartColor,
-              },
-              ticks: {
-                color: chartColor,
-              },
-            },
-            y: {
-              display: true,
-              title: {
-                display: false,
-                text: 'Net Worth',
-              },
-              grid: {
-                color: chartColor,
-                z: 10,
-              },
-              ticks: {
-                color: chartColor,
-              },
-            },
-          },
+          ],
         },
-      });
+      ]);
+      return;
     }
 
-    if (loadDuration === 1000) {
-      setLoadDuration(0);
-    }
+    const data = filteredTotalInvested.dates.flatMap((_, i) => {
+      const points = [];
 
-    // Cleanup function
-    return () => {
-      // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-      if (chart) {
-        chart.destroy();
+      if (i > 0) {
+        points.push({
+          time: formatDateToYYYYMMDD(filteredTotalInvested.dates[i]),
+          value: filteredTotalInvested.values[i - 1],
+        });
       }
-    };
-  }, [totalInvested]);
+
+      points.push({
+        time: formatDateToYYYYMMDD(filteredTotalInvested.dates[i]),
+        value: filteredTotalInvested.values[i],
+      });
+
+      return points;
+    });
+
+    setLineChartSeries([
+      {
+        data,
+        color: '#3b82f6',
+        type: 'area',
+      },
+    ]);
+  }, [filteredTotalInvested]);
+
+  const latestValue =
+    filteredTotalInvested.values.at(-1) ?? 0;
 
   return (
     <div className="w-full h-full flex justify-center items-center">
       <div className="flex pt-0 md:pt-0 lg:pt-4 px-2 md:px-5 lg:px-0 flex-col w-full h-full justify-center items-center">
         <h2 className="text-xl md:text-3xl font-bold raleway mt-0 sm:mt-2 md:mt-4 lg:mt-0 mb-0 sm:mb-4 text-gray-700 dark:text-gray-300">
-          {numberWithSpacesRounded(
-            totalInvested.values[totalInvested.values.length - 1],
-          )}{' '}
+          {numberWithSpacesRounded(latestValue)}{' '}
           <span className="playfair text-[16px] md:text-[28px]">
-            {currency === undefined ? '' : currency}
+            {currency ?? ''}
           </span>
         </h2>
-        <div className="flex justify-center items-center w-full px-0 md:px-6 h-full">
-          <canvas ref={chartRef} style={{ width: '0%', height: '0%' }}></canvas>
+
+        <div
+          ref={containerRef}
+          className="flex justify-center items-center w-full px-0 md:px-6 h-full"
+        >
+          {lineChartSeries && containerRef.current && (
+            <LineChart
+              series={lineChartSeries}
+              width={containerRef.current.offsetWidth}
+              height={containerRef.current.offsetHeight}
+            />
+          )}
         </div>
       </div>
     </div>

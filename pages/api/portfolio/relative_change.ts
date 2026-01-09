@@ -1,14 +1,10 @@
 import { type NextApiRequest, type NextApiResponse } from 'next';
 import prisma from '@/lib/prisma';
+import { TimeSeries } from '@/types/client/timeSeries';
 
 interface Inflation {
   date: Date;
   value: number;
-}
-
-export interface InflationAdjustedValues {
-  dates: Date[];
-  values: number[];
 }
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
@@ -54,11 +50,11 @@ function getInflationAdjustedChange(
     relativeChangeDates: Date[];
   },
   inflation: Inflation[],
-): InflationAdjustedValues {
+): TimeSeries {
   // calculate real return using (1 + return) / (1 + inflation) - 1
   // return is the monthly diff in relative change
 
-  const inflationAdjustedValues: InflationAdjustedValues = {
+  const inflationAdjustedValues: TimeSeries = {
     dates: [],
     values: [],
   };
@@ -82,7 +78,7 @@ function getInflationAdjustedChange(
       ((1 + (currentValue - previousRealChange) / 100) /
         (1 + inflationValue / 100) -
         1) *
-        100;
+      100;
 
     if (currentMonth !== previousMonth && i > 0) {
       // if month flips to new one, update prev change values

@@ -113,6 +113,7 @@ const LineChart: React.FC<LineChartProps> = ({
       });
       seriesRef.current.length = series.length; // Trim the series reference array
     }
+    chartRef.current.timeScale().fitContent();
   }, [series]);
 
   return <div ref={chartContainerRef} />;

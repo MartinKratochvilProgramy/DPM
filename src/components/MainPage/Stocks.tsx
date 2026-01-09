@@ -7,11 +7,14 @@ import { handleErrors } from '@/utils/client/handleErrors';
 import { sortStocks } from '@/utils/client/sortStocks';
 import { useSession } from 'next-auth/react';
 import { TimeSeries } from '@/types/client/timeSeries';
+import { DateRange } from '@/types/client/dateRange';
 
 interface Props {
   demo: boolean;
   stocks: StockInterface[];
   orderDropdownValue: string;
+  dateRange: DateRange;
+  setDateRange: (dateRange: DateRange) => void;
   setOrderDropdownValue: (orderDropdownValue: string) => void;
   setStocks: (stocks: StockInterface[]) => void;
   setError: (error: string) => void;
@@ -24,6 +27,8 @@ export const Stocks: React.FC<Props> = ({
   demo,
   stocks,
   orderDropdownValue,
+  dateRange,
+  setDateRange,
   setOrderDropdownValue,
   setStocks,
   setError,
@@ -119,6 +124,12 @@ export const Stocks: React.FC<Props> = ({
           type="text"
           placeholder="Search..."
         />
+        <OrderDropDown
+          values={["ALL", "YTD"]}
+          orderDropdownValue={dateRange}
+          setOrderDropdownValue={(value) => setDateRange(value as DateRange)}
+          handleClick={(value) => setDateRange(value as DateRange)}
+          theme={'light'} />
       </div>
       <div className="flex flex-col pr-2 overflow-y-auto">
         {stocks.map((stock: StockInterface) => {
