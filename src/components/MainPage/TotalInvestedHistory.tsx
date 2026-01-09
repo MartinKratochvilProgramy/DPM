@@ -4,7 +4,7 @@ import { CurrencyContext } from '@/pages/_app';
 import LineChart, { type Series } from '../chart/LineChart';
 import { TimeSeries } from '@/types/client/timeSeries';
 import { DateRange } from '@/types/client/dateRange';
-import { filterTimeSeriesByRange } from '@/utils/client/filterTimeSeriesByTimeRange';
+import { filterTimeSeriesByRange, normalizeTimeSeries } from '@/utils/client/filterTimeSeriesByTimeRange';
 import { formatDateToYYYYMMDD } from '@/types/client/formatDate';
 
 interface Props {
@@ -21,7 +21,14 @@ const TotalInvestedHistory: React.FC<Props> = ({
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
 
   const filteredTotalInvested = useMemo(
-    () => filterTimeSeriesByRange(totalInvested, dateRange),
+    () => {
+      const filteredSeries = filterTimeSeriesByRange(totalInvested, dateRange);
+      if (dateRange === "ALL") {
+        return filteredSeries;
+      } else {
+        return normalizeTimeSeries(filteredSeries);
+      }
+    },
     [totalInvested, dateRange]
   );
 
