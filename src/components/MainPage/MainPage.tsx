@@ -1,29 +1,27 @@
-import React, { useState, useEffect, type ReactNode, useContext } from 'react';
-import Container from '../Container';
-import NetWortHistory from './NetWortHistory';
-import { StockInput } from './Stocks/StockInput';
-import { Stocks } from './Stocks';
-import PieChart from './Stocks/PieChart';
-import { handleErrors } from '@/utils/client/handleErrors';
-import { formatStocks } from '@/utils/client/formatStocks';
-import { sortStocks } from '@/utils/client/sortStocks';
-import { type TimeScaleInterface } from '@/types/client/timeScale';
-import { LoadingSpinner } from '../LoadingSpinner';
-import RelativeChangeHistory from './RelativeChangeHistory';
-import TotalInvestedHistory from './TotalInvestedHistory';
-import { Modal } from '@mui/material';
 import { CurrencySelect } from '@/components/MainPage/Stocks/CurrencySelect';
 import { CurrencyContext } from '@/pages/_app';
-import './MainPage.css';
-import '../LandingPage/Hero.css';
-import { calculateTimeScale } from '@/utils/client/calculateTimeScale';
-import { updatePrices } from '@/utils/client/updatePrices';
-import { type StockInterface } from '@/types/client/stock';
-import { useSession } from 'next-auth/react';
-import NetGainHistory from './NetGainHistory';
-import Card from './Card';
-import { TimeSeries } from '@/types/client/timeSeries';
 import { DateRange } from '@/types/client/dateRange';
+import { type StockInterface } from '@/types/client/stock';
+import { type TimeScaleInterface } from '@/types/client/timeScale';
+import { TimeSeries } from '@/types/client/timeSeries';
+import { calculateTimeScale } from '@/utils/client/calculateTimeScale';
+import { formatStocks } from '@/utils/client/formatStocks';
+import { handleErrors } from '@/utils/client/handleErrors';
+import { sortStocks } from '@/utils/client/sortStocks';
+import { updatePrices } from '@/utils/client/updatePrices';
+import { Modal } from '@mui/material';
+import { useSession } from 'next-auth/react';
+import React, { useContext, useEffect, useState } from 'react';
+import Container from '../Container';
+import { LoadingSpinner } from '../LoadingSpinner';
+import Card from './Card';
+import NetGainHistory from './NetGainHistory';
+import NetWortHistory from './NetWortHistory';
+import RelativeChangeHistory from './RelativeChangeHistory';
+import { Stocks } from './Stocks';
+import PieChart from './Stocks/PieChart';
+import { StockInput } from './Stocks/StockInput';
+import TotalInvestedHistory from './TotalInvestedHistory';
 
 interface Props {
   demo: boolean;
@@ -267,10 +265,14 @@ const MainPage: React.FC<Props> = ({ demo }) => {
           relativeChange.values.length > 0 &&
           netWorth.values.length > 0
         ) {
-          const newRelativeChangeValue =
-            (relativeChange.values[relativeChange.values.length - 1] *
-              newNetWorthValue) /
+          const lastRelativeChangeValue =
+            relativeChange.values[relativeChange.values.length - 1];
+
+          const lastMultiplier = lastRelativeChangeValue / 100 + 1;
+          const newMultiplier =
+            (lastMultiplier * newNetWorthValue) /
             netWorth.values[netWorth.values.length - 1];
+          const newRelativeChangeValue = (newMultiplier - 1) * 100;
 
           const newRelativeChange = relativeChange;
           newRelativeChange.values[newRelativeChange.values.length - 1] = newRelativeChangeValue;
