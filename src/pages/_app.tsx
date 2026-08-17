@@ -5,7 +5,7 @@ import { SessionProvider, useSession } from 'next-auth/react';
 
 import { handleErrors } from '@/utils/client/handleErrors';
 import Head from 'next/head';
-import '../src/app/globals.css';
+import '../app/globals.css';
 
 interface Props {
   Component: any;

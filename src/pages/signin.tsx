@@ -1,7 +1,7 @@
 import React from 'react';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
-import picture from '../src/app/favicon.ico';
+import picture from '../app/favicon.ico';
 
 const signin = () => {
   const handleSignIn = async () => {

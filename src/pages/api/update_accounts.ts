@@ -1,6 +1,6 @@
-import { type NextApiRequest, type NextApiResponse } from 'next';
-import { updateAccount } from '@/utils/api/updateAccount';
 import prisma from '@/lib/prisma';
+import { updateAccount } from '@/utils/api/updateAccount';
+import { type NextApiRequest, type NextApiResponse } from 'next';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   // update all user accounts
