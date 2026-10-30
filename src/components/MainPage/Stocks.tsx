@@ -92,7 +92,11 @@ export const Stocks: React.FC<Props> = ({
     setOrderDropdownValue(value);
   }
 
-  if (stocks.length === 0) return null;
+  const visibleStocks = stocks.filter(
+    (stock) => stock.amount * stock.prevClose > 0,
+  );
+
+  if (visibleStocks.length === 0) return null;
 
   return (
     <div className="flex flex-col w-full h-full p-2 sm:p-6" id="stocks-output">
@@ -132,7 +136,7 @@ export const Stocks: React.FC<Props> = ({
           theme={'light'} />
       </div>
       <div className="flex flex-col pr-2 overflow-y-auto">
-        {stocks.map((stock: StockInterface) => {
+        {visibleStocks.map((stock: StockInterface) => {
           if (stock.ticker.includes(searchKey.toUpperCase())) {
             return (
               <Stock
