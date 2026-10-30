@@ -9,9 +9,15 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
   try {
     const { email, ticker, amountToDelete } = req.body;
+    const parsedAmount = Number(amountToDelete);
 
     if (email === 'demo') {
       res.status(500).json('Cannot edit in demo mode');
+      return;
+    }
+
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      res.status(400).json('Invalid amount');
       return;
     }
 
@@ -28,48 +34,77 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       throw new Error(`Purchase not found: ${email} ${ticker}`);
     }
 
-    const newStocks = await prisma.user.update({
-      where: {
-        email,
-      },
-      data: {
-        stocks: {
-          update: {
-            where: {
-              id: stock.id,
-            },
-            data: {
-              amount: { decrement: amountToDelete },
-              lastPurchase: new Date(),
-              purchases: {
-                create: {
-                  date: new Date(),
-                  amount: -amountToDelete,
-                  price: parseFloat(stock.prevClose.toFixed(2)),
-                },
+    if (parsedAmount > stock.amount) {
+      res.status(400).json('Cannot remove more than the current amount');
+      return;
+    }
+
+    const isFullRemoval = parsedAmount === stock.amount;
+
+    if (!isFullRemoval && !Number.isInteger(parsedAmount)) {
+      res.status(400).json('Partial removal amount must be a whole number');
+      return;
+    }
+
+    const updatedUser = await prisma.$transaction(async (tx) => {
+      if (isFullRemoval) {
+        await tx.purchase.deleteMany({
+          where: {
+            stockId: stock.id,
+          },
+        });
+
+        await tx.stock.delete({
+          where: {
+            id: stock.id,
+          },
+        });
+      } else {
+        await tx.stock.update({
+          where: {
+            id: stock.id,
+          },
+          data: {
+            amount: { decrement: parsedAmount },
+            lastPurchase: new Date(),
+            purchases: {
+              create: {
+                date: new Date(),
+                amount: -parsedAmount,
+                price: parseFloat(stock.prevClose.toFixed(2)),
               },
             },
           },
+        });
+      }
+
+      return tx.user.findUnique({
+        where: {
+          email,
         },
-      },
-      include: {
-        stocks: {
-          include: {
-            purchases: true,
+        include: {
+          stocks: {
+            include: {
+              purchases: true,
+            },
           },
         },
-      },
+      });
     });
+
+    if (updatedUser === null) {
+      throw new Error(`User not found: ${String(email)}`);
+    }
 
     const newTotalNetWorth = await updateStocks(email);
     const newNetWorth = await addNetWorth(email, newTotalNetWorth);
     const newTotalInvested = await incrementTotalInvested(
       email,
-      -amountToDelete * stock.prevClose,
+      -parsedAmount * stock.prevClose,
     );
 
     res.json({
-      stocks: newStocks,
+      stocks: updatedUser.stocks,
       netWorth: newNetWorth,
       totalInvested: newTotalInvested,
     });

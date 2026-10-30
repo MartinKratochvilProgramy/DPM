@@ -40,7 +40,57 @@ export const Stocks: React.FC<Props> = ({
 
   const { data: session } = useSession();
 
-  function deletePurchase(ticker: string, purchaseId: number) {
+  function updateAfterDelete(res: any) {
+    const stocks = res.stocks;
+    const netWorth = res.netWorth;
+    const totalInvested = res.totalInvested;
+
+    setNetWorth({
+      dates: netWorth.netWorthDates,
+      values: netWorth.netWorthValues,
+    });
+
+    setTotalInvested({
+      dates: totalInvested.totalInvestedDates,
+      values: totalInvested.totalInvestedValues,
+    });
+
+    formatStocks(stocks);
+    sortStocks('NEWEST', stocks);
+    setStocks(stocks);
+
+    setStocksInputLoading(false);
+  }
+
+  function deleteStock(ticker: string, amountToDelete: number) {
+    setStocksInputLoading(true);
+
+    fetch('api/portfolio/delete_stock', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: demo ? 'demo' : session?.user?.email,
+        ticker,
+        amountToDelete,
+      }),
+    })
+      .then(handleErrors)
+      .then((response) => response.json())
+      .then(updateAfterDelete)
+      .catch((error) => {
+        setError(error.message);
+
+        setStocksInputLoading(false);
+      });
+  }
+
+  function deletePurchase(
+    ticker: string,
+    purchaseId: number,
+    amountToDelete: number,
+  ) {
     setStocksInputLoading(true);
 
     fetch('api/portfolio/delete_purchase', {
@@ -52,31 +102,12 @@ export const Stocks: React.FC<Props> = ({
         email: demo ? 'demo' : session?.user?.email,
         ticker,
         purchaseId,
+        amountToDelete,
       }),
     })
       .then(handleErrors)
       .then((response) => response.json())
-      .then((res) => {
-        const stocks = res.stocks;
-        const netWorth = res.netWorth;
-        const totalInvested = res.totalInvested;
-
-        setNetWorth({
-          dates: netWorth.netWorthDates,
-          values: netWorth.netWorthValues
-        })
-
-        setTotalInvested({
-          dates: totalInvested.totalInvestedDates,
-          values: totalInvested.totalInvestedValues
-        })
-
-        formatStocks(stocks);
-        sortStocks('NEWEST', stocks);
-        setStocks(stocks);
-
-        setStocksInputLoading(false);
-      })
+      .then(updateAfterDelete)
       .catch((error) => {
         setError(error.message);
 
@@ -140,9 +171,9 @@ export const Stocks: React.FC<Props> = ({
           if (stock.ticker.includes(searchKey.toUpperCase())) {
             return (
               <Stock
-                demo={demo}
                 stock={stock}
                 key={stock.ticker}
+                deleteStock={deleteStock}
                 deletePurchase={deletePurchase}
               />
             );

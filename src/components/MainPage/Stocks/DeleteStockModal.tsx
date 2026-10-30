@@ -4,10 +4,14 @@ import { Modal } from '@mui/material';
 interface Props {
   showDeleteModal: boolean;
   setShowDeleteModal: (showDeleteModal: boolean) => void;
-  deleteStock: (ticker: string) => void;
-  deletePurchase: (ticker: string, purchaseId: number) => void;
+  deleteStock: (ticker: string, amountToDelete: number) => void;
+  deletePurchase: (
+    ticker: string,
+    purchaseId: number,
+    amountToDelete: number,
+  ) => void;
   ticker: string;
-  currentAmount: number;
+  maxAmount: number;
   amountToDelete: number;
   setAmountToDelete: (amountToDelete: number) => void;
   purchaseId: number | null;
@@ -19,7 +23,7 @@ export const DeleteStockModal: React.FC<Props> = ({
   deleteStock,
   deletePurchase,
   ticker,
-  currentAmount,
+  maxAmount,
   amountToDelete,
   setAmountToDelete,
   purchaseId,
@@ -27,11 +31,10 @@ export const DeleteStockModal: React.FC<Props> = ({
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // if no purchaseID or remaining amount is 0, delete stock
-    if (purchaseId === null || currentAmount - amountToDelete === 0) {
-      deleteStock(ticker);
+    if (purchaseId === null) {
+      deleteStock(ticker, amountToDelete);
     } else {
-      deletePurchase(ticker, purchaseId);
+      deletePurchase(ticker, purchaseId, amountToDelete);
     }
 
     setShowDeleteModal(false);
@@ -91,8 +94,17 @@ export const DeleteStockModal: React.FC<Props> = ({
                         placeholder="Amount..."
                         onChange={(e) => {
                           const newValue = Number(e.target.value);
-                          if (newValue <= currentAmount && newValue > 0) {
-                            setAmountToDelete(newValue);
+                          const limit = Math.abs(maxAmount);
+                          if (
+                            Number.isFinite(newValue) &&
+                            newValue !== 0 &&
+                            Math.abs(newValue) <= limit
+                          ) {
+                            setAmountToDelete(
+                              amountToDelete < 0
+                                ? -Math.abs(newValue)
+                                : Math.abs(newValue),
+                            );
                           }
                         }}
                         value={amountToDelete}

@@ -8,15 +8,22 @@ import {
 } from '@/types/client/stock';
 import { formatDate } from '@/utils/client/formatDate';
 import { useTheme } from 'next-themes';
-import { useSession } from 'next-auth/react';
 
 interface Props {
-  demo: boolean;
   stock: StockInterface;
-  deletePurchase: (ticker: string, purchaseId: number) => void;
+  deleteStock: (ticker: string, amountToDelete: number) => void;
+  deletePurchase: (
+    ticker: string,
+    purchaseId: number,
+    amountToDelete: number,
+  ) => void;
 }
 
-export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
+export const Stock: React.FC<Props> = ({
+  stock,
+  deleteStock,
+  deletePurchase,
+}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [period, setPeriod] = useState('2y');
@@ -29,29 +36,9 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
   });
   const [stockChartLoadingError, setStockChartLoadingError] = useState('');
   const [amountToDelete, setAmountToDelete] = useState(0);
+  const [maxAmount, setMaxAmount] = useState(0);
   const [purchaseId, setPurchaseId] = useState<number | null>(null);
   const { theme } = useTheme();
-
-  const { data: session } = useSession();
-
-  function deleteStock(ticker: string) {
-    fetch('api/portfolio/delete_stock', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: demo ? 'demo' : session?.user?.email,
-        ticker,
-        amountToDelete,
-      }),
-    })
-      .then(async (response) => await response.json())
-      .then((res) => {})
-      .catch((error) => {
-        console.error(error.message);
-      });
-  }
 
   function handleChartDisplay(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -107,10 +94,12 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
     amountToDelete: number,
     purchaseIdToDelete: number | null,
+    maxAmountToDelete: number,
   ) {
     e.stopPropagation();
     setAmountToDelete(amountToDelete);
     setPurchaseId(purchaseIdToDelete);
+    setMaxAmount(maxAmountToDelete);
     setShowDeleteModal(true);
   }
 
@@ -143,7 +132,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
           </div>
           <div
             onClick={(e) => {
-              openDeleteStockModal(e, stock.amount, null);
+              openDeleteStockModal(e, stock.amount, null, stock.amount);
             }}
             id={stock.ticker}
             className="rounded-full p-1 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500/50 ease-in-out"
@@ -217,7 +206,12 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
                   </div>
                   <div
                     onClick={(e) => {
-                      openDeleteStockModal(e, purchase.amount, purchase.id);
+                      openDeleteStockModal(
+                        e,
+                        purchase.amount,
+                        purchase.id,
+                        Math.abs(purchase.amount),
+                      );
                     }}
                     id={stock.ticker}
                     className="rounded-full flex justify-center items-center w-6 h-6 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500/50 ease-in-out"
@@ -278,7 +272,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
           setShowDeleteModal={setShowDeleteModal}
           deleteStock={deleteStock}
           deletePurchase={deletePurchase}
-          currentAmount={stock.amount}
+          maxAmount={maxAmount}
           amountToDelete={amountToDelete}
           setAmountToDelete={setAmountToDelete}
           ticker={stock.ticker}
