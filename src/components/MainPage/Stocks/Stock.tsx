@@ -117,7 +117,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
   return (
     <>
       <div
-        className="bg-white dark:hover:bg-opacity-[0.05] dark:hover:bg-red-100 dark:bg-transparent border-solid border-[1px] border-blue-400 dark:border-gray-500 rounded-md px-2 md:px-4 py-1 my-1 text-black dark:text-gray-400 font-medium text-[10px] lg:text-sm leading-snug cursor-pointer uppercase hover:shadow-lg transition duration-150 ease-in-out"
+        className="bg-white dark:hover:bg-red-100/5 dark:bg-transparent border-solid border-[1px] border-blue-400 dark:border-gray-500 rounded-md px-2 md:px-4 py-1 my-1 text-black dark:text-gray-400 font-medium text-[10px] lg:text-sm leading-snug cursor-pointer uppercase hover:shadow-lg transition duration-150 ease-in-out"
         onClick={(e) => {
           expand(e);
         }}
@@ -146,7 +146,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
               openDeleteStockModal(e, stock.amount, null);
             }}
             id={stock.ticker}
-            className="rounded-full p-1 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500 dark:hover:bg-opacity-50 ease-in-out"
+            className="rounded-full p-1 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500/50 ease-in-out"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -191,7 +191,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
               return (
                 <div
                   key={purchase.id}
-                  className="flex flex-row w-full justify-start sm:justify-between items-center rounded-2xl pr-1 py-1 hover:bg-gray-100 dark:hover:bg-opacity-5 mr-1"
+                  className="flex flex-row w-full justify-start sm:justify-between items-center rounded-2xl pr-1 py-1 hover:bg-gray-100 dark:hover:bg-gray-100/5 mr-1"
                 >
                   <div className="flex text-[10px] sm:text-[12px] flex-row w-full max-w-[400px] px-1 justify-start sm:justify-start rounded-xl h-full dark:text-gray-300">
                     <div className="w-[45px] sm:w-[48px] md:w-[60px] xl:w-[64px] 2xl:w-[74px] flex items-center justify-start">
@@ -220,7 +220,7 @@ export const Stock: React.FC<Props> = ({ demo, stock, deletePurchase }) => {
                       openDeleteStockModal(e, purchase.amount, purchase.id);
                     }}
                     id={stock.ticker}
-                    className="rounded-full flex justify-center items-center w-6 h-6 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500 dark:hover:bg-opacity-50 ease-in-out"
+                    className="rounded-full flex justify-center items-center w-6 h-6 transition duration-150 hover:bg-red-100 dark:hover:bg-red-500/50 ease-in-out"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

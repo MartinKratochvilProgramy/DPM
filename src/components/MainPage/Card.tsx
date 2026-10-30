@@ -14,7 +14,7 @@ const Card: React.FC<CardInterface> = ({ children, modalClassName }) => {
     <>
       <div
         onClick={() => setIsOpen(true)}
-        className="card-shadow hover:bg-opacity-10 dark:hover:bg-opacity-[0.02] hover:bg-red-100 w-[290px] md:w-[460px] aspect-[1.2] flex items-center justify-center rounded-md sm:rounded-lg border border-blue-400 dark:border-gray-500 cursor-pointer"
+        className="card-shadow hover:bg-red-100/10 dark:hover:bg-red-100/[0.02] w-[290px] md:w-[460px] aspect-[1.2] flex items-center justify-center rounded-md sm:rounded-lg border border-blue-400 dark:border-gray-500 cursor-pointer"
       >
         {children}
       </div>
