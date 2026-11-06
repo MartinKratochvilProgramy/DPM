@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded';
 import { CurrencyContext } from '@/pages/_app';
 import LineChart, { type Series } from '../chart/LineChart';
@@ -17,7 +17,6 @@ const TotalInvestedHistory: React.FC<Props> = ({
   dateRange,
 }) => {
   const { currency } = useContext(CurrencyContext);
-  const containerRef = useRef<HTMLDivElement>(null);
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
 
   const filteredTotalInvested = useMemo(
@@ -95,17 +94,8 @@ const TotalInvestedHistory: React.FC<Props> = ({
           </span>
         </h2>
 
-        <div
-          ref={containerRef}
-          className="flex justify-center items-center w-full px-0 md:px-6 h-full"
-        >
-          {lineChartSeries && containerRef.current && (
-            <LineChart
-              series={lineChartSeries}
-              width={containerRef.current.offsetWidth}
-              height={containerRef.current.offsetHeight}
-            />
-          )}
+        <div className="flex justify-center items-center w-full px-0 md:px-6 h-full">
+          {lineChartSeries && <LineChart series={lineChartSeries} />}
         </div>
       </div>
     </div>

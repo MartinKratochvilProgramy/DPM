@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import 'chartjs-adapter-moment';
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded';
 import { CurrencyContext } from '@/pages/_app';
@@ -20,7 +20,6 @@ interface Props {
 const NetWorthHistory: React.FC<Props> = ({ netWorth, totalInvested, dateRange }) => {
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
   const { currency } = useContext(CurrencyContext);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const filteredNetWorth = useMemo(
     () => {
@@ -42,7 +41,7 @@ const NetWorthHistory: React.FC<Props> = ({ netWorth, totalInvested, dateRange }
         return normalizeTimeSeries(filteredSeries);
       }
     },
-    [netWorth, dateRange]
+    [totalInvested, dateRange]
   );
 
 
@@ -115,17 +114,8 @@ const NetWorthHistory: React.FC<Props> = ({ netWorth, totalInvested, dateRange }
             {currency || ''}
           </span>
         </div>
-        <div
-          ref={containerRef}
-          className="flex justify-center items-center w-[90%] md:px-6 w-full h-full"
-        >
-          {lineChartSeries && containerRef.current && (
-            <LineChart
-              series={lineChartSeries}
-              width={containerRef.current.offsetWidth}
-              height={containerRef.current.offsetHeight}
-            />
-          )}
+        <div className="flex justify-center items-center w-[90%] md:px-6 w-full h-full">
+          {lineChartSeries && <LineChart series={lineChartSeries} />}
         </div>
       </div>
     </div>

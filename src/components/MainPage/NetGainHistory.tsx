@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import { numberWithSpacesRounded } from '@/utils/client/numberWithSpacesRounded';
 import { CurrencyContext } from '@/pages/_app';
 import LineChart, { type Series } from '../chart/LineChart';
@@ -23,7 +23,6 @@ const NetGainHistory: React.FC<Props> = ({
 }) => {
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
   const { currency } = useContext(CurrencyContext);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const filteredNetWorth = useMemo(() => {
     const filtered = filterTimeSeriesByRange(netWorth, dateRange);
@@ -106,17 +105,8 @@ const NetGainHistory: React.FC<Props> = ({
           </span>
         </div>
 
-        <div
-          ref={containerRef}
-          className="flex justify-center items-center w-[90%] md:px-6 w-full h-full"
-        >
-          {lineChartSeries && containerRef.current && (
-            <LineChart
-              series={lineChartSeries}
-              width={containerRef.current.offsetWidth}
-              height={containerRef.current.offsetHeight}
-            />
-          )}
+        <div className="flex justify-center items-center w-[90%] md:px-6 w-full h-full">
+          {lineChartSeries && <LineChart series={lineChartSeries} />}
         </div>
       </div>
     </div>

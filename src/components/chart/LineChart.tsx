@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   createChart,
   type LineData,
@@ -15,26 +15,23 @@ export interface Series {
 
 interface LineChartProps {
   series: Series[];
-  width?: number;
-  height?: number;
 }
 
-const LineChart: React.FC<LineChartProps> = ({
-  series,
-  width = 600,
-  height = 300,
-}) => {
+const LineChart: React.FC<LineChartProps> = ({ series }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
-  const chartRef = useRef<IChartApi | null>(null);
   const seriesRef = useRef<any[]>([]);
+  const [chart, setChart] = useState<IChartApi | null>(null);
 
   useEffect(() => {
-    if (chartContainerRef.current === null) return;
+    const container = chartContainerRef.current;
+    if (container === null) return;
 
-    // Create chart
-    chartRef.current = createChart(chartContainerRef.current, {
-      width,
-      height,
+    // autoSize uses a ResizeObserver so the chart is sized correctly even if
+    // the container has no dimensions during the first render.
+    const newChart = createChart(container, {
+      autoSize: true,
+      width: container.clientWidth || 600,
+      height: container.clientHeight || 300,
       layout: {
         background: { type: ColorType.Solid, color: 'rgba(0, 0, 0, 0)' },
         textColor: chartColor,
@@ -58,17 +55,17 @@ const LineChart: React.FC<LineChartProps> = ({
       },
     });
 
-    chartRef.current.timeScale().fitContent();
+    seriesRef.current = [];
+    setChart(newChart);
 
     return () => {
-      // Cleanup on component unmount
-      chartRef.current?.remove();
+      newChart.remove();
+      seriesRef.current = [];
     };
-  }, [width, height]);
+  }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!chartRef.current) return;
+    if (!chart) return;
 
     series.forEach(({ data, color, type }, index) => {
       // Filter data to keep only the last entry for each date
@@ -89,16 +86,16 @@ const LineChart: React.FC<LineChartProps> = ({
       if (!chartSeries) {
         chartSeries =
           type === 'area'
-            ? chartRef.current?.addAreaSeries({
-              lineColor: color,
-              topColor: color,
-              bottomColor: 'rgba(255, 255, 255, 0.28)',
-              lineWidth: 1,
-            })
-            : chartRef.current?.addLineSeries({
-              color,
-              lineWidth: 1,
-            });
+            ? chart.addAreaSeries({
+                lineColor: color,
+                topColor: color,
+                bottomColor: 'rgba(255, 255, 255, 0.28)',
+                lineWidth: 1,
+              })
+            : chart.addLineSeries({
+                color,
+                lineWidth: 1,
+              });
 
         seriesRef.current[index] = chartSeries;
       }
@@ -109,14 +106,14 @@ const LineChart: React.FC<LineChartProps> = ({
     // Remove extra series if the `series` prop has fewer items
     if (series.length < seriesRef.current.length) {
       seriesRef.current.slice(series.length).forEach((extraSeries) => {
-        chartRef.current?.removeSeries(extraSeries);
+        chart.removeSeries(extraSeries);
       });
       seriesRef.current.length = series.length; // Trim the series reference array
     }
-    chartRef.current.timeScale().fitContent();
-  }, [series]);
+    chart.timeScale().fitContent();
+  }, [chart, series]);
 
-  return <div ref={chartContainerRef} />;
+  return <div ref={chartContainerRef} className="w-full h-full" />;
 };
 
 export default LineChart;

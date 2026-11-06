@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import '../../app/globals.css';
 
 import LineChart, { type Series } from '../chart/LineChart';
@@ -27,7 +27,6 @@ const RelativeChangeHistory: React.FC<Props> = ({
   inflationAdjustedChange,
   dateRange,
 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
   const [lineChartSeries, setLineChartSeries] = useState<Series[]>();
 
   const filteredRelativeChange = useMemo(
@@ -120,17 +119,8 @@ const RelativeChangeHistory: React.FC<Props> = ({
           </div>
         </h2>
 
-        <div
-          ref={containerRef}
-          className="flex justify-center items-center w-full px-0 md:px-6 h-full"
-        >
-          {lineChartSeries && containerRef.current && (
-            <LineChart
-              series={lineChartSeries}
-              width={containerRef.current.offsetWidth}
-              height={containerRef.current.offsetHeight}
-            />
-          )}
+        <div className="flex justify-center items-center w-full px-0 md:px-6 h-full">
+          {lineChartSeries && <LineChart series={lineChartSeries} />}
         </div>
       </div>
     </div>
