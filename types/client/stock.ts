@@ -10,6 +10,7 @@ export interface PurchaseInterface {
 export interface StockInterface {
   amount: number;
   avgPercentageChange: number;
+  avgTradePnl: number;
   firstPurchase: string;
   lastPurchase: string;
   prevClose: number;

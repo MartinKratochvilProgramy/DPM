@@ -36,6 +36,7 @@ function aggregateStocks(
   return {
     amount: 1,
     avgPercentageChange: 0,
+    avgTradePnl: 0,
     firstPurchase: '',
     lastPurchase: '',
     prevClose: prevCloseSum,
@@ -100,9 +101,11 @@ const Portfolio = () => {
   };
 
   const getFilteredStocks = () => {
-    if (includeEtfs) return stocks;
+    const stocksWithPosition = stocks.filter((stock) => stock.amount !== 0);
 
-    return stocks.filter((stock) => stock.quoteType !== 'ETF');
+    if (includeEtfs) return stocksWithPosition;
+
+    return stocksWithPosition.filter((stock) => stock.quoteType !== 'ETF');
   };
 
   const sortedStocks = getFilteredStocks()
@@ -208,6 +211,17 @@ const Portfolio = () => {
               </TableCell>
               <TableCell align="center">
                 <TableSortLabel
+                  active={orderBy === 'avgTradePnl'}
+                  direction={orderBy === 'avgTradePnl' ? order : 'asc'}
+                  onClick={() => {
+                    handleSort('avgTradePnl');
+                  }}
+                >
+                  Avg Trade P&amp;L
+                </TableSortLabel>
+              </TableCell>
+              <TableCell align="center">
+                <TableSortLabel
                   active={orderBy === 'regularMarketChangePercent'}
                   direction={
                     orderBy === 'regularMarketChangePercent' ? order : 'asc'
@@ -295,6 +309,17 @@ const Portfolio = () => {
                   }}
                 >
                   {stock.avgPercentageChange}%
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    color: stock.avgTradePnl >= 0 ? 'green' : 'red',
+                  }}
+                >
+                  {new Intl.NumberFormat('en-US', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(stock.avgTradePnl)}
                 </TableCell>
                 <TableCell
                   align="center"
