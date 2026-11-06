@@ -36,7 +36,7 @@ function aggregateStocks(
   return {
     amount: 1,
     avgPercentageChange: 0,
-    avgTradePnl: 0,
+    totalTradePnl: 0,
     firstPurchase: '',
     lastPurchase: '',
     prevClose: prevCloseSum,
@@ -211,13 +211,13 @@ const Portfolio = () => {
               </TableCell>
               <TableCell align="center">
                 <TableSortLabel
-                  active={orderBy === 'avgTradePnl'}
-                  direction={orderBy === 'avgTradePnl' ? order : 'asc'}
+                  active={orderBy === 'totalTradePnl'}
+                  direction={orderBy === 'totalTradePnl' ? order : 'asc'}
                   onClick={() => {
-                    handleSort('avgTradePnl');
+                    handleSort('totalTradePnl');
                   }}
                 >
-                  Avg Trade P&amp;L
+                  Total Trade P&amp;L
                 </TableSortLabel>
               </TableCell>
               <TableCell align="center">
@@ -313,13 +313,13 @@ const Portfolio = () => {
                 <TableCell
                   align="center"
                   sx={{
-                    color: stock.avgTradePnl >= 0 ? 'green' : 'red',
+                    color: stock.totalTradePnl >= 0 ? 'green' : 'red',
                   }}
                 >
                   {new Intl.NumberFormat('en-US', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  }).format(stock.avgTradePnl)}
+                  }).format(stock.totalTradePnl)}
                 </TableCell>
                 <TableCell
                   align="center"

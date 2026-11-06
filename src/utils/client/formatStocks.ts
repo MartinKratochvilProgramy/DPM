@@ -8,7 +8,7 @@ export const formatStocks = (stocks: StockInterface[]) => {
     let amounts = 0;
     let totalPnl = 0;
     stock.avgPercentageChange = 0;
-    stock.avgTradePnl = 0;
+    stock.totalTradePnl = 0;
 
     // calculate weighted average for gain of each purchase
     for (const purchase of stock.purchases) {
@@ -25,8 +25,6 @@ export const formatStocks = (stocks: StockInterface[]) => {
     stock.avgPercentageChange = parseFloat(
       (relativeChanges / amounts).toFixed(1),
     );
-    stock.avgTradePnl = stock.purchases.length
-      ? parseFloat((totalPnl / stock.purchases.length).toFixed(2))
-      : 0;
+    stock.totalTradePnl = parseFloat(totalPnl.toFixed(2));
   }
 };
